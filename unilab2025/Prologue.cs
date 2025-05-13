@@ -16,5 +16,9 @@ namespace unilab2025
         {
             InitializeComponent();
         }
+
+        #region 諸々クリックの処理
+
+        #endregion
     }
 }
