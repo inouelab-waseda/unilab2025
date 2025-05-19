@@ -44,6 +44,24 @@ namespace unilab2025
                     currentForm.Dispose();
                 }
             }
+            public static void CreateStage(Form currentForm, string worldName, int worldNumber, int level) //呼び出し方: Func.CreateStageSelect(this,"1");  各ステージどう名付けるか決めたい
+            {
+                CurrentFormState.FormName = "Stage";
+                CurrentFormState.StateData.Clear();
+                CurrentFormState.StateData["WorldName"] = worldName;
+                CurrentFormState.StateData["WorldNumber"] = worldNumber;
+                CurrentFormState.StateData["Level"] = level;
+
+                Stage form = new Stage();
+                form.WorldName = worldName;
+                form.WorldNumber = worldNumber;
+                form.Level = level;
+                form.Show();
+                if (!(currentForm is Title))
+                {
+                    currentForm.Dispose();
+                }
+            }
         }
         #endregion
 
@@ -63,6 +81,12 @@ namespace unilab2025
         }
         #endregion
 
+        #region キャラ選択結果
+        public partial class MainCharacter
+        {
+            public static bool isBoy = true;
+        }
+        #endregion
 
         #region 各データのDictionaryと読み込み関数
         public partial class Dictionaries
@@ -88,10 +112,33 @@ namespace unilab2025
                     Dictionaries.Img_Background[key] = Image.FromFile(file);
                 }
             }
+
+            public static void LoadImg_DotPic()
+            {
+                Dictionaries.Img_DotPic.Clear();
+                string charaDirectory = "";
+                if (MainCharacter.isBoy)
+                {
+                    charaDirectory = @"Image\\DotPic\\Boy";
+                }
+                else
+                {
+                    charaDirectory = @"Image\\DotPic\\Girl";
+                }
+                string[] files = Directory.GetFiles(charaDirectory);
+                foreach (string file in files)
+                {
+                    string key = Path.GetFileNameWithoutExtension(file).Replace("Img_DotPic_", "");
+                    Dictionaries.Img_DotPic[key] = Image.FromFile(file);
+                }
+            }
+
+
+
+
         }
 
         #endregion
-
 
         #region 進行状況管理
         public partial class CurrentFormState
@@ -101,7 +148,6 @@ namespace unilab2025
         }
 
         #endregion
-
 
     }
 }

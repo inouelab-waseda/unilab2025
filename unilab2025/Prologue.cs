@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static unilab2025.Program;
 
 namespace unilab2025
 {
@@ -19,6 +20,20 @@ namespace unilab2025
 
         #region 諸々クリックの処理
 
+        #endregion
+
+        #region ストーリースキップ用
+        //public Prologue関数内に以下を追記
+        //this.KeyDown += new KeyEventHandler(Prologue_KeyDown);
+        //this.KeyPreview = true;
+        private void Prologue_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.M)
+            {
+                Func.LoadImg_DotPic();
+                Func.CreateStage(this, "1年生", 1, 1);
+            }
+        }
         #endregion
     }
 }
