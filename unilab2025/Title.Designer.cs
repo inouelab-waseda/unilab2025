@@ -49,9 +49,9 @@
             // buttonStart
             // 
             this.buttonStart.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonStart.Location = new System.Drawing.Point(211, 224);
+            this.buttonStart.Location = new System.Drawing.Point(286, 307);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(351, 164);
+            this.buttonStart.Size = new System.Drawing.Size(207, 79);
             this.buttonStart.TabIndex = 1;
             this.buttonStart.Text = "button1";
             this.buttonStart.UseVisualStyleBackColor = true;

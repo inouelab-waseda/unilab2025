@@ -16,6 +16,8 @@ namespace unilab2025
         public Prologue()
         {
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler(Prologue_KeyDown);
+            this.KeyPreview = true;
         }
 
         #region 諸々クリックの処理

@@ -66,6 +66,8 @@ namespace unilab2025
         #endregion
 
         #region 会話
+
+
         public struct Conversation
         {
             public string Character;
