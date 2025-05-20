@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
+using static unilab2025.Program;
 
 namespace unilab2025
 {
@@ -48,6 +49,102 @@ namespace unilab2025
         #endregion
 
         #region 会話
+        public static partial class ConversationsFunc
+        {
+            //セリフCSV読み込み
+            public static List<Conversation> LoadConvertationCSV(string ConvertationCSVFileName)
+            {
+                List<Conversation> Conversations = new List<Conversation>();
+
+                using (StreamReader sr = new StreamReader($"{ConvertationCSVFileName}"))
+                {
+                    bool isFirstRow = true;
+
+                    while (!sr.EndOfStream)
+                    {
+                        string line = sr.ReadLine();
+                        string[] values = line.Split(',');
+
+                        if (isFirstRow) //１行目は要素説明のためスキップ
+                        {
+                            isFirstRow = false;
+                            continue;
+                        }
+
+                        Conversations.Add(new Conversation(values[0], values[1], values[2]));
+                    }
+                }
+
+                return Conversations;
+            }
+
+            //システムメッセージCSV読み込み（立ち絵要らないならこっち、メッセージCSV１個）
+            public static List<Message> LoadMessageCSV(string MessageCSVFileName)
+            {
+                List<Message> Messages = new List<Message>();
+
+                using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
+                {
+                    bool isFirstRow = true;
+
+                    while (!sr.EndOfStream)
+                    {
+                        string line = sr.ReadLine();
+                        string[] values = line.Split(',');
+
+                        if (isFirstRow) //１行目は要素説明のためスキップ
+                        {
+                            isFirstRow = false;
+                            continue;
+                        }
+
+                        Messages.Add(new Message(values[0], values[1]));
+                    }
+                }
+
+                return Messages;
+            }
+
+
+            //昨年版、立ち絵あり
+            //public static List<Conversation> LoadMessageCSV(string MessageCSVFileName)
+            //{
+            //    List<Conversation> Message = new List<Conversation>();
+
+            //    using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
+            //    {
+            //        bool isFirstRow = true;
+
+            //        while (!sr.EndOfStream)
+            //        {
+            //            string line = sr.ReadLine();
+            //            string[] values = line.Split(',');
+
+            //            if (isFirstRow) //１行目は要素説明のためスキップ
+            //            {
+            //                isFirstRow = false;
+            //                continue;
+            //            }
+
+            //            Message.Add(new Conversation(values[0], values[1], values[2]));
+            //        }
+            //    }
+
+            //    return Message;
+            //}
+
+            //メッセージボックス
+            public static PictureBox CreatePictureBox_Conv(Form currentForm)
+            {
+                PictureBox pictureBox_Conv = new PictureBox();
+                pictureBox_Conv.Location = new Point(0, 0);
+                pictureBox_Conv.Size = new Size(1536, 900);
+                currentForm.Controls.Add(pictureBox_Conv);
+
+                return pictureBox_Conv;
+            }
+        }
+
         public struct Conversation
         {
             public string Character;
@@ -59,6 +156,18 @@ namespace unilab2025
                 Character = character;
                 Dialogue = dialogue;
                 Img = img;
+            }
+        }
+
+        public struct Message
+        {
+            public string Situation;
+            public string Dialogue;
+
+            public Message(string situation, string dialogue)
+            {
+                Situation = situation;
+                Dialogue = dialogue;
             }
         }
         #endregion
@@ -73,7 +182,8 @@ namespace unilab2025
             public static Dictionary<string, Image> Img_Button = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Background = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Conversation = new Dictionary<string, Image>();
-            public static Dictionary<string, List<Conversation>> Messages = new Dictionary<string, List<Conversation>>();
+            public static Dictionary<string, List<Conversation>> Convertations = new Dictionary<string, List<Conversation>>();
+            public static Dictionary<string, List<Message>> Messages = new Dictionary<string, List<Message>>();
         }
 
         public partial class Func
