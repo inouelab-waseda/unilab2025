@@ -170,11 +170,25 @@ namespace unilab2025
                 Dialogue = dialogue;
             }
         }
+
+        public partial class Func
+        {
+            // WinAPI 関数のインポート
+            [DllImport("user32.dll")]
+            public static extern IntPtr GetDC(IntPtr hWnd);
+            [DllImport("user32.dll")]
+            public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+            [DllImport("gdi32.dll")]
+            public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, int dwRop);
+            private const int SRCCOPY = 0x00CC0020;
+
+        }
+
         #endregion
 
 
-        #region 各データのDictionaryと読み込み関数
-        public partial class Dictionaries
+            #region 各データのDictionaryと読み込み関数
+            public partial class Dictionaries
         {
             public static Dictionary<string, Image> Img_Character = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_DotPic = new Dictionary<string, Image>();
@@ -197,6 +211,35 @@ namespace unilab2025
                     string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Background_", "");
                     Dictionaries.Img_Background[key] = Image.FromFile(file);
                 }
+            }
+
+            //メッセージウィンドウ画像読み込み
+            public static void LoadImg_Conversation()
+            {
+                Dictionaries.Img_Conversation.Clear();
+                string[] files = Directory.GetFiles(@"Image\\Conversation");
+                foreach (string file in files)
+                {
+                    string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Conversation_", "");
+                    Dictionaries.Img_Conversation[key] = Image.FromFile(file);
+                }
+            }
+
+            //DictionaryにMessageCSVのデータを追加
+            public static Dictionary<string, List<Message>> ConvertToDictionary(List<Message> messageList)
+            {
+                Dictionary<string, List<Message>> messagesDict = new Dictionary<string, List<Message>>();
+
+                foreach (var message in messageList)
+                {
+                    if (!messagesDict.ContainsKey(message.Situation))
+                    {
+                        messagesDict[message.Situation] = new List<Message>();
+                    }
+                    messagesDict[message.Situation].Add(message);
+                }
+
+                return messagesDict;
             }
         }
 
