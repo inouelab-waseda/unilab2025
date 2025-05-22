@@ -173,7 +173,7 @@ namespace unilab2025
 
         public partial class Func
         {
-            // WinAPI 関数のインポート
+            // WinAPI 関数のインポート（とりあえず丸コピ）
             [DllImport("user32.dll")]
             public static extern IntPtr GetDC(IntPtr hWnd);
             [DllImport("user32.dll")]
@@ -182,13 +182,197 @@ namespace unilab2025
             public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, int dwRop);
             private const int SRCCOPY = 0x00CC0020;
 
+            public static byte[] CaptureClientArea(Form currentForm)
+            {
+                Rectangle clientRect = currentForm.ClientRectangle;
+
+                using (Graphics g = currentForm.CreateGraphics())
+                {
+                    float scaleX = g.DpiX / 96.0f;
+                    float scaleY = g.DpiY / 96.0f;
+
+                    int width = (int)(clientRect.Width * scaleX);
+                    int height = (int)(clientRect.Height * scaleY);
+
+                    Bitmap bmp_Capt = new Bitmap(width, height);
+                    using (Graphics g_bmp = Graphics.FromImage(bmp_Capt))
+                    {
+                        IntPtr hdcBitmap = g_bmp.GetHdc();
+                        IntPtr hdcSrc = GetDC(currentForm.Handle);
+
+                        BitBlt(hdcBitmap, 0, 0, width, height, hdcSrc, 0, 0, SRCCOPY);
+
+                        ReleaseDC(currentForm.Handle, hdcSrc);
+                        g_bmp.ReleaseHdc(hdcBitmap);
+                    }
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        bmp_Capt.Save(ms, ImageFormat.Png);
+                        return ms.ToArray();
+                    }
+                }
+            }
+
+            public static Bitmap ByteArrayToBitmap(byte[] byteArray)
+            {
+                using (MemoryStream ms = new MemoryStream(byteArray))
+                {
+                    return new Bitmap(ms);
+                }
+            }
+
+            public static int convIndex;
+
+            public static void DrawConv(Form currentForm, PictureBox pictureBox_Conv, byte[] Capt, List<Conversation> Conversations)
+            {
+                if (convIndex >= Conversations.Count)
+                {
+                    ChangeControl(pictureBox_Conv, false);
+                    return;
+                }
+
+                bool isStage = currentForm is Stage;
+
+                Bitmap bmp_Capt = ByteArrayToBitmap(Capt);
+                Graphics g = Graphics.FromImage(bmp_Capt);
+
+                Font fnt_name = new Font("游ゴシック", 33, FontStyle.Bold);
+                Font fnt_dia = new Font("游ゴシック", 33);
+                Brush Color_BackConv = new SolidBrush(ColorTranslator.FromHtml("#f8e58c"));
+                Brush Color_BackName = new SolidBrush(ColorTranslator.FromHtml("#856859"));
+
+                int margin_x = 15;
+                int margin_y = 200;
+
+                int sp = 5;
+
+                int sp_x = 150;
+                int sp_y = 30;
+
+                int face = 300;
+                int name_x = 300;
+                int name_y = 60;
+
+                int dia_x = 1500;
+                int dia_y = 270;
+
+                int lineHeight = fnt_dia.Height;
+
+                if (isStage)
+                {
+                    sp = 30;
+                    sp_x = 250;
+                    face = 200;
+                }
+
+                if (isStage)
+                {
+                    g.DrawImage(Dictionaries.Img_Conversation["Dialogue_Stage"], margin_x, margin_y + 300 + name_y, dia_x, dia_y);
+                }
+                else
+                {
+                    g.DrawImage(Dictionaries.Img_Conversation["Dialogue"], margin_x, margin_y + 300 + name_y, dia_x, dia_y);
+                    string charaName = Conversations[convIndex].Character;
+                    if (charaName == "主人公")
+                    {
+                        if (MainCharacter.isBoy)
+                        {
+                            charaName = "アレックス（仮名）";
+                        }
+                        else if (MainCharacter.isGirl)
+                        {
+                            charaName = "エイミー（仮名）";
+                        }
+                        else
+                        {
+                            charaName = "HG";
+                        }
+                    }
+
+                    g.DrawImage(Dictionaries.Img_Conversation["Name"], margin_x, margin_y + face, name_x, name_y);
+                    g.DrawString(charaName, fnt_name, Brushes.White, margin_x + sp, margin_y + face + sp);
+                }
+
+
+                //改行の処理はこう書かないとうまくいかない
+                char[] lineBreak = new char[] { '\\' };
+                string[] DialogueLines = Conversations[convIndex].Dialogue.Replace("\\n", "\\").Split(lineBreak);
+                for (int i = 0; i < DialogueLines.Length; i++)
+                {
+                    g.DrawString(DialogueLines[i], fnt_dia, Brushes.Black, margin_x + sp_x, margin_y + 300 + name_y + sp_y + i * lineHeight);
+                }
+
+                Image charaImage = null;
+                if (Conversations[convIndex].Img == "Main")
+                {
+                    if (MainCharacter.isBoy)
+                    {
+                        charaImage = Dictionaries.Img_Character["Boy"];
+                    }
+                    else if (MainCharacter.isGirl)
+                    {
+                        charaImage = Dictionaries.Img_Character["Girl"];
+                    }
+                    else
+                    {
+                        charaImage = Dictionaries.Img_Character["HG"];
+                    }
+                }
+                else
+                {
+                    charaImage = Dictionaries.Img_Character[Conversations[convIndex].Img];
+                }
+
+                if (isStage)
+                {
+                    g.DrawImage(charaImage, margin_x + sp, margin_y + 300 + name_y + sp, face, face);
+                }
+                else
+                {
+                    g.DrawImage(charaImage, margin_x, margin_y, face, face);
+                }
+
+                pictureBox_Conv.Image = bmp_Capt;
+                g.Dispose();
+
+                if (convIndex < Conversations.Count)
+                {
+                    convIndex++;
+                }
+            }
+
+            public static void ChangeControl(PictureBox pictureBox_Conv, bool isStart)
+            {
+                pictureBox_Conv.Enabled = isStart;
+                pictureBox_Conv.Visible = isStart;
+                if (isStart)
+                {
+                    pictureBox_Conv.BringToFront();
+                    pictureBox_Conv.Cursor = Cursors.Hand;
+                }
+                else
+                {
+                    pictureBox_Conv.SendToBack();
+                    pictureBox_Conv.Cursor = Cursors.Default;
+                }
+            }
+
+            public static byte[] PlayConv(Form currentForm, PictureBox pictureBox_Conv, List<Conversation> Conversations)
+            {
+                byte[] Capt = CaptureClientArea(currentForm);
+                ChangeControl(pictureBox_Conv, true);
+                convIndex = 0;
+                DrawConv(currentForm, pictureBox_Conv, Capt, Conversations);
+
+                return Capt;
+            }
         }
 
         #endregion
 
 
-            #region 各データのDictionaryと読み込み関数
-            public partial class Dictionaries
+        #region 各データのDictionaryと読み込み関数
+        public partial class Dictionaries
         {
             public static Dictionary<string, Image> Img_Character = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_DotPic = new Dictionary<string, Image>();
@@ -243,6 +427,15 @@ namespace unilab2025
             }
         }
 
+        #endregion
+
+
+        #region キャラ選択結果
+        public partial class MainCharacter
+        {
+            public static bool isBoy = true;
+            public static bool isGirl = false;
+        }
         #endregion
 
 
