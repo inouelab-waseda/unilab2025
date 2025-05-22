@@ -58,7 +58,6 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
 
 
-
         }
     }
 }
