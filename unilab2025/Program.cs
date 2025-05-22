@@ -24,6 +24,10 @@ namespace unilab2025
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //ゲームで使う画像を先に読み込んでおく
+            Func.LoadImg_Background();//背景
+
             Application.Run(new Title());
         }
         #endregion

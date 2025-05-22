@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static unilab2025.Program;
 
 
 namespace unilab2025
@@ -41,5 +42,23 @@ namespace unilab2025
             set { _worldName = value; }
         }
         #endregion
+
+
+        #region グローバル変数定義
+        //ここに必要なBitmapやImageを作っていく
+        public static string stageName;
+
+
+
+        #endregion
+
+
+        private async void Stage_Load(object sender, EventArgs e)  //StageのFormの起動時処理
+        {
+            pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
+
+
+
+        }
     }
 }
