@@ -27,7 +27,7 @@ namespace unilab2025
             switch (CurrentFormState.FormName)
             {
                 case "Prologue":
-                    Program.Func.CreatePrologue(this);
+                    Func.CreatePrologue(this);
                     break;
 
                 case "Stage":

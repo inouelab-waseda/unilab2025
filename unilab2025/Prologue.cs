@@ -16,6 +16,7 @@ namespace unilab2025
         public Prologue()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             this.KeyDown += new KeyEventHandler(Prologue_KeyDown);
             this.KeyPreview = true;
         }

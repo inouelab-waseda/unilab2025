@@ -116,7 +116,7 @@ namespace unilab2025
             string[] files = Directory.GetFiles(@"Image\\Background");
             foreach (string file in files)
             {
-                string key = Path.GetFileNameWithoutExtension(file);
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Background_", "");
                 Dictionaries.Img_Background[key] = Image.FromFile(file);
             }
         }
