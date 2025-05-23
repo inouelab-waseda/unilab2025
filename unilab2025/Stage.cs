@@ -18,9 +18,7 @@ namespace unilab2025
         public Stage()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
-            Form1_Resize(this, EventArgs.Empty); // 初期化時に1回反映
-
+            
             this.KeyPreview = true;
 
             #region ボタン表示
@@ -30,7 +28,10 @@ namespace unilab2025
             button_down.Size = new Size(80, 80);
             #endregion
 
-            pictureBox_Map.Location = new Point(10, 20);
+            //pictureBoxの設定
+            pictureBox_Map.Parent = pictureBox_Background;
+            //pictureBox1.Location = new Point(600, 50);
+            pictureBox_Map.Location = new Point(0, 0);
 
             bmp1 = new Bitmap(pictureBox_Map.Width, pictureBox_Map.Height);
             pictureBox_Map.Image = bmp1;
@@ -39,20 +40,7 @@ namespace unilab2025
 
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            // 画面の幅・高さを取得
-            int w = this.ClientSize.Width;
-            int h = this.ClientSize.Height;
-
-            // PictureBox を画面の中央に表示（横60%、縦80%サイズ）
-            int margin = Math.Min((w) / 2, (h) / 2);            
-            pictureBox_Map.Size = new Size((int)(w * 0.6), (int)(h * 0.8));
-            pictureBox_Map.Location = new Point(margin, margin);
-
-        }
-
-
+        
 
         #region メンバー変数定義
         private string _worldName;
@@ -81,7 +69,7 @@ namespace unilab2025
 
         #region グローバル変数定義
         //ここに必要なBitmapやImageを作っていく        
-        Bitmap bmp1, bmp2;
+        Bitmap bmp1;
 
         public static string stageName;
 
@@ -102,8 +90,6 @@ namespace unilab2025
         {
             return map;
         }
-
-        
-
+                
     }
 }

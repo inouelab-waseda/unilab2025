@@ -59,7 +59,7 @@
             this.pictureBox_Background.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox_Background.Location = new System.Drawing.Point(0, 0);
             this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(1782, 1175);
+            this.pictureBox_Background.Size = new System.Drawing.Size(1485, 798);
             this.pictureBox_Background.TabIndex = 0;
             this.pictureBox_Background.TabStop = false;
             // 
@@ -68,41 +68,41 @@
             this.pictureBox_Map.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox_Map.Location = new System.Drawing.Point(22, 23);
             this.pictureBox_Map.Name = "pictureBox_Map";
-            this.pictureBox_Map.Size = new System.Drawing.Size(355, 330);
+            this.pictureBox_Map.Size = new System.Drawing.Size(472, 455);
             this.pictureBox_Map.TabIndex = 1;
             this.pictureBox_Map.TabStop = false;
             // 
             // button_Start
             // 
-            this.button_Start.Location = new System.Drawing.Point(233, 373);
+            this.button_Start.Location = new System.Drawing.Point(272, 515);
             this.button_Start.Name = "button_Start";
-            this.button_Start.Size = new System.Drawing.Size(144, 59);
+            this.button_Start.Size = new System.Drawing.Size(188, 86);
             this.button_Start.TabIndex = 2;
             this.button_Start.Text = "出発！";
             this.button_Start.UseVisualStyleBackColor = true;
             // 
             // button_Reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(22, 379);
+            this.button_Reset.Location = new System.Drawing.Point(22, 515);
             this.button_Reset.Name = "button_Reset";
-            this.button_Reset.Size = new System.Drawing.Size(129, 47);
+            this.button_Reset.Size = new System.Drawing.Size(183, 86);
             this.button_Reset.TabIndex = 3;
             this.button_Reset.Text = "リセット";
             this.button_Reset.UseVisualStyleBackColor = true;
             // 
             // pictureBox_Car
             // 
-            this.pictureBox_Car.Location = new System.Drawing.Point(617, 23);
+            this.pictureBox_Car.Location = new System.Drawing.Point(892, 23);
             this.pictureBox_Car.Name = "pictureBox_Car";
-            this.pictureBox_Car.Size = new System.Drawing.Size(169, 260);
+            this.pictureBox_Car.Size = new System.Drawing.Size(276, 382);
             this.pictureBox_Car.TabIndex = 4;
             this.pictureBox_Car.TabStop = false;
             // 
             // pictureBox_Order
             // 
-            this.pictureBox_Order.Location = new System.Drawing.Point(410, 23);
+            this.pictureBox_Order.Location = new System.Drawing.Point(556, 23);
             this.pictureBox_Order.Name = "pictureBox_Order";
-            this.pictureBox_Order.Size = new System.Drawing.Size(175, 260);
+            this.pictureBox_Order.Size = new System.Drawing.Size(288, 382);
             this.pictureBox_Order.TabIndex = 5;
             this.pictureBox_Order.TabStop = false;
             // 
@@ -110,25 +110,25 @@
             // 
             this.listBox_Order.FormattingEnabled = true;
             this.listBox_Order.ItemHeight = 15;
-            this.listBox_Order.Location = new System.Drawing.Point(425, 82);
+            this.listBox_Order.Location = new System.Drawing.Point(589, 99);
             this.listBox_Order.Name = "listBox_Order";
-            this.listBox_Order.Size = new System.Drawing.Size(142, 184);
+            this.listBox_Order.Size = new System.Drawing.Size(222, 274);
             this.listBox_Order.TabIndex = 6;
             // 
             // listBox_Car
             // 
             this.listBox_Car.FormattingEnabled = true;
             this.listBox_Car.ItemHeight = 15;
-            this.listBox_Car.Location = new System.Drawing.Point(637, 82);
+            this.listBox_Car.Location = new System.Drawing.Point(923, 99);
             this.listBox_Car.Name = "listBox_Car";
-            this.listBox_Car.Size = new System.Drawing.Size(134, 184);
+            this.listBox_Car.Size = new System.Drawing.Size(216, 274);
             this.listBox_Car.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(641, 44);
+            this.label1.Location = new System.Drawing.Point(962, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 28);
             this.label1.TabIndex = 8;
@@ -138,7 +138,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(427, 44);
+            this.label2.Location = new System.Drawing.Point(628, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 28);
             this.label2.TabIndex = 9;
@@ -146,7 +146,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(598, 339);
+            this.button1.Location = new System.Drawing.Point(914, 471);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -155,7 +155,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(696, 339);
+            this.button2.Location = new System.Drawing.Point(1050, 471);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
@@ -164,7 +164,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(598, 391);
+            this.button3.Location = new System.Drawing.Point(914, 548);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 12;
@@ -173,7 +173,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(696, 391);
+            this.button4.Location = new System.Drawing.Point(1050, 548);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 13;
@@ -182,7 +182,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(425, 315);
+            this.pictureBox1.Location = new System.Drawing.Point(633, 471);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(118, 99);
             this.pictureBox1.TabIndex = 14;
@@ -190,7 +190,7 @@
             // 
             // button_left
             // 
-            this.button_left.Location = new System.Drawing.Point(383, 349);
+            this.button_left.Location = new System.Drawing.Point(531, 515);
             this.button_left.Name = "button_left";
             this.button_left.Size = new System.Drawing.Size(75, 23);
             this.button_left.TabIndex = 15;
@@ -199,7 +199,7 @@
             // 
             // button_up
             // 
-            this.button_up.Location = new System.Drawing.Point(449, 299);
+            this.button_up.Location = new System.Drawing.Point(656, 429);
             this.button_up.Name = "button_up";
             this.button_up.Size = new System.Drawing.Size(75, 23);
             this.button_up.TabIndex = 16;
@@ -208,7 +208,7 @@
             // 
             // button_right
             // 
-            this.button_right.Location = new System.Drawing.Point(517, 349);
+            this.button_right.Location = new System.Drawing.Point(791, 515);
             this.button_right.Name = "button_right";
             this.button_right.Size = new System.Drawing.Size(75, 23);
             this.button_right.TabIndex = 17;
@@ -217,7 +217,7 @@
             // 
             // button_down
             // 
-            this.button_down.Location = new System.Drawing.Point(449, 403);
+            this.button_down.Location = new System.Drawing.Point(656, 578);
             this.button_down.Name = "button_down";
             this.button_down.Size = new System.Drawing.Size(75, 23);
             this.button_down.TabIndex = 18;
@@ -228,7 +228,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1782, 1175);
+            this.ClientSize = new System.Drawing.Size(1485, 798);
             this.Controls.Add(this.button_down);
             this.Controls.Add(this.button_right);
             this.Controls.Add(this.button_up);
