@@ -190,7 +190,7 @@
             // 
             // button_left
             // 
-            this.button_left.Location = new System.Drawing.Point(531, 515);
+            this.button_left.Location = new System.Drawing.Point(535, 504);
             this.button_left.Name = "button_left";
             this.button_left.Size = new System.Drawing.Size(75, 23);
             this.button_left.TabIndex = 15;
@@ -208,7 +208,7 @@
             // 
             // button_right
             // 
-            this.button_right.Location = new System.Drawing.Point(791, 515);
+            this.button_right.Location = new System.Drawing.Point(790, 504);
             this.button_right.Name = "button_right";
             this.button_right.Size = new System.Drawing.Size(75, 23);
             this.button_right.TabIndex = 17;

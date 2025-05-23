@@ -82,6 +82,7 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
+            button1.Visible = false; // 非表示にする       
                         
         }
 
