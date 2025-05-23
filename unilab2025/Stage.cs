@@ -17,8 +17,7 @@ namespace unilab2025
     {
         public Stage()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
             this.KeyPreview = true;
 
             #region ボタン表示
