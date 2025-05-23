@@ -273,21 +273,22 @@ namespace unilab2025
                 {
                     g.DrawImage(Dictionaries.Img_Conversation["Dialogue"], margin_x, margin_y + 300 + name_y, dia_x, dia_y);
                     string charaName = Conversations[convIndex].Character;
-                    if (charaName == "主人公")
-                    {
-                        if (MainCharacter.isBoy)
-                        {
-                            charaName = "アレックス（仮名）";
-                        }
-                        else if (MainCharacter.isGirl)
-                        {
-                            charaName = "エイミー（仮名）";
-                        }
-                        else
-                        {
-                            charaName = "HG";
-                        }
-                    }
+                    //キャラ名が必要かどうか
+                    //if (charaName == "主人公")
+                    //{
+                    //    if (MainCharacter.isBoy)
+                    //    {
+                    //        charaName = "アレックス（仮名）";
+                    //    }
+                    //    else if (MainCharacter.isGirl)
+                    //    {
+                    //        charaName = "エイミー（仮名）";
+                    //    }
+                    //    else
+                    //    {
+                    //        charaName = "シルバー（仮名）";
+                    //    }
+                    //}
 
                     g.DrawImage(Dictionaries.Img_Conversation["Name"], margin_x, margin_y + face, name_x, name_y);
                     g.DrawString(charaName, fnt_name, Brushes.White, margin_x + sp, margin_y + face + sp);
@@ -315,7 +316,7 @@ namespace unilab2025
                     }
                     else
                     {
-                        charaImage = Dictionaries.Img_Character["HG"];
+                        charaImage = Dictionaries.Img_Character["Silver"];
                     }
                 }
                 else
