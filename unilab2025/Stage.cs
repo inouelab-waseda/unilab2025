@@ -19,18 +19,40 @@ namespace unilab2025
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            
+            Form1_Resize(this, EventArgs.Empty); // 初期化時に1回反映
 
             this.KeyPreview = true;
+
+            #region ボタン表示
+            button_up.Size = new Size(80, 80);
+            button_left.Size = new Size(80, 80);
+            button_right.Size = new Size(80, 80);
+            button_down.Size = new Size(80, 80);
+            #endregion
+
+            pictureBox_Map.Location = new Point(10, 20);
 
             bmp1 = new Bitmap(pictureBox_Map.Width, pictureBox_Map.Height);
             pictureBox_Map.Image = bmp1;
 
 
 
+        }
 
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            // 画面の幅・高さを取得
+            int w = this.ClientSize.Width;
+            int h = this.ClientSize.Height;
+
+            // PictureBox を画面の中央に表示（横60%、縦80%サイズ）
+            int margin = Math.Min((w) / 2, (h) / 2);            
+            pictureBox_Map.Size = new Size((int)(w * 0.6), (int)(h * 0.8));
+            pictureBox_Map.Location = new Point(margin, margin);
 
         }
+
+
 
         #region メンバー変数定義
         private string _worldName;
@@ -73,12 +95,7 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
-            MakeArrowUpButton(button_up);
-            MakeArrowRightButton(button_right);
-            MakeArrowLeftButton(button_left);
-            MakeArrowDownButton(button_down);
-
-
+                        
         }
 
         private int[,] CreateStage(string stageName)     //ステージ作成
@@ -86,77 +103,7 @@ namespace unilab2025
             return map;
         }
 
-
-        //ボタンの編集
-
-        private void MakeArrowUpButton(Button btn)
-        {
-            GraphicsPath path = new GraphicsPath();
-            Point[] arrowPoints = new Point[]
-            {
-        new Point(btn.Width / 2, 0),
-        new Point(btn.Width, btn.Height / 2),
-        new Point(btn.Width * 3 / 4, btn.Height / 2),
-        new Point(btn.Width * 3 / 4, btn.Height),
-        new Point(btn.Width / 4, btn.Height),
-        new Point(btn.Width / 4, btn.Height / 2),
-        new Point(0, btn.Height / 2),
-            };
-            path.AddPolygon(arrowPoints);
-            btn.Region = new Region(path);
-        }
-
-        private void MakeArrowRightButton(Button btn)
-        {
-            GraphicsPath path = new GraphicsPath();
-            Point[] arrowPoints = new Point[]
-            {
-        new Point(0, btn.Height / 2),
-        new Point(btn.Width - btn.Height / 2, btn.Height / 2),
-        new Point(btn.Width - btn.Height / 2, 0),
-        new Point(btn.Width, btn.Height / 2),
-        new Point(btn.Width - btn.Height / 2, btn.Height),
-        new Point(btn.Width - btn.Height / 2, btn.Height / 2),
-            };
-            path.AddPolygon(arrowPoints);
-            btn.Region = new Region(path);
-        }
-
-        private void MakeArrowLeftButton(Button btn)
-        {
-            GraphicsPath path = new GraphicsPath();
-            Point[] arrowPoints = new Point[]
-            {
-        new Point(0, btn.Height / 2),
-        new Point(btn.Height / 2, 0),
-        new Point(btn.Height / 2, btn.Height / 3),
-        new Point(btn.Width, btn.Height / 3),
-        new Point(btn.Width, btn.Height * 2 / 3),
-        new Point(btn.Height / 2, btn.Height * 2 / 3),
-        new Point(btn.Height / 2, btn.Height),
-            };
-            path.AddPolygon(arrowPoints);
-            btn.Region = new Region(path);
-        }
-
-
-        private void MakeArrowDownButton(Button btn)
-        {
-            GraphicsPath path = new GraphicsPath();
-            Point[] arrowPoints = new Point[]
-            {
-        new Point(0, btn.Height / 2),
-        new Point(btn.Width / 4, btn.Height / 2),
-        new Point(btn.Width / 4, 0),
-        new Point(btn.Width * 3 / 4, 0),
-        new Point(btn.Width * 3 / 4, btn.Height / 2),
-        new Point(btn.Width, btn.Height / 2),
-        new Point(btn.Width / 2, btn.Height)
-            };
-            path.AddPolygon(arrowPoints);
-            btn.Region = new Region(path);
-        }
-
+        
 
     }
 }

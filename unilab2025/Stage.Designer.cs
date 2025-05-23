@@ -59,12 +59,13 @@
             this.pictureBox_Background.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox_Background.Location = new System.Drawing.Point(0, 0);
             this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(800, 450);
+            this.pictureBox_Background.Size = new System.Drawing.Size(1782, 1175);
             this.pictureBox_Background.TabIndex = 0;
             this.pictureBox_Background.TabStop = false;
             // 
             // pictureBox_Map
             // 
+            this.pictureBox_Map.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox_Map.Location = new System.Drawing.Point(22, 23);
             this.pictureBox_Map.Name = "pictureBox_Map";
             this.pictureBox_Map.Size = new System.Drawing.Size(355, 330);
@@ -91,7 +92,7 @@
             // 
             // pictureBox_Car
             // 
-            this.pictureBox_Car.Location = new System.Drawing.Point(619, 23);
+            this.pictureBox_Car.Location = new System.Drawing.Point(617, 23);
             this.pictureBox_Car.Name = "pictureBox_Car";
             this.pictureBox_Car.Size = new System.Drawing.Size(169, 260);
             this.pictureBox_Car.TabIndex = 4;
@@ -227,7 +228,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1782, 1175);
             this.Controls.Add(this.button_down);
             this.Controls.Add(this.button_right);
             this.Controls.Add(this.button_up);
