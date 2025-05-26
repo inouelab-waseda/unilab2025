@@ -27,7 +27,7 @@ namespace unilab2025
 
             //ゲームで使う画像を先に読み込んでおく
             Func.LoadImg_Background();//背景
-
+            Func.LoadImg_Button();//ボタン
 
             Application.Run(new Title());
         }
@@ -140,6 +140,16 @@ namespace unilab2025
                 Dictionaries.Img_DotPic[key] = Image.FromFile(file);
             }
         }
+        public static void LoadImg_Button()
+        {
+            Dictionaries.Img_Button.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Button");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Button_", "");
+                Dictionaries.Img_Button[key] = Image.FromFile(file);
+            }
+        }   
         
     }
 
