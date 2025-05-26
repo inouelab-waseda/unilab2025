@@ -26,8 +26,13 @@ namespace unilab2025
             Application.SetCompatibleTextRenderingDefault(false);
 
             //ゲームで使う画像を先に読み込んでおく
-            Func.LoadImg_Background();//背景
-
+            Func.LoadImg_Character();
+            Func.LoadImg_Object();
+            Func.LoadImg_Button();
+            Func.LoadImg_Background();
+            //Func.LoadImg_Conversation();
+            //Func.LoadMessages();
+            //Func.InitializeClearCheck();
 
             Application.Run(new Title());
         }
@@ -37,7 +42,6 @@ namespace unilab2025
     #region フォーム呼び出し
     public static partial class Func
     {
-
         public static void CreatePrologue(Form currentForm)
         {
             CurrentFormState.FormName = "Prologue";
@@ -50,6 +54,50 @@ namespace unilab2025
                 currentForm.Dispose();
             }
         }
+
+        public static void CreateWorldMap(Form currentForm) //呼び出し方: Func.CreateWorldMap(this);
+        {
+            CurrentFormState.FormName = "WorldMap";
+            CurrentFormState.StateData.Clear();
+
+            WorldMap form = new WorldMap();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
+
+        public static void CreateAnotherWorld(Form currentForm)
+        {
+            CurrentFormState.FormName = "AnotherWorld";
+            CurrentFormState.StateData.Clear();
+
+            AnotherWorld form = new AnotherWorld();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
+
+        //public static void CreateStageSelect(Form currentForm, string worldName, int worldNumber) //呼び出し方: Func.CreateStageSelect(this,"1年生",1);
+        //{
+        //    CurrentFormState.FormName = "StageSelect";
+        //    CurrentFormState.StateData.Clear();
+        //    CurrentFormState.StateData["WorldName"] = worldName;
+        //    CurrentFormState.StateData["WorldNumber"] = worldNumber;
+
+        //    StageSelect form = new StageSelect();
+        //    form.WorldName = worldName;
+        //    form.WorldNumber = worldNumber;
+        //    form.Show();
+        //    if (!(currentForm is Title))
+        //    {
+        //        currentForm.Dispose();
+        //    }
+        //}
+
         public static void CreateStage(Form currentForm, string worldName, int worldNumber, int level) //呼び出し方: Func.CreateStageSelect(this,"1");  各ステージどう名付けるか決めたい
         {
             CurrentFormState.FormName = "Stage";
@@ -68,6 +116,7 @@ namespace unilab2025
                 currentForm.Dispose();
             }
         }
+
     }
     #endregion
 
@@ -110,14 +159,14 @@ namespace unilab2025
 
     public partial class Func
     {
-        public static void LoadImg_Background()
+        public static void LoadImg_Character()
         {
-            Dictionaries.Img_Background.Clear();
-            string[] files = Directory.GetFiles(@"Image\\Background");
+            Dictionaries.Img_Character.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Character");
             foreach (string file in files)
             {
-                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Background_", "");
-                Dictionaries.Img_Background[key] = Image.FromFile(file);
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Character_", "");
+                Dictionaries.Img_Character[key] = Image.FromFile(file);
             }
         }
 
@@ -140,9 +189,61 @@ namespace unilab2025
                 Dictionaries.Img_DotPic[key] = Image.FromFile(file);
             }
         }
-        
-    }
+        public static void LoadImg_Object()
+        {
+            Dictionaries.Img_Object.Clear();
+            string[] files = Directory.GetFiles(@"Object");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Object_", "");
+                Dictionaries.Img_Object[key] = Image.FromFile(file);
+            }
+        }
 
+        public static void LoadImg_Button()
+        {
+            Dictionaries.Img_Button.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Button");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Button_", "");
+                Dictionaries.Img_Button[key] = Image.FromFile(file);
+            }
+        }
+
+        public static void LoadImg_Background()
+        {
+            Dictionaries.Img_Background.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Background");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Background_", "");
+                Dictionaries.Img_Background[key] = Image.FromFile(file);
+            }
+        }
+
+    //    public static void LoadImg_Conversation()
+    //    {
+    //        Dictionaries.Img_Conversation.Clear();
+    //        string[] files = Directory.GetFiles(@"Image\\Conversation");
+    //        foreach (string file in files)
+    //        {
+    //            string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Conversation_", "");
+    //            Dictionaries.Img_Conversation[key] = Image.FromFile(file);
+    //        }
+    //    }
+
+    //    public static void LoadMessages()
+    //    {
+    //        Dictionaries.Messages.Clear();
+    //        string[] files = Directory.GetFiles(@"Message");
+    //        foreach (string file in files)
+    //        {
+    //            string key = Path.GetFileNameWithoutExtension(file).Replace("Message_", "");
+    //            Dictionaries.Messages[key] = LoadMessageCSV(file);
+    //        }
+    //    }
+    }
     #endregion
 
     #region 進行状況管理
