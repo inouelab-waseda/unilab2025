@@ -19,6 +19,8 @@ namespace unilab2025
         {
             InitializeComponent();            
             this.KeyPreview = true;
+            this.listBox_Input.Click += new System.EventHandler(this.listBox_Input_Click);
+            this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
             #region ボタン表示
             Arrow();//矢印の表示設定
@@ -84,6 +86,10 @@ namespace unilab2025
         public static int[,] map = new int[12, 12]; //map情報
         public static string stageName;
 
+        //listBoxに入れられる行数の制限
+        public static int limit_LB_Input=10;
+        public static int limit_LB_Car=10;
+
         #endregion
 
 
@@ -92,8 +98,14 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
-            //button1.Visible = false; // 非表示にする           
-                        
+                                          //button1.Visible = false; // 非表示にする
+
+            InputListBox = listBox_Input;
+            ListBoxes.Add(listBox_Input);
+            ListBoxes.Add(listBox_Car);
+
+
+
         }
 
         private int[,] CreateStage(string stageName)     //ステージ作成
@@ -109,15 +121,24 @@ namespace unilab2025
             ShowListBox();
         }
 
+        private void listBox_Car_Click(object sender, EventArgs e)
+        {
+            InputListBox = listBox_Car;
+            listBox_Car.Focus();
+            ShowListBox();
+        }
+
         public void ShowListBox()
         {
             foreach (ListBox listbox in ListBoxes)
-            {
-                listbox.Visible = false;
-                listbox.Location = new Point(750, 150);
-                listbox.BackColor = Color.Black;
-                listbox.ForeColor = Color.Yellow;
+            {                
+                listbox.BackColor = Color.Gray;
+                listbox.ForeColor = Color.Black;
             }
+            InputListBox.BackColor = Color.White;
+            InputListBox.ForeColor = Color.Black;
+                      
+
         }
 
         #endregion
@@ -143,9 +164,18 @@ namespace unilab2025
             switch (InputListBox.Name)
             {
                 case "listBox_Input":
+                    if (InputListBox.Items.Count < limit_LB_Input) break;
+                    else goto default;
+                case "listBox_Car":
+                    if (InputListBox.Items.Count < limit_LB_Car) break;
+                    else goto default;
+                default:
+                    //label_Info.Text = "これ以上入力できないよ";
+                    //label_Info.Visible = true;
+                    //DisplayMessage("Overflow");
+                    result = true;
                     break;
             }
-
             return result;
         }
 
@@ -182,10 +212,8 @@ namespace unilab2025
             pictureBox7.Image = RotateImage(original, 315f);
         }
 
-
-
         #endregion
 
-
+        
     }
 }

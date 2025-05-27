@@ -129,7 +129,7 @@
             this.listBox_Input.Location = new System.Drawing.Point(589, 99);
             this.listBox_Input.Name = "listBox_Input";
             this.listBox_Input.Size = new System.Drawing.Size(222, 274);
-            this.listBox_Input.TabIndex = 6;
+            this.listBox_Input.TabIndex = 6;            
             // 
             // listBox_Car
             // 
