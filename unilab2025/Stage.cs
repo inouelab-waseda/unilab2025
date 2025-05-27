@@ -26,15 +26,20 @@ namespace unilab2025
         public Stage()
         {
             InitializeComponent();
+            pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            
             this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(Stage_KeyDown);
 
             #region ボタン表示
 
             #endregion
 
-
-            bmp1 = new Bitmap(pictureBox_Map.Width, pictureBox_Map.Height);
-            pictureBox_Map.Image = bmp1;
+            bmp1 = new Bitmap(pictureBox_Map1.Width, pictureBox_Map1.Height);
+            bmp2 = new Bitmap(pictureBox_Map2.Width, pictureBox_Map2.Height);
+            pictureBox_Map1.Image = bmp1;
+            pictureBox_Map2.Image = bmp2;
 
 
 
@@ -71,6 +76,12 @@ namespace unilab2025
         //ここに必要なBitmapやImageを作っていく        
         Bitmap bmp1;
         Bitmap bmp2;
+
+        Brush goalBackgroundColor = new SolidBrush(Color.Yellow);
+        Brush startBackgroundColor = new SolidBrush(Color.Blue);
+
+
+        Image character_me = Dictionaries.Img_DotPic["銀髪ドット"];
 
         public static List<ListBox> ListBoxes = new List<ListBox>();
         public static ListBox InputListBox;   //入力先のリストボックス
@@ -130,10 +141,14 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成   
-
-
-
         }
+
+
+
+        #region 各コントロール機能設定
+
+        #endregion
+
 
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
@@ -180,7 +195,7 @@ namespace unilab2025
             //label_Info.BackgroundImage = Image.FromFile("focus.png");
 
 
-            cell_length = pictureBox_Map.Width / map_width;
+            cell_length = pictureBox_Map2.Width / map_width;
 
 
             for (int y = 0; y < map_width; y++)
@@ -216,15 +231,244 @@ namespace unilab2025
             }
             this.Invoke((MethodInvoker)delegate
             {
-                // pictureBox_Mapを同期的にRefreshする
-                pictureBox_Map.Refresh();
+                // pictureBox_Map2を同期的にRefreshする
+                pictureBox_Map2.Refresh();
             });
             return map;
         }
 
         #region ボタン押下時処理
+        private async void button_Start_Click(object sender, EventArgs e)  //出発ボタン押下時処理
+        {
+            button_Start.Visible = false;
+            button_Start.Enabled = false;
+            //label_Error.Visible = false;
+            move = Movement(); //ユーザーの入力を読み取る
+            if (!isEndfor)
+            {
+                resetStage();
+                return;
+            }
+            SquareMovement(x_now, y_now, map, move); //キャラ動かす
+            count += 1;
+            if (x_goal == x_now && y_goal == y_now)
+            {
+                //label_Result.Text = "クリア！！";
+                //label_Result.Visible = true;
+                button_return.Enabled = true;
+                button_reset.Enabled = false;
+                button_return.Visible = true;
+                isStartConv = false;
+                //button_return.Location = new Point(800, 600);
+                //button_return.Size = new Size(200, 50);
 
+                //ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
+                //if (_worldNumber == 4)
+                //{
+                //    if (!ClearCheck.IsCleared[_worldNumber, 0])
+                //    {
+                //        ClearCheck.PlayAfterChapter4Story = true;
+                //    }
+                //    for (int j = 0; j < (int)ConstNum.numStages; j++)
+                //    {
+                //        ClearCheck.IsCleared[_worldNumber, j] = true;
+                //    }
+                //    for (int i = _worldNumber + 1; i < (int)ConstNum.numWorlds; i++)
+                //    {
+                //        for (int j = 0; j <= 1; j++)
+                //        {
+                //            ClearCheck.IsButtonEnabled[i, j] = true;
+                //            ClearCheck.IsNew[i, j] = true;
+                //        }
+                //    }
+                //}
+                //else if (_level == 3)
+                //{
+                //    ClearCheck.IsCleared[_worldNumber, 0] = true;
+                //    switch (_worldNumber)
+                //    {
+                //        case 1:
+                //        case 2:
+                //        case 3:
+                //            for (int j = 0; j <= 1; j++)
+                //            {
+                //                ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+                //                ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                //            }
+                //            break; ;
+                //    }
+                //}
+                //else
+                //{
+                //    ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                //    ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                //    Func.UpdateIsNew();
+                //}
+
+                //if (Func.HasNewStageInAllWorld())
+                //{
+                //    button_return.ConditionImage = Dictionaries.Img_Button["New"];
+                //}
+
+                //if (!ClearCheck.Completed)
+                //{
+                //    if (Func.IsAllStageClearedInWorld(false))
+                //    {
+                //        ClearCheck.Completed = true;
+                //        ClearCheck.PlayAfterAnotherWorldStory = true;
+                //    }
+                //}
+
+                //await Task.Delay((int)ConstNum.waitTime_End);
+                //Capt = Func.PlayConv(this, pictureBox_Conv, EndConv);
+            }
+            //else
+            //{
+            //    resetStage("miss_end");
+            //}
+        }
+
+        private void button_reset_Click(object sender, EventArgs e)  //リトライボタン押下時処理
+        {
+            resetStage();
+        }
+
+        private void button_return_Click(object sender, EventArgs e)  //マップに戻るボタン押下時処理
+        {
+            //Func.CreateStageSelect(this, _worldName, _worldNumber);
+            return;
+        }
+        private void button_Hint_Click(object sender, EventArgs e)
+        {
+            CreateStage(stageName + "_hint");
+        }
+        bool Input_check()
+        {
+            bool result = false;
+            if (isChange) return result;
+
+            //label_Info.Visible = false;
+            switch (InputListBox.Name)
+            {
+                case "listBox_Input":
+                    if (InputListBox.Items.Count < limit_LB_Input) break;
+                    else goto default;
+                case "listBox_A":
+                    if (InputListBox.Items.Count < limit_LB_A) break;
+                    else goto default;
+                case "listBox_B":
+                    if (InputListBox.Items.Count < limit_LB_B) break;
+                    else goto default;
+                default:
+                    //label_Info.Text = "これ以上入力できないよ";
+                    //label_Info.Visible = true;
+                    DisplayMessage("Overflow");
+                    result = true;
+                    break;
+
+            }
+            return result;
+        }
+        void Left_Availabel_Input()
+        {
+        //    if (InputListBox == listBox_Input) label_LeftInput.Text = $"あと {limit_LB_Input - listBox_Input.Items.Count}";
+        //    else if (InputListBox == listBox_A) label_LeftA.Text = $"あと {limit_LB_A - listBox_A.Items.Count}";
+        //    else label_LeftB.Text = $"あと {limit_LB_B - listBox_B.Items.Count}";
+        }
+        void uiButtonObject_up_Click(object sender, EventArgs e)
+        {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↑");
+            if (isChange) Item_Change();
+            else Left_Availabel_Input();
+        }
+        void uiButtonObject_left_Click(object sender, EventArgs e)
+        {
+            if (Input_check()) return;
+            InputListBox.Items.Add("←");
+            if (isChange) Item_Change();
+            else Left_Availabel_Input();
+        }
+        void uiButtonObject_right_Click(object sender, EventArgs e)
+        {
+            if (Input_check()) return;
+            InputListBox.Items.Add("→");
+            if (isChange) Item_Change();
+            else Left_Availabel_Input();
+        }
+        void uiButtonObject_down_Click(object sender, EventArgs e)
+        {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↓");
+            if (isChange) Item_Change();
+            else Left_Availabel_Input();
+        }
+
+        
+        private void textBox_ForCount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // 数字キーが押された場合
+            if (int.TryParse(e.KeyChar.ToString(), out For_count))
+            {
+                For_count = int.Parse(e.KeyChar.ToString());
+                // リストボックスに "Input(数字)" 形式で追加
+                InputListBox.Items.Add($"リフレイン({For_count})");
+                isFor = false;
+                e.Handled = true;
+                //textBox_ForCount.Visible = false;
+                //label_Info.Visible = false;
+                foreach (Control items in Controls)
+                {
+                    items.Enabled = true;
+                }
+                Func.ChangeControl(pictureBox_Conv, false);
+                isMessageMode = false;
+            }
+            else
+            {
+                //label_Info.Text = "数字を入力してね!";
+                Func.convIndex = 0;
+                Func.DrawConv(this, pictureBox_Conv, Capt, Dictionaries.Messages["InputError"]);
+                e.Handled = true;
+            }
+            if (isChange) Item_Change();
+            else Left_Availabel_Input();
+        }
+        void uiButtonObject_endfor_Click(object sender, EventArgs e)
+        {
+            if (Input_check()) return;
+            InputListBox.Items.Add("リフレイン終わり");
+            if (isChange) Item_Change();
+            else Left_Availabel_Input();
+        }
+
+        void Stage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (isFor) return;
+            switch (e.KeyCode)
+            {
+                case Keys.M:
+                    Func.ChangeControl(pictureBox_Conv, false);
+                    break;
+            }
+        }
         #endregion
+
+        public void Item_Change()
+        {
+            isChange = false;
+            InputListBox.Items[Change_Item_Number] = InputListBox.Items[InputListBox.Items.Count - 1].ToString();
+            InputListBox.Items.RemoveAt(InputListBox.Items.Count - 1);
+            //label_Info.Visible=false;
+            foreach (Control control in this.Controls)
+            {
+                control.Enabled = true;
+            }
+            Func.ChangeControl(pictureBox_Conv, false);
+            isMessageMode = false;
+        }
+
+
 
         #region リセット関連
         public bool ResetListBox(ListBox listbox)   //ListBoxの中身消去
@@ -264,21 +508,21 @@ namespace unilab2025
             //g2.DrawImage(goal_obj(_stageName), Global.x_goal * cell_length - Global.extra_length, Global.y_goal * cell_length - 2 * Global.extra_length, cell_length + 2 * Global.extra_length, cell_length + 2 * Global.extra_length);
             this.Invoke((MethodInvoker)delegate
             {
-                // pictureBox2を同期的にRefreshする
-                pictureBox2.Refresh();
+                // pictureBox_Map2を同期的にRefreshする
+                pictureBox_Map2.Refresh();
             });
             CreateStage(stageName);
 
             //初期設定に戻す
             button_Start.Visible = true;
             button_Start.Enabled = true;
-            label_Error.Visible = false;
+            //label_Error.Visible = false;
             count = 0;
             miss_count = 0;
             isEndfor = true;
-            label_Error.Text = "ミス！";
-            label_Error.Visible = false;
-            label_Result.Visible = false;
+            //label_Error.Text = "ミス！";
+            //label_Error.Visible = false;
+            //label_Result.Visible = false;
         }
         #endregion
 
@@ -353,11 +597,11 @@ namespace unilab2025
         /// </summary>
         /// <param name="move">キャラクターのマップ上での動き</param>
         /// <param name="Move_Input">ユーザーの入力した方向</param>
-        /// <param name="Move_A">自作関数Aを呼び出す場合の処理</param>
-        /// <param name="Move_B">自作関数Bを呼び出す場合の処理</param>
+        /// <param name="Move_Order">自作関数Aを呼び出す場合の処理</param>
+        /// <param name="Move_Car">自作関数Bを呼び出す場合の処理</param>
         /// <param name="i"></param>
         /// <returns></returns>
-        public (List<int[]>, int a) ForLoop(List<int[]> move, List<string> Move_Input, List<int[]> Move_A, List<int[]> Move_B, int i)     //for文処理
+        public (List<int[]>, int a) ForLoop(List<int[]> move, List<string> Move_Input, List<int[]> Move_Order, List<int[]> Move_Car, int i)     //for文処理
         {
             int trial;                                                                                                //反復回数
             int Now;                                                                                                  //入力したListのうち何番目の処理か
@@ -378,12 +622,12 @@ namespace unilab2025
                             isEndfor = false;
                             return (move, i);
                         }
-                        (move, Now) = ForLoop(move, Move_Input, Move_A, Move_B, Now);                                  //二重ループの探索
+                        (move, Now) = ForLoop(move, Move_Input, Move_Order, Move_Car, Now);                                  //二重ループの探索
                         if (Move_Input[Now] == "リフレイン終わり") break;                                                       //for文終わりが存在したら処理終了
                         else
                         {
-                            if (Move_Input[Now] == "A") move.AddRange(Move_A);                            //Aの魔法が入力されている場合、Aの処理内容をListに追加
-                            else if (Move_Input[Now] == "B") move.AddRange(Move_B);                        //Bの魔法の際も同様                     
+                            if (Move_Input[Now] == "A") move.AddRange(Move_Order);                            //Aの魔法が入力されている場合、Aの処理内容をListに追加
+                            else if (Move_Input[Now] == "B") move.AddRange(Move_Car);                        //Bの魔法の際も同様                     
                             else MoveTo(move, Move_Input[Now]);                                        //動く方向が指定されている場合、その方向への動きをListに追加
                             Now++;
                         }
@@ -400,19 +644,19 @@ namespace unilab2025
         /// <returns></returns>
         public List<int[]> Movement()      //動作の関数
         {
-            var Move_A = new List<int[]>();                                                           //Aでの動きを保存
-            var Move_B = new List<int[]>();                                                           //Bでの動きを保存
-            string[] Get_Input_A = this.listBox_A.Items.Cast<string>().ToArray();                     //AのListへの入力を保存
-            string[] Get_Input_B = this.listBox_B.Items.Cast<string>().ToArray();                     //BのListへの入力を保存
+            var Move_Order = new List<int[]>();                                                           //Aでの動きを保存
+            var Move_Car = new List<int[]>();                                                           //Bでの動きを保存
+            string[] Get_Input_A = this.listBox_Order.Items.Cast<string>().ToArray();                     //AのListへの入力を保存
+            string[] Get_Input_B = this.listBox_Car.Items.Cast<string>().ToArray();                     //BのListへの入力を保存
 
-            var Move_A_List = new List<string>(Get_Input_A);
-            var Move_B_List = new List<string>(Get_Input_B);
+            var Move_Order_List = new List<string>(Get_Input_A);
+            var Move_Car_List = new List<string>(Get_Input_B);
 
             int loop_count = 0;
-            while (Move_A_List.Count <= 30 || Move_B_List.Count <= 30)
+            while (Move_Order_List.Count <= 30 || Move_Car_List.Count <= 30)
             {
-                Move_A_List = MakeMoveList(Get_Input_A, Get_Input_B, Move_A_List);
-                Move_B_List = MakeMoveList(Get_Input_A, Get_Input_B, Move_B_List);
+                Move_Order_List = MakeMoveList(Get_Input_A, Get_Input_B, Move_Order_List);
+                Move_Car_List = MakeMoveList(Get_Input_A, Get_Input_B, Move_Car_List);
                 loop_count++;
 
                 if (loop_count > 5)
@@ -423,19 +667,19 @@ namespace unilab2025
 
             if (Get_Input_A.Length != 0)
             {
-                for (int i = 0; i < Move_A_List.Count; i++)
+                for (int i = 0; i < Move_Order_List.Count; i++)
                 {
-                    (Move_A, i) = ForLoop(Move_A, Move_A_List, Move_A, Move_B, i);
-                    MoveTo(Move_A, Move_A_List[i]);
+                    (Move_Order, i) = ForLoop(Move_Order, Move_Order_List, Move_Order, Move_Car, i);
+                    MoveTo(Move_Order, Move_Order_List[i]);
                 }
             }
 
             if (Get_Input_B.Length != 0)
             {
-                for (int i = 0; i < Move_B_List.Count; i++)
+                for (int i = 0; i < Move_Car_List.Count; i++)
                 {
-                    (Move_B, i) = ForLoop(Move_B, Move_B_List, Move_A, Move_B, i);
-                    MoveTo(Move_B, Move_B_List[i]);
+                    (Move_Car, i) = ForLoop(Move_Car, Move_Car_List, Move_Order, Move_Car, i);
+                    MoveTo(Move_Car, Move_Car_List[i]);
                 }
             }
 
@@ -448,9 +692,9 @@ namespace unilab2025
             {
                 for (int i = 0; i < Move_Main_List.Count; i++)
                 {
-                    (move, i) = ForLoop(move, Move_Main_List, Move_A, Move_B, i);
-                    if (Move_Main_List[i] == "A") move.AddRange(Move_A);
-                    else if (Move_Main_List[i] == "B") move.AddRange(Move_B);
+                    (move, i) = ForLoop(move, Move_Main_List, Move_Order, Move_Car, i);
+                    if (Move_Main_List[i] == "A") move.AddRange(Move_Order);
+                    else if (Move_Main_List[i] == "B") move.AddRange(Move_Car);
                     else MoveTo(move, Move_Main_List[i]);
                 }
             }
@@ -610,8 +854,8 @@ namespace unilab2025
                 DrawCharacter(x_now, y_now, ref character_me);
                 this.Invoke((MethodInvoker)delegate
                 {
-                    // pictureBox2を同期的にRefreshする
-                    pictureBox2.Refresh();
+                    // pictureBox_Map2を同期的にRefreshする
+                    pictureBox_Map2.Refresh();
                 });
                 return (x_now, y_now);
             }
@@ -632,8 +876,8 @@ namespace unilab2025
                         g2.DrawImage(Dictionaries.Img_DotPic["GOAL"], placeX - extra_length, placeY - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                         this.Invoke((MethodInvoker)delegate
                         {
-                            // pictureBox2を同期的にRefreshする
-                            pictureBox2.Refresh();
+                            // pictureBox_Map2を同期的にRefreshする
+                            pictureBox_Map2.Refresh();
                         });
                     }
                     break;
@@ -744,8 +988,8 @@ namespace unilab2025
                     //DrawCharacter(x, y, ref character_me);
                     //this.Invoke((MethodInvoker)delegate
                     //{
-                    //    // pictureBox2を同期的にRefreshする
-                    //    pictureBox2.Refresh();
+                    //    // pictureBox_Map2を同期的にRefreshする
+                    //    pictureBox_Map2.Refresh();
                     //});
                     Thread.Sleep(waittime);
 
@@ -757,8 +1001,43 @@ namespace unilab2025
                 count_walk++;
             }
         }
-#endregion
+        #endregion
+        #region 会話の表示
+        private void pictureBox_Conv_Click(object sender, EventArgs e)
+        {
+            if (isMessageMode)
+            {
+                if (Func.convIndex == Message.Count)
+                {
+                    isMessageMode = false;
+                    Func.ChangeControl(pictureBox_Conv, false);
+                    resetStage();
+                }
+                Func.DrawConv(this, pictureBox_Conv, Capt, Message);
+            }
+            else if (isStartConv)
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, StartConv);
+            }
+            else
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, EndConv);
+            }
+        }
 
+        private void button_Explain_Click(object sender, EventArgs e)
+        {
+            if (isStartConv)
+            {
+                Capt = Func.PlayConv(this, pictureBox_Conv, StartConv);
+            }
+            else
+            {
+                Capt = Func.PlayConv(this, pictureBox_Conv, EndConv);
+            }
+        }
+        #endregion
+    }
 
     #region カスタム設定
     public class UIButtonObject : UserControl
@@ -777,4 +1056,4 @@ namespace unilab2025
 
     #endregion
 }
-}
+

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.pictureBox_Background = new System.Windows.Forms.PictureBox();
-            this.pictureBox_Map = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Map2 = new System.Windows.Forms.PictureBox();
             this.button_Start = new System.Windows.Forms.Button();
-            this.button_Reset = new System.Windows.Forms.Button();
+            this.button_reset = new System.Windows.Forms.Button();
             this.pictureBox_Car = new System.Windows.Forms.PictureBox();
             this.pictureBox_Order = new System.Windows.Forms.PictureBox();
             this.listBox_Order = new System.Windows.Forms.ListBox();
@@ -56,8 +56,10 @@
             this.pictureBox_lowerRight = new System.Windows.Forms.PictureBox();
             this.button_back = new System.Windows.Forms.Button();
             this.button_walk = new System.Windows.Forms.Button();
+            this.pictureBox_Map1 = new System.Windows.Forms.PictureBox();
+            this.listBox_Input = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonUp)).BeginInit();
@@ -69,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_upperLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Background
@@ -81,14 +84,14 @@
             this.pictureBox_Background.TabIndex = 0;
             this.pictureBox_Background.TabStop = false;
             // 
-            // pictureBox_Map
+            // pictureBox_Map2
             // 
-            this.pictureBox_Map.Location = new System.Drawing.Point(20, 142);
-            this.pictureBox_Map.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox_Map.Name = "pictureBox_Map";
-            this.pictureBox_Map.Size = new System.Drawing.Size(800, 800);
-            this.pictureBox_Map.TabIndex = 1;
-            this.pictureBox_Map.TabStop = false;
+            this.pictureBox_Map2.Location = new System.Drawing.Point(20, 142);
+            this.pictureBox_Map2.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox_Map2.Name = "pictureBox_Map2";
+            this.pictureBox_Map2.Size = new System.Drawing.Size(800, 800);
+            this.pictureBox_Map2.TabIndex = 1;
+            this.pictureBox_Map2.TabStop = false;
             // 
             // button_Start
             // 
@@ -100,15 +103,15 @@
             this.button_Start.Text = "出発！";
             this.button_Start.UseVisualStyleBackColor = true;
             // 
-            // button_Reset
+            // button_reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(1188, 556);
-            this.button_Reset.Margin = new System.Windows.Forms.Padding(4);
-            this.button_Reset.Name = "button_Reset";
-            this.button_Reset.Size = new System.Drawing.Size(238, 87);
-            this.button_Reset.TabIndex = 3;
-            this.button_Reset.Text = "全部けす";
-            this.button_Reset.UseVisualStyleBackColor = true;
+            this.button_reset.Location = new System.Drawing.Point(1188, 556);
+            this.button_reset.Margin = new System.Windows.Forms.Padding(4);
+            this.button_reset.Name = "button_reset";
+            this.button_reset.Size = new System.Drawing.Size(238, 87);
+            this.button_reset.TabIndex = 3;
+            this.button_reset.Text = "全部けす";
+            this.button_reset.UseVisualStyleBackColor = true;
             // 
             // pictureBox_Car
             // 
@@ -332,6 +335,26 @@
             this.button_walk.Text = "徒歩";
             this.button_walk.UseVisualStyleBackColor = true;
             // 
+            // pictureBox_Map1
+            // 
+            this.pictureBox_Map1.Location = new System.Drawing.Point(20, 142);
+            this.pictureBox_Map1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox_Map1.Name = "pictureBox_Map1";
+            this.pictureBox_Map1.Size = new System.Drawing.Size(800, 800);
+            this.pictureBox_Map1.TabIndex = 33;
+            this.pictureBox_Map1.TabStop = false;
+            // 
+            // listBox_Input
+            // 
+            this.listBox_Input.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.listBox_Input.FormattingEnabled = true;
+            this.listBox_Input.ItemHeight = 40;
+            this.listBox_Input.Location = new System.Drawing.Point(985, 114);
+            this.listBox_Input.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox_Input.Name = "listBox_Input";
+            this.listBox_Input.Size = new System.Drawing.Size(327, 364);
+            this.listBox_Input.TabIndex = 34;
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -359,18 +382,20 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox_Car);
             this.Controls.Add(this.listBox_Order);
-            this.Controls.Add(this.pictureBox_Order);
             this.Controls.Add(this.pictureBox_Car);
-            this.Controls.Add(this.button_Reset);
+            this.Controls.Add(this.button_reset);
             this.Controls.Add(this.button_Start);
-            this.Controls.Add(this.pictureBox_Map);
+            this.Controls.Add(this.pictureBox_Map2);
+            this.Controls.Add(this.pictureBox_Map1);
+            this.Controls.Add(this.listBox_Input);
+            this.Controls.Add(this.pictureBox_Order);
             this.Controls.Add(this.pictureBox_Background);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonUp)).EndInit();
@@ -382,6 +407,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_upperLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -390,9 +416,9 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox_Background;
-        private System.Windows.Forms.PictureBox pictureBox_Map;
+        private System.Windows.Forms.PictureBox pictureBox_Map2;
         private System.Windows.Forms.Button button_Start;
-        private System.Windows.Forms.Button button_Reset;
+        private System.Windows.Forms.Button button_reset;
         private System.Windows.Forms.PictureBox pictureBox_Car;
         private System.Windows.Forms.PictureBox pictureBox_Order;
         private System.Windows.Forms.ListBox listBox_Order;
@@ -417,6 +443,8 @@
         private System.Windows.Forms.PictureBox pictureBox_lowerRight;
         private System.Windows.Forms.Button button_back;
         private System.Windows.Forms.Button button_walk;
+        private System.Windows.Forms.PictureBox pictureBox_Map1;
+        private System.Windows.Forms.ListBox listBox_Input;
     }
 }
 
