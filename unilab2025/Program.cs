@@ -447,7 +447,8 @@ namespace unilab2025
     #region キャラ選択結果
     public partial class MainCharacter
     {
-        public static bool isBoy = true;
+        public static bool isBoy = false;
+        public static bool isGirl = false;
     }
     #endregion
 
@@ -484,9 +485,13 @@ namespace unilab2025
             {
                 charaDirectory = @"Image\\DotPic\\Boy";
             }
-            else
+            else if (MainCharacter.isGirl)
             {
                 charaDirectory = @"Image\\DotPic\\Girl";
+            }
+            else
+            {
+                charaDirectory = @"Image\\DotPic\\Silver";
             }
             string[] files = Directory.GetFiles(charaDirectory);
             foreach (string file in files)
