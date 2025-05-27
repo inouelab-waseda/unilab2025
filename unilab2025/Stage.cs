@@ -22,6 +22,15 @@ namespace unilab2025
             this.listBox_Input.Click += new System.EventHandler(this.listBox_Input_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
+            pictureBox0.Click += PictureBox0_Click;
+            pictureBox1.Click += PictureBox1_Click;
+            pictureBox2.Click += PictureBox2_Click;
+            pictureBox3.Click += PictureBox3_Click;
+            pictureBox4.Click += PictureBox4_Click;
+            pictureBox5.Click += PictureBox5_Click;
+            pictureBox6.Click += PictureBox6_Click;
+            pictureBox7.Click += PictureBox7_Click;
+            
             #region ボタン表示
             Arrow();//矢印の表示設定
 
@@ -35,15 +44,7 @@ namespace unilab2025
             bmp1 = new Bitmap(pictureBox_Map.Width, pictureBox_Map.Height);
             pictureBox_Map.Image = bmp1;
 
-            //ボタンを有効にする
-            pictureBox0.Click += PictureBox0_Click;
-            pictureBox1.Click += PictureBox1_Click;
-            pictureBox2.Click += PictureBox2_Click;
-            pictureBox3.Click += PictureBox3_Click;
-            pictureBox4.Click += PictureBox4_Click;
-            pictureBox5.Click += PictureBox5_Click;
-            pictureBox6.Click += PictureBox6_Click;
-            pictureBox7.Click += PictureBox7_Click;
+            
 
         }
 
@@ -99,6 +100,7 @@ namespace unilab2025
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
                                           //button1.Visible = false; // 非表示にする
+                       
 
             InputListBox = listBox_Input;
             ListBoxes.Add(listBox_Input);
@@ -116,6 +118,20 @@ namespace unilab2025
 
         private void listBox_Input_Click(object sender, EventArgs e)
         {
+            pictureBox0.Visible = false;
+            pictureBox2.Visible = false;
+            pictureBox4.Visible = false;
+            pictureBox6.Visible = false;
+            pictureBox1.Visible = false;
+            pictureBox3.Visible = false;
+            pictureBox5.Visible = false;
+            pictureBox7.Visible = false;
+
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+            button4.Enabled = true;
+
             InputListBox = listBox_Input;
             listBox_Input.Focus();
             ShowListBox();
@@ -123,6 +139,23 @@ namespace unilab2025
 
         private void listBox_Car_Click(object sender, EventArgs e)
         {
+            //ボタンを有効にする           
+            pictureBox0.Visible = true;
+            pictureBox2.Visible = true;
+            pictureBox4.Visible = true;
+            pictureBox6.Visible = true;
+            pictureBox1.Visible = false;
+            pictureBox3.Visible = false;
+            pictureBox5.Visible = false;
+            pictureBox7.Visible = false;
+
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+
+
+
             InputListBox = listBox_Car;
             listBox_Car.Focus();
             ShowListBox();
@@ -143,20 +176,41 @@ namespace unilab2025
 
         #endregion
 
-            #region ボタンの処理
+        #region ボタンの処理
         private void PictureBox0_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            listBox_Input.Items.Add("↑");
+            InputListBox.Items.Add("↑");
             //if (isChange) Item_Change();
             //else Left_Availabel_Input();
         }
-        private void PictureBox1_Click(object sender, EventArgs e) { }
-        private void PictureBox2_Click(object sender, EventArgs e) { }
-        private void PictureBox3_Click(object sender, EventArgs e) { }
-        private void PictureBox4_Click(object sender, EventArgs e) { }
-        private void PictureBox5_Click(object sender, EventArgs e) { }
-        private void PictureBox6_Click(object sender, EventArgs e) { }
-        private void PictureBox7_Click(object sender, EventArgs e) { }
+        private void PictureBox1_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↗");
+        }
+        private void PictureBox2_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("→");
+        }
+        private void PictureBox3_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↘");
+        }
+        private void PictureBox4_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↓");
+        }
+        private void PictureBox5_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↙");
+        }
+        private void PictureBox6_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("←");
+        }
+        private void PictureBox7_Click(object sender, EventArgs e) {
+            if (Input_check()) return;
+            InputListBox.Items.Add("↖");
+        }
 
         bool Input_check()
         {
@@ -177,6 +231,56 @@ namespace unilab2025
                     break;
             }
             return result;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //ボタンを有効にする
+            
+            pictureBox0.Visible = true;
+            pictureBox2.Visible = true;
+            pictureBox4.Visible = true;
+            pictureBox6.Visible = true;
+            pictureBox1.Visible = false;
+            pictureBox3.Visible = false;
+            pictureBox5.Visible = false;
+            pictureBox7.Visible = false;
+           
+
+        }
+        private void button2_Click(object sender, EventArgs e)
+        { }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //ボタンを有効にする
+            
+            pictureBox1.Visible = true;
+            pictureBox3.Visible = true;
+            pictureBox5.Visible = true;
+            pictureBox7.Visible = true;
+            pictureBox0.Visible = false;
+            pictureBox2.Visible = false;
+            pictureBox4.Visible = false;
+            pictureBox6.Visible = false;
+            
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //ボタンを有効にする
+           
+            pictureBox0.Visible = true;
+            pictureBox2.Visible = true;
+            pictureBox4.Visible = true;
+            pictureBox6.Visible = true;
+            pictureBox1.Visible = false;
+            pictureBox3.Visible = false;
+            pictureBox5.Visible = false;
+            pictureBox7.Visible = false;
+            
+
         }
 
 
@@ -212,8 +316,9 @@ namespace unilab2025
             pictureBox7.Image = RotateImage(original, 315f);
         }
 
-        #endregion
 
+
+        #endregion
         
     }
 }
