@@ -155,13 +155,14 @@ namespace unilab2025
             //string stagenum = _worldNumber + "-" + _level;
             using (StreamReader sr = new StreamReader($"Map\\{stageName}.csv"))
             {
-                int x = 0;
+                int x;
                 int y = 0;
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
-
+                    map_width = values.Length; //マップの横幅を取得
+                    map = new int[map_width, map_width]; //マップの初期化
                     x = 0;
 
                     foreach (var value in values)
@@ -187,7 +188,6 @@ namespace unilab2025
                     }
                     y++;
                 }
-                map_width = x; //マップの横幅
             }
 
             Graphics g1 = Graphics.FromImage(bmp1);
@@ -212,7 +212,7 @@ namespace unilab2025
                             y_start = y;
                             x_now = x;
                             y_now = y;
-                            Image character_me = Dictionaries.Img_DotPic["魔法使いサンプル"];
+                            Image character_me = Dictionaries.Img_DotPic["銀髪ドット"];
                             g2.DrawImage(character_me, placeX - extra_length, placeY - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                             break;
                         case 1:

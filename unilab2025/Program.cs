@@ -31,6 +31,7 @@ namespace unilab2025
             Func.LoadImg_Object();
             Func.LoadImg_Button();
             Func.LoadImg_Background();
+            Func.LoadImg_DotPic();
             //Func.LoadImg_Conversation();
             //Func.LoadMessages();
             //Func.InitializeClearCheck();
