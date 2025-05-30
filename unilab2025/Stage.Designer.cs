@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Stage));
             this.pictureBox_Background = new System.Windows.Forms.PictureBox();
             this.pictureBox_Map2 = new System.Windows.Forms.PictureBox();
             this.button_Start = new System.Windows.Forms.Button();
@@ -86,6 +87,7 @@
             // 
             // pictureBox_Map2
             // 
+            this.pictureBox_Map2.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBox_Map2.Location = new System.Drawing.Point(20, 142);
             this.pictureBox_Map2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Map2.Name = "pictureBox_Map2";
@@ -236,12 +238,14 @@
             // button_return
             // 
             this.button_return.AutoSize = true;
+            this.button_return.BackColor = System.Drawing.SystemColors.Control;
+            this.button_return.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_return.BackgroundImage")));
             this.button_return.Location = new System.Drawing.Point(20, 20);
             this.button_return.Name = "button_return";
-            this.button_return.Size = new System.Drawing.Size(285, 85);
+            this.button_return.Size = new System.Drawing.Size(200, 75);
             this.button_return.TabIndex = 21;
             this.button_return.Text = "マップに戻る";
-            this.button_return.UseVisualStyleBackColor = true;
+            this.button_return.UseVisualStyleBackColor = false;
             // 
             // pictureBox_buttonUp
             // 

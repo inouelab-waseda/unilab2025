@@ -26,6 +26,9 @@ namespace unilab2025
         public Stage()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
             pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
             
@@ -41,8 +44,14 @@ namespace unilab2025
             pictureBox_Map1.Image = bmp1;
             pictureBox_Map2.Image = bmp2;
 
+            g1 = Graphics.FromImage(bmp1);
+            g2 = Graphics.FromImage(bmp2);
 
+            pictureBox_Map2.BackColor = Color.Transparent;
+            pictureBox_Map2.Parent = pictureBox_Map1;
+            pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
+            pictureBox_Map2.BringToFront(); //
         }
 
 
@@ -141,6 +150,9 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成   
+            grade = Regex.Replace(stageName, @"[^0-9]", "");
+            int chapter_num = int.Parse(grade) / 10;
+
         }
 
 
@@ -162,7 +174,8 @@ namespace unilab2025
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
                     map_width = values.Length; //マップの横幅を取得
-                    map = new int[map_width, map_width]; //マップの初期化
+
+                    if (y == 0) map = new int[map_width, map_width]; //マップの初期化
                     x = 0;
 
                     foreach (var value in values)
@@ -190,8 +203,6 @@ namespace unilab2025
                 }
             }
 
-            Graphics g1 = Graphics.FromImage(bmp1);
-            Graphics g2 = Graphics.FromImage(bmp2);
             //label_Info.BackgroundImage = Image.FromFile("focus.png");
 
 
@@ -207,14 +218,6 @@ namespace unilab2025
                     g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                     switch (map[x, y])
                     {
-                        case 0:
-                            x_start = x;
-                            y_start = y;
-                            x_now = x;
-                            y_now = y;
-                            Image character_me = Dictionaries.Img_DotPic["銀髪ドット"];
-                            g2.DrawImage(character_me, placeX - extra_length, placeY - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-                            break;
                         case 1:
                             x_goal = x;
                             y_goal = y;
@@ -229,9 +232,13 @@ namespace unilab2025
                     }
                 }
             }
+            // キャラクターの描画をループの外に出す
+            g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+
             this.Invoke((MethodInvoker)delegate
             {
                 // pictureBox_Map2を同期的にRefreshする
+                pictureBox_Map1.Refresh();
                 pictureBox_Map2.Refresh();
             });
             return map;
@@ -492,15 +499,19 @@ namespace unilab2025
             Message = Dictionaries.Messages[type];
             Capt = Func.PlayConv(this, pictureBox_Conv, Message);
         }
+
         public void resetStage() // ステージリセット
         {
             //初期位置に戻す
             x_now = x_start;
             y_now = y_start;
 
+            // マップをクリアする
+            g1.Clear(Color.Transparent); // マップ画像をクリア
+            g2.Clear(Color.Transparent); // キャラクター画像をクリア
+
             //初期位置に書き換え
-            Graphics g2 = Graphics.FromImage(bmp2);
-            g2.Clear(Color.Transparent);
+            // Graphics g2 = Graphics.FromImage(bmp2); // この行は削除またはコメントアウト
             //int cell_length = pictureBox1.Width / 12;
             //character_me = Image.FromFile("忍者_正面.png");
             g2.DrawImage(Dictionaries.Img_DotPic["魔法使いサンプル"], x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
@@ -511,7 +522,7 @@ namespace unilab2025
                 // pictureBox_Map2を同期的にRefreshする
                 pictureBox_Map2.Refresh();
             });
-            CreateStage(stageName);
+            CreateStage(stageName); // CreateStageでマップが再描画される
 
             //初期設定に戻す
             button_Start.Visible = true;
@@ -524,6 +535,7 @@ namespace unilab2025
             //label_Error.Visible = false;
             //label_Result.Visible = false;
         }
+
         #endregion
 
         #region 動作関連
@@ -1002,6 +1014,7 @@ namespace unilab2025
             }
         }
         #endregion
+
         #region 会話の表示
         private void pictureBox_Conv_Click(object sender, EventArgs e)
         {
