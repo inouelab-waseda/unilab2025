@@ -205,29 +205,32 @@ namespace unilab2025
 
         #region リセット関連
 
-        public bool ResetListBox(ListBox listbox)   //ListBoxの中身消去
-        {
-            bool isAllReset = false;
-            if (listbox.SelectedIndex > -1)
-            {
-                listbox.Items.RemoveAt(listbox.SelectedIndex);
-                return isAllReset;
-            }
-            else
-            {
-                listbox.Items.Clear();
-                return !isAllReset;
-            }
-        }
+        //public bool ResetListBox(ListBox listbox)   //ListBoxの中身消去
+        //{
+        //    bool isAllReset = false;
+        //    if (listbox.SelectedIndex > -1)
+        //    {
+        //        listbox.Items.RemoveAt(listbox.SelectedIndex);// 1つ削除
+        //        return isAllReset;
+        //    }
+        //    else
+        //    {
+        //        listbox.Items.Clear();//全部削除
+        //        return !isAllReset;
+        //    }
+        //}
 
         private void button_one_Reset_Click(object sender, EventArgs e)
         {
-
+            if (InputListBox.SelectedIndex > -1)
+            {
+                InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);
+            }
         }
 
         private void button_Reset_Click(object sender, EventArgs e)
         {
-
+            InputListBox.Items.Clear();
         }
 
         #endregion
