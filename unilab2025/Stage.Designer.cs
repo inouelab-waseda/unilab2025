@@ -46,7 +46,7 @@
             this.button_Map = new System.Windows.Forms.Button();
             this.button_Hint = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button_one_Reset = new System.Windows.Forms.Button();
             this.pictureBox0 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -105,6 +105,7 @@
             this.button_Reset.TabIndex = 3;
             this.button_Reset.Text = "全部消す";
             this.button_Reset.UseVisualStyleBackColor = true;
+            this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
             // 
             // pictureBox_Car
             // 
@@ -124,20 +125,23 @@
             // 
             // listBox_Input
             // 
+            this.listBox_Input.Font = new System.Drawing.Font("Times New Roman", 20F);
             this.listBox_Input.FormattingEnabled = true;
-            this.listBox_Input.ItemHeight = 15;
+            this.listBox_Input.ItemHeight = 37;
             this.listBox_Input.Location = new System.Drawing.Point(589, 99);
+            this.listBox_Input.MultiColumn = true;
             this.listBox_Input.Name = "listBox_Input";
-            this.listBox_Input.Size = new System.Drawing.Size(222, 274);
+            this.listBox_Input.Size = new System.Drawing.Size(222, 263);
             this.listBox_Input.TabIndex = 6;
             // 
             // listBox_Car
             // 
+            this.listBox_Car.Font = new System.Drawing.Font("Times New Roman", 20F);
             this.listBox_Car.FormattingEnabled = true;
-            this.listBox_Car.ItemHeight = 15;
+            this.listBox_Car.ItemHeight = 37;
             this.listBox_Car.Location = new System.Drawing.Point(923, 99);
             this.listBox_Car.Name = "listBox_Car";
-            this.listBox_Car.Size = new System.Drawing.Size(216, 274);
+            this.listBox_Car.Size = new System.Drawing.Size(216, 263);
             this.listBox_Car.TabIndex = 7;
             // 
             // label1
@@ -235,14 +239,15 @@
             this.button7.Text = "説明";
             this.button7.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // button_one_Reset
             // 
-            this.button5.Location = new System.Drawing.Point(556, 411);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(154, 59);
-            this.button5.TabIndex = 22;
-            this.button5.Text = "1つ消す";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_one_Reset.Location = new System.Drawing.Point(556, 411);
+            this.button_one_Reset.Name = "button_one_Reset";
+            this.button_one_Reset.Size = new System.Drawing.Size(154, 59);
+            this.button_one_Reset.TabIndex = 22;
+            this.button_one_Reset.Text = "1つ消す";
+            this.button_one_Reset.UseVisualStyleBackColor = true;
+            this.button_one_Reset.Click += new System.EventHandler(this.button_one_Reset_Click);
             // 
             // pictureBox0
             // 
@@ -329,7 +334,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox0);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button_one_Reset);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button_Hint);
             this.Controls.Add(this.button_Map);
@@ -389,7 +394,7 @@
         private System.Windows.Forms.Button button_Map;
         private System.Windows.Forms.Button button_Hint;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_one_Reset;
         private System.Windows.Forms.PictureBox pictureBox0;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;

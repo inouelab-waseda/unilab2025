@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +23,8 @@ namespace unilab2025
             this.listBox_Input.Click += new System.EventHandler(this.listBox_Input_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
+            
+
             pictureBox0.Click += PictureBox0_Click;
             pictureBox1.Click += PictureBox1_Click;
             pictureBox2.Click += PictureBox2_Click;
@@ -30,6 +33,12 @@ namespace unilab2025
             pictureBox5.Click += PictureBox5_Click;
             pictureBox6.Click += PictureBox6_Click;
             pictureBox7.Click += PictureBox7_Click;
+            
+            pictureBox1.Visible = false;
+            pictureBox3.Visible = false;
+            pictureBox5.Visible = false;
+            pictureBox7.Visible = false;
+
             
             #region ボタン表示
             Arrow();//矢印の表示設定
@@ -87,6 +96,19 @@ namespace unilab2025
         public static int[,] map = new int[12, 12]; //map情報
         public static string stageName;
 
+        //表示される絵文字
+        public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
+        {
+            //絵文字の追加
+            { "walk", "🚶‍" },
+            { "car", "🚗" },
+            { "balloon" ,"🎈" },
+            { "plane","✈️" }
+
+        };
+        public static string picture;
+        
+
         //listBoxに入れられる行数の制限
         public static int limit_LB_Input=10;
         public static int limit_LB_Car=10;
@@ -99,12 +121,15 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
-                                          //button1.Visible = false; // 非表示にする
-                       
+                                                               
 
             InputListBox = listBox_Input;
             ListBoxes.Add(listBox_Input);
             ListBoxes.Add(listBox_Car);
+            picture = "walk";            
+            listBox_Input.Focus();
+            ShowListBox();
+
 
 
 
@@ -118,10 +143,11 @@ namespace unilab2025
 
         private void listBox_Input_Click(object sender, EventArgs e)
         {
-            pictureBox0.Visible = false;
-            pictureBox2.Visible = false;
-            pictureBox4.Visible = false;
-            pictureBox6.Visible = false;
+
+            pictureBox0.Visible = true;
+            pictureBox2.Visible = true;
+            pictureBox4.Visible = true;
+            pictureBox6.Visible = true;
             pictureBox1.Visible = false;
             pictureBox3.Visible = false;
             pictureBox5.Visible = false;
@@ -132,6 +158,7 @@ namespace unilab2025
             button3.Enabled = true;
             button4.Enabled = true;
 
+            picture = "walk";
             InputListBox = listBox_Input;
             listBox_Input.Focus();
             ShowListBox();
@@ -155,7 +182,7 @@ namespace unilab2025
             button4.Enabled = false;
 
 
-
+            picture = "car";
             InputListBox = listBox_Car;
             listBox_Car.Focus();
             ShowListBox();
@@ -176,40 +203,69 @@ namespace unilab2025
 
         #endregion
 
+        #region リセット関連
+
+        public bool ResetListBox(ListBox listbox)   //ListBoxの中身消去
+        {
+            bool isAllReset = false;
+            if (listbox.SelectedIndex > -1)
+            {
+                listbox.Items.RemoveAt(listbox.SelectedIndex);
+                return isAllReset;
+            }
+            else
+            {
+                listbox.Items.Clear();
+                return !isAllReset;
+            }
+        }
+
+        private void button_one_Reset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Reset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
         #region ボタンの処理
         private void PictureBox0_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("↑");
+            InputListBox.Items.Add(Emoji[picture] +"  "+"↑");
             //if (isChange) Item_Change();
             //else Left_Availabel_Input();
         }
         private void PictureBox1_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("↗");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "↗");
         }
         private void PictureBox2_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("→");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "→");
         }
         private void PictureBox3_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("↘");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "↘");
         }
         private void PictureBox4_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("↓");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
         }
         private void PictureBox5_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("↙");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "↙");
         }
         private void PictureBox6_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("←");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "←");
         }
         private void PictureBox7_Click(object sender, EventArgs e) {
             if (Input_check()) return;
-            InputListBox.Items.Add("↖");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "↖");
         }
 
         bool Input_check()
@@ -233,10 +289,12 @@ namespace unilab2025
             return result;
         }
 
+        
+
         private void button1_Click(object sender, EventArgs e)
         {
-            //ボタンを有効にする
-            
+            picture = "walk";
+            //ボタンを有効にする            
             pictureBox0.Visible = true;
             pictureBox2.Visible = true;
             pictureBox4.Visible = true;
@@ -249,12 +307,49 @@ namespace unilab2025
 
         }
         private void button2_Click(object sender, EventArgs e)
-        { }
+        {            
+            if (listBox_Car.Items.Count < 1)
+            {
+                MessageBox.Show("車の入力をしてね");
+                pictureBox0.Visible = true;
+                pictureBox2.Visible = true;
+                pictureBox4.Visible = true;
+                pictureBox6.Visible = true;
+                pictureBox1.Visible = false;
+                pictureBox3.Visible = false;
+                pictureBox5.Visible = false;
+                pictureBox7.Visible = false;
+
+                button1.Enabled = false;
+                button2.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
+                picture = "car";
+                InputListBox = listBox_Car;
+                listBox_Car.Focus();
+                ShowListBox();
+                return;
+            }
+            if (Input_check()) return;
+            string combined = "";
+            foreach (var item in listBox_Car.Items)
+            {
+                string text = item.ToString();
+
+                // 先頭の1文字（または2文字）を抽出（絵文字によっては2文字以上）
+                string emoji = text.Substring(text.Length - 2, 2); // 1〜2文字目を仮に絵文字として取り出す
+                combined += emoji;
+            }
+
+            InputListBox.Items.Add("🚗 ("+combined+")");
+
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            picture = "balloon";            
             //ボタンを有効にする
-            
+
             pictureBox1.Visible = true;
             pictureBox3.Visible = true;
             pictureBox5.Visible = true;
@@ -269,8 +364,10 @@ namespace unilab2025
 
         private void button4_Click(object sender, EventArgs e)
         {
+            picture = "plane";
+            
             //ボタンを有効にする
-           
+
             pictureBox0.Visible = true;
             pictureBox2.Visible = true;
             pictureBox4.Visible = true;
@@ -319,6 +416,7 @@ namespace unilab2025
 
 
         #endregion
+
         
     }
 }
