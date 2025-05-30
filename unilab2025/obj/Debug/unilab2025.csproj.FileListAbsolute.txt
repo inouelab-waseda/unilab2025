@@ -21,3 +21,4 @@ C:\Users\funno\Source\Repos\unilab2025\unilab2025\bin\Debug\unilab2025.exe
 C:\Users\funno\Source\Repos\unilab2025\unilab2025\bin\Debug\unilab2025.pdb
 C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.pdb
 C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.Prologue.resources
+C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.Prologue.resources
