@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static unilab2025.Program;
+using System.Threading;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using System.Text.RegularExpressions;
+using System.IO;
+using System.Collections;
+using System.Security.Cryptography.X509Certificates;
+using System.Reflection.Emit;
+using System.Drawing.Drawing2D;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 
 namespace unilab2025
@@ -18,26 +26,32 @@ namespace unilab2025
     {
         public Stage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
+            //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            
             this.KeyPreview = true;
-            this.listBox_Input.Click += new System.EventHandler(this.listBox_Input_Click);
+            this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
             
 
-            pictureBox0.Click += PictureBox0_Click;
-            pictureBox1.Click += PictureBox1_Click;
-            pictureBox2.Click += PictureBox2_Click;
-            pictureBox3.Click += PictureBox3_Click;
-            pictureBox4.Click += PictureBox4_Click;
-            pictureBox5.Click += PictureBox5_Click;
-            pictureBox6.Click += PictureBox6_Click;
-            pictureBox7.Click += PictureBox7_Click;
-            
-            pictureBox1.Visible = false;
-            pictureBox3.Visible = false;
-            pictureBox5.Visible = false;
-            pictureBox7.Visible = false;
+            pictureBox_buttonUp.Click += PictureBox_buttonUp_Click;
+            pictureBox_upperRight.Click += PictureBox_upperRight_Click;
+            pictureBox_buttonRight.Click += PictureBox_buttonRight_Click;
+            pictureBox_lowerRight.Click += PictureBox_lowerRight_Click;
+            pictureBox_buttonDown.Click += PictureBox_buttonDown_Click;
+            pictureBox_lowerLeft.Click += PictureBox_lowerLeft_Click;
+            pictureBox_buttonLeft.Click += PictureBox_buttonLeft_Click;
+            pictureBox_upperLeft.Click += PictureBox_upperLeft_Click;
+
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;
 
             
             #region ボタン表示
@@ -45,19 +59,22 @@ namespace unilab2025
 
             #endregion
 
-            //pictureBoxの設定
-            pictureBox_Map.Parent = pictureBox_Background;
-            //pictureBox1.Location = new Point(600, 50);
-            pictureBox_Map.Location = new Point(30, 100);
+            bmp1 = new Bitmap(pictureBox_Map1.Width, pictureBox_Map1.Height);
+            bmp2 = new Bitmap(pictureBox_Map2.Width, pictureBox_Map2.Height);
+            pictureBox_Map1.Image = bmp1;
+            pictureBox_Map2.Image = bmp2;
 
-            bmp1 = new Bitmap(pictureBox_Map.Width, pictureBox_Map.Height);
-            pictureBox_Map.Image = bmp1;
+            g1 = Graphics.FromImage(bmp1);
+            g2 = Graphics.FromImage(bmp2);
 
-            
+            pictureBox_Map2.BackColor = Color.Transparent;
+            pictureBox_Map2.Parent = pictureBox_Map1;
+            pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
+            pictureBox_Map2.BringToFront(); //
         }
 
-        
+
 
         #region メンバー変数定義
         private string _worldName;
@@ -87,14 +104,61 @@ namespace unilab2025
         #region グローバル変数定義
         //ここに必要なBitmapやImageを作っていく        
         Bitmap bmp1;
+        Bitmap bmp2;
+
+        Brush goalBackgroundColor = new SolidBrush(Color.Yellow);
+        Brush startBackgroundColor = new SolidBrush(Color.Blue);
+
+
+        Image character_me = Dictionaries.Img_DotPic["銀髪ドット"];
 
         public static List<ListBox> ListBoxes = new List<ListBox>();
         public static ListBox InputListBox;   //入力先のリストボックス
         public static bool isChange = false;  //入力変更状態かどうか
         public static bool isFor = false;     //For文入力中かどうか
         public static int Change_Item_Number;
-        public static int[,] map = new int[12, 12]; //map情報
+        public static int[,] map; //ステージのマップデータ
+        public static int map_width; //マップの横幅
         public static string stageName;
+        public static int x_start; //スタート位置ｘ
+        public static int y_start; //スタート位置ｙ
+        public static int x_goal; //ゴール位置ｘ
+        public static int y_goal; //ゴール位置ｙ
+        public static int x_now; //現在位置ｘ
+        public static int y_now; //現在位置 y
+        public static int extra_length = 7;
+        public static int cell_length;
+        public static int For_count = 1; //for文のループ回数を保存
+        public static bool isEndfor = true; //forの最後が存在するか→ない場合はError
+
+        public static int count = 0; //試行回数カウント
+        public static int miss_count = 0; //ミスカウント
+
+        public static int count_walk = 0; //歩数カウント
+
+        public static List<int[]> move;  //プレイヤーの移動指示を入れるリスト
+
+        //listBoxに入れられる行数の制限
+        public static int limit_LB_Input=10;
+        public static int limit_LB_Car=10;
+
+        public static string hint;
+        public static string hint_character;
+        public static string hint_name;
+
+        public static string grade;    //学年
+        public static int gradenum;
+
+        //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
+        PictureBox pictureBox_Conv;
+        byte[] Capt;
+        List<Conversation> StartConv;
+        List<Conversation> EndConv;
+        List<Conversation> Message;
+        bool isStartConv;
+        bool isMessageMode;
+        public Graphics g1;
+        public Graphics g2;
 
         //表示される絵文字
         public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
@@ -107,11 +171,7 @@ namespace unilab2025
 
         };
         public static string picture;
-        
-
-        //listBoxに入れられる行数の制限
-        public static int limit_LB_Input=10;
-        public static int limit_LB_Car=10;
+                       
 
         #endregion
 
@@ -123,63 +183,147 @@ namespace unilab2025
             map = CreateStage(stageName); //ステージ作成
                                                                
 
-            InputListBox = listBox_Input;
-            ListBoxes.Add(listBox_Input);
+            InputListBox = listBox_Order;
+            ListBoxes.Add(listBox_Order);
             ListBoxes.Add(listBox_Car);
             picture = "walk";            
-            listBox_Input.Focus();
+            listBox_Order.Focus();
             ShowListBox();
-
-
-
+            grade = Regex.Replace(stageName, @"[^0-9]", "");
+            int chapter_num = int.Parse(grade) / 10;
+            
 
         }
 
+
+
+        #region 各コントロール機能設定
+
+        #endregion
+
+
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
+            //string stagenum = _worldNumber + "-" + _level;
+            using (StreamReader sr = new StreamReader($"Map\\{stageName}.csv"))
+            {
+                int x;
+                int y = 0;
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    string[] values = line.Split(',');
+                    map_width = values.Length; //マップの横幅を取得
+
+                    if (y == 0) map = new int[map_width, map_width]; //マップの初期化
+                    x = 0;
+
+                    foreach (var value in values)
+                    {
+                        // enum 使ったほうが分かりやすそう
+                        map[x, y] = int.Parse(value);
+                        switch (map[x, y])
+                        {
+                            case 0:
+                                x_start = x;
+                                y_start = y;
+                                x_now = x;
+                                y_now = y;
+                                break;
+                            case 1:
+                                x_goal = x;
+                                y_goal = y;
+                                break;
+                            default:
+                                break;
+                        }
+                        x++;
+                    }
+                    y++;
+                }
+            }
+
+            //label_Info.BackgroundImage = Image.FromFile("focus.png");
+
+
+            cell_length = pictureBox_Map2.Width / map_width;
+
+
+            for (int y = 0; y < map_width; y++)
+            {
+                for (int x = 0; x < map_width; x++)
+                {
+                    int placeX = x * cell_length;
+                    int placeY = y * cell_length;
+                    g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    switch (map[x, y])
+                    {
+                        case 1:
+                            x_goal = x;
+                            y_goal = y;
+                            if (_worldNumber > 4)
+                            {
+                                int goal = 10 + _worldNumber;
+                                g2.DrawImage(Dictionaries.Img_Object[goal.ToString()], placeX, placeY, cell_length, cell_length);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            // キャラクターの描画をループの外に出す
+            g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                // pictureBox_Map2を同期的にRefreshする
+                pictureBox_Map1.Refresh();
+                pictureBox_Map2.Refresh();
+            });
             return map;
         }
         #region 各コントロール機能設定
 
-        private void listBox_Input_Click(object sender, EventArgs e)
+        private void listBox_Order_Click(object sender, EventArgs e)
         {
 
-            pictureBox0.Visible = true;
-            pictureBox2.Visible = true;
-            pictureBox4.Visible = true;
-            pictureBox6.Visible = true;
-            pictureBox1.Visible = false;
-            pictureBox3.Visible = false;
-            pictureBox5.Visible = false;
-            pictureBox7.Visible = false;
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;                     
 
-            button1.Enabled = true;
-            button2.Enabled = true;
-            button3.Enabled = true;
-            button4.Enabled = true;
+            button_walk.Enabled = true;
+            button_car.Enabled = true;
+            button_balloon.Enabled = true;
+            button_plane.Enabled = true;
 
             picture = "walk";
-            InputListBox = listBox_Input;
-            listBox_Input.Focus();
+            InputListBox = listBox_Order;
+            listBox_Order.Focus();
             ShowListBox();
         }
 
         private void listBox_Car_Click(object sender, EventArgs e)
         {
             //ボタンを有効にする           
-            pictureBox0.Visible = true;
-            pictureBox2.Visible = true;
-            pictureBox4.Visible = true;
-            pictureBox6.Visible = true;
-            pictureBox1.Visible = false;
-            pictureBox3.Visible = false;
-            pictureBox5.Visible = false;
-            pictureBox7.Visible = false;
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;
 
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button3.Enabled = false;
-            button4.Enabled = false;
+            button_walk.Enabled = false;
+            button_car.Enabled = false;
+            button_balloon.Enabled = false;
+            button_plane.Enabled = false;
 
 
             picture = "car";
@@ -205,53 +349,53 @@ namespace unilab2025
 
         #region リセット関連        
 
-        private void button_one_Reset_Click(object sender, EventArgs e)
+        private void button_back_Click(object sender, EventArgs e)
         {
             if (InputListBox.SelectedIndex > -1)
             {
-                InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);
+                InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);//1つ消す
             }
         }
 
-        private void button_Reset_Click(object sender, EventArgs e)
+        private void button_reset_Click(object sender, EventArgs e)
         {
-            InputListBox.Items.Clear();
+            InputListBox.Items.Clear();//全て消す
         }
 
         #endregion
 
         #region ボタンの処理
-        private void PictureBox0_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonUp_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] +"  "+"↑");
             //if (isChange) Item_Change();
             //else Left_Availabel_Input();
         }
-        private void PictureBox1_Click(object sender, EventArgs e) {
+        private void PictureBox_upperRight_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↗");
         }
-        private void PictureBox2_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonRight_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "→");
         }
-        private void PictureBox3_Click(object sender, EventArgs e) {
+        private void PictureBox_lowerRight_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↘");
         }
-        private void PictureBox4_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonDown_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
         }
-        private void PictureBox5_Click(object sender, EventArgs e) {
+        private void PictureBox_lowerLeft_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↙");
         }
-        private void PictureBox6_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonLeft_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "←");
         }
-        private void PictureBox7_Click(object sender, EventArgs e) {
+        private void PictureBox_upperLeft_Click(object sender, EventArgs e) {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↖");
         }
@@ -261,7 +405,7 @@ namespace unilab2025
             bool result = false;
             switch (InputListBox.Name)
             {
-                case "listBox_Input":
+                case "listBox_Order":
                     if (InputListBox.Items.Count < limit_LB_Input) break;
                     else goto default;
                 case "listBox_Car":
@@ -279,39 +423,39 @@ namespace unilab2025
 
         
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_walk_Click(object sender, EventArgs e)
         {
             picture = "walk";
             //ボタンを有効にする            
-            pictureBox0.Visible = true;
-            pictureBox2.Visible = true;
-            pictureBox4.Visible = true;
-            pictureBox6.Visible = true;
-            pictureBox1.Visible = false;
-            pictureBox3.Visible = false;
-            pictureBox5.Visible = false;
-            pictureBox7.Visible = false;
-           
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;
+
 
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void button_car_Click(object sender, EventArgs e)
         {            
             if (listBox_Car.Items.Count < 1)
             {
                 MessageBox.Show("車の入力をしてね");
-                pictureBox0.Visible = true;
-                pictureBox2.Visible = true;
-                pictureBox4.Visible = true;
-                pictureBox6.Visible = true;
-                pictureBox1.Visible = false;
-                pictureBox3.Visible = false;
-                pictureBox5.Visible = false;
-                pictureBox7.Visible = false;
+                pictureBox_buttonUp.Visible = true;
+                pictureBox_buttonRight.Visible = true;
+                pictureBox_buttonDown.Visible = true;
+                pictureBox_buttonLeft.Visible = true;
+                pictureBox_upperRight.Visible = false;
+                pictureBox_lowerRight.Visible = false;
+                pictureBox_lowerLeft.Visible = false;
+                pictureBox_upperLeft.Visible = false;
 
-                button1.Enabled = false;
-                button2.Enabled = false;
-                button3.Enabled = false;
-                button4.Enabled = false;
+                button_walk.Enabled = false;
+                button_car.Enabled = false;
+                button_balloon.Enabled = false;
+                button_plane.Enabled = false;
                 picture = "car";
                 InputListBox = listBox_Car;
                 listBox_Car.Focus();
@@ -333,38 +477,38 @@ namespace unilab2025
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button_balloon_Click(object sender, EventArgs e)
         {
-            picture = "balloon";            
+            picture = "balloon";
             //ボタンを有効にする
 
-            pictureBox1.Visible = true;
-            pictureBox3.Visible = true;
-            pictureBox5.Visible = true;
-            pictureBox7.Visible = true;
-            pictureBox0.Visible = false;
-            pictureBox2.Visible = false;
-            pictureBox4.Visible = false;
-            pictureBox6.Visible = false;
-            
+            pictureBox_buttonUp.Visible = false;
+            pictureBox_buttonRight.Visible = false;
+            pictureBox_buttonDown.Visible = false;
+            pictureBox_buttonLeft.Visible = false;
+            pictureBox_upperRight.Visible = true;
+            pictureBox_lowerRight.Visible = true;
+            pictureBox_lowerLeft.Visible = true;
+            pictureBox_upperLeft.Visible = true;
+
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button_plane_Click(object sender, EventArgs e)
         {
             picture = "plane";
-            
+
             //ボタンを有効にする
 
-            pictureBox0.Visible = true;
-            pictureBox2.Visible = true;
-            pictureBox4.Visible = true;
-            pictureBox6.Visible = true;
-            pictureBox1.Visible = false;
-            pictureBox3.Visible = false;
-            pictureBox5.Visible = false;
-            pictureBox7.Visible = false;
-            
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;
+
 
         }
 
@@ -391,20 +535,22 @@ namespace unilab2025
         private void Arrow()//矢印の表示
         {
             Image original = Dictionaries.Img_Button["arrow1"];
-            pictureBox0.Image= RotateImage(original, 0f);
-            pictureBox1.Image = RotateImage(original, 45f);
-            pictureBox2.Image = RotateImage(original, 90f);
-            pictureBox3.Image = RotateImage(original, 135f);
-            pictureBox4.Image = RotateImage(original, 180f);
-            pictureBox5.Image = RotateImage(original, 225f);
-            pictureBox6.Image = RotateImage(original, 270f);
-            pictureBox7.Image = RotateImage(original, 315f);
+            pictureBox_buttonUp.Image= RotateImage(original, 0f);
+            pictureBox_upperRight.Image = RotateImage(original, 45f);
+            pictureBox_buttonRight.Image = RotateImage(original, 90f);
+            pictureBox_lowerRight.Image = RotateImage(original, 135f);
+            pictureBox_buttonDown.Image = RotateImage(original, 180f);
+            pictureBox_lowerLeft.Image = RotateImage(original, 225f);
+            pictureBox_buttonLeft.Image = RotateImage(original, 270f);
+            pictureBox_upperLeft.Image = RotateImage(original, 315f);
         }
+
 
 
 
         #endregion
 
+        
         
     }
 }

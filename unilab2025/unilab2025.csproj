@@ -84,6 +84,9 @@
     <Compile Include="WorldMap.Designer.cs">
       <DependentUpon>WorldMap.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Prologue.resx">
+      <DependentUpon>Prologue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

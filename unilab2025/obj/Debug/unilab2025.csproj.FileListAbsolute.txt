@@ -9,3 +9,16 @@ C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.csproj.Co
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.exe
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.pdb
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.Stage.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.csproj.AssemblyReference.cache
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.Properties.Resources.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.Stage.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.Title.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.csproj.GenerateResource.cache
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.csproj.CoreCompileInputs.cache
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.exe
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\bin\Debug\unilab2025.exe.config
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\bin\Debug\unilab2025.exe
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\bin\Debug\unilab2025.pdb
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.pdb
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.Prologue.resources
+C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.Prologue.resources

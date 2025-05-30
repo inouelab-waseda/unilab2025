@@ -37,5 +37,10 @@ namespace unilab2025
             }
         }
         #endregion
+
+        private void Prologue_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
