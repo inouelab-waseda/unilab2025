@@ -203,22 +203,7 @@ namespace unilab2025
 
         #endregion
 
-        #region リセット関連
-
-        //public bool ResetListBox(ListBox listbox)   //ListBoxの中身消去
-        //{
-        //    bool isAllReset = false;
-        //    if (listbox.SelectedIndex > -1)
-        //    {
-        //        listbox.Items.RemoveAt(listbox.SelectedIndex);// 1つ削除
-        //        return isAllReset;
-        //    }
-        //    else
-        //    {
-        //        listbox.Items.Clear();//全部削除
-        //        return !isAllReset;
-        //    }
-        //}
+        #region リセット関連        
 
         private void button_one_Reset_Click(object sender, EventArgs e)
         {
