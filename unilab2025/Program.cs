@@ -25,28 +25,52 @@ namespace unilab2025
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //ゲームで使う画像を先に読み込んでおく
+            Func.LoadImg_Background();//背景
+            Func.LoadImg_Button();//ボタン
+
             Application.Run(new Title());
         }
         #endregion
+    }
 
-        #region フォーム呼び出し
-        public static partial class Func
+    #region フォーム呼び出し
+    public static partial class Func
+    {
+
+        public static void CreatePrologue(Form currentForm)
         {
+            CurrentFormState.FormName = "Prologue";
+            CurrentFormState.StateData.Clear();
 
-            public static void CreatePrologue(Form currentForm)
+            Prologue form = new Prologue();
+            form.Show();
+            if (!(currentForm is Title))
             {
-                CurrentFormState.FormName = "Prologue";
-                CurrentFormState.StateData.Clear();
-
-                Prologue form = new Prologue();
-                form.Show();
-                if (!(currentForm is Title))
-                {
-                    currentForm.Dispose();
-                }
+                currentForm.Dispose();
             }
         }
-        #endregion
+        public static void CreateStage(Form currentForm, string worldName, int worldNumber, int level) //呼び出し方: Func.CreateStageSelect(this,"1");  各ステージどう名付けるか決めたい
+        {
+            CurrentFormState.FormName = "Stage";
+            CurrentFormState.StateData.Clear();
+            CurrentFormState.StateData["WorldName"] = worldName;
+            CurrentFormState.StateData["WorldNumber"] = worldNumber;
+            CurrentFormState.StateData["Level"] = level;
+
+            Stage form = new Stage();
+            form.WorldName = worldName;
+            form.WorldNumber = worldNumber;
+            form.Level = level;
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
+    }
+    #endregion
 
         #region 会話
         public static partial class ConversationsFunc
@@ -369,11 +393,18 @@ namespace unilab2025
             }
         }
 
-        #endregion
+    #endregion
 
+    #region キャラ選択結果
+    public partial class MainCharacter
+    {
+        public static bool isBoy = true;
+        public static bool isGirl = false;
+    }
+    #endregion
 
-        #region 各データのDictionaryと読み込み関数
-        public partial class Dictionaries
+    #region 各データのDictionaryと読み込み関数
+    public partial class Dictionaries
         {
             public static Dictionary<string, Image> Img_Character = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_DotPic = new Dictionary<string, Image>();
@@ -385,70 +416,90 @@ namespace unilab2025
             public static Dictionary<string, List<Message>> Messages = new Dictionary<string, List<Message>>();
         }
 
-        public partial class Func
+    public partial class Func
+    {
+        public static void LoadImg_Background()
         {
-            public static void LoadImg_Background()
+            Dictionaries.Img_Background.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Background");
+            foreach (string file in files)
             {
-                Dictionaries.Img_Background.Clear();
-                string[] files = Directory.GetFiles(@"Image\\Background");
-                foreach (string file in files)
-                {
-                    string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Background_", "");
-                    Dictionaries.Img_Background[key] = Image.FromFile(file);
-                }
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Background_", "");
+                Dictionaries.Img_Background[key] = Image.FromFile(file);
             }
-
-            //メッセージウィンドウ画像読み込み
-            public static void LoadImg_Conversation()
+        }
+        //メッセージウィンドウ画像読み込み
+        public static void LoadImg_Conversation()
+        {
+            Dictionaries.Img_Conversation.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Conversation");
+            foreach (string file in files)
             {
-                Dictionaries.Img_Conversation.Clear();
-                string[] files = Directory.GetFiles(@"Image\\Conversation");
-                foreach (string file in files)
-                {
-                    string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Conversation_", "");
-                    Dictionaries.Img_Conversation[key] = Image.FromFile(file);
-                }
-            }
-
-            //DictionaryにMessageCSVのデータを追加
-            public static Dictionary<string, List<Message>> ConvertToDictionary(List<Message> messageList)
-            {
-                Dictionary<string, List<Message>> messagesDict = new Dictionary<string, List<Message>>();
-
-                foreach (var message in messageList)
-                {
-                    if (!messagesDict.ContainsKey(message.Situation))
-                    {
-                        messagesDict[message.Situation] = new List<Message>();
-                    }
-                    messagesDict[message.Situation].Add(message);
-                }
-
-                return messagesDict;
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Conversation_", "");
+                Dictionaries.Img_Conversation[key] = Image.FromFile(file);
             }
         }
 
-        #endregion
-
-
-        #region キャラ選択結果
-        public partial class MainCharacter
+        //DictionaryにMessageCSVのデータを追加
+        public static Dictionary<string, List<Message>> ConvertToDictionary(List<Message> messageList)
         {
-            public static bool isBoy = true;
-            public static bool isGirl = false;
-        }
-        #endregion
+            Dictionary<string, List<Message>> messagesDict = new Dictionary<string, List<Message>>();
 
+            foreach (var message in messageList)
+            {
+                if (!messagesDict.ContainsKey(message.Situation))
+                {
+                    messagesDict[message.Situation] = new List<Message>();
+                }
+                messagesDict[message.Situation].Add(message);
+            }
 
-        #region 進行状況管理
-        public partial class CurrentFormState
-        {
-            public static string FormName = "Prologue";
-            public static Dictionary<string, object> StateData = new Dictionary<string, object>();
+            return messagesDict;
         }
 
-        #endregion
 
-
+        public static void LoadImg_DotPic()
+        {
+            Dictionaries.Img_DotPic.Clear();
+            string charaDirectory = "";
+            if (MainCharacter.isBoy)
+            {
+                charaDirectory = @"Image\\DotPic\\Boy";
+            }
+            else
+            {
+                charaDirectory = @"Image\\DotPic\\Girl";
+            }
+            string[] files = Directory.GetFiles(charaDirectory);
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_DotPic_", "");
+                Dictionaries.Img_DotPic[key] = Image.FromFile(file);
+            }
+        }
+        public static void LoadImg_Button()
+        {
+            Dictionaries.Img_Button.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Button");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Button_", "");
+                Dictionaries.Img_Button[key] = Image.FromFile(file);
+            }
+        }   
+        
     }
+
+    #endregion
+
+    #region 進行状況管理
+    public partial class CurrentFormState
+    {
+        public static string FormName = "Prologue";
+        public static Dictionary<string, object> StateData = new Dictionary<string, object>();
+    }
+
+    #endregion
+
+    
 }

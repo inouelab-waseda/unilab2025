@@ -8,3 +8,4 @@ C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.csproj.Ge
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.csproj.CoreCompileInputs.cache
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.exe
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.pdb
+C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.Stage.resources

@@ -27,10 +27,19 @@ namespace unilab2025
             switch (CurrentFormState.FormName)
             {
                 case "Prologue":
-                    Program.Func.CreatePrologue(this);
+                    Func.CreatePrologue(this);
+                    break;
+
+                case "Stage":
+                    worldName = (string)CurrentFormState.StateData["WorldName"];
+                    worldNumber = (int)CurrentFormState.StateData["WorldNumber"];
+                    level = (int)CurrentFormState.StateData["Level"];
+                    Func.CreateStage(this, worldName, worldNumber, level);
                     break;
 
             }
+
+
         }
     }
 }
