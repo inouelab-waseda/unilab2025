@@ -491,6 +491,7 @@ namespace unilab2025
                 Dictionaries.Img_Character[key] = Image.FromFile(file);
             }
         }
+
         //メッセージウィンドウ画像読み込み
         public static void LoadImg_Conversation()
         {

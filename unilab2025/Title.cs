@@ -17,6 +17,7 @@ namespace unilab2025
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

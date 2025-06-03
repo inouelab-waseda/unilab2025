@@ -21,6 +21,7 @@ namespace unilab2025
             this.KeyPreview = true;
         }
 
+
         #region 諸々クリックの処理
 
         #endregion

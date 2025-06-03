@@ -149,6 +149,7 @@ namespace unilab2025
         public static string grade;    //学年
         public static int gradenum;
 
+
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
         PictureBox pictureBox_Conv;
         byte[] Capt;
