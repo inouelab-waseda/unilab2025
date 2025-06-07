@@ -102,6 +102,7 @@
             this.button_Start.TabIndex = 2;
             this.button_Start.Text = "出発！";
             this.button_Start.UseVisualStyleBackColor = true;
+            this.button_Start.Click += new System.EventHandler(this.button_Start_Click);
             // 
             // button_reset
             // 
