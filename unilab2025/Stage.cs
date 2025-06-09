@@ -759,7 +759,7 @@ namespace unilab2025
         /// <param name="y">現在地のy座標</param>
         /// <param name="Map">ステージのマップ情報</param>
         /// <param name="move">動きのリスト</param>
-        public void SquareMovement(int x, int y, int[,] Map, List<int[]> move)
+        public async void  SquareMovement(int x, int y, int[,] Map, List<int[]> move)
         {
             Graphics g2 = Graphics.FromImage(bmp2);
             //cell_length = pictureBox1.Width / 12;
@@ -804,6 +804,8 @@ namespace unilab2025
                 (x_now, y_now) = place_update(a, b, move_next);
                 //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
                 DrawCharacter(x_now, y_now, ref character_me);
+                pictureBox_Map2.Refresh();
+                
                 //this.Invoke((MethodInvoker)delegate
                 //{
                 //    // pictureBox2を同期的にRefreshする
@@ -815,6 +817,8 @@ namespace unilab2025
             {
                 if (move_copy.Count == 0)//動作がすべて終了した場合
                 {
+                    button_Start.Visible = true;
+                    button_Start.Enabled = true;
                     //if (x_now != x_goal || y_now != y_goal)
                     //{
                     //    DisplayMessage("miss_end");
@@ -837,7 +841,8 @@ namespace unilab2025
                 else
                 {
                     (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    break;
+                    move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
+                    await Task.Delay(500);
 
                     //if (Colision_detection(x, y, Map, move_copy) && jump == 0)
                     //{
