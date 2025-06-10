@@ -50,11 +50,12 @@
             // 
             this.buttonStart.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonStart.Location = new System.Drawing.Point(300, 298);
+            this.buttonStart.Font = new System.Drawing.Font("MS UI Gothic", 15F);
+            this.buttonStart.Location = new System.Drawing.Point(287, 292);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(207, 79);
             this.buttonStart.TabIndex = 1;
-            this.buttonStart.Text = "button1";
+            this.buttonStart.Text = "はじめる";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
