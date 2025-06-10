@@ -151,6 +151,8 @@ namespace unilab2025
 
         public static string grade;    //学年
         public static int gradenum;
+        public static int car_count;
+        public static List<string> list_car;
 
 
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
@@ -195,6 +197,10 @@ namespace unilab2025
             ShowListBox();
             grade = Regex.Replace(stageName, @"[^0-9]", "");
             int chapter_num = int.Parse(grade) / 10;
+
+            
+            Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
+            
 
 
         }
@@ -544,7 +550,7 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
-
+                       
 
         }
         private void button_car_Click(object sender, EventArgs e)
@@ -808,18 +814,57 @@ namespace unilab2025
                 //}
                 g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             }
-
+            car_count = 0;
             (int, int) draw_move(int a, int b, ref List<int[]> move_next)
             {
+                
                 (x_now, y_now) = place_update(a, b, move_next);
+
                 //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
+                if (Input_arrow.Count > 0)
+                {
+                    if (Input_arrow[0].Contains("🚗"))
+                    {
+                        car_count = listBox_Car.Items.Count;
+                        Input_arrow.RemoveAt(0);                        
 
-                if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["銀髪(後ろ)"];
-                else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["銀髪(横右)"];
-                else if (Input_arrow[0].Contains("↓")) character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
-                else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["銀髪ドット(横左)"]; 
+                        list_car = listBox_Car.Items.Cast<string>().ToList();
 
-                DrawCharacter(x_now, y_now, ref character_me);
+                    }
+
+
+                    if (car_count > 0)
+                    {
+                        if (list_car[0].Contains("↑")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 0f);
+                        else if (list_car[0].Contains("→")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 90f);
+                        else if (list_car[0].Contains("↓")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 180f);
+                        else if (list_car[0].Contains("←")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 270f);
+                        car_count -= 1;
+                        list_car.RemoveAt(0);
+                    }
+                    else
+                    {
+                        if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["銀髪(後ろ)"];
+                        else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["銀髪(横右)"];
+                        else if (Input_arrow[0].Contains("↓")) character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                        else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["銀髪ドット(横左)"];
+                    }
+                }
+                if (Input_arrow.Count == 0&& car_count > 0)
+                {
+                    if (car_count > 0)
+                    {
+                        if (list_car[0].Contains("↑")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 0f);
+                        else if (list_car[0].Contains("→")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 90f);
+                        else if (list_car[0].Contains("↓")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 180f);
+                        else if (list_car[0].Contains("←")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 270f);
+                        car_count -= 1;
+                        list_car.RemoveAt(0);
+                    }                    
+                }
+
+
+                    DrawCharacter(x_now, y_now, ref character_me);
                 pictureBox_Map2.Refresh();
                 
                 //this.Invoke((MethodInvoker)delegate
@@ -833,34 +878,47 @@ namespace unilab2025
             {
                 if (move_copy.Count == 0)//動作がすべて終了した場合
                 {
+                    g2.Clear(Color.Transparent);
                     Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
                     DrawCharacter(x_now, y_now, ref character_me);
                     pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
                     button_Start.Enabled = true;
-                    //if (x_now != x_goal || y_now != y_goal)
-                    //{
-                    //    DisplayMessage("miss_end");
-                    //}
-                    //else
-                    //{
-                    //    g2.Clear(Color.Transparent);
-                    //    //Graphics g2 = Graphics.FromImage(bmp2);
-                    //    int placeX = x_goal * cell_length;
-                    //    int placeY = y_goal * cell_length;
-                    //    g2.DrawImage(Dictionaries.Img_DotPic["GOAL"], placeX - extra_length, placeY - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-                    //    this.Invoke((MethodInvoker)delegate
-                    //    {
-                    //        // pictureBox2を同期的にRefreshする
-                    //        //pictureBox2.Refresh();
-                    //    });
-                    //}
-                    break;
+                    if (x_now != x_goal || y_now != y_goal)
+                    {
+                        MessageBox.Show("やり直し");
+                        g2.Clear(Color.Transparent);
+                        DrawCharacter(x_start, y_start, ref character_me);
+                        pictureBox_Map2.Refresh();                        
+                        x_now = x_start;
+                        y_now = y_start;
+                    }
+                    else
+                    {
+                        MessageBox.Show("成功");
+                    }
+                        //else
+                        //{
+                        //    g2.Clear(Color.Transparent);
+                        //    //Graphics g2 = Graphics.FromImage(bmp2);
+                        //    int placeX = x_goal * cell_length;
+                        //    int placeY = y_goal * cell_length;
+                        //    g2.DrawImage(Dictionaries.Img_DotPic["GOAL"], placeX - extra_length, placeY - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                        //    this.Invoke((MethodInvoker)delegate
+                        //    {
+                        //        // pictureBox2を同期的にRefreshする
+                        //        //pictureBox2.Refresh();
+                        //    });
+                        //}
+                        break;
                 }
                 else
                 {
                     (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    Input_arrow.RemoveAt(0);
+                    if (car_count == 0&& Input_arrow.Count>0)
+                    {                        
+                        Input_arrow.RemoveAt(0);
+                    }
                     move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     await Task.Delay(500);
 
