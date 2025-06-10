@@ -72,6 +72,7 @@ namespace unilab2025
             pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
             pictureBox_Map2.BringToFront(); //
+            
         }
 
 
@@ -137,6 +138,8 @@ namespace unilab2025
         public static int count_walk = 0; //歩数カウント
 
         public static List<int[]> move;  //プレイヤーの移動指示を入れるリスト
+        public static List<string> Input_arrow = new List<string>();
+        
 
         //listBoxに入れられる行数の制限
         public static int limit_LB_Input = 10;
@@ -380,7 +383,7 @@ namespace unilab2025
             button_Start.Visible = false;
             button_Start.Enabled = false;
             move = Movement(); //ユーザーの入力を読み取る
-            
+            //List<string> Input_Main = 
 
             SquareMovement(x_now, y_now, map, move); //キャラ動かす
             //count += 1;
@@ -695,6 +698,7 @@ namespace unilab2025
         /// 実際にユーザーの入力を読み取り、動きのListを作成
         /// </summary>
         /// <returns></returns>
+        
         public List<int[]> Movement()      //動作の関数
         {
             var Move_Car = new List<int[]>();                                                           //車での動きを保存                                                                    
@@ -714,6 +718,10 @@ namespace unilab2025
             string[] Get_Input_Main = this.listBox_Order.Items.Cast<string>().ToArray();
             //Get_Input_Main = exchange_move(Get_Input_Main);
             List<string> Move_Main_List = new List<string>(Get_Input_Main);
+            foreach (string item in Get_Input_Main)
+            {
+                Input_arrow.Add(item);  // ← ここで値を追加
+            }
             List<int[]> move = new List<int[]>();
 
             if (Get_Input_Main.Length != 0)
@@ -770,6 +778,7 @@ namespace unilab2025
             }
 
             List<int[]> move_copy = new List<int[]>(move);
+            
 
             int jump = 0;
             bool DoubleJump = false;
@@ -803,6 +812,12 @@ namespace unilab2025
             {
                 (x_now, y_now) = place_update(a, b, move_next);
                 //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
+
+                if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["銀髪(後ろ)"];
+                else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["銀髪(横右)"];
+                else if (Input_arrow[0].Contains("↓")) character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["銀髪ドット(横左)"]; 
+
                 DrawCharacter(x_now, y_now, ref character_me);
                 pictureBox_Map2.Refresh();
                 
@@ -817,6 +832,9 @@ namespace unilab2025
             {
                 if (move_copy.Count == 0)//動作がすべて終了した場合
                 {
+                    Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                    DrawCharacter(x_now, y_now, ref character_me);
+                    pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
                     button_Start.Enabled = true;
                     //if (x_now != x_goal || y_now != y_goal)
@@ -841,6 +859,7 @@ namespace unilab2025
                 else
                 {
                     (x_now, y_now) = draw_move(x, y, ref move_copy);
+                    Input_arrow.RemoveAt(0);
                     move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     await Task.Delay(500);
 
