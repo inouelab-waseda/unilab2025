@@ -201,7 +201,8 @@ namespace unilab2025
 
             
             Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
-            
+            Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
+
 
 
         }
@@ -680,6 +681,12 @@ namespace unilab2025
             else if (item.Contains("→")) direction = "→";
             else if (item.Contains("↓")) direction = "↓";
             else if (item.Contains("←")) direction = "←";
+            else if (item.Contains("↗")) direction = "↗";
+            else if (item.Contains("↘")) direction = "↘";
+            else if (item.Contains("↙")) direction = "↙";
+            else if (item.Contains("↖")) direction = "↖";
+
+
             int Direction_Index = 10;
             switch (direction)
             {
@@ -695,17 +702,33 @@ namespace unilab2025
                 case "←":
                     Direction_Index = 3;
                     break;
+                case "↗":
+                    Direction_Index = 4;
+                    break;
+                case "↘":
+                    Direction_Index = 5;
+                    break;
+                case "↙":
+                    Direction_Index = 6;
+                    break;
+                case "↖":
+                    Direction_Index = 7;
+                    break;
 
 
                 default:
                     break;
             }
-            int[][] move = new int[4][];       // up,right.down,leftの順
+            int[][] move = new int[8][];       // up,right.down,leftの順
             move[0] = new int[] { 0, -1 };     //up
             move[1] = new int[] { 1, 0 };      //right
             move[2] = new int[] { 0, 1 };      //down 
             move[3] = new int[] { -1, 0 };     //left
-            if (Direction_Index < 4) movelist.Add(move[Direction_Index]);
+            move[4] = new int[] { 1, -1 };     
+            move[5] = new int[] { 1, 1 };      
+            move[6] = new int[] { -1, 1 };      
+            move[7] = new int[] { -1, -1 };
+            if (Direction_Index < 8) movelist.Add(move[Direction_Index]);
         }
 
         /// <summary>
@@ -850,12 +873,19 @@ namespace unilab2025
                         car_count -= 1;
                         list_car.RemoveAt(0);
                     }
-                    else if (car_count == 0)
+                    else if (car_count == 0&& Input_arrow[0].Contains("🚶‍"))
                     {
                         if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["銀髪(後ろ)"];
                         else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["銀髪(横右)"];
                         else if (Input_arrow[0].Contains("↓")) character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
                         else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["銀髪ドット(横左)"];
+                    }
+                    else if(car_count == 0&& Input_arrow[0].Contains("🎈"))
+                    {
+                        if (Input_arrow[0].Contains("↗")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
+                        else if (Input_arrow[0].Contains("↘")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
+                        else if (Input_arrow[0].Contains("↙")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
+                        else if (Input_arrow[0].Contains("↖")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
                     }
                 }
                 
