@@ -32,12 +32,12 @@ namespace unilab2025
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
             //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
-            
+
             this.KeyPreview = true;
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
-            
+
 
             pictureBox_buttonUp.Click += PictureBox_buttonUp_Click;
             pictureBox_upperRight.Click += PictureBox_upperRight_Click;
@@ -53,7 +53,7 @@ namespace unilab2025
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
 
-            
+
             #region ボタン表示
             Arrow();//矢印の表示設定
 
@@ -129,7 +129,7 @@ namespace unilab2025
         public static int extra_length = 7;
         public static int cell_length;
         public static int For_count = 1; //for文のループ回数を保存
-        public static bool isEndfor = true; //forの最後が存在するか→ない場合はError
+        //public static bool isEndfor = true; //forの最後が存在するか→ない場合はError
 
         public static int count = 0; //試行回数カウント
         public static int miss_count = 0; //ミスカウント
@@ -139,8 +139,8 @@ namespace unilab2025
         public static List<int[]> move;  //プレイヤーの移動指示を入れるリスト
 
         //listBoxに入れられる行数の制限
-        public static int limit_LB_Input=10;
-        public static int limit_LB_Car=10;
+        public static int limit_LB_Input = 10;
+        public static int limit_LB_Car = 10;
 
         public static string hint;
         public static string hint_character;
@@ -172,7 +172,7 @@ namespace unilab2025
 
         };
         public static string picture;
-                       
+
 
         #endregion
 
@@ -182,17 +182,17 @@ namespace unilab2025
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
-                                                               
+
 
             InputListBox = listBox_Order;
             ListBoxes.Add(listBox_Order);
             ListBoxes.Add(listBox_Car);
-            picture = "walk";            
+            picture = "walk";
             listBox_Order.Focus();
             ShowListBox();
             grade = Regex.Replace(stageName, @"[^0-9]", "");
             int chapter_num = int.Parse(grade) / 10;
-            
+
 
         }
 
@@ -296,7 +296,7 @@ namespace unilab2025
             pictureBox_upperRight.Visible = false;
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
-            pictureBox_upperLeft.Visible = false;                     
+            pictureBox_upperLeft.Visible = false;
 
             button_walk.Enabled = true;
             button_car.Enabled = true;
@@ -336,13 +336,13 @@ namespace unilab2025
         public void ShowListBox()
         {
             foreach (ListBox listbox in ListBoxes)
-            {                
+            {
                 listbox.BackColor = Color.Gray;
                 listbox.ForeColor = Color.Black;
             }
             InputListBox.BackColor = Color.White;
             InputListBox.ForeColor = Color.Black;
-                      
+
 
         }
 
@@ -363,40 +363,144 @@ namespace unilab2025
             InputListBox.Items.Clear();//全て消す
         }
 
+        private void DisplayMessage(string type)
+        {
+            isMessageMode = true;
+            //Message = Dictionaries.Messages[type];
+            //Capt = Func.PlayConv(this, pictureBox_Conv, Message);
+        }
+
+
+
         #endregion
 
-        #region ボタンの処理
-        private void PictureBox_buttonUp_Click(object sender, EventArgs e) {
+        #region ボタン押下時処理
+        private async void button_Start_Click(object sender, EventArgs e)
+        {
+            button_Start.Visible = false;
+            button_Start.Enabled = false;
+            move = Movement(); //ユーザーの入力を読み取る
+            
+
+            SquareMovement(x_now, y_now, map, move); //キャラ動かす
+            //count += 1;
+            //if (x_goal == x_now && y_goal == y_now)
+            //{
+            //    //label_Result.Text = "クリア！！";
+            //    //label_Result.Visible = true;
+            //    //button_ToMap.Enabled = true;
+            //    //button_Retry.Enabled = false;
+            //    //button_ToMap.Visible = true;
+            //    isStartConv = false;
+            //    //button_ToMap.Location = new Point(800, 600);
+            //    //button_ToMap.Size = new Size(200, 50);
+
+            //    ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
+            //    if (_worldNumber == 4)
+            //    {
+            //        if (!ClearCheck.IsCleared[_worldNumber, 0])
+            //        {
+            //            ClearCheck.PlayAfterChapter4Story = true;
+            //        }
+            //        for (int j = 0; j < (int)ConstNum.numStages; j++)
+            //        {
+            //            ClearCheck.IsCleared[_worldNumber, j] = true;
+            //        }
+            //        for (int i = _worldNumber + 1; i < (int)ConstNum.numWorlds; i++)
+            //        {
+            //            for (int j = 0; j <= 1; j++)
+            //            {
+            //                ClearCheck.IsButtonEnabled[i, j] = true;
+            //                ClearCheck.IsNew[i, j] = true;
+            //            }
+            //        }
+            //    }
+            //    else if (_level == 3)
+            //    {
+            //        ClearCheck.IsCleared[_worldNumber, 0] = true;
+            //        switch (_worldNumber)
+            //        {
+            //            case 1:
+            //            case 2:
+            //            case 3:
+            //                for (int j = 0; j <= 1; j++)
+            //                {
+            //                    ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+            //                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
+            //                }
+            //                break; ;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+            //        ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+            //        Func.UpdateIsNew();
+            //    }
+
+            //    if (Func.HasNewStageInAllWorld())
+            //    {
+            //        //button_ToMap.ConditionImage = Dictionaries.Img_Button["New"];
+            //    }
+
+            //    if (!ClearCheck.Completed)
+            //    {
+            //        if (Func.IsAllStageClearedInWorld(false))
+            //        {
+            //            ClearCheck.Completed = true;
+            //            ClearCheck.PlayAfterAnotherWorldStory = true;
+            //        }
+            //    }
+
+            //    await Task.Delay((int)ConstNum.waitTime_End);
+            //    Capt = Func.PlayConv(this, pictureBox_Conv, EndConv);
+            //}
+            //else
+            //{
+            //    resetStage("miss_end");
+            //}
+        }
+
+
+        private void PictureBox_buttonUp_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
-            InputListBox.Items.Add(Emoji[picture] +"  "+"↑");
+            InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
             //if (isChange) Item_Change();
             //else Left_Availabel_Input();
         }
-        private void PictureBox_upperRight_Click(object sender, EventArgs e) {
+        private void PictureBox_upperRight_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↗");
         }
-        private void PictureBox_buttonRight_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonRight_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "→");
         }
-        private void PictureBox_lowerRight_Click(object sender, EventArgs e) {
+        private void PictureBox_lowerRight_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↘");
         }
-        private void PictureBox_buttonDown_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonDown_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
         }
-        private void PictureBox_lowerLeft_Click(object sender, EventArgs e) {
+        private void PictureBox_lowerLeft_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↙");
         }
-        private void PictureBox_buttonLeft_Click(object sender, EventArgs e) {
+        private void PictureBox_buttonLeft_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "←");
         }
-        private void PictureBox_upperLeft_Click(object sender, EventArgs e) {
+        private void PictureBox_upperLeft_Click(object sender, EventArgs e)
+        {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↖");
         }
@@ -422,7 +526,7 @@ namespace unilab2025
             return result;
         }
 
-        
+
 
         private void button_walk_Click(object sender, EventArgs e)
         {
@@ -440,7 +544,7 @@ namespace unilab2025
 
         }
         private void button_car_Click(object sender, EventArgs e)
-        {            
+        {
             if (listBox_Car.Items.Count < 1)
             {
                 MessageBox.Show("車の入力をしてね");
@@ -474,7 +578,7 @@ namespace unilab2025
                 combined += emoji;
             }
 
-            InputListBox.Items.Add("🚗 ("+combined+")");
+            InputListBox.Items.Add("🚗 (" + combined + ")");
 
         }
 
@@ -536,7 +640,7 @@ namespace unilab2025
         private void Arrow()//矢印の表示
         {
             Image original = Dictionaries.Img_Button["arrow1"];
-            pictureBox_buttonUp.Image= RotateImage(original, 0f);
+            pictureBox_buttonUp.Image = RotateImage(original, 0f);
             pictureBox_upperRight.Image = RotateImage(original, 45f);
             pictureBox_buttonRight.Image = RotateImage(original, 90f);
             pictureBox_lowerRight.Image = RotateImage(original, 135f);
@@ -547,11 +651,229 @@ namespace unilab2025
         }
 
 
-
-
         #endregion
 
-        
-        
+        #region 動作関連
+        public void MoveTo(List<int[]> movelist, string item)    //指定方向に移動する関数
+        {
+
+            string direction = "";
+
+            if (item.Contains("↑")) direction = "↑";
+            else if (item.Contains("→")) direction = "→";
+            else if (item.Contains("↓")) direction = "↓";
+            else if (item.Contains("←")) direction = "←";
+            int Direction_Index = 10;
+            switch (direction)
+            {
+                case "↑":
+                    Direction_Index = 0;
+                    break;
+                case "→":
+                    Direction_Index = 1;
+                    break;
+                case "↓":
+                    Direction_Index = 2;
+                    break;
+                case "←":
+                    Direction_Index = 3;
+                    break;
+
+
+                default:
+                    break;
+            }
+            int[][] move = new int[4][];       // up,right.down,leftの順
+            move[0] = new int[] { 0, -1 };     //up
+            move[1] = new int[] { 1, 0 };      //right
+            move[2] = new int[] { 0, 1 };      //down 
+            move[3] = new int[] { -1, 0 };     //left
+            if (Direction_Index < 4) movelist.Add(move[Direction_Index]);
+        }
+
+        /// <summary>
+        /// 実際にユーザーの入力を読み取り、動きのListを作成
+        /// </summary>
+        /// <returns></returns>
+        public List<int[]> Movement()      //動作の関数
+        {
+            var Move_Car = new List<int[]>();                                                           //車での動きを保存                                                                    
+            string[] Get_Input_Car = this.listBox_Car.Items.Cast<string>().ToArray();                     //車のListへの入力を保存
+
+
+            var Move_Car_List = new List<string>(Get_Input_Car);
+
+            if (Get_Input_Car.Length != 0)
+            {
+                for (int i = 0; i < Move_Car_List.Count; i++)
+                {
+                    MoveTo(Move_Car, Move_Car_List[i]);
+                }
+            }
+
+            string[] Get_Input_Main = this.listBox_Order.Items.Cast<string>().ToArray();
+            //Get_Input_Main = exchange_move(Get_Input_Main);
+            List<string> Move_Main_List = new List<string>(Get_Input_Main);
+            List<int[]> move = new List<int[]>();
+
+            if (Get_Input_Main.Length != 0)
+            {
+                for (int i = 0; i < Move_Main_List.Count; i++)
+                {
+                    if (Move_Main_List[i].Contains("🚗")) move.AddRange(Move_Car);
+                    else MoveTo(move, Move_Main_List[i]);
+                }
+            }
+            return move;
+        }
+
+        /// <summary>
+        /// 動いた先の衝突検知(入れない部分に侵入した場合)
+        /// </summary>
+        /// <param name="x">現在位置x座標</param>
+        /// <param name="y">現在位置y座標</param>
+        /// <param name="Map">ステージのマップ情報</param>
+        /// <param name="move">動いた先の座標</param>
+        /// <returns></returns>
+        public bool Colision_detection(int x, int y, int[,] Map, List<int[]> move)
+        {
+            int max_x = Map.GetLength(0);
+            int max_y = Map.GetLength(1);
+
+            int new_x = x + move[0][0];
+            int new_y = y + move[0][1];
+
+            if (new_x <= 0 || (max_x - new_x) <= 1 || new_y <= 0 || (max_y - new_y) <= 1) return true;
+            else if (Map[new_x, new_y] == 2) return true;
+            else
+            {
+                //move.RemoveAt(0);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 動く際の描画や処理を行う関数
+        /// </summary>
+        /// <param name="x">現在地のx座標</param>
+        /// <param name="y">現在地のy座標</param>
+        /// <param name="Map">ステージのマップ情報</param>
+        /// <param name="move">動きのリスト</param>
+        public async void  SquareMovement(int x, int y, int[,] Map, List<int[]> move)
+        {
+            Graphics g2 = Graphics.FromImage(bmp2);
+            //cell_length = pictureBox1.Width / 12;
+            if (move.Count == 0) //ゴールについていない場合(入力がない)場合のエラー処理
+            {
+                //DisplayMessage("miss_end");
+                return;
+            }
+
+            List<int[]> move_copy = new List<int[]>(move);
+
+            int jump = 0;
+            bool DoubleJump = false;
+            int waittime = 250; //ミリ秒
+            count_walk = 1;//何マス歩いたか、歩き差分用
+            bool isWarp = false;
+
+            (int, int) place_update(int a, int b, List<int[]> move_next)
+            {
+                x += move_next[0][0];
+                y += move_next[0][1];
+                x_now = x;
+                y_now = y;
+                g2.Clear(Color.Transparent);
+                return (x_now, y_now);
+            }
+
+            void DrawCharacter(int a, int b, ref Image character_me)
+            {
+                //if (_worldNumber > 4 && (x_now != x_goal || y_now != y_goal))
+                //{
+                //    int placeX = x_goal * cell_length;
+                //    int placeY = y_goal * cell_length;
+                //    int goal = 10 + _worldNumber;
+                //    g2.DrawImage(Dictionaries.Img_Object[goal.ToString()], placeX, placeY, cell_length, cell_length);
+                //}
+                g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+            }
+
+            (int, int) draw_move(int a, int b, ref List<int[]> move_next)
+            {
+                (x_now, y_now) = place_update(a, b, move_next);
+                //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
+                DrawCharacter(x_now, y_now, ref character_me);
+                pictureBox_Map2.Refresh();
+                
+                //this.Invoke((MethodInvoker)delegate
+                //{
+                //    // pictureBox2を同期的にRefreshする
+                //    //pictureBox2.Refresh();
+                //});
+                return (x_now, y_now);
+            }
+            while (true)
+            {
+                if (move_copy.Count == 0)//動作がすべて終了した場合
+                {
+                    button_Start.Visible = true;
+                    button_Start.Enabled = true;
+                    //if (x_now != x_goal || y_now != y_goal)
+                    //{
+                    //    DisplayMessage("miss_end");
+                    //}
+                    //else
+                    //{
+                    //    g2.Clear(Color.Transparent);
+                    //    //Graphics g2 = Graphics.FromImage(bmp2);
+                    //    int placeX = x_goal * cell_length;
+                    //    int placeY = y_goal * cell_length;
+                    //    g2.DrawImage(Dictionaries.Img_DotPic["GOAL"], placeX - extra_length, placeY - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    //    this.Invoke((MethodInvoker)delegate
+                    //    {
+                    //        // pictureBox2を同期的にRefreshする
+                    //        //pictureBox2.Refresh();
+                    //    });
+                    //}
+                    break;
+                }
+                else
+                {
+                    (x_now, y_now) = draw_move(x, y, ref move_copy);
+                    move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
+                    await Task.Delay(500);
+
+                    //if (Colision_detection(x, y, Map, move_copy) && jump == 0)
+                    //{
+                    //    //忍者を動かしてからミスの表示を出す
+                    //    (x_now, y_now) = draw_move(x, y, ref move_copy);
+                    //    DisplayMessage("miss_out");
+                    //    //DrawCharacter(x, y, ref character_me);
+                    //    break;
+                    //}
+                    ////if (jump == 0 && Map[x + move_copy[0][0], y + move_copy[0][1]] == 2) //jumpの時着地先が木の場合、ゲームオーバー
+                    ////{
+                    ////    (x_now, y_now) = draw_move(x, y, ref move_copy);
+                    ////    Thread.Sleep(waittime);
+                    ////    (x_now, y_now) = draw_move(x, y, ref move_copy);
+
+                    ////    DisplayMessage("miss_out");
+                    ////    //DrawCharacter(x, y, ref character_me);
+                    ////    break;
+                    ////}
+                    //if (count_walk > 50) //無限ループ対策
+                    //{
+                    //    DisplayMessage("miss_countover");
+                    //    //DrawCharacter(x, y, ref character_me);
+                    //    break;
+                    //}
+                }
+
+                #endregion
+
+
+            }
+        }
     }
 }

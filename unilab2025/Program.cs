@@ -592,16 +592,204 @@ namespace unilab2025
     //    }
 
 }
-#endregion
+    #endregion
 
-#region 進行状況管理
-public partial class CurrentFormState
+    #region 進行状況管理
+
+    public enum ConstNum
+    {
+        numWorlds = 7 + 1,
+        numStages = 3 + 1,
+        waitTime_End = 100,
+        waitTime_Load = 400
+    }
+    public partial class CurrentFormState
     {
         public static string FormName = "Prologue";
         public static Dictionary<string, object> StateData = new Dictionary<string, object>();
     }
 
+    public partial class ClearCheck
+    {
+        //クリアチェック配列
+        //0番目はそのWorldのレベル3つをすべてクリアしたらtrueにする。
+        public static bool[,] IsCleared = new bool[(int)ConstNum.numWorlds, (int)ConstNum.numStages];
+
+        //ボタン管理配列
+        //0番目はWorldMapでそのボタンを押せるかどうか（押せる場合true）
+        public static bool[,] IsButtonEnabled = new bool[(int)ConstNum.numWorlds, (int)ConstNum.numStages];
+
+        //新ステージ出現チェック配列
+        //0番目はWorldMapでそのワールドの中に新ステージがあるかどうか
+        public static bool[,] IsNew = new bool[(int)ConstNum.numWorlds, (int)ConstNum.numStages];
+
+        //卒業試験クリア時
+        public static bool PlayAfterChapter4Story;
+
+        //外の世界クリア時
+        public static bool Completed;
+        public static bool PlayAfterAnotherWorldStory;
+    }
+
+    public partial class Func
+    {
+        public static void InitializeClearCheck()    //Main関数で呼び出す
+        {
+            for (int i = 0; i < (int)ConstNum.numWorlds; i++)
+            {
+                for (int j = 0; j < (int)ConstNum.numStages; j++)
+                {
+                    ClearCheck.IsCleared[i, j] = false;
+                    ClearCheck.IsButtonEnabled[i, j] = false;
+                    ClearCheck.IsNew[i, j] = false;
+                }
+            }
+
+            ClearCheck.PlayAfterChapter4Story = false;
+            ClearCheck.PlayAfterAnotherWorldStory = false;
+            ClearCheck.Completed = false;
+
+            ClearCheck.IsButtonEnabled[1, 0] = true;
+            ClearCheck.IsButtonEnabled[1, 1] = true;
+        }
+
+        public static void UpdateIsNew()    //IsNew配列の更新
+        {
+            for (int i = 1; i < (int)ConstNum.numWorlds; i++)
+            {
+                bool isNew0 = false;
+                for (int j = 1; j < (int)ConstNum.numStages; j++)
+                {
+                    if (ClearCheck.IsNew[i, j])
+                    {
+                        isNew0 = true;
+                        break;
+                    }
+                }
+                ClearCheck.IsNew[i, 0] = isNew0;
+            }
+        }
+
+        public static bool HasNewStageInWorld(bool isWorldMap)
+        {
+            // WorldMapまたはAnotherWorldに新ステージがあるかどうか
+            bool hasNewStage = false;
+
+            if (isWorldMap)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    if (ClearCheck.IsNew[i, 0])
+                    {
+                        hasNewStage = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 5; i <= 7; i++)
+                {
+                    if (ClearCheck.IsNew[i, 0])
+                    {
+                        hasNewStage = true;
+                        break;
+                    }
+                }
+            }
+
+            return hasNewStage;
+        }
+
+        public static bool HasNewStageFromStageSelect(bool isWorldMap, int worldNumber)
+        {
+            // StageSelectからWorld選択に戻った時に新ステージがあるかどうか
+            if (Func.HasNewStageInWorld(!isWorldMap)) return true;
+
+            bool hasNewStage = false;
+
+            if (isWorldMap)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    if (i == worldNumber) continue;
+                    if (ClearCheck.IsNew[i, 0])
+                    {
+                        hasNewStage = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 5; i <= 7; i++)
+                {
+                    if (i == worldNumber) continue;
+                    if (ClearCheck.IsNew[i, 0])
+                    {
+                        hasNewStage = true;
+                        break;
+                    }
+                }
+            }
+
+            return hasNewStage;
+        }
+
+        public static bool HasNewStageInAllWorld()
+        {
+            // 新ステージがあるかどうか
+            bool hasNewStage = false;
+
+            for (int i = 1; i < (int)ConstNum.numWorlds; i++)
+            {
+                for (int j = 0; j < (int)ConstNum.numStages; j++)
+                {
+                    if (ClearCheck.IsNew[i, j])
+                    {
+                        hasNewStage = true;
+                        break;
+                    }
+                }
+            }
+
+            return hasNewStage;
+        }
+
+        public static bool IsAllStageClearedInWorld(bool isWorldMap)
+        {
+            // WorldMapまたはAnotherWorldがすべてクリアされているかどうか
+            bool isAllStageCleared = true;
+
+            if (isWorldMap)
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    if (!ClearCheck.IsCleared[i, 0])
+                    {
+                        isAllStageCleared = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 5; i <= 7; i++)
+                {
+                    if (!ClearCheck.IsCleared[i, 0])
+                    {
+                        isAllStageCleared = false;
+                        break;
+                    }
+                }
+            }
+
+            return isAllStageCleared;
+        }
+    }
+
+
     #endregion
 
-    
+
 }
