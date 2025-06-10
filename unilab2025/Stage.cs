@@ -621,6 +621,12 @@ namespace unilab2025
 
         }
 
+        private void button_info_Click(object sender, EventArgs e)
+        {
+            Func.convIndex = 0;
+            Func.DrawConv(this, pictureBox_Conv, Capt, Dictionaries.Conversations["Info"]);
+        }
+
 
 
         #endregion

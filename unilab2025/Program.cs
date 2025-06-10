@@ -183,31 +183,31 @@ namespace unilab2025
 
 
         //昨年版、立ち絵あり
-        public static List<Conversation> LoadMessageCSV(string MessageCSVFileName)
-        {
-            List<Conversation> Message = new List<Conversation>();
+        //public static List<Conversation> LoadMessageCSV(string MessageCSVFileName)
+        //{
+        //    List<Conversation> Message = new List<Conversation>();
 
-            using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
-            {
-                bool isFirstRow = true;
+        //    using (StreamReader sr = new StreamReader($"Conversation\\{MessageCSVFileName}"))
+        //    {
+        //        bool isFirstRow = true;
 
-                while (!sr.EndOfStream)
-                {
-                    string line = sr.ReadLine();
-                    string[] values = line.Split(',');
+        //        while (!sr.EndOfStream)
+        //        {
+        //            string line = sr.ReadLine();
+        //            string[] values = line.Split(',');
 
-                    if (isFirstRow) //１行目は要素説明のためスキップ
-                    {
-                        isFirstRow = false;
-                        continue;
-                    }
+        //            if (isFirstRow) //１行目は要素説明のためスキップ
+        //            {
+        //                isFirstRow = false;
+        //                continue;
+        //            }
 
-                    Message.Add(new Conversation(values[0], values[1], values[2]));
-                }
-            }
+        //            Message.Add(new Conversation(values[0], values[1], values[2]));
+        //        }
+        //    }
 
-            return Message;
-        }
+        //    return Message;
+        //}
 
         public static (List<Conversation>, List<Conversation>) LoadStories(string ConvFileName, string cutWord)
         {
@@ -628,7 +628,7 @@ namespace unilab2025
             foreach (string file in files)
             {
                 string key = Path.GetFileNameWithoutExtension(file).Replace("Conv_", "");
-                Dictionaries.Conversations[key] = LoadMessageCSV(file);
+                Dictionaries.Conversations[key] = LoadConversationCSV(file);
             }
         }
 

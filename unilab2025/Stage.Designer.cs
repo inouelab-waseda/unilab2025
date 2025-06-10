@@ -218,6 +218,7 @@
             this.button_info.TabIndex = 19;
             this.button_info.Text = "説明";
             this.button_info.UseVisualStyleBackColor = true;
+            this.button_info.Click += new System.EventHandler(this.button_info_Click);
             // 
             // button_hint
             // 
