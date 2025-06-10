@@ -27,7 +27,7 @@ namespace unilab2025
         public Stage()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+           // this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
@@ -110,7 +110,7 @@ namespace unilab2025
         Brush startBackgroundColor = new SolidBrush(Color.Blue);
 
 
-        Image character_me = Dictionaries.Img_DotPic["銀髪ドット"];
+        Image character_me = Dictionaries.Img_DotPic["gray_front"];
 
         public static List<ListBox> ListBoxes = new List<ListBox>();
         public static ListBox InputListBox;   //入力先のリストボックス
@@ -639,7 +639,7 @@ namespace unilab2025
 
         private void Arrow()//矢印の表示
         {
-            Image original = Dictionaries.Img_Button["arrow1"];
+            Image original = Dictionaries.Img_Button["point_on"];
             pictureBox_buttonUp.Image = RotateImage(original, 0f);
             pictureBox_upperRight.Image = RotateImage(original, 45f);
             pictureBox_buttonRight.Image = RotateImage(original, 90f);
