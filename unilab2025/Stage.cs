@@ -151,7 +151,8 @@ namespace unilab2025
 
         public static string grade;    //学年
         public static int gradenum;
-        public static int car_count;
+        public static int car_count=0;
+        public static bool car_finish = true;
         public static List<string> list_car;
 
 
@@ -389,10 +390,16 @@ namespace unilab2025
         {
             button_Start.Visible = false;
             button_Start.Enabled = false;
+            if (listBox_Order.Items.Count == 0) { 
+                MessageBox.Show("やり直し");
+                button_Start.Visible = true;
+                button_Start.Enabled = true;
+            }
             move = Movement(); //ユーザーの入力を読み取る
             //List<string> Input_Main = 
 
             SquareMovement(x_now, y_now, map, move); //キャラ動かす
+            
             //count += 1;
             //if (x_goal == x_now && y_goal == y_now)
             //{
@@ -814,7 +821,7 @@ namespace unilab2025
                 //}
                 g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             }
-            car_count = 0;
+            
             (int, int) draw_move(int a, int b, ref List<int[]> move_next)
             {
                 
@@ -823,12 +830,13 @@ namespace unilab2025
                 //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
                 if (Input_arrow.Count > 0)
                 {
-                    if (Input_arrow[0].Contains("🚗"))
+                    if (car_count==0&&Input_arrow[0].Contains("🚗"))
                     {
                         car_count = listBox_Car.Items.Count;
-                        Input_arrow.RemoveAt(0);                        
+                        Input_arrow.RemoveAt(0);
 
                         list_car = listBox_Car.Items.Cast<string>().ToList();
+                        car_finish = false;
 
                     }
 
@@ -842,7 +850,7 @@ namespace unilab2025
                         car_count -= 1;
                         list_car.RemoveAt(0);
                     }
-                    else
+                    else if (car_count == 0)
                     {
                         if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["銀髪(後ろ)"];
                         else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["銀髪(横右)"];
@@ -850,21 +858,21 @@ namespace unilab2025
                         else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["銀髪ドット(横左)"];
                     }
                 }
-                if (Input_arrow.Count == 0&& car_count > 0)
+                
+                else if (Input_arrow.Count == 0&& car_count > 0)
                 {
-                    if (car_count > 0)
-                    {
+                    
                         if (list_car[0].Contains("↑")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 0f);
                         else if (list_car[0].Contains("→")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 90f);
                         else if (list_car[0].Contains("↓")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 180f);
                         else if (list_car[0].Contains("←")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 270f);
                         car_count -= 1;
                         list_car.RemoveAt(0);
-                    }                    
+                                     
                 }
 
 
-                    DrawCharacter(x_now, y_now, ref character_me);
+                DrawCharacter(x_now, y_now, ref character_me);
                 pictureBox_Map2.Refresh();
                 
                 //this.Invoke((MethodInvoker)delegate
@@ -915,10 +923,11 @@ namespace unilab2025
                 else
                 {
                     (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    if (car_count == 0&& Input_arrow.Count>0)
+                    if (car_finish == true&& Input_arrow.Count>0)
                     {                        
                         Input_arrow.RemoveAt(0);
                     }
+                    if (car_count == 0) car_finish = true;
                     move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     await Task.Delay(500);
 
@@ -949,6 +958,7 @@ namespace unilab2025
                 }
 
                 #endregion
+
 
 
             }
