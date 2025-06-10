@@ -125,14 +125,14 @@ namespace unilab2025
 
 
     #region 会話
-    public static partial class ConversationsFunc
+    public static partial class Func
     {
         //セリフCSV読み込み
-        public static List<Conversation> LoadConvertationCSV(string ConvertationCSVFileName)
+        public static List<Conversation> LoadConversationCSV(string ConvertationCSVFileName)
         {
             List<Conversation> Conversations = new List<Conversation>();
 
-            using (StreamReader sr = new StreamReader($"{ConvertationCSVFileName}"))
+            using (StreamReader sr = new StreamReader($"Conversation\\{ConvertationCSVFileName}"))
             {
                 bool isFirstRow = true;
 
@@ -183,31 +183,72 @@ namespace unilab2025
 
 
         //昨年版、立ち絵あり
-        //public static List<Conversation> LoadMessageCSV(string MessageCSVFileName)
-        //{
-        //    List<Conversation> Message = new List<Conversation>();
+        public static List<Conversation> LoadMessageCSV(string MessageCSVFileName)
+        {
+            List<Conversation> Message = new List<Conversation>();
 
-        //    using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
-        //    {
-        //        bool isFirstRow = true;
+            using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
+            {
+                bool isFirstRow = true;
 
-        //        while (!sr.EndOfStream)
-        //        {
-        //            string line = sr.ReadLine();
-        //            string[] values = line.Split(',');
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    string[] values = line.Split(',');
 
-        //            if (isFirstRow) //１行目は要素説明のためスキップ
-        //            {
-        //                isFirstRow = false;
-        //                continue;
-        //            }
+                    if (isFirstRow) //１行目は要素説明のためスキップ
+                    {
+                        isFirstRow = false;
+                        continue;
+                    }
 
-        //            Message.Add(new Conversation(values[0], values[1], values[2]));
-        //        }
-        //    }
+                    Message.Add(new Conversation(values[0], values[1], values[2]));
+                }
+            }
 
-        //    return Message;
-        //}
+            return Message;
+        }
+
+        public static (List<Conversation>, List<Conversation>) LoadStories(string ConvFileName, string cutWord)
+        {
+            List<Conversation> StartConv = new List<Conversation>();
+            List<Conversation> EndConv = new List<Conversation>();
+
+            using (StreamReader sr = new StreamReader($"Story\\{ConvFileName}"))
+            {
+                bool isFirstRow = true;
+                bool isBeforePlay = true;
+
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    string[] values = line.Split(',');
+
+                    if (isFirstRow) //escape 1st row
+                    {
+                        isFirstRow = false;
+                        continue;
+                    }
+                    if (values[1] == cutWord)
+                    {
+                        isBeforePlay = false;
+                        continue;
+                    }
+
+                    if (isBeforePlay)
+                    {
+                        StartConv.Add(new Conversation(values[0], values[1], values[2]));
+                    }
+                    else
+                    {
+                        EndConv.Add(new Conversation(values[0], values[1], values[2]));
+                    }
+                }
+            }
+
+            return (StartConv, EndConv);
+        }
+
 
         //メッセージボックス
         public static PictureBox CreatePictureBox_Conv(Form currentForm)
@@ -464,7 +505,7 @@ namespace unilab2025
             public static Dictionary<string, Image> Img_Button = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Background = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Conversation = new Dictionary<string, Image>();
-            public static Dictionary<string, List<Conversation>> Convertations = new Dictionary<string, List<Conversation>>();
+            public static Dictionary<string, List<Conversation>> Conversations = new Dictionary<string, List<Conversation>>();
             public static Dictionary<string, List<Message>> Messages = new Dictionary<string, List<Message>>();
         }
 
@@ -505,10 +546,9 @@ namespace unilab2025
         }
 
         //DictionaryにMessageCSVのデータを追加
-        public static Dictionary<string, List<Message>> LoadMessagesFromCsv(string filePath)
+        public static Dictionary<string, List<Message>> LoadMessagesFromCsv()
         {
-            Dictionary<string, List<Message>> messagesDict = new Dictionary<string, List<Message>>();
-
+            string filePath = (@"Convertation\\Conv_Message.csv");
             using (StreamReader reader = new StreamReader(filePath))
             {
                 while (!reader.EndOfStream)
@@ -525,16 +565,17 @@ namespace unilab2025
                         Dialogue = values[1].Trim()
                     };
 
-                    if (!messagesDict.ContainsKey(key))
+                    if (!Dictionaries.Messages.ContainsKey(key))
                     {
-                        messagesDict[key] = new List<Message>();
+                        Dictionaries.Messages[key] = new List<Message>();
                     }
-                    messagesDict[key].Add(message);
+                    Dictionaries.Messages[key].Add(message);
                 }
             }
 
-            return messagesDict;
+            return Dictionaries.Messages;
         }
+
 
 
         public static void LoadImg_DotPic()
@@ -580,18 +621,18 @@ namespace unilab2025
                 Dictionaries.Img_Button[key] = Image.FromFile(file);
             }
         }
-    //    public static void LoadMessages()
-    //    {
-    //        Dictionaries.Messages.Clear();
-    //        string[] files = Directory.GetFiles(@"Message");
-    //        foreach (string file in files)
-    //        {
-    //            string key = Path.GetFileNameWithoutExtension(file).Replace("Message_", "");
-    //            Dictionaries.Messages[key] = LoadMessageCSV(file);
-    //        }
-    //    }
+        public static void LoadConversations()
+        {
+            Dictionaries.Conversations.Clear();
+            string[] files = Directory.GetFiles(@"Conversation");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Conv_", "");
+                Dictionaries.Conversations[key] = LoadMessageCSV(file);
+            }
+        }
 
-}
+    }
     #endregion
 
     #region 進行状況管理
