@@ -155,31 +155,31 @@ namespace unilab2025
         }
 
         //システムメッセージCSV読み込み（立ち絵要らないならこっち、メッセージCSV１個）
-        public static List<Message> LoadMessageCSV(string MessageCSVFileName)
-        {
-            List<Message> Messages = new List<Message>();
+        //public static List<Message> LoadMessageCSV(string MessageCSVFileName)
+        //{
+        //    List<Message> Messages = new List<Message>();
 
-            using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
-            {
-                bool isFirstRow = true;
+        //    using (StreamReader sr = new StreamReader($"{MessageCSVFileName}"))
+        //    {
+        //        bool isFirstRow = true;
 
-                while (!sr.EndOfStream)
-                {
-                    string line = sr.ReadLine();
-                    string[] values = line.Split(',');
+        //        while (!sr.EndOfStream)
+        //        {
+        //            string line = sr.ReadLine();
+        //            string[] values = line.Split(',');
 
-                    if (isFirstRow) //１行目は要素説明のためスキップ
-                    {
-                        isFirstRow = false;
-                        continue;
-                    }
+        //            if (isFirstRow) //１行目は要素説明のためスキップ
+        //            {
+        //                isFirstRow = false;
+        //                continue;
+        //            }
 
-                    Messages.Add(new Message(values[0], values[1]));
-                }
-            }
+        //            Messages.Add(new Message(values[0], values[1]));
+        //        }
+        //    }
 
-            return Messages;
-        }
+        //    return Messages;
+        //}
 
 
         //昨年版、立ち絵あり
@@ -505,17 +505,32 @@ namespace unilab2025
         }
 
         //DictionaryにMessageCSVのデータを追加
-        public static Dictionary<string, List<Message>> ConvertToDictionary(List<Message> messageList)
+        public static Dictionary<string, List<Message>> LoadMessagesFromCsv(string filePath)
         {
             Dictionary<string, List<Message>> messagesDict = new Dictionary<string, List<Message>>();
 
-            foreach (var message in messageList)
+            using (StreamReader reader = new StreamReader(filePath))
             {
-                if (!messagesDict.ContainsKey(message.Situation))
+                while (!reader.EndOfStream)
                 {
-                    messagesDict[message.Situation] = new List<Message>();
+                    string line = reader.ReadLine();
+                    string[] values = line.Split(',');
+
+                    if (values.Length < 2) continue; // 不正な行をスキップ
+
+                    string key = values[0].Trim();
+                    Message message = new Message
+                    {
+                        Situation = key,
+                        Dialogue = values[1].Trim()
+                    };
+
+                    if (!messagesDict.ContainsKey(key))
+                    {
+                        messagesDict[key] = new List<Message>();
+                    }
+                    messagesDict[key].Add(message);
                 }
-                messagesDict[message.Situation].Add(message);
             }
 
             return messagesDict;
