@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnotherWorld.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnotherWorld.Designer.cs">
+      <DependentUpon>AnotherWorld.cs</DependentUpon>
+    </Compile>
     <Compile Include="Stage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,12 +66,27 @@
       <DependentUpon>Prologue.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StageSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StageSelect.Designer.cs">
+      <DependentUpon>StageSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Title.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Title.Designer.cs">
       <DependentUpon>Title.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorldMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldMap.Designer.cs">
+      <DependentUpon>WorldMap.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Prologue.resx">
+      <DependentUpon>Prologue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Stage.resx">
+      <DependentUpon>Stage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Title.resx">
       <DependentUpon>Title.cs</DependentUpon>
     </EmbeddedResource>
