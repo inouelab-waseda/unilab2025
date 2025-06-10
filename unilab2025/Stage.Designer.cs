@@ -88,7 +88,7 @@
             // 
             // pictureBox_Map2
             // 
-            this.pictureBox_Map2.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox_Map2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_Map2.Location = new System.Drawing.Point(20, 142);
             this.pictureBox_Map2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Map2.Name = "pictureBox_Map2";
@@ -396,6 +396,7 @@
             // 
             // pictureBox_Map1
             // 
+            this.pictureBox_Map1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_Map1.Location = new System.Drawing.Point(20, 142);
             this.pictureBox_Map1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Map1.Name = "pictureBox_Map1";
