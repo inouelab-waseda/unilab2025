@@ -111,7 +111,7 @@ namespace unilab2025
         Brush startBackgroundColor = new SolidBrush(Color.Blue);
 
 
-        Image character_me = Dictionaries.Img_DotPic["gray_front"];
+        Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
 
         public static List<ListBox> ListBoxes = new List<ListBox>();
         public static ListBox InputListBox;   //入力先のリストボックス
