@@ -217,7 +217,8 @@ namespace unilab2025
                 {
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
-                    map_width = values.Length; //マップの横幅を取得
+                    //map_width = values.Length; //マップの横幅を取得
+                    map_width = 12;
 
                     if (y == 0) map = new int[map_width, map_width]; //マップの初期化
                     x = 0;
