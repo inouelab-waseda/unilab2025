@@ -952,14 +952,31 @@ namespace unilab2025
                 }
                 else
                 {
-                    (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    if (car_finish == true&& Input_arrow.Count>0)
-                    {                        
-                        Input_arrow.RemoveAt(0);
+                    if (!Colision_detection(x, y, Map, move_copy))
+                    {
+
+                        (x_now, y_now) = draw_move(x, y, ref move_copy);
+                        if (car_finish == true && Input_arrow.Count > 0)
+                        {
+                            Input_arrow.RemoveAt(0);
+                        }
+                        if (car_count == 0) car_finish = true;
+                        move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     }
-                    if (car_count == 0) car_finish = true;
-                    move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
-                    await Task.Delay(500);
+                    else
+                    {
+                        MessageBox.Show("前に進めません");
+                        g2.Clear(Color.Transparent);
+                        Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                        DrawCharacter(x_start, y_start, ref character_me);
+                        pictureBox_Map2.Refresh();
+                        x_now = x_start;
+                        y_now = y_start;
+                        button_Start.Visible = true;
+                        button_Start.Enabled = true;
+                        break;
+                    }
+                        await Task.Delay(500);
 
                     //if (Colision_detection(x, y, Map, move_copy) && jump == 0)
                     //{
