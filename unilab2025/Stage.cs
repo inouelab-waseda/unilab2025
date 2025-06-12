@@ -204,6 +204,28 @@ namespace unilab2025
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
 
+            if (_worldNumber == 1)
+            {
+                button_car.Visible = false;
+                button_balloon.Visible = false;
+                button_plane.Visible = false;
+                listBox_Car.Visible = false;
+                pictureBox_Car.Visible=false;
+            }
+            if (_worldNumber == 2)
+            {
+                
+                button_balloon.Visible = false;
+                button_plane.Visible = false;
+                
+            }
+            if (_worldNumber == 3)
+            {
+
+                button_balloon.Visible = false;
+
+            }
+            
 
         }
 
@@ -311,9 +333,9 @@ namespace unilab2025
             pictureBox_upperLeft.Visible = false;
 
             button_walk.Enabled = true;
-            button_car.Enabled = true;
-            button_balloon.Enabled = true;
-            button_plane.Enabled = true;
+            if(_worldNumber >= 2) button_car.Enabled = true;
+            if(_worldNumber >= 3) button_plane.Enabled = true;
+            if (_worldNumber >= 4) button_balloon.Enabled = true;
 
             picture = "walk";
             InputListBox = listBox_Order;
