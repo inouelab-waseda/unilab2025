@@ -958,7 +958,9 @@ namespace unilab2025
             {
                 if (move_copy.Count == 0)//動作がすべて終了した場合
                 {
+
                     g2.Clear(Color.Transparent);
+                    Input_arrow.Clear();
                     Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
                     DrawCharacter(x_now, y_now, ref character_me);
                     pictureBox_Map2.Refresh();
@@ -1026,11 +1028,12 @@ namespace unilab2025
                     else
                     {
                         MessageBox.Show("前に進めません");
-                        g2.Clear(Color.Transparent);
+                        g2.Clear(Color.Transparent);//人の移動などのリセット
+                        Input_arrow.Clear();//入力のリセット
                         Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
                         DrawCharacter(x_start, y_start, ref character_me);
                         pictureBox_Map2.Refresh();
-                        x_now = x_start;
+                        x_now = x_start;//スタート位置に戻す
                         y_now = y_start;
                         button_Start.Visible = true;
                         button_Start.Enabled = true;
