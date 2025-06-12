@@ -202,8 +202,30 @@ namespace unilab2025
             
             Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
+            Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
 
+            if (_worldNumber == 1)
+            {
+                button_car.Visible = false;
+                button_balloon.Visible = false;
+                button_plane.Visible = false;
+                listBox_Car.Visible = false;
+                pictureBox_Car.Visible=false;
+            }
+            if (_worldNumber == 2)
+            {
+                
+                button_balloon.Visible = false;
+                button_plane.Visible = false;
+                
+            }
+            if (_worldNumber == 3)
+            {
 
+                button_balloon.Visible = false;
+
+            }
+            
 
         }
 
@@ -311,9 +333,9 @@ namespace unilab2025
             pictureBox_upperLeft.Visible = false;
 
             button_walk.Enabled = true;
-            button_car.Enabled = true;
-            button_balloon.Enabled = true;
-            button_plane.Enabled = true;
+            if(_worldNumber >= 2) button_car.Enabled = true;
+            if(_worldNumber >= 3) button_plane.Enabled = true;
+            if (_worldNumber >= 4) button_balloon.Enabled = true;
 
             picture = "walk";
             InputListBox = listBox_Order;
@@ -635,6 +657,14 @@ namespace unilab2025
 
         }
 
+        //マップに戻る
+        private void button_return_Click(object sender, EventArgs e)
+        {
+            Func.CreateStageSelect(this, _worldName, _worldNumber);
+            return;
+
+        }
+
 
 
         #endregion
@@ -844,8 +874,9 @@ namespace unilab2025
                 //}
                 g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             }
-            
-            (int, int) draw_move(int a, int b, ref List<int[]> move_next)
+
+
+            (int, int)draw_move(int a, int b, ref List<int[]> move_next)
             {
                 
                 (x_now, y_now) = place_update(a, b, move_next);
@@ -887,6 +918,16 @@ namespace unilab2025
                         else if (Input_arrow[0].Contains("↙")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
                         else if (Input_arrow[0].Contains("↖")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
                     }
+                    else if (car_count == 0 && Input_arrow[0].Contains("✈️"))
+                    {
+                        if (Input_arrow[0].Contains("↑")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 0f);
+                        else if (Input_arrow[0].Contains("→")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 90f);
+                        else if (Input_arrow[0].Contains("↓")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 180f);
+                        else if (Input_arrow[0].Contains("←")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 270f);
+                           
+                        
+                        
+                    }
                 }
                 
                 else if (Input_arrow.Count == 0&& car_count > 0)
@@ -901,9 +942,10 @@ namespace unilab2025
                                      
                 }
 
-
+               
                 DrawCharacter(x_now, y_now, ref character_me);
                 pictureBox_Map2.Refresh();
+                
                 
                 //this.Invoke((MethodInvoker)delegate
                 //{
@@ -952,14 +994,49 @@ namespace unilab2025
                 }
                 else
                 {
-                    (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    if (car_finish == true&& Input_arrow.Count>0)
-                    {                        
-                        Input_arrow.RemoveAt(0);
+                    if (!Colision_detection(x, y, Map, move_copy))
+                    {
+
+                        (x_now, y_now) = draw_move(x, y, ref move_copy);
+                        if (car_finish == true && Input_arrow.Count > 0)
+                        {
+                            if (Input_arrow[0].Contains("✈️"))//飛行機の処理
+                            {
+                                var Plane = new List<int[]>();
+                                MoveTo(Plane, Input_arrow[0]);
+                                while (true)
+                                {
+                                    if (!Colision_detection(x, y, Map, Plane))
+                                    {
+                                        await Task.Delay(500);
+                                        (x_now, y_now) = place_update(x, y, Plane);
+                                        DrawCharacter(x_now, y_now, ref character_me);
+                                        pictureBox_Map2.Refresh();
+                                    }
+                                    else break;
+
+                                }
+                                Plane.Clear();
+                            }
+                            Input_arrow.RemoveAt(0);
+                        }
+                        if (car_count == 0) car_finish = true;
+                        move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     }
-                    if (car_count == 0) car_finish = true;
-                    move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
-                    await Task.Delay(500);
+                    else
+                    {
+                        MessageBox.Show("前に進めません");
+                        g2.Clear(Color.Transparent);
+                        Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                        DrawCharacter(x_start, y_start, ref character_me);
+                        pictureBox_Map2.Refresh();
+                        x_now = x_start;
+                        y_now = y_start;
+                        button_Start.Visible = true;
+                        button_Start.Enabled = true;
+                        break;
+                    }
+                        await Task.Delay(500);
 
                     //if (Colision_detection(x, y, Map, move_copy) && jump == 0)
                     //{
@@ -993,5 +1070,7 @@ namespace unilab2025
 
             }
         }
+
+        
     }
 }

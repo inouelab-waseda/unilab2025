@@ -80,19 +80,17 @@
             // 
             this.pictureBox_Background.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox_Background.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_Background.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(1898, 1024);
+            this.pictureBox_Background.Size = new System.Drawing.Size(1518, 853);
             this.pictureBox_Background.TabIndex = 0;
             this.pictureBox_Background.TabStop = false;
             // 
             // pictureBox_Map2
             // 
             this.pictureBox_Map2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_Map2.Location = new System.Drawing.Point(20, 142);
-            this.pictureBox_Map2.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox_Map2.Location = new System.Drawing.Point(16, 118);
             this.pictureBox_Map2.Name = "pictureBox_Map2";
-            this.pictureBox_Map2.Size = new System.Drawing.Size(800, 800);
+            this.pictureBox_Map2.Size = new System.Drawing.Size(640, 667);
             this.pictureBox_Map2.TabIndex = 1;
             this.pictureBox_Map2.TabStop = false;
             // 
@@ -102,10 +100,9 @@
             this.button_Start.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Start.BackgroundImage")));
             this.button_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_Start.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_Start.Location = new System.Drawing.Point(1536, 556);
-            this.button_Start.Margin = new System.Windows.Forms.Padding(4);
+            this.button_Start.Location = new System.Drawing.Point(1229, 463);
             this.button_Start.Name = "button_Start";
-            this.button_Start.Size = new System.Drawing.Size(240, 86);
+            this.button_Start.Size = new System.Drawing.Size(192, 72);
             this.button_Start.TabIndex = 2;
             this.button_Start.UseVisualStyleBackColor = false;
             this.button_Start.Click += new System.EventHandler(this.button_Start_Click);
@@ -116,10 +113,9 @@
             this.button_reset.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_reset.BackgroundImage")));
             this.button_reset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_reset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_reset.Location = new System.Drawing.Point(1188, 556);
-            this.button_reset.Margin = new System.Windows.Forms.Padding(4);
+            this.button_reset.Location = new System.Drawing.Point(950, 463);
             this.button_reset.Name = "button_reset";
-            this.button_reset.Size = new System.Drawing.Size(238, 86);
+            this.button_reset.Size = new System.Drawing.Size(190, 72);
             this.button_reset.TabIndex = 3;
             this.button_reset.UseVisualStyleBackColor = false;
             this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
@@ -128,10 +124,9 @@
             // 
             this.pictureBox_Car.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Car.BackgroundImage")));
             this.pictureBox_Car.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_Car.Location = new System.Drawing.Point(1415, 23);
-            this.pictureBox_Car.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox_Car.Location = new System.Drawing.Point(1132, 19);
             this.pictureBox_Car.Name = "pictureBox_Car";
-            this.pictureBox_Car.Size = new System.Drawing.Size(392, 526);
+            this.pictureBox_Car.Size = new System.Drawing.Size(314, 438);
             this.pictureBox_Car.TabIndex = 4;
             this.pictureBox_Car.TabStop = false;
             // 
@@ -139,10 +134,9 @@
             // 
             this.pictureBox_Order.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Order.BackgroundImage")));
             this.pictureBox_Order.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_Order.Location = new System.Drawing.Point(942, 23);
-            this.pictureBox_Order.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox_Order.Location = new System.Drawing.Point(754, 19);
             this.pictureBox_Order.Name = "pictureBox_Order";
-            this.pictureBox_Order.Size = new System.Drawing.Size(412, 526);
+            this.pictureBox_Order.Size = new System.Drawing.Size(330, 438);
             this.pictureBox_Order.TabIndex = 5;
             this.pictureBox_Order.TabStop = false;
             // 
@@ -150,31 +144,28 @@
             // 
             this.listBox_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.listBox_Car.FormattingEnabled = true;
-            this.listBox_Car.ItemHeight = 40;
-            this.listBox_Car.Location = new System.Drawing.Point(1434, 142);
-            this.listBox_Car.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox_Car.ItemHeight = 33;
+            this.listBox_Car.Location = new System.Drawing.Point(1147, 118);
             this.listBox_Car.Name = "listBox_Car";
-            this.listBox_Car.Size = new System.Drawing.Size(342, 324);
+            this.listBox_Car.Size = new System.Drawing.Size(274, 268);
             this.listBox_Car.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(1545, 58);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(1236, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 33);
+            this.label1.Size = new System.Drawing.Size(0, 28);
             this.label1.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(1062, 58);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(850, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 33);
+            this.label2.Size = new System.Drawing.Size(0, 28);
             this.label2.TabIndex = 9;
             // 
             // button_walk
@@ -183,10 +174,9 @@
             this.button_walk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_walk.BackgroundImage")));
             this.button_walk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_walk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_walk.Location = new System.Drawing.Point(1369, 694);
-            this.button_walk.Margin = new System.Windows.Forms.Padding(4);
+            this.button_walk.Location = new System.Drawing.Point(1095, 578);
             this.button_walk.Name = "button_walk";
-            this.button_walk.Size = new System.Drawing.Size(120, 120);
+            this.button_walk.Size = new System.Drawing.Size(96, 100);
             this.button_walk.TabIndex = 32;
             this.button_walk.UseVisualStyleBackColor = false;
             this.button_walk.Click += new System.EventHandler(this.button_walk_Click);
@@ -197,10 +187,9 @@
             this.button_car.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_car.BackgroundImage")));
             this.button_car.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_car.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_car.Location = new System.Drawing.Point(1606, 694);
-            this.button_car.Margin = new System.Windows.Forms.Padding(4);
+            this.button_car.Location = new System.Drawing.Point(1285, 578);
             this.button_car.Name = "button_car";
-            this.button_car.Size = new System.Drawing.Size(120, 120);
+            this.button_car.Size = new System.Drawing.Size(96, 100);
             this.button_car.TabIndex = 11;
             this.button_car.UseVisualStyleBackColor = false;
             this.button_car.Click += new System.EventHandler(this.button_car_Click);
@@ -211,10 +200,9 @@
             this.button_balloon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_balloon.BackgroundImage")));
             this.button_balloon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_balloon.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_balloon.Location = new System.Drawing.Point(1489, 822);
-            this.button_balloon.Margin = new System.Windows.Forms.Padding(4);
+            this.button_balloon.Location = new System.Drawing.Point(1191, 685);
             this.button_balloon.Name = "button_balloon";
-            this.button_balloon.Size = new System.Drawing.Size(120, 120);
+            this.button_balloon.Size = new System.Drawing.Size(96, 100);
             this.button_balloon.TabIndex = 12;
             this.button_balloon.UseVisualStyleBackColor = false;
             this.button_balloon.Click += new System.EventHandler(this.button_balloon_Click);
@@ -225,18 +213,16 @@
             this.button_plane.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_plane.BackgroundImage")));
             this.button_plane.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_plane.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_plane.Location = new System.Drawing.Point(1722, 822);
-            this.button_plane.Margin = new System.Windows.Forms.Padding(4);
+            this.button_plane.Location = new System.Drawing.Point(1378, 685);
             this.button_plane.Name = "button_plane";
-            this.button_plane.Size = new System.Drawing.Size(120, 120);
+            this.button_plane.Size = new System.Drawing.Size(96, 100);
             this.button_plane.TabIndex = 13;
             this.button_plane.UseVisualStyleBackColor = false;
             this.button_plane.Click += new System.EventHandler(this.button_plane_Click);
             // 
             // button_down
             // 
-            this.button_down.Location = new System.Drawing.Point(820, 694);
-            this.button_down.Margin = new System.Windows.Forms.Padding(4);
+            this.button_down.Location = new System.Drawing.Point(656, 578);
             this.button_down.Name = "button_down";
             this.button_down.Size = new System.Drawing.Size(0, 0);
             this.button_down.TabIndex = 18;
@@ -249,10 +235,10 @@
             this.button_info.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_info.BackgroundImage")));
             this.button_info.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_info.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_info.Location = new System.Drawing.Point(615, 23);
+            this.button_info.Location = new System.Drawing.Point(492, 19);
             this.button_info.Margin = new System.Windows.Forms.Padding(2);
             this.button_info.Name = "button_info";
-            this.button_info.Size = new System.Drawing.Size(182, 78);
+            this.button_info.Size = new System.Drawing.Size(146, 65);
             this.button_info.TabIndex = 19;
             this.button_info.UseVisualStyleBackColor = false;
             // 
@@ -262,10 +248,10 @@
             this.button_hint.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_hint.BackgroundImage")));
             this.button_hint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_hint.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_hint.Location = new System.Drawing.Point(391, 23);
+            this.button_hint.Location = new System.Drawing.Point(313, 19);
             this.button_hint.Margin = new System.Windows.Forms.Padding(2);
             this.button_hint.Name = "button_hint";
-            this.button_hint.Size = new System.Drawing.Size(192, 78);
+            this.button_hint.Size = new System.Drawing.Size(154, 65);
             this.button_hint.TabIndex = 20;
             this.button_hint.UseVisualStyleBackColor = false;
             // 
@@ -276,20 +262,21 @@
             this.button_return.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_return.BackgroundImage")));
             this.button_return.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_return.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_return.Location = new System.Drawing.Point(20, 20);
+            this.button_return.Location = new System.Drawing.Point(16, 17);
             this.button_return.Margin = new System.Windows.Forms.Padding(2);
             this.button_return.Name = "button_return";
-            this.button_return.Size = new System.Drawing.Size(346, 81);
+            this.button_return.Size = new System.Drawing.Size(277, 68);
             this.button_return.TabIndex = 21;
             this.button_return.UseVisualStyleBackColor = false;
+            this.button_return.Click += new System.EventHandler(this.button_return_Click);
             // 
             // pictureBox_buttonUp
             // 
             this.pictureBox_buttonUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonUp.Location = new System.Drawing.Point(1066, 670);
+            this.pictureBox_buttonUp.Location = new System.Drawing.Point(853, 558);
             this.pictureBox_buttonUp.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_buttonUp.Name = "pictureBox_buttonUp";
-            this.pictureBox_buttonUp.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_buttonUp.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_buttonUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_buttonUp.TabIndex = 22;
             this.pictureBox_buttonUp.TabStop = false;
@@ -297,10 +284,10 @@
             // pictureBox_buttonRight
             // 
             this.pictureBox_buttonRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonRight.Location = new System.Drawing.Point(1170, 774);
+            this.pictureBox_buttonRight.Location = new System.Drawing.Point(936, 645);
             this.pictureBox_buttonRight.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_buttonRight.Name = "pictureBox_buttonRight";
-            this.pictureBox_buttonRight.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_buttonRight.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_buttonRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_buttonRight.TabIndex = 23;
             this.pictureBox_buttonRight.TabStop = false;
@@ -308,10 +295,10 @@
             // pictureBox_buttonDown
             // 
             this.pictureBox_buttonDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonDown.Location = new System.Drawing.Point(1066, 878);
+            this.pictureBox_buttonDown.Location = new System.Drawing.Point(853, 732);
             this.pictureBox_buttonDown.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_buttonDown.Name = "pictureBox_buttonDown";
-            this.pictureBox_buttonDown.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_buttonDown.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_buttonDown.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_buttonDown.TabIndex = 24;
             this.pictureBox_buttonDown.TabStop = false;
@@ -319,30 +306,30 @@
             // pictureBox_buttonLeft
             // 
             this.pictureBox_buttonLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonLeft.Location = new System.Drawing.Point(962, 774);
+            this.pictureBox_buttonLeft.Location = new System.Drawing.Point(770, 645);
             this.pictureBox_buttonLeft.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_buttonLeft.Name = "pictureBox_buttonLeft";
-            this.pictureBox_buttonLeft.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_buttonLeft.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_buttonLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_buttonLeft.TabIndex = 25;
             this.pictureBox_buttonLeft.TabStop = false;
             // 
             // pictureBox_buttonBack
             // 
-            this.pictureBox_buttonBack.Location = new System.Drawing.Point(942, 662);
+            this.pictureBox_buttonBack.Location = new System.Drawing.Point(754, 552);
             this.pictureBox_buttonBack.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_buttonBack.Name = "pictureBox_buttonBack";
-            this.pictureBox_buttonBack.Size = new System.Drawing.Size(358, 352);
+            this.pictureBox_buttonBack.Size = new System.Drawing.Size(286, 293);
             this.pictureBox_buttonBack.TabIndex = 26;
             this.pictureBox_buttonBack.TabStop = false;
             // 
             // pictureBox_upperRight
             // 
             this.pictureBox_upperRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_upperRight.Location = new System.Drawing.Point(1170, 670);
+            this.pictureBox_upperRight.Location = new System.Drawing.Point(936, 558);
             this.pictureBox_upperRight.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_upperRight.Name = "pictureBox_upperRight";
-            this.pictureBox_upperRight.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_upperRight.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_upperRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_upperRight.TabIndex = 27;
             this.pictureBox_upperRight.TabStop = false;
@@ -350,10 +337,10 @@
             // pictureBox_upperLeft
             // 
             this.pictureBox_upperLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_upperLeft.Location = new System.Drawing.Point(962, 670);
+            this.pictureBox_upperLeft.Location = new System.Drawing.Point(770, 558);
             this.pictureBox_upperLeft.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_upperLeft.Name = "pictureBox_upperLeft";
-            this.pictureBox_upperLeft.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_upperLeft.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_upperLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_upperLeft.TabIndex = 28;
             this.pictureBox_upperLeft.TabStop = false;
@@ -361,10 +348,10 @@
             // pictureBox_lowerLeft
             // 
             this.pictureBox_lowerLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_lowerLeft.Location = new System.Drawing.Point(962, 878);
+            this.pictureBox_lowerLeft.Location = new System.Drawing.Point(770, 732);
             this.pictureBox_lowerLeft.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_lowerLeft.Name = "pictureBox_lowerLeft";
-            this.pictureBox_lowerLeft.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_lowerLeft.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_lowerLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_lowerLeft.TabIndex = 29;
             this.pictureBox_lowerLeft.TabStop = false;
@@ -372,10 +359,10 @@
             // pictureBox_lowerRight
             // 
             this.pictureBox_lowerRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_lowerRight.Location = new System.Drawing.Point(1170, 878);
+            this.pictureBox_lowerRight.Location = new System.Drawing.Point(936, 732);
             this.pictureBox_lowerRight.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_lowerRight.Name = "pictureBox_lowerRight";
-            this.pictureBox_lowerRight.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox_lowerRight.Size = new System.Drawing.Size(80, 83);
             this.pictureBox_lowerRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_lowerRight.TabIndex = 30;
             this.pictureBox_lowerRight.TabStop = false;
@@ -386,10 +373,9 @@
             this.button_back.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_back.BackgroundImage")));
             this.button_back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_back.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_back.Location = new System.Drawing.Point(942, 556);
-            this.button_back.Margin = new System.Windows.Forms.Padding(4);
+            this.button_back.Location = new System.Drawing.Point(754, 463);
             this.button_back.Name = "button_back";
-            this.button_back.Size = new System.Drawing.Size(238, 86);
+            this.button_back.Size = new System.Drawing.Size(190, 72);
             this.button_back.TabIndex = 31;
             this.button_back.UseVisualStyleBackColor = false;
             this.button_back.Click += new System.EventHandler(this.button_back_Click);
@@ -397,10 +383,9 @@
             // pictureBox_Map1
             // 
             this.pictureBox_Map1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_Map1.Location = new System.Drawing.Point(20, 142);
-            this.pictureBox_Map1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox_Map1.Location = new System.Drawing.Point(16, 118);
             this.pictureBox_Map1.Name = "pictureBox_Map1";
-            this.pictureBox_Map1.Size = new System.Drawing.Size(800, 800);
+            this.pictureBox_Map1.Size = new System.Drawing.Size(640, 667);
             this.pictureBox_Map1.TabIndex = 33;
             this.pictureBox_Map1.TabStop = false;
             // 
@@ -408,29 +393,27 @@
             // 
             this.listBox_Order.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.listBox_Order.FormattingEnabled = true;
-            this.listBox_Order.ItemHeight = 40;
-            this.listBox_Order.Location = new System.Drawing.Point(975, 142);
-            this.listBox_Order.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox_Order.ItemHeight = 33;
+            this.listBox_Order.Location = new System.Drawing.Point(780, 118);
             this.listBox_Order.Name = "listBox_Order";
-            this.listBox_Order.Size = new System.Drawing.Size(342, 324);
+            this.listBox_Order.Size = new System.Drawing.Size(274, 268);
             this.listBox_Order.TabIndex = 34;
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.pictureBox1.Location = new System.Drawing.Point(921, 662);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Location = new System.Drawing.Point(737, 552);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(418, 352);
+            this.pictureBox1.Size = new System.Drawing.Size(334, 293);
             this.pictureBox1.TabIndex = 35;
             this.pictureBox1.TabStop = false;
             // 
             // Stage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1898, 1024);
+            this.ClientSize = new System.Drawing.Size(1518, 853);
             this.Controls.Add(this.listBox_Order);
             this.Controls.Add(this.button_walk);
             this.Controls.Add(this.button_back);
@@ -461,7 +444,6 @@
             this.Controls.Add(this.pictureBox_Background);
             this.Controls.Add(this.pictureBox_buttonBack);
             this.Controls.Add(this.pictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
