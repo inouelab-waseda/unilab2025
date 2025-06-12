@@ -202,7 +202,7 @@ namespace unilab2025
             
             Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
-
+            Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
 
 
         }
@@ -852,8 +852,9 @@ namespace unilab2025
                 //}
                 g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             }
-            
-            (int, int) draw_move(int a, int b, ref List<int[]> move_next)
+
+
+            (int, int)draw_move(int a, int b, ref List<int[]> move_next)
             {
                 
                 (x_now, y_now) = place_update(a, b, move_next);
@@ -895,6 +896,16 @@ namespace unilab2025
                         else if (Input_arrow[0].Contains("↙")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
                         else if (Input_arrow[0].Contains("↖")) character_me = RotateImage(Dictionaries.Img_DotPic["ball"], 0f);
                     }
+                    else if (car_count == 0 && Input_arrow[0].Contains("✈️"))
+                    {
+                        if (Input_arrow[0].Contains("↑")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 0f);
+                        else if (Input_arrow[0].Contains("→")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 90f);
+                        else if (Input_arrow[0].Contains("↓")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 180f);
+                        else if (Input_arrow[0].Contains("←")) character_me = RotateImage(Dictionaries.Img_DotPic["plane"], 270f);
+                           
+                        
+                        
+                    }
                 }
                 
                 else if (Input_arrow.Count == 0&& car_count > 0)
@@ -909,9 +920,10 @@ namespace unilab2025
                                      
                 }
 
-
+               
                 DrawCharacter(x_now, y_now, ref character_me);
                 pictureBox_Map2.Refresh();
+                
                 
                 //this.Invoke((MethodInvoker)delegate
                 //{
@@ -966,6 +978,24 @@ namespace unilab2025
                         (x_now, y_now) = draw_move(x, y, ref move_copy);
                         if (car_finish == true && Input_arrow.Count > 0)
                         {
+                            if (Input_arrow[0].Contains("✈️"))//飛行機の処理
+                            {
+                                var Plane = new List<int[]>();
+                                MoveTo(Plane, Input_arrow[0]);
+                                while (true)
+                                {
+                                    if (!Colision_detection(x, y, Map, Plane))
+                                    {
+                                        await Task.Delay(500);
+                                        (x_now, y_now) = place_update(x, y, Plane);
+                                        DrawCharacter(x_now, y_now, ref character_me);
+                                        pictureBox_Map2.Refresh();
+                                    }
+                                    else break;
+
+                                }
+                                Plane.Clear();
+                            }
                             Input_arrow.RemoveAt(0);
                         }
                         if (car_count == 0) car_finish = true;

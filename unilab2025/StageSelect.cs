@@ -40,14 +40,30 @@ namespace unilab2025
         private void StageSelect_Load(object sender, EventArgs e)
         {
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
-            button_Try.Text = "チュートリアル" + _worldNumber;
-            button_Stage.Text = "ステージ" + _worldNumber;
+            button1.Text = "ステージ" + _worldNumber+ "- 1";
+            button2.Text = "ステージ" + _worldNumber + "- 2";
+            button3.Text = "ステージ" + _worldNumber + "- 3";
         }
 
         private void button_ToMap_Click(object sender, EventArgs e)
         {
             if (_worldNumber <= 4) Func.CreateWorldMap(this);
             else Func.CreateAnotherWorld(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Func.CreateStage(this, _worldName, _worldNumber, 1);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Func.CreateStage(this, _worldName, _worldNumber, 2);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Func.CreateStage(this, _worldName, _worldNumber, 3);
         }
     }
 }
