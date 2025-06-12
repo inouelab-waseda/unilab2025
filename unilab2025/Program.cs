@@ -34,7 +34,7 @@ namespace unilab2025
             Func.LoadImg_DotPic();
             //Func.LoadImg_Conversation();
             //Func.LoadMessages();
-            //Func.InitializeClearCheck();
+            Func.InitializeClearCheck();
 
             Application.Run(new Title());
         }
@@ -84,22 +84,22 @@ namespace unilab2025
             }
         }
 
-        //public static void CreateStageSelect(Form currentForm, string worldName, int worldNumber) //呼び出し方: Func.CreateStageSelect(this,"1年生",1);
-        //{
-        //    CurrentFormState.FormName = "StageSelect";
-        //    CurrentFormState.StateData.Clear();
-        //    CurrentFormState.StateData["WorldName"] = worldName;
-        //    CurrentFormState.StateData["WorldNumber"] = worldNumber;
+        public static void CreateStageSelect(Form currentForm, string worldName, int worldNumber) //呼び出し方: Func.CreateStageSelect(this,"1年生",1);
+        {
+            CurrentFormState.FormName = "StageSelect";
+            CurrentFormState.StateData.Clear();
+            CurrentFormState.StateData["WorldName"] = worldName;
+            CurrentFormState.StateData["WorldNumber"] = worldNumber;
 
-        //    StageSelect form = new StageSelect();
-        //    form.WorldName = worldName;
-        //    form.WorldNumber = worldNumber;
-        //    form.Show();
-        //    if (!(currentForm is Title))
-        //    {
-        //        currentForm.Dispose();
-        //    }
-        //}
+            StageSelect form = new StageSelect();
+            form.WorldName = worldName;
+            form.WorldNumber = worldNumber;
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
 
         public static void CreateStage(Form currentForm, string worldName, int worldNumber, int level) //呼び出し方: Func.CreateStageSelect(this,"1");  各ステージどう名付けるか決めたい
         {

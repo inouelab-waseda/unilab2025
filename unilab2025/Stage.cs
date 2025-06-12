@@ -635,6 +635,14 @@ namespace unilab2025
 
         }
 
+        //マップに戻る
+        private void button_return_Click(object sender, EventArgs e)
+        {
+            Func.CreateStageSelect(this, _worldName, _worldNumber);
+            return;
+
+        }
+
 
 
         #endregion
@@ -1010,5 +1018,7 @@ namespace unilab2025
 
             }
         }
+
+        
     }
 }
