@@ -189,7 +189,7 @@ namespace unilab2025
 
         private async void Stage_Load(object sender, EventArgs e)  //StageのFormの起動時処理
         {
-            pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
 
@@ -282,8 +282,8 @@ namespace unilab2025
                 {
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
-                    //map_width = values.Length; //マップの横幅を取得
-                    map_width = 12;
+                    map_width = values.Length; //マップの横幅を取得
+                    
 
                     if (y == 0) map = new int[map_width, map_width]; //マップの初期化
                     x = 0;

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Stage));
-            this.pictureBox_Background = new System.Windows.Forms.PictureBox();
             this.pictureBox_Map2 = new System.Windows.Forms.PictureBox();
             this.button_Start = new System.Windows.Forms.Button();
             this.button_reset = new System.Windows.Forms.Button();
@@ -50,7 +49,6 @@
             this.pictureBox_buttonRight = new System.Windows.Forms.PictureBox();
             this.pictureBox_buttonDown = new System.Windows.Forms.PictureBox();
             this.pictureBox_buttonLeft = new System.Windows.Forms.PictureBox();
-            this.pictureBox_buttonBack = new System.Windows.Forms.PictureBox();
             this.pictureBox_upperRight = new System.Windows.Forms.PictureBox();
             this.pictureBox_upperLeft = new System.Windows.Forms.PictureBox();
             this.pictureBox_lowerLeft = new System.Windows.Forms.PictureBox();
@@ -72,23 +70,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonLeft)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_upperRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_upperLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox_Background
-            // 
-            this.pictureBox_Background.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox_Background.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(1518, 853);
-            this.pictureBox_Background.TabIndex = 0;
-            this.pictureBox_Background.TabStop = false;
             // 
             // pictureBox_Map2
             // 
@@ -319,15 +306,6 @@
             this.pictureBox_buttonLeft.TabIndex = 25;
             this.pictureBox_buttonLeft.TabStop = false;
             // 
-            // pictureBox_buttonBack
-            // 
-            this.pictureBox_buttonBack.Location = new System.Drawing.Point(754, 552);
-            this.pictureBox_buttonBack.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_buttonBack.Name = "pictureBox_buttonBack";
-            this.pictureBox_buttonBack.Size = new System.Drawing.Size(286, 293);
-            this.pictureBox_buttonBack.TabIndex = 26;
-            this.pictureBox_buttonBack.TabStop = false;
-            // 
             // pictureBox_upperRight
             // 
             this.pictureBox_upperRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -501,13 +479,9 @@
             this.Controls.Add(this.pictureBox_Map2);
             this.Controls.Add(this.pictureBox_Map1);
             this.Controls.Add(this.pictureBox_Order);
-            this.Controls.Add(this.pictureBox_Background);
-            this.Controls.Add(this.pictureBox_buttonBack);
-            this.Controls.Add(this.pictureBox1);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).EndInit();
@@ -515,21 +489,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonLeft)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_upperRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_upperLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox_Background;
         private System.Windows.Forms.PictureBox pictureBox_Map2;
         private System.Windows.Forms.Button button_Start;
         private System.Windows.Forms.Button button_reset;
@@ -550,7 +520,6 @@
         private System.Windows.Forms.PictureBox pictureBox_buttonRight;
         private System.Windows.Forms.PictureBox pictureBox_buttonDown;
         private System.Windows.Forms.PictureBox pictureBox_buttonLeft;
-        private System.Windows.Forms.PictureBox pictureBox_buttonBack;
         private System.Windows.Forms.PictureBox pictureBox_upperRight;
         private System.Windows.Forms.PictureBox pictureBox_upperLeft;
         private System.Windows.Forms.PictureBox pictureBox_lowerLeft;
