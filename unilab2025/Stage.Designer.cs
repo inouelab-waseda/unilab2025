@@ -61,8 +61,7 @@
             this.label_Car = new System.Windows.Forms.Label();
             this.label_Plane = new System.Windows.Forms.Label();
             this.label_Balloon = new System.Windows.Forms.Label();
-            this.label_Car_Input = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
+            this.label_Car_Input = new System.Windows.Forms.Label();            
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
