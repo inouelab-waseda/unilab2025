@@ -41,8 +41,12 @@ namespace unilab2025
         {
             pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
             button1.Text = "ステージ" + _worldNumber+ "- 1";
-            button2.Text = "ステージ" + _worldNumber + "- 2";
+            button2.Text = "ステージ" + _worldNumber + "- 2";            
             button3.Text = "ステージ" + _worldNumber + "- 3";
+            if (_worldNumber == 1)
+            {
+                button3.Visible = false;
+            }
         }
 
         private void button_ToMap_Click(object sender, EventArgs e)

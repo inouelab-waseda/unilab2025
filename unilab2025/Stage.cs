@@ -143,7 +143,11 @@ namespace unilab2025
 
         //listBoxに入れられる行数の制限
         public static int limit_LB_Input = 10;
-        public static int limit_LB_Car = 10;
+        public static int limit_LB_Walk=10;
+        public static int limit_LB_Car=10;
+        public static int limit_LB_Car_Input = 10;
+        public static int limit_LB_Plane=10;
+        public static int limit_LB_Balloon = 10;
 
         public static string hint;
         public static string hint_character;
@@ -225,7 +229,38 @@ namespace unilab2025
                 button_balloon.Visible = false;
 
             }
-            
+            // それぞれの枠の高さ
+            int height_LB_Walk = 10;
+            int height_LB_Car = 10;
+            int height_LB_Car_Input = 10;
+            int height_LB_Plane = 10;
+            int height_LB_Balloon = 10;
+
+            using (StreamReader sr = new StreamReader($"stage_frame.csv"))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    string[] values = line.Split(',');
+
+
+                    if (values[0] == stageName)
+                    {
+                        limit_LB_Walk = int.Parse(values[1]);
+                        limit_LB_Car = int.Parse(values[2]);
+                        limit_LB_Car_Input = int.Parse(values[3]);
+                        limit_LB_Plane = int.Parse(values[4]);
+                        limit_LB_Balloon = int.Parse(values[5]);
+                        break;
+                    }
+                }
+            }
+            label_Walk.Text = $"あと {limit_LB_Walk}";
+            label_Car.Text = $"あと {limit_LB_Car}";
+            label_Car_Input.Text = $"あと {limit_LB_Car_Input}";
+            label_Plane.Text = $"あと {limit_LB_Plane}";
+            label_Balloon.Text = $"あと {limit_LB_Balloon}";
+
 
         }
 

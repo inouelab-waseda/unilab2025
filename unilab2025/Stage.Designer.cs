@@ -59,6 +59,11 @@
             this.pictureBox_Map1 = new System.Windows.Forms.PictureBox();
             this.listBox_Order = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label_Walk = new System.Windows.Forms.Label();
+            this.label_Car = new System.Windows.Forms.Label();
+            this.label_Plane = new System.Windows.Forms.Label();
+            this.label_Balloon = new System.Windows.Forms.Label();
+            this.label_Car_Input = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
@@ -88,7 +93,7 @@
             // pictureBox_Map2
             // 
             this.pictureBox_Map2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_Map2.Location = new System.Drawing.Point(16, 118);
+            this.pictureBox_Map2.Location = new System.Drawing.Point(16, 178);
             this.pictureBox_Map2.Name = "pictureBox_Map2";
             this.pictureBox_Map2.Size = new System.Drawing.Size(640, 667);
             this.pictureBox_Map2.TabIndex = 1;
@@ -383,7 +388,7 @@
             // pictureBox_Map1
             // 
             this.pictureBox_Map1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_Map1.Location = new System.Drawing.Point(16, 118);
+            this.pictureBox_Map1.Location = new System.Drawing.Point(16, 178);
             this.pictureBox_Map1.Name = "pictureBox_Map1";
             this.pictureBox_Map1.Size = new System.Drawing.Size(640, 667);
             this.pictureBox_Map1.TabIndex = 33;
@@ -408,12 +413,67 @@
             this.pictureBox1.TabIndex = 35;
             this.pictureBox1.TabStop = false;
             // 
+            // label_Walk
+            // 
+            this.label_Walk.AutoSize = true;
+            this.label_Walk.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.label_Walk.Location = new System.Drawing.Point(153, 93);
+            this.label_Walk.Name = "label_Walk";
+            this.label_Walk.Size = new System.Drawing.Size(96, 34);
+            this.label_Walk.TabIndex = 36;
+            this.label_Walk.Text = "label3";
+            // 
+            // label_Car
+            // 
+            this.label_Car.AutoSize = true;
+            this.label_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.label_Car.Location = new System.Drawing.Point(405, 93);
+            this.label_Car.Name = "label_Car";
+            this.label_Car.Size = new System.Drawing.Size(96, 34);
+            this.label_Car.TabIndex = 37;
+            this.label_Car.Text = "label4";
+            // 
+            // label_Plane
+            // 
+            this.label_Plane.AutoSize = true;
+            this.label_Plane.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.label_Plane.Location = new System.Drawing.Point(153, 127);
+            this.label_Plane.Name = "label_Plane";
+            this.label_Plane.Size = new System.Drawing.Size(96, 34);
+            this.label_Plane.TabIndex = 38;
+            this.label_Plane.Text = "label5";
+            // 
+            // label_Balloon
+            // 
+            this.label_Balloon.AutoSize = true;
+            this.label_Balloon.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.label_Balloon.Location = new System.Drawing.Point(405, 127);
+            this.label_Balloon.Name = "label_Balloon";
+            this.label_Balloon.Size = new System.Drawing.Size(96, 34);
+            this.label_Balloon.TabIndex = 39;
+            this.label_Balloon.Text = "label6";
+            // 
+            // label_Car_Input
+            // 
+            this.label_Car_Input.AutoSize = true;
+            this.label_Car_Input.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.label_Car_Input.Location = new System.Drawing.Point(1394, 51);
+            this.label_Car_Input.Name = "label_Car_Input";
+            this.label_Car_Input.Size = new System.Drawing.Size(96, 34);
+            this.label_Car_Input.TabIndex = 40;
+            this.label_Car_Input.Text = "label3";
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1518, 853);
+            this.Controls.Add(this.label_Car_Input);
+            this.Controls.Add(this.label_Balloon);
+            this.Controls.Add(this.label_Plane);
+            this.Controls.Add(this.label_Car);
+            this.Controls.Add(this.label_Walk);
             this.Controls.Add(this.listBox_Order);
             this.Controls.Add(this.button_walk);
             this.Controls.Add(this.button_back);
@@ -500,6 +560,11 @@
         private System.Windows.Forms.PictureBox pictureBox_Map1;
         private System.Windows.Forms.ListBox listBox_Order;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label_Walk;
+        private System.Windows.Forms.Label label_Car;
+        private System.Windows.Forms.Label label_Plane;
+        private System.Windows.Forms.Label label_Balloon;
+        private System.Windows.Forms.Label label_Car_Input;
     }
 }
 
