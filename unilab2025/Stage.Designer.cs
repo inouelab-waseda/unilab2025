@@ -55,8 +55,7 @@
             this.pictureBox_lowerRight = new System.Windows.Forms.PictureBox();
             this.button_back = new System.Windows.Forms.Button();
             this.pictureBox_Map1 = new System.Windows.Forms.PictureBox();
-            this.listBox_Order = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.listBox_Order = new System.Windows.Forms.ListBox();            
             this.label_Walk = new System.Windows.Forms.Label();
             this.label_Car = new System.Windows.Forms.Label();
             this.label_Plane = new System.Windows.Forms.Label();
@@ -379,16 +378,7 @@
             this.listBox_Order.Location = new System.Drawing.Point(780, 118);
             this.listBox_Order.Name = "listBox_Order";
             this.listBox_Order.Size = new System.Drawing.Size(274, 268);
-            this.listBox_Order.TabIndex = 34;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.pictureBox1.Location = new System.Drawing.Point(737, 552);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(334, 293);
-            this.pictureBox1.TabIndex = 35;
-            this.pictureBox1.TabStop = false;
+            this.listBox_Order.TabIndex = 34;            
             // 
             // label_Walk
             // 
@@ -526,8 +516,7 @@
         private System.Windows.Forms.Button button_back;
         private System.Windows.Forms.Button button_walk;
         private System.Windows.Forms.PictureBox pictureBox_Map1;
-        private System.Windows.Forms.ListBox listBox_Order;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ListBox listBox_Order;        
         private System.Windows.Forms.Label label_Walk;
         private System.Windows.Forms.Label label_Car;
         private System.Windows.Forms.Label label_Plane;

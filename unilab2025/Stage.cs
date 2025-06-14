@@ -143,11 +143,16 @@ namespace unilab2025
 
         //listBoxに入れられる行数の制限
         public static int limit_LB_Input = 10;
-        public static int limit_LB_Walk=10;
-        public static int limit_LB_Car=10;
-        public static int limit_LB_Car_Input = 10;
-        public static int limit_LB_Plane=10;
-        public static int limit_LB_Balloon = 10;
+        public static int limit_LB_walk=10;
+        public static int limit_LB_car=10;
+        public static int limit_LB_car_Input = 10;
+        public static int limit_LB_plane=10;
+        public static int limit_LB_balloon = 10;
+        
+        public static int walk_Count = 0;
+        public static int car_Count = 0;        
+        public static int plane_Count = 0;
+        public static int balloon_Count = 0;
 
         public static string hint;
         public static string hint_character;
@@ -215,26 +220,35 @@ namespace unilab2025
                 button_plane.Visible = false;
                 listBox_Car.Visible = false;
                 pictureBox_Car.Visible=false;
+                label_Car.Visible = false;
+                label_Car_Input.Visible = false;
+                label_Plane.Visible = false;
+                label_Balloon.Visible = false;
+
+
             }
             if (_worldNumber == 2)
             {
                 
                 button_balloon.Visible = false;
                 button_plane.Visible = false;
-                
+                label_Plane.Visible = false;
+                label_Balloon.Visible = false;
+
             }
             if (_worldNumber == 3)
             {
 
                 button_balloon.Visible = false;
+                label_Balloon.Visible = false;
 
             }
             // それぞれの枠の高さ
-            int height_LB_Walk = 10;
-            int height_LB_Car = 10;
-            int height_LB_Car_Input = 10;
-            int height_LB_Plane = 10;
-            int height_LB_Balloon = 10;
+            int height_LB_walk = 10;
+            int height_LB_car = 10;
+            int height_LB_car_Input = 10;
+            int height_LB_plane = 10;
+            int height_LB_balloon = 10;
 
             using (StreamReader sr = new StreamReader($"stage_frame.csv"))
             {
@@ -246,21 +260,24 @@ namespace unilab2025
 
                     if (values[0] == stageName)
                     {
-                        limit_LB_Walk = int.Parse(values[1]);
-                        limit_LB_Car = int.Parse(values[2]);
-                        limit_LB_Car_Input = int.Parse(values[3]);
-                        limit_LB_Plane = int.Parse(values[4]);
-                        limit_LB_Balloon = int.Parse(values[5]);
+                        limit_LB_walk = int.Parse(values[1]);
+                        limit_LB_car = int.Parse(values[2]);
+                        limit_LB_car_Input = int.Parse(values[3]);
+                        limit_LB_plane = int.Parse(values[4]);
+                        limit_LB_balloon = int.Parse(values[5]);
                         break;
                     }
                 }
             }
-            label_Walk.Text = $"あと {limit_LB_Walk}";
-            label_Car.Text = $"あと {limit_LB_Car}";
-            label_Car_Input.Text = $"あと {limit_LB_Car_Input}";
-            label_Plane.Text = $"あと {limit_LB_Plane}";
-            label_Balloon.Text = $"あと {limit_LB_Balloon}";
-
+            label_Walk.Text = $"あと {limit_LB_walk}";
+            label_Car.Text = $"あと {limit_LB_car}";
+            label_Car_Input.Text = $"あと {limit_LB_car_Input}";
+            label_Plane.Text = $"あと {limit_LB_plane}";
+            label_Balloon.Text = $"あと {limit_LB_balloon}";
+            walk_Count = 0;
+            car_Count = 0;
+            plane_Count = 0;
+            balloon_Count = 0;
 
         }
 
@@ -423,13 +440,51 @@ namespace unilab2025
         {
             if (InputListBox.SelectedIndex > -1)
             {
+                
+                if (InputListBox == listBox_Order)
+                {
+                    if(InputListBox.SelectedItem.ToString().Contains("🚶‍"))
+                    {
+                        walk_Count -= 1;
+                    }
+                    else if (InputListBox.SelectedItem.ToString().Contains("🚗"))
+                    {
+                        car_Count -= 1;
+                    }
+                    else if (InputListBox.SelectedItem.ToString().Contains("✈️"))
+                    {
+                        plane_Count -= 1;
+                    }
+                    else if (InputListBox.SelectedItem.ToString().Contains("🎈"))
+                    {
+                        balloon_Count -= 1;
+                    }
+
+                }
                 InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);//1つ消す
+                if (InputListBox == listBox_Order)
+                {
+                    label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
+                    label_Car.Text = $"あと {limit_LB_car - car_Count}";
+                    label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
+                    label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+                }
+
+                else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
             }
         }
 
         private void button_reset_Click(object sender, EventArgs e)
         {
             InputListBox.Items.Clear();//全て消す
+            if (InputListBox == listBox_Order)
+            {
+                walk_Count = 0;
+                car_Count = 0;
+                plane_Count = 0;
+                balloon_Count = 0;                
+            }
+            Left_Availabel_Input();
         }
 
         private void DisplayMessage(string type)
@@ -536,68 +591,125 @@ namespace unilab2025
             //}
         }
 
+        void Left_Availabel_Input()
+        {
+            if (InputListBox.Items.Count != 0&& InputListBox==listBox_Order)
+            {
+                switch (picture)
+                {
+                    case "walk":
+                        walk_Count += 1;
+                        break;                    
+                    case "plane":
+                        plane_Count += 1;
+                        break;
+                    case "balloon":
+                        balloon_Count += 1;
+                        break;
+
+                    default:
+                        // どのcaseにも当てはまらないときの処理
+                        break;
+                }
+            }
+            if (InputListBox == listBox_Order) 
+            { 
+                label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
+                label_Car.Text = $"あと {limit_LB_car - car_Count}";
+                label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
+                label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+            }
+            else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";            
+        }
+
 
         private void PictureBox_buttonUp_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
-            //if (isChange) Item_Change();
-            //else Left_Availabel_Input();
+            //if (isChange) Item_Change();            
+            Left_Availabel_Input();
         }
         private void PictureBox_upperRight_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↗");
+            Left_Availabel_Input();
         }
         private void PictureBox_buttonRight_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "→");
+            Left_Availabel_Input();
         }
         private void PictureBox_lowerRight_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↘");
+            Left_Availabel_Input();
         }
         private void PictureBox_buttonDown_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
+            Left_Availabel_Input();
         }
         private void PictureBox_lowerLeft_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↙");
+            Left_Availabel_Input();
         }
         private void PictureBox_buttonLeft_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "←");
+            Left_Availabel_Input();
         }
         private void PictureBox_upperLeft_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↖");
+            Left_Availabel_Input();
         }
 
         bool Input_check()
         {
             bool result = false;
-            switch (InputListBox.Name)
+            if (InputListBox == listBox_Order)
             {
-                case "listBox_Order":
-                    if (InputListBox.Items.Count < limit_LB_Input) break;
-                    else goto default;
-                case "listBox_Car":
-                    if (InputListBox.Items.Count < limit_LB_Car) break;
-                    else goto default;
-                default:
+                switch (picture)
+                {
+                    case "walk":
+                        if (walk_Count < limit_LB_walk) break;
+                        else goto default;                    
+                    case "plane":
+                        if (plane_Count < limit_LB_plane) break;
+                        else goto default;
+                    case "balloon":
+                        if (balloon_Count < limit_LB_balloon) break;
+                        else goto default;
+                    default:
+                        MessageBox.Show("これ以上入力できないよ");
+                        //label_Info.Text = "これ以上入力できないよ";
+                        //label_Info.Visible = true;
+                        //DisplayMessage("Overflow");
+                        result = true;
+                        break;
+                }
+            }
+            else
+            {
+                if (!(listBox_Car.Items.Count < limit_LB_car_Input))                
+                {
+                    MessageBox.Show("これ以上入力できないよ");
                     //label_Info.Text = "これ以上入力できないよ";
                     //label_Info.Visible = true;
                     //DisplayMessage("Overflow");
-                    result = true;
-                    break;
-            }
+                    result = true;                    
+                }
+            }          
+
             return result;
         }
 
@@ -642,7 +754,11 @@ namespace unilab2025
                 ShowListBox();
                 return;
             }
-            if (Input_check()) return;
+            if (!(car_Count < limit_LB_car))
+            {
+                MessageBox.Show("これ以上入力できないよ");
+                return;
+            }
             string combined = "";
             foreach (var item in listBox_Car.Items)
             {
@@ -654,6 +770,11 @@ namespace unilab2025
             }
 
             InputListBox.Items.Add("🚗 (" + combined + ")");
+            car_Count += 1;
+            label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
+            label_Car.Text = $"あと {limit_LB_car - car_Count}";
+            label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
+            label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";            
 
         }
 
