@@ -732,6 +732,11 @@ namespace unilab2025
         }
         private void button_car_Click(object sender, EventArgs e)
         {
+            if (!(car_Count < limit_LB_car))
+            {
+                MessageBox.Show("これ以上入力できないよ");
+                return;
+            }
             if (listBox_Car.Items.Count < 1)
             {
                 MessageBox.Show("車の入力をしてね");
@@ -754,11 +759,7 @@ namespace unilab2025
                 ShowListBox();
                 return;
             }
-            if (!(car_Count < limit_LB_car))
-            {
-                MessageBox.Show("これ以上入力できないよ");
-                return;
-            }
+            
             string combined = "";
             foreach (var item in listBox_Car.Items)
             {

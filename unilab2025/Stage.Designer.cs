@@ -55,12 +55,12 @@
             this.pictureBox_lowerRight = new System.Windows.Forms.PictureBox();
             this.button_back = new System.Windows.Forms.Button();
             this.pictureBox_Map1 = new System.Windows.Forms.PictureBox();
-            this.listBox_Order = new System.Windows.Forms.ListBox();            
+            this.listBox_Order = new System.Windows.Forms.ListBox();
             this.label_Walk = new System.Windows.Forms.Label();
             this.label_Car = new System.Windows.Forms.Label();
             this.label_Plane = new System.Windows.Forms.Label();
             this.label_Balloon = new System.Windows.Forms.Label();
-            this.label_Car_Input = new System.Windows.Forms.Label();            
+            this.label_Car_Input = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -378,7 +378,7 @@
             this.listBox_Order.Location = new System.Drawing.Point(780, 118);
             this.listBox_Order.Name = "listBox_Order";
             this.listBox_Order.Size = new System.Drawing.Size(274, 268);
-            this.listBox_Order.TabIndex = 34;            
+            this.listBox_Order.TabIndex = 34;
             // 
             // label_Walk
             // 
