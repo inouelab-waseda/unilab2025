@@ -203,6 +203,7 @@ namespace unilab2025
             ListBoxes.Add(listBox_Order);
             ListBoxes.Add(listBox_Car);
             picture = "walk";
+            UpdateMovementButtonImages();
             listBox_Order.Focus();
             ShowListBox();
             grade = Regex.Replace(stageName, @"[^0-9]", "");
@@ -414,6 +415,7 @@ namespace unilab2025
 
 
             picture = "car";
+            UpdateMovementButtonImages();
             InputListBox = listBox_Car;
             listBox_Car.Focus();
             ShowListBox();
@@ -717,7 +719,10 @@ namespace unilab2025
 
         private void button_walk_Click(object sender, EventArgs e)
         {
+            
             picture = "walk";
+            UpdateMovementButtonImages();
+
             //ボタンを有効にする            
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonRight.Visible = true;
@@ -782,6 +787,7 @@ namespace unilab2025
         private void button_balloon_Click(object sender, EventArgs e)
         {
             picture = "balloon";
+            UpdateMovementButtonImages();
             //ボタンを有効にする
 
             pictureBox_buttonUp.Visible = false;
@@ -799,7 +805,7 @@ namespace unilab2025
         private void button_plane_Click(object sender, EventArgs e)
         {
             picture = "plane";
-
+            UpdateMovementButtonImages();
             //ボタンを有効にする
 
             pictureBox_buttonUp.Visible = true;
@@ -822,8 +828,30 @@ namespace unilab2025
 
         }
 
+        /// <summary>
+        /// Updates the images of movement-type buttons based on the selected 'picture'.
+        /// </summary>
+        private void UpdateMovementButtonImages()
+        {
+            // Reset all buttons to their "off" state
+            button_walk.BackgroundImage = Dictionaries.Img_Button["walk_off"];
+            button_plane.BackgroundImage = Dictionaries.Img_Button["plane_off"];
+            button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_off"];
 
-
+            // Set the selected button to its "on" state
+            switch (picture)
+            {
+                case "walk":
+                    button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on"];
+                    break;
+                case "plane":
+                    button_plane.BackgroundImage = Dictionaries.Img_Button["plane_on"];
+                    break;
+                case "balloon":
+                    button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_on"];
+                    break;
+            }
+        }
         #endregion
 
 
