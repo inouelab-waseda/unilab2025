@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Stage));
-            this.pictureBox_Background = new System.Windows.Forms.PictureBox();
             this.pictureBox_Map2 = new System.Windows.Forms.PictureBox();
             this.button_Start = new System.Windows.Forms.Button();
             this.button_reset = new System.Windows.Forms.Button();
@@ -59,7 +58,6 @@
             this.pictureBox_Map1 = new System.Windows.Forms.PictureBox();
             this.listBox_Order = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -75,16 +73,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox_Background
-            // 
-            this.pictureBox_Background.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox_Background.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_Background.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(1898, 1024);
-            this.pictureBox_Background.TabIndex = 0;
-            this.pictureBox_Background.TabStop = false;
             // 
             // pictureBox_Map2
             // 
@@ -418,6 +406,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlText;
+            this.pictureBox1.Enabled = false;
             this.pictureBox1.Location = new System.Drawing.Point(921, 662);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
@@ -430,6 +419,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1898, 1024);
             this.Controls.Add(this.listBox_Order);
             this.Controls.Add(this.button_walk);
@@ -458,14 +448,12 @@
             this.Controls.Add(this.pictureBox_Map2);
             this.Controls.Add(this.pictureBox_Map1);
             this.Controls.Add(this.pictureBox_Order);
-            this.Controls.Add(this.pictureBox_Background);
             this.Controls.Add(this.pictureBox_buttonBack);
             this.Controls.Add(this.pictureBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).EndInit();
@@ -486,8 +474,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox_Background;
         private System.Windows.Forms.PictureBox pictureBox_Map2;
         private System.Windows.Forms.Button button_Start;
         private System.Windows.Forms.Button button_reset;
