@@ -27,7 +27,7 @@ namespace unilab2025
         public Stage()
         {
             InitializeComponent();
-           // this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);

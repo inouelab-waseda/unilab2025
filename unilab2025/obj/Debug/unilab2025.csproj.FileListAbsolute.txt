@@ -24,3 +24,5 @@ C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.Prologue.
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.Prologue.resources
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.WorldMap.resources
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.StageSelect.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.StageSelect.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.WorldMap.resources
