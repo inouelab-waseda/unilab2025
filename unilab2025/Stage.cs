@@ -279,6 +279,9 @@ namespace unilab2025
             plane_Count = 0;
             balloon_Count = 0;
 
+                                     
+            listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
+
         }
 
 

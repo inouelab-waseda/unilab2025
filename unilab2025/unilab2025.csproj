@@ -90,6 +90,9 @@
     <Compile Include="WorldMap.Designer.cs">
       <DependentUpon>WorldMap.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AnotherWorld.resx">
+      <DependentUpon>AnotherWorld.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Prologue.resx">
       <DependentUpon>Prologue.cs</DependentUpon>
     </EmbeddedResource>
