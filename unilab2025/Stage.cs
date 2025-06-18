@@ -443,10 +443,10 @@ namespace unilab2025
         {
             if (InputListBox.SelectedIndex > -1)
             {
-                
+
                 if (InputListBox == listBox_Order)
                 {
-                    if(InputListBox.SelectedItem.ToString().Contains("🚶‍"))
+                    if (InputListBox.SelectedItem.ToString().Contains("🚶‍"))
                     {
                         walk_Count -= 1;
                     }
@@ -474,6 +474,42 @@ namespace unilab2025
                 }
 
                 else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+            }
+            else
+            {
+                if (InputListBox.Items.Count > 0)
+                {
+                    if (InputListBox == listBox_Order)
+                    {
+                        if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🚶‍"))
+                        {
+                            walk_Count -= 1;
+                        }
+                        else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🚗"))
+                        {
+                            car_Count -= 1;
+                        }
+                        else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("✈️"))
+                        {
+                            plane_Count -= 1;
+                        }
+                        else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🎈"))
+                        {
+                            balloon_Count -= 1;
+                        }
+                    }
+                    InputListBox.Items.RemoveAt(InputListBox.Items.Count - 1);
+                    if (InputListBox == listBox_Order)
+                    {
+                        label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
+                        label_Car.Text = $"あと {limit_LB_car - car_Count}";
+                        label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
+                        label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+                    }
+                    else label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                }                   
+                
+                
             }
         }
 
@@ -515,84 +551,92 @@ namespace unilab2025
             //List<string> Input_Main = 
 
             SquareMovement(x_now, y_now, map, move); //キャラ動かす
-            
-            //count += 1;
-            //if (x_goal == x_now && y_goal == y_now)
-            //{
-            //    //label_Result.Text = "クリア！！";
-            //    //label_Result.Visible = true;
-            //    //button_ToMap.Enabled = true;
-            //    //button_Retry.Enabled = false;
-            //    //button_ToMap.Visible = true;
-            //    isStartConv = false;
-            //    //button_ToMap.Location = new Point(800, 600);
-            //    //button_ToMap.Size = new Size(200, 50);
+            if (x_goal == x_now && y_goal == y_now)
+            {
+                ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
+                ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                Func.UpdateIsNew();
+            }
 
-            //    ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
-            //    if (_worldNumber == 4)
-            //    {
-            //        if (!ClearCheck.IsCleared[_worldNumber, 0])
-            //        {
-            //            ClearCheck.PlayAfterChapter4Story = true;
-            //        }
-            //        for (int j = 0; j < (int)ConstNum.numStages; j++)
-            //        {
-            //            ClearCheck.IsCleared[_worldNumber, j] = true;
-            //        }
-            //        for (int i = _worldNumber + 1; i < (int)ConstNum.numWorlds; i++)
-            //        {
-            //            for (int j = 0; j <= 1; j++)
-            //            {
-            //                ClearCheck.IsButtonEnabled[i, j] = true;
-            //                ClearCheck.IsNew[i, j] = true;
-            //            }
-            //        }
-            //    }
-            //    else if (_level == 3)
-            //    {
-            //        ClearCheck.IsCleared[_worldNumber, 0] = true;
-            //        switch (_worldNumber)
-            //        {
-            //            case 1:
-            //            case 2:
-            //            case 3:
-            //                for (int j = 0; j <= 1; j++)
-            //                {
-            //                    ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-            //                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
-            //                }
-            //                break; ;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
-            //        ClearCheck.IsNew[_worldNumber, _level + 1] = true;
-            //        Func.UpdateIsNew();
-            //    }
 
-            //    if (Func.HasNewStageInAllWorld())
-            //    {
-            //        //button_ToMap.ConditionImage = Dictionaries.Img_Button["New"];
-            //    }
+                //count += 1;
+                //if (x_goal == x_now && y_goal == y_now)
+                //{
+                //    //label_Result.Text = "クリア！！";
+                //    //label_Result.Visible = true;
+                //    //button_ToMap.Enabled = true;
+                //    //button_Retry.Enabled = false;
+                //    //button_ToMap.Visible = true;
+                //    isStartConv = false;
+                //    //button_ToMap.Location = new Point(800, 600);
+                //    //button_ToMap.Size = new Size(200, 50);
 
-            //    if (!ClearCheck.Completed)
-            //    {
-            //        if (Func.IsAllStageClearedInWorld(false))
-            //        {
-            //            ClearCheck.Completed = true;
-            //            ClearCheck.PlayAfterAnotherWorldStory = true;
-            //        }
-            //    }
+                //    ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
+                //    if (_worldNumber == 4)
+                //    {
+                //        if (!ClearCheck.IsCleared[_worldNumber, 0])
+                //        {
+                //            ClearCheck.PlayAfterChapter4Story = true;
+                //        }
+                //        for (int j = 0; j < (int)ConstNum.numStages; j++)
+                //        {
+                //            ClearCheck.IsCleared[_worldNumber, j] = true;
+                //        }
+                //        for (int i = _worldNumber + 1; i < (int)ConstNum.numWorlds; i++)
+                //        {
+                //            for (int j = 0; j <= 1; j++)
+                //            {
+                //                ClearCheck.IsButtonEnabled[i, j] = true;
+                //                ClearCheck.IsNew[i, j] = true;
+                //            }
+                //        }
+                //    }
+                //    else if (_level == 3)
+                //    {
+                //        ClearCheck.IsCleared[_worldNumber, 0] = true;
+                //        switch (_worldNumber)
+                //        {
+                //            case 1:
+                //            case 2:
+                //            case 3:
+                //                for (int j = 0; j <= 1; j++)
+                //                {
+                //                    ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+                //                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                //                }
+                //                break; ;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                //        ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                //        Func.UpdateIsNew();
+                //    }
 
-            //    await Task.Delay((int)ConstNum.waitTime_End);
-            //    Capt = Func.PlayConv(this, pictureBox_Conv, EndConv);
-            //}
-            //else
-            //{
-            //    resetStage("miss_end");
-            //}
-        }
+                //    if (Func.HasNewStageInAllWorld())
+                //    {
+                //        //button_ToMap.ConditionImage = Dictionaries.Img_Button["New"];
+                //    }
+
+                //    if (!ClearCheck.Completed)
+                //    {
+                //        if (Func.IsAllStageClearedInWorld(false))
+                //        {
+                //            ClearCheck.Completed = true;
+                //            ClearCheck.PlayAfterAnotherWorldStory = true;
+                //        }
+                //    }
+
+                //    await Task.Delay((int)ConstNum.waitTime_End);
+                //    Capt = Func.PlayConv(this, pictureBox_Conv, EndConv);
+                //}
+                //else
+                //{
+                //    resetStage("miss_end");
+                //}
+            }
 
         void Left_Availabel_Input()
         {
@@ -1170,7 +1214,7 @@ namespace unilab2025
                                 {
                                     if (!Colision_detection(x, y, Map, Plane))
                                     {
-                                        await Task.Delay(500);
+                                        await Task.Delay(300);
                                         (x_now, y_now) = place_update(x, y, Plane);
                                         DrawCharacter(x_now, y_now, ref character_me);
                                         pictureBox_Map2.Refresh();

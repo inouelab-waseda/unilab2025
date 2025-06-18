@@ -77,5 +77,10 @@ namespace unilab2025
                 }
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {            
+            Func.CreateAnotherWorld(this);
+        }
     }
 }
