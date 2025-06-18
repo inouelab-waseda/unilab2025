@@ -30,9 +30,9 @@
         {
             this.pictureBox_Background = new System.Windows.Forms.PictureBox();
             this.button_ToMap = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button_Stage1 = new System.Windows.Forms.Button();
+            this.button_Stage2 = new System.Windows.Forms.Button();
+            this.button_Stage3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,44 +57,44 @@
             this.button_ToMap.UseVisualStyleBackColor = true;
             this.button_ToMap.Click += new System.EventHandler(this.button_ToMap_Click);
             // 
-            // button1
+            // button_Stage1
             // 
-            this.button1.Location = new System.Drawing.Point(561, 239);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(403, 117);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "チュートリアル";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_Stage1.Location = new System.Drawing.Point(561, 239);
+            this.button_Stage1.Name = "button_Stage1";
+            this.button_Stage1.Size = new System.Drawing.Size(403, 117);
+            this.button_Stage1.TabIndex = 2;
+            this.button_Stage1.Text = "チュートリアル";
+            this.button_Stage1.UseVisualStyleBackColor = true;
+            this.button_Stage1.Click += new System.EventHandler(this.button_StageI_Click);
             // 
-            // button2
+            // button_Stage2
             // 
-            this.button2.Location = new System.Drawing.Point(561, 433);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(403, 114);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "ステージ";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button_Stage2.Location = new System.Drawing.Point(561, 433);
+            this.button_Stage2.Name = "button_Stage2";
+            this.button_Stage2.Size = new System.Drawing.Size(403, 114);
+            this.button_Stage2.TabIndex = 3;
+            this.button_Stage2.Text = "ステージ";
+            this.button_Stage2.UseVisualStyleBackColor = true;
+            this.button_Stage2.Click += new System.EventHandler(this.button_StageI_Click);
             // 
-            // button3
+            // button_Stage3
             // 
-            this.button3.Location = new System.Drawing.Point(561, 593);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(403, 107);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button_Stage3.Location = new System.Drawing.Point(561, 593);
+            this.button_Stage3.Name = "button_Stage3";
+            this.button_Stage3.Size = new System.Drawing.Size(403, 107);
+            this.button_Stage3.TabIndex = 4;
+            this.button_Stage3.Text = "button3";
+            this.button_Stage3.UseVisualStyleBackColor = true;
+            this.button_Stage3.Click += new System.EventHandler(this.button_StageI_Click);
             // 
             // StageSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 806);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_Stage3);
+            this.Controls.Add(this.button_Stage2);
+            this.Controls.Add(this.button_Stage1);
             this.Controls.Add(this.button_ToMap);
             this.Controls.Add(this.pictureBox_Background);
             this.Name = "StageSelect";
@@ -109,8 +109,8 @@
 
         private System.Windows.Forms.PictureBox pictureBox_Background;
         private System.Windows.Forms.Button button_ToMap;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button_Stage1;
+        private System.Windows.Forms.Button button_Stage2;
+        private System.Windows.Forms.Button button_Stage3;
     }
 }

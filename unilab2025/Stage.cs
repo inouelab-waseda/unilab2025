@@ -72,6 +72,8 @@ namespace unilab2025
             pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
             pictureBox_Map2.BringToFront(); //
+
+            
             
         }
 
@@ -225,6 +227,7 @@ namespace unilab2025
                 label_Car_Input.Visible = false;
                 label_Plane.Visible = false;
                 label_Balloon.Visible = false;
+                if (!(ClearCheck.IsCleared[_worldNumber,_level])) button_return.Visible = false;
 
 
             }
@@ -282,6 +285,8 @@ namespace unilab2025
 
                                      
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
+
+            ClearCheck.IsButtonEnabled[1,1] = true;
 
         }
 
@@ -546,88 +551,54 @@ namespace unilab2025
                 MessageBox.Show("やり直し");
                 button_Start.Visible = true;
                 button_Start.Enabled = true;
+                return;
             }
             move = Movement(); //ユーザーの入力を読み取る
             //List<string> Input_Main = 
 
-            SquareMovement(x_now, y_now, map, move); //キャラ動かす
-            
-            //count += 1;
-            //if (x_goal == x_now && y_goal == y_now)
-            //{
-            //    //label_Result.Text = "クリア！！";
-            //    //label_Result.Visible = true;
-            //    //button_ToMap.Enabled = true;
-            //    //button_Retry.Enabled = false;
-            //    //button_ToMap.Visible = true;
-            //    isStartConv = false;
-            //    //button_ToMap.Location = new Point(800, 600);
-            //    //button_ToMap.Size = new Size(200, 50);
+            await SquareMovement(x_now, y_now, map, move); //キャラ動かす
+           
+            if(x_goal == x_now && y_goal == y_now)
+            {                
+                ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
+                button_return.Visible = true;
 
-            //    ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
-            //    if (_worldNumber == 4)
-            //    {
-            //        if (!ClearCheck.IsCleared[_worldNumber, 0])
-            //        {
-            //            ClearCheck.PlayAfterChapter4Story = true;
-            //        }
-            //        for (int j = 0; j < (int)ConstNum.numStages; j++)
-            //        {
-            //            ClearCheck.IsCleared[_worldNumber, j] = true;
-            //        }
-            //        for (int i = _worldNumber + 1; i < (int)ConstNum.numWorlds; i++)
-            //        {
-            //            for (int j = 0; j <= 1; j++)
-            //            {
-            //                ClearCheck.IsButtonEnabled[i, j] = true;
-            //                ClearCheck.IsNew[i, j] = true;
-            //            }
-            //        }
-            //    }
-            //    else if (_level == 3)
-            //    {
-            //        ClearCheck.IsCleared[_worldNumber, 0] = true;
-            //        switch (_worldNumber)
-            //        {
-            //            case 1:
-            //            case 2:
-            //            case 3:
-            //                for (int j = 0; j <= 1; j++)
-            //                {
-            //                    ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-            //                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
-            //                }
-            //                break; ;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
-            //        ClearCheck.IsNew[_worldNumber, _level + 1] = true;
-            //        Func.UpdateIsNew();
-            //    }
 
-            //    if (Func.HasNewStageInAllWorld())
-            //    {
-            //        //button_ToMap.ConditionImage = Dictionaries.Img_Button["New"];
-            //    }
+                if (_level == 3)
+                {
+                    ClearCheck.IsCleared[_worldNumber, 0] = true;
+                    switch (_worldNumber)
+                    {                        
+                        case 2:
+                        case 3:
+                        case 4:
+                            for (int j = 0; j <= 1; j++)
+                            {
+                                ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+                                ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                            }
+                            break; ;
+                    }
+                }
+                else if(_level == 2 && _worldNumber == 1)
+                {
+                    ClearCheck.IsCleared[_worldNumber, 0] = true;
+                    for (int j = 0; j <= 1; j++)
+                    {
+                        ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+                        ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                    }
+                }
+                else
+                {
+                    ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                    ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                    Func.UpdateIsNew();
+                }
 
-            //    if (!ClearCheck.Completed)
-            //    {
-            //        if (Func.IsAllStageClearedInWorld(false))
-            //        {
-            //            ClearCheck.Completed = true;
-            //            ClearCheck.PlayAfterAnotherWorldStory = true;
-            //        }
-            //    }
 
-            //    await Task.Delay((int)ConstNum.waitTime_End);
-            //    Capt = Func.PlayConv(this, pictureBox_Conv, EndConv);
-            //}
-            //else
-            //{
-            //    resetStage("miss_end");
-            //}
+            }
+                
         }
 
         void Left_Availabel_Input()
@@ -1056,7 +1027,7 @@ namespace unilab2025
         /// <param name="y">現在地のy座標</param>
         /// <param name="Map">ステージのマップ情報</param>
         /// <param name="move">動きのリスト</param>
-        public async void  SquareMovement(int x, int y, int[,] Map, List<int[]> move)
+        public async Task  SquareMovement(int x, int y, int[,] Map, List<int[]> move)
         {
             Graphics g2 = Graphics.FromImage(bmp2);
             //cell_length = pictureBox1.Width / 12;
@@ -1214,7 +1185,7 @@ namespace unilab2025
                         //        //pictureBox2.Refresh();
                         //    });
                         //}
-                        break;
+                      break;
                 }
                 else
                 {
