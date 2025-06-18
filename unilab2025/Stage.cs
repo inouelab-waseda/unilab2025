@@ -477,6 +477,40 @@ namespace unilab2025
 
                 else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
             }
+            else
+            {
+                if (InputListBox == listBox_Order)
+                {
+                    if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🚶‍"))
+                    {
+                        walk_Count -= 1;
+                    }
+                    else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🚗"))
+                    {
+                        car_Count -= 1;
+                    }
+                    else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("✈️"))
+                    {
+                        plane_Count -= 1;
+                    }
+                    else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🎈"))
+                    {
+                        balloon_Count -= 1;
+                    }
+
+                }
+                InputListBox.Items.RemoveAt(InputListBox.Items.Count - 1);//1つ消す
+                if (InputListBox == listBox_Order)
+                {
+                    label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
+                    label_Car.Text = $"あと {limit_LB_car - car_Count}";
+                    label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
+                    label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+                }
+
+                else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+
+            }
         }
 
         private void button_reset_Click(object sender, EventArgs e)
