@@ -24,6 +24,7 @@ namespace unilab2025
 {
     public partial class Stage : Form
     {
+
         public Stage()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace unilab2025
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
             //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
-
+            
             this.KeyPreview = true;
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
@@ -164,6 +165,8 @@ namespace unilab2025
         public static bool car_finish = true;
         public static List<string> list_car;
 
+        public static string lockedCarPattern = null;
+
 
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
         PictureBox pictureBox_Conv;
@@ -194,6 +197,8 @@ namespace unilab2025
 
         private async void Stage_Load(object sender, EventArgs e)  //StageのFormの起動時処理
         {
+
+            lockedCarPattern = null;
             this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
@@ -219,6 +224,7 @@ namespace unilab2025
                 button_car.Visible = false;
                 button_balloon.Visible = false;
                 button_plane.Visible = false;
+                button_carEnter.Visible = false;
                 listBox_Car.Visible = false;
                 pictureBox_Car.Visible=false;
                 label_Car.Visible = false;
@@ -282,11 +288,6 @@ namespace unilab2025
 
         }
 
-
-
-        #region 各コントロール機能設定
-
-        #endregion
 
 
         private int[,] CreateStage(string stageName)     //ステージ作成
@@ -478,13 +479,16 @@ namespace unilab2025
 
         private void button_reset_Click(object sender, EventArgs e)
         {
+
+
             InputListBox.Items.Clear();//全て消す
             if (InputListBox == listBox_Order)
             {
                 walk_Count = 0;
                 car_Count = 0;
                 plane_Count = 0;
-                balloon_Count = 0;                
+                balloon_Count = 0;
+                lockedCarPattern = null;
             }
             Left_Availabel_Input();
         }
@@ -735,7 +739,27 @@ namespace unilab2025
                        
 
         }
+
         private void button_car_Click(object sender, EventArgs e)
+        {
+            picture = "car";
+            InputListBox = listBox_Car;
+            listBox_Car.Focus();
+            ShowListBox();
+            UpdateMovementButtonImages();
+            //ボタンを有効にする
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false; 
+
+
+        }
+        private void button_carEnter_Click(object sender, EventArgs e)
         {
             if (!(car_Count < limit_LB_car))
             {
@@ -754,34 +778,45 @@ namespace unilab2025
                 pictureBox_lowerLeft.Visible = false;
                 pictureBox_upperLeft.Visible = false;
 
-                button_walk.Enabled = false;
-                button_car.Enabled = false;
-                button_balloon.Enabled = false;
-                button_plane.Enabled = false;
                 picture = "car";
                 InputListBox = listBox_Car;
                 listBox_Car.Focus();
                 ShowListBox();
                 return;
             }
-            
+
             string combined = "";
             foreach (var item in listBox_Car.Items)
             {
                 string text = item.ToString();
-
-                // 先頭の1文字（または2文字）を抽出（絵文字によっては2文字以上）
-                string emoji = text.Substring(text.Length - 2, 2); // 1〜2文字目を仮に絵文字として取り出す
+                string emoji = text.Substring(text.Length - 2, 2);
                 combined += emoji;
             }
 
-            InputListBox.Items.Add("🚗 (" + combined + ")");
+            // まだ車のルートが登録されていない（ロックされていない）場合
+            if (lockedCarPattern == null)
+            {
+                // 現在のパターンを最初のルートとして登録（ロック）
+                lockedCarPattern = combined;
+            }
+            // 登録済みのルートと異なるパターンが入力された場合
+            else if (lockedCarPattern != combined)
+            {
+                // エラーメッセージを表示して処理を中断
+                MessageBox.Show("くるまのルートがさいしょとちがうよ！\nくるまのルートは一つにしてね！");
+                return;
+            }
+
+            InputListBox = listBox_Order;
+            listBox_Order.Focus();
+            ShowListBox();
+
+            listBox_Order.Items.Add("🚗 (" + combined + ")");
             car_Count += 1;
             label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
             label_Car.Text = $"あと {limit_LB_car - car_Count}";
             label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
-            label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";            
-
+            label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
         }
 
         private void button_balloon_Click(object sender, EventArgs e)
@@ -798,16 +833,14 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = true;
             pictureBox_lowerLeft.Visible = true;
             pictureBox_upperLeft.Visible = true;
-
-
         }
 
         private void button_plane_Click(object sender, EventArgs e)
         {
             picture = "plane";
             UpdateMovementButtonImages();
-            //ボタンを有効にする
 
+            //ボタンを有効にする
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonRight.Visible = true;
             pictureBox_buttonDown.Visible = true;
@@ -816,8 +849,6 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
-
-
         }
 
         //マップに戻る
@@ -835,6 +866,7 @@ namespace unilab2025
         {
             // Reset all buttons to their "off" state
             button_walk.BackgroundImage = Dictionaries.Img_Button["walk_off"];
+            button_car.BackgroundImage = Dictionaries.Img_Button["car_off"];
             button_plane.BackgroundImage = Dictionaries.Img_Button["plane_off"];
             button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_off"];
 
@@ -843,6 +875,9 @@ namespace unilab2025
             {
                 case "walk":
                     button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on"];
+                    break;
+                case "car":
+                    button_car.BackgroundImage = Dictionaries.Img_Button["car_on"];
                     break;
                 case "plane":
                     button_plane.BackgroundImage = Dictionaries.Img_Button["plane_on"];
@@ -853,7 +888,6 @@ namespace unilab2025
             }
         }
         #endregion
-
 
         #region ボタンの表示
         private Image RotateImage(Image img, float angle)
@@ -1258,7 +1292,5 @@ namespace unilab2025
 
             }
         }
-
-        
     }
 }

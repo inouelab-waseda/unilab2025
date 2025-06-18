@@ -61,6 +61,8 @@
             this.label_Plane = new System.Windows.Forms.Label();
             this.label_Balloon = new System.Windows.Forms.Label();
             this.label_Car_Input = new System.Windows.Forms.Label();
+            this.button_carEnter = new System.Windows.Forms.Button();
+            this.behind = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -73,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -140,10 +143,10 @@
             this.listBox_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.listBox_Car.FormattingEnabled = true;
             this.listBox_Car.ItemHeight = 27;
-            this.listBox_Car.Location = new System.Drawing.Point(1079, 106);
+            this.listBox_Car.Location = new System.Drawing.Point(1079, 91);
             this.listBox_Car.Margin = new System.Windows.Forms.Padding(2);
             this.listBox_Car.Name = "listBox_Car";
-            this.listBox_Car.Size = new System.Drawing.Size(206, 193);
+            this.listBox_Car.Size = new System.Drawing.Size(206, 220);
             this.listBox_Car.TabIndex = 7;
             // 
             // label1
@@ -172,7 +175,7 @@
             this.button_walk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_walk.BackgroundImage")));
             this.button_walk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_walk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_walk.Location = new System.Drawing.Point(956, 533);
+            this.button_walk.Location = new System.Drawing.Point(949, 565);
             this.button_walk.Margin = new System.Windows.Forms.Padding(2);
             this.button_walk.Name = "button_walk";
             this.button_walk.Size = new System.Drawing.Size(80, 80);
@@ -182,11 +185,11 @@
             // 
             // button_car
             // 
-            this.button_car.BackColor = System.Drawing.Color.Gainsboro;
+            this.button_car.BackColor = System.Drawing.Color.Transparent;
             this.button_car.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_car.BackgroundImage")));
             this.button_car.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_car.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_car.Location = new System.Drawing.Point(1205, 303);
+            this.button_car.Location = new System.Drawing.Point(1033, 481);
             this.button_car.Margin = new System.Windows.Forms.Padding(2);
             this.button_car.Name = "button_car";
             this.button_car.Size = new System.Drawing.Size(80, 80);
@@ -200,7 +203,7 @@
             this.button_balloon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_balloon.BackgroundImage")));
             this.button_balloon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_balloon.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_balloon.Location = new System.Drawing.Point(1089, 532);
+            this.button_balloon.Location = new System.Drawing.Point(1114, 565);
             this.button_balloon.Margin = new System.Windows.Forms.Padding(2);
             this.button_balloon.Name = "button_balloon";
             this.button_balloon.Size = new System.Drawing.Size(80, 80);
@@ -214,7 +217,7 @@
             this.button_plane.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_plane.BackgroundImage")));
             this.button_plane.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_plane.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_plane.Location = new System.Drawing.Point(1214, 532);
+            this.button_plane.Location = new System.Drawing.Point(1198, 481);
             this.button_plane.Margin = new System.Windows.Forms.Padding(2);
             this.button_plane.Name = "button_plane";
             this.button_plane.Size = new System.Drawing.Size(80, 80);
@@ -400,7 +403,7 @@
             // 
             this.label_Walk.AutoSize = true;
             this.label_Walk.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.label_Walk.Location = new System.Drawing.Point(958, 641);
+            this.label_Walk.Location = new System.Drawing.Point(951, 647);
             this.label_Walk.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Walk.Name = "label_Walk";
             this.label_Walk.Size = new System.Drawing.Size(78, 27);
@@ -411,7 +414,7 @@
             // 
             this.label_Car.AutoSize = true;
             this.label_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.label_Car.Location = new System.Drawing.Point(1074, 324);
+            this.label_Car.Location = new System.Drawing.Point(1033, 565);
             this.label_Car.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Car.Name = "label_Car";
             this.label_Car.Size = new System.Drawing.Size(78, 27);
@@ -422,7 +425,7 @@
             // 
             this.label_Plane.AutoSize = true;
             this.label_Plane.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.label_Plane.Location = new System.Drawing.Point(1216, 641);
+            this.label_Plane.Location = new System.Drawing.Point(1200, 565);
             this.label_Plane.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Plane.Name = "label_Plane";
             this.label_Plane.Size = new System.Drawing.Size(78, 27);
@@ -433,7 +436,7 @@
             // 
             this.label_Balloon.AutoSize = true;
             this.label_Balloon.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.label_Balloon.Location = new System.Drawing.Point(1091, 641);
+            this.label_Balloon.Location = new System.Drawing.Point(1116, 647);
             this.label_Balloon.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Balloon.Name = "label_Balloon";
             this.label_Balloon.Size = new System.Drawing.Size(78, 27);
@@ -444,12 +447,35 @@
             // 
             this.label_Car_Input.AutoSize = true;
             this.label_Car_Input.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.label_Car_Input.Location = new System.Drawing.Point(1207, 77);
+            this.label_Car_Input.Location = new System.Drawing.Point(1074, 313);
             this.label_Car_Input.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Car_Input.Name = "label_Car_Input";
             this.label_Car_Input.Size = new System.Drawing.Size(78, 27);
             this.label_Car_Input.TabIndex = 40;
             this.label_Car_Input.Text = "label3";
+            // 
+            // button_carEnter
+            // 
+            this.button_carEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_carEnter.CausesValidation = false;
+            this.button_carEnter.Font = new System.Drawing.Font("游ゴシック", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_carEnter.Location = new System.Drawing.Point(1157, 316);
+            this.button_carEnter.Name = "button_carEnter";
+            this.button_carEnter.Size = new System.Drawing.Size(128, 58);
+            this.button_carEnter.TabIndex = 41;
+            this.button_carEnter.Text = "いれる";
+            this.button_carEnter.UseVisualStyleBackColor = true;
+            this.button_carEnter.Click += new System.EventHandler(this.button_carEnter_Click);
+            // 
+            // behind
+            // 
+            this.behind.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("behind.BackgroundImage")));
+            this.behind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.behind.Location = new System.Drawing.Point(13, 81);
+            this.behind.Name = "behind";
+            this.behind.Size = new System.Drawing.Size(620, 620);
+            this.behind.TabIndex = 42;
+            this.behind.TabStop = false;
             // 
             // Stage
             // 
@@ -457,6 +483,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.button_carEnter);
             this.Controls.Add(this.label_Car_Input);
             this.Controls.Add(this.label_Balloon);
             this.Controls.Add(this.label_Plane);
@@ -489,6 +516,7 @@
             this.Controls.Add(this.pictureBox_Map2);
             this.Controls.Add(this.pictureBox_Map1);
             this.Controls.Add(this.pictureBox_Order);
+            this.Controls.Add(this.behind);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Stage";
             this.Text = "Stage";
@@ -505,6 +533,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,6 +573,8 @@
         private System.Windows.Forms.Label label_Plane;
         private System.Windows.Forms.Label label_Balloon;
         private System.Windows.Forms.Label label_Car_Input;
+        private System.Windows.Forms.Button button_carEnter;
+        private System.Windows.Forms.PictureBox behind;
     }
 }
 
