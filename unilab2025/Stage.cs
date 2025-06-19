@@ -382,7 +382,7 @@ namespace unilab2025
             }
             // キャラクターの描画をループの外に出す
             g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-
+                        
             this.Invoke((MethodInvoker)delegate
             {
                 // pictureBox_Map2を同期的にRefreshする
@@ -1278,20 +1278,73 @@ namespace unilab2025
         }
         #endregion
 
+
+        #region 隕石
         private TaskCompletionSource<bool> MeteoResult;//隕石の処理が終わったかどうか
+
+        private void pictureBox_Map2_Paint(object sender, PaintEventArgs e)
+        {
+            // 引数eからGraphicsオブジェクトを取得する
+            //Graphics g = e.Graphics;
+            // 実際の描画処理をすべてここに書く
+            // g.Clear(Color.Transparent); // Paintイベントでは通常Clearは不要
+            g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+
+            if (meteorTimer.Enabled) // タイマーが動いているときだけ隕石を描画
+            {
+                g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
+            }
+        }
+
         private async void button_meteo_Click(object sender, EventArgs e)
         {
+            //byte[] Capt = Func.CaptureClientArea(currentForm);
+            //Bitmap bmp_Capt = Func.ByteArrayToBitmap(Capt);
+            //Graphics g = Graphics.FromImage(bmp_Capt);
+            Bitmap baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
+            this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
+            Image ToDraw = Dictionaries.Img_Background["meteo"];
+            Rectangle HighlightArea = new Rectangle((this.Width / 2)-200, 0, 400, this.Height);
+            using (Graphics g = Graphics.FromImage(baseImage))
+            {
+                // 全体に暗い半透明黒
+                using (Brush overlayBrush = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
+                {
+                    g.FillRectangle(overlayBrush, 0, 0, baseImage.Width, baseImage.Height);
+                }
+
+                // ハイライト部分にイラストを描画
+                if (ToDraw != null)
+                {
+                    g.DrawImage(ToDraw, HighlightArea);
+                }
+            }
+            PictureBox overlay = new PictureBox
+            {
+                Image = baseImage,
+                Size = baseImage.Size,
+                Location = new Point(0, 0),
+                BackColor = Color.Transparent
+            };
+
+            this.Controls.Add(overlay);
+            overlay.BringToFront();
+            await Task.Delay(1000);
+                        
+            this.Controls.Remove(overlay);
+            overlay.Dispose();
+
             int n = rand.Next(4, 9);
             int m = rand.Next(4, 9);
             meteorTargetX = n;
             meteorTargetY = m;
             meteorX = (n-4)* cell_length;
             meteorY = (m-4)*cell_length; // 空からスタート
-            meteorX_speed = (4 * cell_length)/30; 
-            meteorY_speed = (4 * cell_length)/30;
+            meteorX_speed = (4 * cell_length)/10; 
+            meteorY_speed = (4 * cell_length)/10;
 
             await StartMeteorFallAsync();//隕石を落とす
-            await Task.Delay(50);
+            await Task.Delay(100);
             Image explosion = RotateImage(Dictionaries.Img_DotPic["explosion"], 0f);            
             g2.DrawImage(explosion, (n-2) * cell_length - extra_length, (m-2) * cell_length - 2 * extra_length, 4 * (cell_length + 2 * extra_length), 4 * (cell_length + 2 * extra_length));            
             pictureBox_Map2.Refresh();
@@ -1326,7 +1379,7 @@ namespace unilab2025
         private async Task StartMeteorFallAsync()
         {
             MeteoResult= new TaskCompletionSource<bool>();
-            meteorTimer.Interval = 10; // 0.5秒ごとに描画
+            meteorTimer.Interval = 16; 
             meteorTimer.Tick += meteorTimer_Tick;
             meteorTimer.Start();
             
@@ -1335,26 +1388,22 @@ namespace unilab2025
 
         private void meteorTimer_Tick(object sender, EventArgs e)
         {
-            g2.Clear(Color.Transparent);//人の移動などのリセット            
-            g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-            g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
-            pictureBox_Map2.Refresh();
-
+            pictureBox_Map2.Invalidate();            
             meteorX += meteorX_speed;
             meteorY += meteorY_speed; // 落下スピード
             if (meteorY >= (meteorTargetY-2) * cell_length)
             {
                 meteorTimer.Stop();
                 MeteoResult?.SetResult(true);
-                g2.Clear(Color.Transparent);//人の移動などのリセット
-                g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-                pictureBox_Map2.Refresh();
+                pictureBox_Map2.Invalidate();
                 return;
             }
-
-
-
+            return;
         }
 
+
+
+        
+        #endregion
     }
 }

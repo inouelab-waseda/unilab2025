@@ -85,6 +85,7 @@
             this.pictureBox_Map2.Size = new System.Drawing.Size(800, 750);
             this.pictureBox_Map2.TabIndex = 1;
             this.pictureBox_Map2.TabStop = false;
+            this.pictureBox_Map2.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Map2_Paint);
             // 
             // button_Start
             // 
