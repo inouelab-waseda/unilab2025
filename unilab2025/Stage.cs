@@ -1269,11 +1269,19 @@ namespace unilab2025
         #endregion
 
 
-        private void button_meteo_Click(object sender, EventArgs e)
+        private async void button_meteo_Click(object sender, EventArgs e)
         {
-            Graphics g1 = Graphics.FromImage(bmp1);
             int n = rand.Next(3, 8);
             int m = rand.Next(3, 8);
+            Image explosion = RotateImage(Dictionaries.Img_DotPic["explosion"], 0f);            
+            g2.DrawImage(explosion, (n-2) * cell_length - extra_length, (m-2) * cell_length - 2 * extra_length, 4 * (cell_length + 2 * extra_length), 4 * (cell_length + 2 * extra_length));            
+            pictureBox_Map2.Refresh();
+            await Task.Delay(500);
+            g2.Clear(Color.Transparent);//人の移動などのリセット
+            g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);            
+            pictureBox_Map2.Refresh();
+
+            Graphics g1 = Graphics.FromImage(bmp1);            
 
             for (int y = -1; y < 2; y++)
             {
