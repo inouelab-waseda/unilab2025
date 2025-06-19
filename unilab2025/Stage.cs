@@ -165,7 +165,7 @@ namespace unilab2025
         public static int car_count=0;
         public static bool car_finish = true;
         public static List<string> list_car;
-
+        private Random rand = new Random(); // フィールドに保持
 
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
         PictureBox pictureBox_Conv;
@@ -214,6 +214,7 @@ namespace unilab2025
             
             Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
+            Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
 
             if (_worldNumber == 1)
@@ -1258,15 +1259,38 @@ namespace unilab2025
                     //    //DrawCharacter(x, y, ref character_me);
                     //    break;
                     //}
-                }
-
-                #endregion
+                }             
 
 
 
             }
         }
+        #endregion
 
-        
+
+        private void button_meteo_Click(object sender, EventArgs e)
+        {
+            Graphics g1 = Graphics.FromImage(bmp1);
+            int n = rand.Next(3, 8);
+            int m = rand.Next(3, 8);
+
+            for (int y = -1; y < 2; y++)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    if (map[n + x, m + y] == 2) 
+                    {
+                        int placeX = (n+x) * cell_length;
+                        int placeY = (m+y) * cell_length;
+                        map[n + x, m + y] = 3;                        
+                        g1.DrawImage(Dictionaries.Img_Object["3"], placeX, placeY, cell_length, cell_length); 
+                    }
+
+                }
+            }
+            
+            pictureBox_Map1.Refresh();
+
+        }
     }
 }
