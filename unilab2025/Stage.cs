@@ -24,6 +24,8 @@ namespace unilab2025
 {
     public partial class Stage : Form
     {
+
+        
         public Stage()
         {
             InitializeComponent();
@@ -165,7 +167,12 @@ namespace unilab2025
         public static int car_count=0;
         public static bool car_finish = true;
         public static List<string> list_car;
+
         private Random rand = new Random(); // フィールドに保持
+        public static int meteorTargetX, meteorTargetY;//隕石処理
+        public static int meteorX, meteorY;
+        public static int meteorX_speed, meteorY_speed;
+
 
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
         PictureBox pictureBox_Conv;
@@ -178,6 +185,8 @@ namespace unilab2025
         public Graphics g1;
         public Graphics g2;
 
+        System.Windows.Forms.Timer meteorTimer = new System.Windows.Forms.Timer();
+        
         //表示される絵文字
         public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
         {
@@ -217,6 +226,7 @@ namespace unilab2025
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
             Dictionaries.Img_DotPic["explosion"] = Image.FromFile(@"Image\\DotPic\\explosion.png");
+            Dictionaries.Img_DotPic["meteo"] = Image.FromFile(@"Image\\DotPic\\meteo.png");
 
             if (_worldNumber == 1)
             {
@@ -1268,11 +1278,20 @@ namespace unilab2025
         }
         #endregion
 
-
+        private TaskCompletionSource<bool> MeteoResult;//隕石の処理が終わったかどうか
         private async void button_meteo_Click(object sender, EventArgs e)
         {
-            int n = rand.Next(3, 8);
-            int m = rand.Next(3, 8);
+            int n = rand.Next(4, 9);
+            int m = rand.Next(4, 9);
+            meteorTargetX = n;
+            meteorTargetY = m;
+            meteorX = (n-4)* cell_length;
+            meteorY = (m-4)*cell_length; // 空からスタート
+            meteorX_speed = (4 * cell_length)/30; 
+            meteorY_speed = (4 * cell_length)/30;
+
+            await StartMeteorFallAsync();//隕石を落とす
+            await Task.Delay(50);
             Image explosion = RotateImage(Dictionaries.Img_DotPic["explosion"], 0f);            
             g2.DrawImage(explosion, (n-2) * cell_length - extra_length, (m-2) * cell_length - 2 * extra_length, 4 * (cell_length + 2 * extra_length), 4 * (cell_length + 2 * extra_length));            
             pictureBox_Map2.Refresh();
@@ -1298,8 +1317,44 @@ namespace unilab2025
                 }
             }
             
-            pictureBox_Map1.Refresh();
+            pictureBox_Map1.Refresh();            
+            button_meteo.Visible = false;
+
 
         }
+
+        private async Task StartMeteorFallAsync()
+        {
+            MeteoResult= new TaskCompletionSource<bool>();
+            meteorTimer.Interval = 10; // 0.5秒ごとに描画
+            meteorTimer.Tick += meteorTimer_Tick;
+            meteorTimer.Start();
+            
+            await MeteoResult.Task;            
+        }
+
+        private void meteorTimer_Tick(object sender, EventArgs e)
+        {
+            g2.Clear(Color.Transparent);//人の移動などのリセット            
+            g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+            g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
+            pictureBox_Map2.Refresh();
+
+            meteorX += meteorX_speed;
+            meteorY += meteorY_speed; // 落下スピード
+            if (meteorY >= (meteorTargetY-2) * cell_length)
+            {
+                meteorTimer.Stop();
+                MeteoResult?.SetResult(true);
+                g2.Clear(Color.Transparent);//人の移動などのリセット
+                g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                pictureBox_Map2.Refresh();
+                return;
+            }
+
+
+
+        }
+
     }
 }
