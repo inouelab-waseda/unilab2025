@@ -1203,7 +1203,7 @@ namespace unilab2025
                                 {
                                     if (!Colision_detection(x, y, Map, Plane))
                                     {
-                                        await Task.Delay(500);
+                                        await Task.Delay(200);
                                         (x_now, y_now) = place_update(x, y, Plane);
                                         DrawCharacter(x_now, y_now, ref character_me);
                                         pictureBox_Map2.Refresh();
@@ -1232,7 +1232,7 @@ namespace unilab2025
                         button_Start.Enabled = true;
                         break;
                     }
-                        await Task.Delay(500);
+                        await Task.Delay(400);
 
                     //if (Colision_detection(x, y, Map, move_copy) && jump == 0)
                     //{

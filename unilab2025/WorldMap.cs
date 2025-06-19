@@ -21,7 +21,7 @@ namespace unilab2025
         #region 読み込み時
         private void WorldMap_Load(object sender, EventArgs e)
         {
-
+            if (!(ClearCheck.IsCleared[4,0])) button5.Visible = false;
         }
         #endregion
 
