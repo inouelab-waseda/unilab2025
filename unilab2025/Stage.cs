@@ -216,6 +216,7 @@ namespace unilab2025
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
+            Dictionaries.Img_DotPic["explosion"] = Image.FromFile(@"Image\\DotPic\\explosion.png");
 
             if (_worldNumber == 1)
             {
