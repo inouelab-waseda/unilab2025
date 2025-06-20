@@ -817,6 +817,9 @@ namespace unilab2025
             label_Car.Text = $"あと {limit_LB_car - car_Count}";
             label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
             label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+
+            picture = "walk";
+            UpdateMovementButtonImages();
         }
 
         private void button_balloon_Click(object sender, EventArgs e)
