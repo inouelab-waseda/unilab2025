@@ -302,7 +302,8 @@ namespace unilab2025
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
                     map_width = values.Length; //マップの横幅を取得
-                    
+            
+
 
                     if (y == 0) map = new int[map_width, map_width]; //マップの初期化
                     x = 0;
@@ -392,6 +393,7 @@ namespace unilab2025
             if (_worldNumber >= 4) button_balloon.Enabled = true;
 
             picture = "walk";
+            UpdateMovementButtonImages();
             InputListBox = listBox_Order;
             listBox_Order.Focus();
             ShowListBox();
@@ -763,7 +765,7 @@ namespace unilab2025
         {
             if (!(car_Count < limit_LB_car))
             {
-                MessageBox.Show("これ以上入力できないよ");
+                MessageBox.Show("これ以上入力できないよ!");
                 return;
             }
             if (listBox_Car.Items.Count < 1)
