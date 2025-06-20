@@ -857,8 +857,19 @@ namespace unilab2025
         //マップに戻る
         private void button_return_Click(object sender, EventArgs e)
         {
-            Func.CreateStageSelect(this, _worldName, _worldNumber);
-            return;
+            string message = "にゅうりょくしたないようがリセットされちゃうよ！\nほんとうにマップにもどりますか？";
+            string caption = "確認";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            // 確認ダイアログを表示します。
+            result = MessageBox.Show(this, message, caption, buttons, MessageBoxIcon.Warning);
+
+            // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
+            if (result == DialogResult.Yes)
+            {
+                Func.CreateStageSelect(this, _worldName, _worldNumber);
+            }
 
         }
 
