@@ -30,8 +30,8 @@ namespace unilab2025
            // this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
-            //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv = Func.CreatePictureBox_Conv(this);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
 
             this.KeyPreview = true;
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
@@ -161,6 +161,7 @@ namespace unilab2025
         List<Conversation> Message;
         bool isStartConv;
         bool isMessageMode;
+        public List<Conversation> currentConversation;
         public Graphics g1;
         public Graphics g2;
 
@@ -196,14 +197,28 @@ namespace unilab2025
             grade = Regex.Replace(stageName, @"[^0-9]", "");
             int chapter_num = int.Parse(grade) / 10;
 
+            string convFileName = "Story_Chapter" + _worldNumber + "-" + _level + ".csv";
+            if (File.Exists($"Story\\{convFileName}"))
+            {
+                (StartConv, EndConv) = Func.LoadStories(convFileName, "PLAY");
+
+                // 2. 開始時の会話を「現在再生中の会話」としてセット
+                currentConversation = StartConv;
+                isStartConv = true;
+                isMessageMode = false;
+                await Task.Delay((int)ConstNum.waitTime_Load);
+
+                // 3. 開始時の会話があれば、再生を開始する
+                //    この呼び出しで初めて Capt に値がセットされます！
+
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
+
 
         }
-
-
-
-        #region 各コントロール機能設定
-
-        #endregion
 
 
         private int[,] CreateStage(string stageName)     //ステージ作成
@@ -370,8 +385,8 @@ namespace unilab2025
         private void DisplayMessage(string type)
         {
             isMessageMode = true;
-            //Message = Dictionaries.Messages[type];
-            //Capt = Func.PlayConv(this, pictureBox_Conv, Message);
+            Message = Dictionaries.Conversations[type];
+            Capt = Func.PlayConv(this, pictureBox_Conv, Message);
         }
 
 
@@ -619,6 +634,14 @@ namespace unilab2025
             pictureBox_upperLeft.Visible = false;
 
 
+        }
+
+        private void button_info_Click(object sender, EventArgs e)
+        {
+            if (this.currentConversation != null && Func.convIndex < this.currentConversation.Count) return;
+
+            currentConversation = Dictionaries.Conversations["Info"];
+            Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
         }
 
 
@@ -893,7 +916,29 @@ namespace unilab2025
                 #endregion
 
 
+
+
             }
         }
+
+
+        #region 会話進行処理
+
+        /// 会話を1フレーム進める
+        private void AdvanceConversation()
+        {
+            if (currentConversation != null && Capt != null)
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
+            }
+        }
+
+        // 会話用のPictureBoxがクリックされたときの処理
+        private void pictureBox_Conv_Click(object sender, EventArgs e)
+        {
+            AdvanceConversation();
+        }
+
+        #endregion
     }
 }
