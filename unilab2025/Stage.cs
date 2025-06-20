@@ -34,6 +34,7 @@ namespace unilab2025
             //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
 
             this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(Arrow_KeyDown);
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
@@ -383,25 +384,30 @@ namespace unilab2025
 
         private void listBox_Order_Click(object sender, EventArgs e)
         {
+            if (InputListBox == listBox_Car)
+            {
 
-            pictureBox_buttonUp.Visible = true;
-            pictureBox_buttonRight.Visible = true;
-            pictureBox_buttonDown.Visible = true;
-            pictureBox_buttonLeft.Visible = true;
-            pictureBox_upperRight.Visible = false;
-            pictureBox_lowerRight.Visible = false;
-            pictureBox_lowerLeft.Visible = false;
-            pictureBox_upperLeft.Visible = false;
+                pictureBox_buttonUp.Visible = true;
+                pictureBox_buttonRight.Visible = true;
+                pictureBox_buttonDown.Visible = true;
+                pictureBox_buttonLeft.Visible = true;
+                pictureBox_upperRight.Visible = false;
+                pictureBox_lowerRight.Visible = false;
+                pictureBox_lowerLeft.Visible = false;
+                pictureBox_upperLeft.Visible = false;
 
-            button_walk.Enabled = true;
-            if(_worldNumber >= 2) button_car.Enabled = true;
-            if(_worldNumber >= 3) button_plane.Enabled = true;
-            if (_worldNumber >= 4) button_balloon.Enabled = true;
+                button_walk.Enabled = true;
+                if (_worldNumber >= 2) button_car.Enabled = true;
+                if (_worldNumber >= 3) button_plane.Enabled = true;
+                if (_worldNumber >= 4) button_balloon.Enabled = true;
 
-            picture = "walk";
-            InputListBox = listBox_Order;
-            listBox_Order.Focus();
-            ShowListBox();
+                picture = "walk";
+                InputListBox = listBox_Order;
+                listBox_Order.Focus();
+                ShowListBox();
+                UpdateMovementButtonImages();
+            }
+            else return;
         }
 
         private void listBox_Car_Click(object sender, EventArgs e)
@@ -740,8 +746,8 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
-                       
 
+            this.ActiveControl = null;
         }
         private void button_car_Click(object sender, EventArgs e)
         {
@@ -860,6 +866,45 @@ namespace unilab2025
                     break;
             }
         }
+
+        private void Arrow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (picture != "balloon")            {
+                
+                if (e.KeyCode == Keys.Up)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
+                    Left_Availabel_Input();
+                }
+                if (e.KeyCode == Keys.Right)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "→");
+                    Left_Availabel_Input();
+                }
+                if (e.KeyCode == Keys.Down)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
+                    Left_Availabel_Input();
+                }
+                if (e.KeyCode == Keys.Left)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "←");
+                    Left_Availabel_Input();
+                }
+            }
+        }
+
+
+
+
+
+
+
+
         #endregion
 
 
