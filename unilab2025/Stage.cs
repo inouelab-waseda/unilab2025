@@ -114,6 +114,8 @@ namespace unilab2025
         Brush goalBackgroundColor = new SolidBrush(Color.Yellow);
         Brush startBackgroundColor = new SolidBrush(Color.Blue);
 
+        Bitmap baseImage;
+
 
         Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
 
@@ -299,6 +301,7 @@ namespace unilab2025
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
             ClearCheck.IsButtonEnabled[1,1] = true;
+            baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);//隕石
 
         }
 
@@ -1300,8 +1303,7 @@ namespace unilab2025
         {
             //byte[] Capt = Func.CaptureClientArea(currentForm);
             //Bitmap bmp_Capt = Func.ByteArrayToBitmap(Capt);
-            //Graphics g = Graphics.FromImage(bmp_Capt);
-            Bitmap baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
+            //Graphics g = Graphics.FromImage(bmp_Capt);            
             this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
             Image ToDraw = Dictionaries.Img_Background["meteo"];
             Rectangle HighlightArea = new Rectangle((this.Width / 2)-200, 0, 400, this.Height);
@@ -1330,10 +1332,9 @@ namespace unilab2025
             this.Controls.Add(overlay);
             overlay.BringToFront();
             await Task.Delay(1000);
-                        
-            this.Controls.Remove(overlay);
-            overlay.Dispose();
 
+            overlay.Visible = false;
+            await Task.Delay(1000);
             int n = rand.Next(4, 9);
             int m = rand.Next(4, 9);
             meteorTargetX = n;
@@ -1369,7 +1370,10 @@ namespace unilab2025
 
                 }
             }
-            
+
+            this.Controls.Remove(overlay);
+            overlay.Dispose();
+
             pictureBox_Map1.Refresh();            
             button_meteo.Visible = false;
 
