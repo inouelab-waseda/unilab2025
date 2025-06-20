@@ -32,6 +32,7 @@ namespace unilab2025
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.DoubleBuffered = true;
             //pictureBox_Conv = ConversationsFunc.CreatePictureBox_Conv(this);
             //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
 
@@ -1306,6 +1307,7 @@ namespace unilab2025
             //Graphics g = Graphics.FromImage(bmp_Capt);            
             this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
             Image ToDraw = Dictionaries.Img_Background["meteo"];
+
             Rectangle HighlightArea = new Rectangle((this.Width / 2)-200, 0, 400, this.Height);
             using (Graphics g = Graphics.FromImage(baseImage))
             {
@@ -1331,10 +1333,13 @@ namespace unilab2025
 
             this.Controls.Add(overlay);
             overlay.BringToFront();
-            await Task.Delay(1000);
-
+            await Task.Delay(1000);            
             overlay.Visible = false;
-            await Task.Delay(1000);
+            await Task.Delay(10);
+            this.Controls.Remove(overlay);
+            overlay.Dispose();
+            this.Refresh();
+            await Task.Delay(500);
             int n = rand.Next(4, 9);
             int m = rand.Next(4, 9);
             meteorTargetX = n;
@@ -1369,10 +1374,7 @@ namespace unilab2025
                     }
 
                 }
-            }
-
-            this.Controls.Remove(overlay);
-            overlay.Dispose();
+            }            
 
             pictureBox_Map1.Refresh();            
             button_meteo.Visible = false;
