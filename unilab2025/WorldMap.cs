@@ -15,7 +15,9 @@ namespace unilab2025
         public WorldMap()
         {
             InitializeComponent();
-            
+            this.WindowState = FormWindowState.Maximized;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
 
         #region 読み込み時

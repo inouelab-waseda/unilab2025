@@ -696,8 +696,8 @@ namespace unilab2025
                         if (balloon_Count < limit_LB_balloon) break;
                         else goto default;
                     default:
-                        MessageBox.Show("これ以上入力できないよ");
-                        //label_Info.Text = "これ以上入力できないよ";
+                        MessageBox.Show("これ以上入力できないよ！");
+                        //label_Info.Text = "これ以上入力できないよ！";
                         //label_Info.Visible = true;
                         //DisplayMessage("Overflow");
                         result = true;
@@ -708,8 +708,8 @@ namespace unilab2025
             {
                 if (!(listBox_Car.Items.Count < limit_LB_car_Input))                
                 {
-                    MessageBox.Show("これ以上入力できないよ");
-                    //label_Info.Text = "これ以上入力できないよ";
+                    MessageBox.Show("これ以上入力できないよ！");
+                    //label_Info.Text = "これ以上入力できないよ！";
                     //label_Info.Visible = true;
                     //DisplayMessage("Overflow");
                     result = true;                    

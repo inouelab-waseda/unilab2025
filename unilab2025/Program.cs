@@ -32,6 +32,7 @@ namespace unilab2025
             Func.LoadImg_Button();//ボタン
             Func.LoadImg_Background();//背景
             Func.LoadImg_DotPic();
+            Func.LoadImg_Button_MapSelect();
             //Func.LoadImg_Conversation();
             //Func.LoadMessages();
             Func.InitializeClearCheck();
@@ -462,6 +463,7 @@ namespace unilab2025
             public static Dictionary<string, Image> Img_DotPic = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Object = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Button = new Dictionary<string, Image>();
+            public static Dictionary<string, Image> Img_Button_MapSelect = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Background = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Conversation = new Dictionary<string, Image>();
             public static Dictionary<string, List<Conversation>> Convertations = new Dictionary<string, List<Conversation>>();
@@ -565,18 +567,28 @@ namespace unilab2025
                 Dictionaries.Img_Button[key] = Image.FromFile(file);
             }
         }
-    //    public static void LoadMessages()
-    //    {
-    //        Dictionaries.Messages.Clear();
-    //        string[] files = Directory.GetFiles(@"Message");
-    //        foreach (string file in files)
-    //        {
-    //            string key = Path.GetFileNameWithoutExtension(file).Replace("Message_", "");
-    //            Dictionaries.Messages[key] = LoadMessageCSV(file);
-    //        }
-    //    }
+        public static void LoadImg_Button_MapSelect()
+        {
+            Dictionaries.Img_Button_MapSelect.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Button_MapSelect");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Button_MapSelect_", "");
+                Dictionaries.Img_Button_MapSelect[key] = Image.FromFile(file);
+            }
+        }
+        //    public static void LoadMessages()
+        //    {
+        //        Dictionaries.Messages.Clear();
+        //        string[] files = Directory.GetFiles(@"Message");
+        //        foreach (string file in files)
+        //        {
+        //            string key = Path.GetFileNameWithoutExtension(file).Replace("Message_", "");
+        //            Dictionaries.Messages[key] = LoadMessageCSV(file);
+        //        }
+        //    }
 
-}
+    }
     #endregion
 
     #region 進行状況管理

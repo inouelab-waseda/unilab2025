@@ -12,13 +12,15 @@ namespace unilab2025
 {
     public partial class StageSelect : Form
     {
-
-        #region 各種メンバ変数の定義など
         public StageSelect()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
         }
+        #region 各種メンバ変数の定義など
 
         private string _worldName;  //WorldMapで選択された学年
         private int _worldNumber;
@@ -39,14 +41,16 @@ namespace unilab2025
 
         private void StageSelect_Load(object sender, EventArgs e)
         {
-            pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
-            button1.Text = "ステージ" + _worldNumber+ "- 1";
-            button2.Text = "ステージ" + _worldNumber + "- 2";            
-            button3.Text = "ステージ" + _worldNumber + "- 3";
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
+            button1.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-1"];
+            button2.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-2"];
             if (_worldNumber == 1)
             {
                 button3.Visible = false;
+                return;
             }
+            else button3.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-3"];
+
         }
 
         private void button_ToMap_Click(object sender, EventArgs e)
