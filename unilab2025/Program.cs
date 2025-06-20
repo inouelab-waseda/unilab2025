@@ -553,7 +553,7 @@ namespace unilab2025
             Bitmap bmp_Capt = ByteArrayToBitmap(Capt);
             Graphics g = Graphics.FromImage(bmp_Capt);
 
-            Font fnt_name = new Font("游ゴシック", 23 , FontStyle.Bold);
+            Font fnt_name = new Font("游ゴシック", 30);
             Font fnt_dia = new Font("游ゴシック", 30);
             Font fnt_ruby = new Font("游ゴシック", 12);
 
@@ -581,8 +581,8 @@ namespace unilab2025
                 // キャラ名表示
                 string charaName = Conversations[convIndex].Character;
                 // 名前の描画位置 (ウィンドウ左上からのオフセット。お好みで調整してください)
-                Point namePosition = new Point(margin_x + 18, margin_y + 23);
-                g.DrawString(charaName, fnt_name, Brushes.White, namePosition);
+                Point namePosition = new Point(margin_x + 55, margin_y + 12);
+                g.DrawString(charaName, fnt_name, Brushes.Black, namePosition);
 
                 // キャラクターアイコン画像描画
                 Image charaImage = null;
