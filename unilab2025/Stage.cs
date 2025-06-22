@@ -37,6 +37,7 @@ namespace unilab2025
             //pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
 
             this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(Arrow_KeyDown);
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
@@ -1322,19 +1323,19 @@ namespace unilab2025
         #region 隕石
         private TaskCompletionSource<bool> MeteoResult;//隕石の処理が終わったかどうか
 
-        private void pictureBox_Map2_Paint(object sender, PaintEventArgs e)
-        {
-            // 引数eからGraphicsオブジェクトを取得する
-            //Graphics g = e.Graphics;
-            // 実際の描画処理をすべてここに書く
-            // g.Clear(Color.Transparent); // Paintイベントでは通常Clearは不要
-            g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+        //private void pictureBox_Map2_Paint(object sender, PaintEventArgs e)
+        //{
+        //    // 引数eからGraphicsオブジェクトを取得する
+        //    //Graphics g = e.Graphics;
+        //    // 実際の描画処理をすべてここに書く
+        //    // g.Clear(Color.Transparent); // Paintイベントでは通常Clearは不要
+        //    g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
 
-            if (meteorTimer.Enabled) // タイマーが動いているときだけ隕石を描画
-            {
-                g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
-            }
-        }
+        //    if (meteorTimer.Enabled) // タイマーが動いているときだけ隕石を描画
+        //    {
+        //        g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
+        //    }
+        //}
 
         private async void button_meteo_Click(object sender, EventArgs e)
         {
@@ -1376,8 +1377,8 @@ namespace unilab2025
             overlay.Dispose();
             this.Refresh();
             await Task.Delay(500);
-            int n = rand.Next(4, 9);
-            int m = rand.Next(4, 9);
+            int n = rand.Next(4, 8);
+            int m = rand.Next(4, 8);
             meteorTargetX = n;
             meteorTargetY = m;
             meteorX = (n-4)* cell_length;
@@ -1430,14 +1431,15 @@ namespace unilab2025
 
         private void meteorTimer_Tick(object sender, EventArgs e)
         {
-            pictureBox_Map2.Invalidate();            
+            g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
+            pictureBox_Map2.Refresh();            
             meteorX += meteorX_speed;
             meteorY += meteorY_speed; // 落下スピード
             if (meteorY >= (meteorTargetY-2) * cell_length)
             {
                 meteorTimer.Stop();
                 MeteoResult?.SetResult(true);
-                pictureBox_Map2.Invalidate();
+                pictureBox_Map2.Refresh();
                 return;
             }
             return;
