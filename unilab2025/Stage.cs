@@ -328,7 +328,13 @@ namespace unilab2025
                 if (ToDraw != null)
                 {
                     g.DrawImage(ToDraw, HighlightArea);
+
                 }
+                //枠線
+                //using (Pen pen = new Pen(Color.Yellow, 3))
+                //{
+                //    g.DrawRectangle(pen, HighlightArea);
+                //}
             }
 
             overlay = new PictureBox
