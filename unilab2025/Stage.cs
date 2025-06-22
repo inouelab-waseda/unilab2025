@@ -18,6 +18,7 @@ using System.Reflection.Emit;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 
 namespace unilab2025
@@ -1411,12 +1412,62 @@ namespace unilab2025
             //this.Controls.Add(overlay);
             //overlay.BringToFront();
             overlay.Visible = true;
-            await Task.Delay(1000);            
+            await Task.Delay(1000);
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl != overlay) ctrl.Visible = false;
+            }
+            //overlay.Dispose();
+            //overlay.Refresh();  
             overlay.Visible = false;
-            await Task.Delay(10);
+            await Task.Delay(100);
+
             //this.Controls.Remove(overlay);
             //overlay.Dispose();
-            this.Refresh();
+            this.SuspendLayout(); // 描画を一時停止
+
+            button_walk.Visible = true;
+            button_back.Visible = true;
+            button_hint.Visible = true;
+            button_info.Visible = true;
+            button_reset.Visible = true;            
+            button_Start.Visible=true;
+            label_Walk.Visible=true;
+            listBox_Order.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_Map1.Visible = true;
+            pictureBox_Map2.Visible = true;
+            pictureBox_Order.Visible = true;
+            if (_worldNumber >=2)
+            {
+                button_car.Visible = true;
+                listBox_Car.Visible = true;
+                pictureBox_Car.Visible = true;
+                label_Car.Visible = true;
+                label_Car_Input.Visible = true;
+
+            }
+            if (_worldNumber >= 3)
+            {
+                button_plane.Visible = true;
+                label_Plane.Visible = true;
+
+            }
+            if (_worldNumber >=4)
+            {                
+                button_balloon.Visible = true;
+                label_Balloon.Visible = true;
+            }                                  
+            this.ResumeLayout(true);  // 描画再開＆レイアウト再計算
+            this.Visible = true;      // フォーム再表示
+
+            await Task.Delay(100);    // 少し待つとより安定
+            this.Invalidate();
+            this.Update();
+            //this.Refresh();
             await Task.Delay(500);
             int n = rand.Next(4, 8);
             int m = rand.Next(4, 8);
