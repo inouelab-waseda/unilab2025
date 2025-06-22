@@ -879,6 +879,39 @@ namespace unilab2025
                     break;
             }
         }
+
+
+        private void Arrow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (picture != "balloon")
+            {
+
+                if (e.KeyCode == Keys.Up)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
+                    Left_Availabel_Input();
+                }
+                if (e.KeyCode == Keys.Right)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "→");
+                    Left_Availabel_Input();
+                }
+                if (e.KeyCode == Keys.Down)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
+                    Left_Availabel_Input();
+                }
+                if (e.KeyCode == Keys.Left)
+                {
+                    if (Input_check()) return;
+                    InputListBox.Items.Add(Emoji[picture] + "  " + "←");
+                    Left_Availabel_Input();
+                }
+            }
+        }
         #endregion
 
 
