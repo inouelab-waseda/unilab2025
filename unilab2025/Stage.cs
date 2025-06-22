@@ -1420,7 +1420,7 @@ namespace unilab2025
             //overlay.Dispose();
             //overlay.Refresh();  
             overlay.Visible = false;
-            await Task.Delay(100);
+            await Task.Delay(50);
 
             //this.Controls.Remove(overlay);
             //overlay.Dispose();
@@ -1462,13 +1462,10 @@ namespace unilab2025
                 label_Balloon.Visible = true;
             }                                  
             this.ResumeLayout(true);  // 描画再開＆レイアウト再計算
-            this.Visible = true;      // フォーム再表示
-
-            await Task.Delay(100);    // 少し待つとより安定
-            this.Invalidate();
-            this.Update();
-            //this.Refresh();
-            await Task.Delay(500);
+            
+            await Task.Delay(500);    // 少し待つとより安定            
+            this.Refresh();
+            //await Task.Delay(500);
             int n = rand.Next(4, 8);
             int m = rand.Next(4, 8);
             meteorTargetX = n;
