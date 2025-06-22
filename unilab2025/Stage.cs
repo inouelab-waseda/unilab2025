@@ -309,8 +309,9 @@ namespace unilab2025
 
             ClearCheck.IsButtonEnabled[1,1] = true;
 
-            baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
-            this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
+            await Task.Delay(500);            
+            byte[] Meteo = Func.CaptureClientArea(this);
+            baseImage= Func.ByteArrayToBitmap(Meteo);            
             Image ToDraw = Dictionaries.Img_Background["meteo"];
 
             Rectangle HighlightArea = new Rectangle((this.Width / 2) - 200, 0, 400, this.Height);
@@ -1363,20 +1364,7 @@ namespace unilab2025
 
         #region 隕石
         private TaskCompletionSource<bool> MeteoResult;//隕石の処理が終わったかどうか
-
-        //private void pictureBox_Map2_Paint(object sender, PaintEventArgs e)
-        //{
-        //    // 引数eからGraphicsオブジェクトを取得する
-        //    //Graphics g = e.Graphics;
-        //    // 実際の描画処理をすべてここに書く
-        //    // g.Clear(Color.Transparent); // Paintイベントでは通常Clearは不要
-        //    g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-
-        //    if (meteorTimer.Enabled) // タイマーが動いているときだけ隕石を描画
-        //    {
-        //        g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
-        //    }
-        //}
+                
 
         private async void button_meteo_Click(object sender, EventArgs e)
         {
@@ -1420,10 +1408,12 @@ namespace unilab2025
             //overlay.Dispose();
             //overlay.Refresh();  
             overlay.Visible = false;
-            await Task.Delay(50);
+            await Task.Delay(20);
 
             //this.Controls.Remove(overlay);
             //overlay.Dispose();
+            pictureBox_Map2.Visible = true;
+            pictureBox_Map1.Visible = true;            
             this.SuspendLayout(); // 描画を一時停止
 
             button_walk.Visible = true;
@@ -1437,9 +1427,7 @@ namespace unilab2025
             pictureBox_buttonDown.Visible = true;
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonLeft.Visible = true;
-            pictureBox_buttonRight.Visible = true;
-            pictureBox_Map1.Visible = true;
-            pictureBox_Map2.Visible = true;
+            pictureBox_buttonRight.Visible = true;            
             pictureBox_Order.Visible = true;
             if (_worldNumber >=2)
             {
