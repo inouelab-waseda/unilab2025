@@ -1393,6 +1393,7 @@ namespace unilab2025
             pictureBox_Map2.Refresh();
             await Task.Delay(500);
             g2.Clear(Color.Transparent);//人の移動などのリセット
+            Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
             g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);            
             pictureBox_Map2.Refresh();
 
