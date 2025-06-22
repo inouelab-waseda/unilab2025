@@ -307,22 +307,13 @@ namespace unilab2025
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
             ClearCheck.IsButtonEnabled[1,1] = true;
+
             baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
-
-            overlay = new PictureBox
-            {
-                Image = baseImage,
-                Size = baseImage.Size,
-                Location = new Point(0, 0),
-                BackColor = Color.Transparent,
-                Visible = false, // 最初は非表示
-                SizeMode = PictureBoxSizeMode.StretchImage
-            };
-
             this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
             Image ToDraw = Dictionaries.Img_Background["meteo"];
 
             Rectangle HighlightArea = new Rectangle((this.Width / 2) - 200, 0, 400, this.Height);
+                        
             using (Graphics g = Graphics.FromImage(baseImage))
             {
                 // 全体に暗い半透明黒
@@ -336,7 +327,17 @@ namespace unilab2025
                 {
                     g.DrawImage(ToDraw, HighlightArea);
                 }
-            }            
+            }
+
+            overlay = new PictureBox
+            {
+                Image = baseImage,
+                Size = baseImage.Size,
+                Location = new Point(0, 0),
+                BackColor = Color.Transparent,
+                Visible = false, // 最初は非表示
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
 
             this.Controls.Add(overlay);
             overlay.BringToFront();
