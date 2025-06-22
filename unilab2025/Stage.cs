@@ -399,25 +399,28 @@ namespace unilab2025
 
         private void listBox_Order_Click(object sender, EventArgs e)
         {
+            if (InputListBox != listBox_Order)
+            {
+                pictureBox_buttonUp.Visible = true;
+                pictureBox_buttonRight.Visible = true;
+                pictureBox_buttonDown.Visible = true;
+                pictureBox_buttonLeft.Visible = true;
+                pictureBox_upperRight.Visible = false;
+                pictureBox_lowerRight.Visible = false;
+                pictureBox_lowerLeft.Visible = false;
+                pictureBox_upperLeft.Visible = false;
 
-            pictureBox_buttonUp.Visible = true;
-            pictureBox_buttonRight.Visible = true;
-            pictureBox_buttonDown.Visible = true;
-            pictureBox_buttonLeft.Visible = true;
-            pictureBox_upperRight.Visible = false;
-            pictureBox_lowerRight.Visible = false;
-            pictureBox_lowerLeft.Visible = false;
-            pictureBox_upperLeft.Visible = false;
+                button_walk.Enabled = true;
+                if (_worldNumber >= 2) button_car.Enabled = true;
+                if (_worldNumber >= 3) button_plane.Enabled = true;
+                if (_worldNumber >= 4) button_balloon.Enabled = true;
 
-            button_walk.Enabled = true;
-            if(_worldNumber >= 2) button_car.Enabled = true;
-            if(_worldNumber >= 3) button_plane.Enabled = true;
-            if (_worldNumber >= 4) button_balloon.Enabled = true;
-
-            picture = "walk";
-            InputListBox = listBox_Order;
-            listBox_Order.Focus();
-            ShowListBox();
+                picture = "walk";
+                UpdateMovementButtonImages();
+                InputListBox = listBox_Order;
+                listBox_Order.Focus();
+                ShowListBox();
+            }
         }
 
         private void listBox_Car_Click(object sender, EventArgs e)
