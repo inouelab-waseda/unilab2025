@@ -307,7 +307,7 @@ namespace unilab2025
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
             ClearCheck.IsButtonEnabled[1,1] = true;
-            baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);//隕石
+            baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
 
             overlay = new PictureBox
             {
