@@ -76,9 +76,11 @@ namespace unilab2025
             pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
             pictureBox_Map2.BringToFront(); //
+            
+                    
 
-            
-            
+
+
         }
 
 
@@ -117,6 +119,7 @@ namespace unilab2025
         Brush startBackgroundColor = new SolidBrush(Color.Blue);
 
         Bitmap baseImage;
+        private PictureBox overlay;
 
 
         Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
@@ -202,6 +205,7 @@ namespace unilab2025
 
         };
         public static string picture;
+        
 
 
         #endregion
@@ -304,6 +308,41 @@ namespace unilab2025
 
             ClearCheck.IsButtonEnabled[1,1] = true;
             baseImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);//隕石
+
+            overlay = new PictureBox
+            {
+                Image = baseImage,
+                Size = baseImage.Size,
+                Location = new Point(0, 0),
+                BackColor = Color.Transparent,
+                Visible = false, // 最初は非表示
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+
+            this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
+            Image ToDraw = Dictionaries.Img_Background["meteo"];
+
+            Rectangle HighlightArea = new Rectangle((this.Width / 2) - 200, 0, 400, this.Height);
+            using (Graphics g = Graphics.FromImage(baseImage))
+            {
+                // 全体に暗い半透明黒
+                using (Brush overlayBrush = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
+                {
+                    g.FillRectangle(overlayBrush, 0, 0, baseImage.Width, baseImage.Height);
+                }
+
+                // ハイライト部分にイラストを描画
+                if (ToDraw != null)
+                {
+                    g.DrawImage(ToDraw, HighlightArea);
+                }
+            }            
+
+            this.Controls.Add(overlay);
+            overlay.BringToFront();
+
+            
+
 
         }
 
@@ -1342,39 +1381,40 @@ namespace unilab2025
             //byte[] Capt = Func.CaptureClientArea(currentForm);
             //Bitmap bmp_Capt = Func.ByteArrayToBitmap(Capt);
             //Graphics g = Graphics.FromImage(bmp_Capt);            
-            this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
-            Image ToDraw = Dictionaries.Img_Background["meteo"];
+            //this.DrawToBitmap(baseImage, new Rectangle(0, 0, baseImage.Width, baseImage.Height));
+            //Image ToDraw = Dictionaries.Img_Background["meteo"];
 
-            Rectangle HighlightArea = new Rectangle((this.Width / 2)-200, 0, 400, this.Height);
-            using (Graphics g = Graphics.FromImage(baseImage))
-            {
-                // 全体に暗い半透明黒
-                using (Brush overlayBrush = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
-                {
-                    g.FillRectangle(overlayBrush, 0, 0, baseImage.Width, baseImage.Height);
-                }
+            //Rectangle HighlightArea = new Rectangle((this.Width / 2)-200, 0, 400, this.Height);
+            //using (Graphics g = Graphics.FromImage(baseImage))
+            //{
+            //    // 全体に暗い半透明黒
+            //    using (Brush overlayBrush = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
+            //    {
+            //        g.FillRectangle(overlayBrush, 0, 0, baseImage.Width, baseImage.Height);
+            //    }
 
-                // ハイライト部分にイラストを描画
-                if (ToDraw != null)
-                {
-                    g.DrawImage(ToDraw, HighlightArea);
-                }
-            }
-            PictureBox overlay = new PictureBox
-            {
-                Image = baseImage,
-                Size = baseImage.Size,
-                Location = new Point(0, 0),
-                BackColor = Color.Transparent
-            };
+            //    // ハイライト部分にイラストを描画
+            //    if (ToDraw != null)
+            //    {
+            //        g.DrawImage(ToDraw, HighlightArea);
+            //    }
+            //}
+            //PictureBox overlay = new PictureBox
+            //{
+            //    Image = baseImage,
+            //    Size = baseImage.Size,
+            //    Location = new Point(0, 0),
+            //    BackColor = Color.Transparent
+            //};
 
-            this.Controls.Add(overlay);
-            overlay.BringToFront();
+            //this.Controls.Add(overlay);
+            //overlay.BringToFront();
+            overlay.Visible = true;
             await Task.Delay(1000);            
             overlay.Visible = false;
             await Task.Delay(10);
-            this.Controls.Remove(overlay);
-            overlay.Dispose();
+            //this.Controls.Remove(overlay);
+            //overlay.Dispose();
             this.Refresh();
             await Task.Delay(500);
             int n = rand.Next(4, 8);
