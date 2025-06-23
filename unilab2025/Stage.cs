@@ -312,9 +312,9 @@ namespace unilab2025
             await Task.Delay(500);            
             byte[] Meteo = Func.CaptureClientArea(this);
             baseImage= Func.ByteArrayToBitmap(Meteo);            
-            Image ToDraw = Dictionaries.Img_Background["meteo"];
+            Image ToDraw = Dictionaries.Img_Background["meteo5"];
 
-            Rectangle HighlightArea = new Rectangle((this.Width / 2) - 200, 0, 400, this.Height);
+            Rectangle HighlightArea = new Rectangle((this.Width / 2) - 400, 0, 800, this.Height);
                         
             using (Graphics g = Graphics.FromImage(baseImage))
             {
