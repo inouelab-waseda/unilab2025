@@ -258,6 +258,7 @@ namespace unilab2025
             pictureBox_Conv.Location = new Point(0, 0);
             pictureBox_Conv.Size = new Size(1536, 900);
             currentForm.Controls.Add(pictureBox_Conv);
+            pictureBox_Conv.BackColor = Color.Transparent;
 
             return pictureBox_Conv;
         }

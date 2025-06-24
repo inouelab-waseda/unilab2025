@@ -32,6 +32,7 @@ namespace unilab2025
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             pictureBox_Conv = Func.CreatePictureBox_Conv(this);
             pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv.Visible = false;
 
             this.KeyPreview = true;
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
@@ -183,7 +184,7 @@ namespace unilab2025
 
         private async void Stage_Load(object sender, EventArgs e)  //StageのFormの起動時処理
         {
-            pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
 
