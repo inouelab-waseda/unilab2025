@@ -450,16 +450,7 @@
             this.label_Car_Input.Name = "label_Car_Input";
             this.label_Car_Input.Size = new System.Drawing.Size(78, 27);
             this.label_Car_Input.TabIndex = 40;
-            this.label_Car_Input.Text = "label3";
-            // 
-            // pictureBox_buttonBack
-            // 
-            this.pictureBox_buttonBack.Location = new System.Drawing.Point(754, 552);
-            this.pictureBox_buttonBack.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_buttonBack.Name = "pictureBox_buttonBack";
-            this.pictureBox_buttonBack.Size = new System.Drawing.Size(286, 293);
-            this.pictureBox_buttonBack.TabIndex = 26;
-            this.pictureBox_buttonBack.TabStop = false;
+            this.label_Car_Input.Text = "label3";            
             // 
             // Stage
             // 

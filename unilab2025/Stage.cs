@@ -115,7 +115,7 @@ namespace unilab2025
         Brush startBackgroundColor = new SolidBrush(Color.Blue);
 
 
-        Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+        Image character_me = Dictionaries.Img_DotPic["正面"];
 
         public static List<ListBox> ListBoxes = new List<ListBox>();
         public static ListBox InputListBox;   //入力先のリストボックス
@@ -317,9 +317,7 @@ namespace unilab2025
 
         #region 各コントロール機能設定
 
-        }
-
-
+        
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
             //string stagenum = _worldNumber + "-" + _level;
@@ -402,8 +400,7 @@ namespace unilab2025
             });
             return map;
         }
-        #region 各コントロール機能設定
-
+       
         private void listBox_Order_Click(object sender, EventArgs e)
         {
             if (InputListBox == listBox_Car)
@@ -1172,10 +1169,10 @@ namespace unilab2025
                     }
                     else if (car_count == 0&& Input_arrow[0].Contains("🚶‍"))
                     {
-                        if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["銀髪(後ろ)"];
-                        else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["銀髪(横右)"];
-                        else if (Input_arrow[0].Contains("↓")) character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
-                        else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["銀髪ドット(横左)"];
+                        if (Input_arrow[0].Contains("↑")) character_me = Dictionaries.Img_DotPic["後ろ"];
+                        else if (Input_arrow[0].Contains("→")) character_me = Dictionaries.Img_DotPic["右"];
+                        else if (Input_arrow[0].Contains("↓")) character_me = Dictionaries.Img_DotPic["正面"];
+                        else if (Input_arrow[0].Contains("←")) character_me = Dictionaries.Img_DotPic["左"];
                     }
                     else if(car_count == 0&& Input_arrow[0].Contains("🎈"))
                     {
@@ -1227,7 +1224,7 @@ namespace unilab2025
 
                     g2.Clear(Color.Transparent);
                     Input_arrow.Clear();
-                    Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                    Image character_me = Dictionaries.Img_DotPic["正面"];
                     DrawCharacter(x_now, y_now, ref character_me);
                     pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
@@ -1296,7 +1293,7 @@ namespace unilab2025
                         MessageBox.Show("前に進めません");
                         g2.Clear(Color.Transparent);//人の移動などのリセット
                         Input_arrow.Clear();//入力のリセット
-                        Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+                        Image character_me = Dictionaries.Img_DotPic["正面"];
                         DrawCharacter(x_start, y_start, ref character_me);
                         pictureBox_Map2.Refresh();
                         x_now = x_start;//スタート位置に戻す
