@@ -40,8 +40,9 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(800, 450);
+            this.pictureBox1.Size = new System.Drawing.Size(1350, 729);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -51,9 +52,10 @@
             this.buttonStart.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStart.Font = new System.Drawing.Font("MS UI Gothic", 15F);
-            this.buttonStart.Location = new System.Drawing.Point(287, 292);
+            this.buttonStart.Location = new System.Drawing.Point(591, 418);
+            this.buttonStart.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(207, 79);
+            this.buttonStart.Size = new System.Drawing.Size(155, 63);
             this.buttonStart.TabIndex = 1;
             this.buttonStart.Text = "はじめる";
             this.buttonStart.UseVisualStyleBackColor = true;
@@ -61,11 +63,13 @@
             // 
             // Title
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Title";
             this.Text = "Title";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

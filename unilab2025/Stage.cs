@@ -190,8 +190,6 @@ namespace unilab2025
 
         };
         public static string picture;
-
-
         #endregion
 
 
@@ -374,7 +372,6 @@ namespace unilab2025
             return map;
         }
         #region 各コントロール機能設定
-
         private void listBox_Order_Click(object sender, EventArgs e)
         {
 
