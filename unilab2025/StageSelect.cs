@@ -42,14 +42,15 @@ namespace unilab2025
         private void StageSelect_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
-            button1.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-1"];
-            button2.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-2"];
+            button_Stage1.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-1"];
+            button_Stage2.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-2"];
+            
             if (_worldNumber == 1)
             {
-                button3.Visible = false;
+                button_Stage3.Visible = false;
                 return;
             }
-            else button3.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-3"];
+            else button_Stage3.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-3"];
 
         }
 
