@@ -28,86 +28,84 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox_Background = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StageSelect));
             this.button_ToMap = new System.Windows.Forms.Button();
-            this.button_Stage1 = new System.Windows.Forms.Button();
-            this.button_Stage2 = new System.Windows.Forms.Button();
-            this.button_Stage3 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // pictureBox_Background
-            // 
-            this.pictureBox_Background.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox_Background.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox_Background.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(1500, 806);
-            this.pictureBox_Background.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_Background.TabIndex = 0;
-            this.pictureBox_Background.TabStop = false;
             // 
             // button_ToMap
             // 
-            this.button_ToMap.Location = new System.Drawing.Point(8, 8);
+            this.button_ToMap.BackColor = System.Drawing.Color.Transparent;
+            this.button_ToMap.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_ToMap.BackgroundImage")));
+            this.button_ToMap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_ToMap.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button_ToMap.Location = new System.Drawing.Point(11, 11);
+            this.button_ToMap.Margin = new System.Windows.Forms.Padding(2);
             this.button_ToMap.Name = "button_ToMap";
-            this.button_ToMap.Size = new System.Drawing.Size(244, 102);
+            this.button_ToMap.Size = new System.Drawing.Size(318, 68);
             this.button_ToMap.TabIndex = 1;
-            this.button_ToMap.Text = "マップに戻る";
-            this.button_ToMap.UseVisualStyleBackColor = true;
+            this.button_ToMap.UseVisualStyleBackColor = false;
             this.button_ToMap.Click += new System.EventHandler(this.button_ToMap_Click);
             // 
             // button_Stage1
             // 
-            this.button_Stage1.Location = new System.Drawing.Point(561, 239);
-            this.button_Stage1.Name = "button_Stage1";
-            this.button_Stage1.Size = new System.Drawing.Size(403, 117);
-            this.button_Stage1.TabIndex = 2;
-            this.button_Stage1.Text = "チュートリアル";
-            this.button_Stage1.UseVisualStyleBackColor = true;
-            this.button_Stage1.Click += new System.EventHandler(this.button_StageI_Click);
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Location = new System.Drawing.Point(507, 175);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(352, 102);
+            this.button1.TabIndex = 2;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button_Stage2
             // 
-            this.button_Stage2.Location = new System.Drawing.Point(561, 433);
-            this.button_Stage2.Name = "button_Stage2";
-            this.button_Stage2.Size = new System.Drawing.Size(403, 114);
-            this.button_Stage2.TabIndex = 3;
-            this.button_Stage2.Text = "ステージ";
-            this.button_Stage2.UseVisualStyleBackColor = true;
-            this.button_Stage2.Click += new System.EventHandler(this.button_StageI_Click);
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Location = new System.Drawing.Point(507, 340);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(352, 102);
+            this.button2.TabIndex = 3;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button_Stage3
             // 
-            this.button_Stage3.Location = new System.Drawing.Point(561, 593);
-            this.button_Stage3.Name = "button_Stage3";
-            this.button_Stage3.Size = new System.Drawing.Size(403, 107);
-            this.button_Stage3.TabIndex = 4;
-            this.button_Stage3.Text = "button3";
-            this.button_Stage3.UseVisualStyleBackColor = true;
-            this.button_Stage3.Click += new System.EventHandler(this.button_StageI_Click);
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button3.Location = new System.Drawing.Point(507, 500);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(352, 102);
+            this.button3.TabIndex = 4;
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // StageSelect
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1500, 806);
-            this.Controls.Add(this.button_Stage3);
-            this.Controls.Add(this.button_Stage2);
-            this.Controls.Add(this.button_Stage1);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button_ToMap);
-            this.Controls.Add(this.pictureBox_Background);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StageSelect";
             this.Text = "StageSelect";
             this.Load += new System.EventHandler(this.StageSelect_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox_Background;
         private System.Windows.Forms.Button button_ToMap;
         private System.Windows.Forms.Button button_Stage1;
         private System.Windows.Forms.Button button_Stage2;

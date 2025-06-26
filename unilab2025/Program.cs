@@ -32,6 +32,7 @@ namespace unilab2025
             Func.LoadImg_Button();//ボタン
             Func.LoadImg_Background();//背景
             Func.LoadImg_DotPic();
+            Func.LoadImg_Button_MapSelect();
             Func.LoadImg_Conversation();
             Func.LoadConversations();
             Func.InitializeClearCheck();
@@ -722,6 +723,7 @@ namespace unilab2025
             public static Dictionary<string, Image> Img_DotPic = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Object = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Button = new Dictionary<string, Image>();
+            public static Dictionary<string, Image> Img_Button_MapSelect = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Background = new Dictionary<string, Image>();
             public static Dictionary<string, Image> Img_Conversation = new Dictionary<string, Image>();
             public static Dictionary<string, List<Conversation>> Conversations = new Dictionary<string, List<Conversation>>();
@@ -847,6 +849,16 @@ namespace unilab2025
             {
                 string key = Path.GetFileNameWithoutExtension(file).Replace("Conv_", "");
                 Dictionaries.Conversations[key] = LoadConversationCSV(file);
+            }
+        }
+        public static void LoadImg_Button_MapSelect()
+        {
+            Dictionaries.Img_Button_MapSelect.Clear();
+            string[] files = Directory.GetFiles(@"Image\\Button_MapSelect");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_Button_MapSelect_", "");
+                Dictionaries.Img_Button_MapSelect[key] = Image.FromFile(file);
             }
         }
 
