@@ -193,7 +193,8 @@ namespace unilab2025
         private void Prologue_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.M)
-            {                
+            {
+                Func.LoadImg_DotPic();
                 Func.CreateStage(this, "1年生", 1, 1);
             }
         }
