@@ -484,6 +484,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+
             this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.button_carEnter);
             this.Controls.Add(this.label_Car_Input);
@@ -491,6 +492,8 @@
             this.Controls.Add(this.label_Plane);
             this.Controls.Add(this.label_Car);
             this.Controls.Add(this.label_Walk);
+
+
             this.Controls.Add(this.listBox_Order);
             this.Controls.Add(this.button_walk);
             this.Controls.Add(this.button_back);
@@ -518,9 +521,11 @@
             this.Controls.Add(this.pictureBox_Map2);
             this.Controls.Add(this.pictureBox_Map1);
             this.Controls.Add(this.pictureBox_Order);
+
             this.Controls.Add(this.behind);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
