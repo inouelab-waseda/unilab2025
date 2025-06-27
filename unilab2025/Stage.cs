@@ -202,7 +202,7 @@ namespace unilab2025
         {
 
             lockedCarPattern = null;
-            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber+".2"];//背景
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
 
@@ -445,12 +445,7 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
-
-            button_walk.Enabled = false;
-            button_car.Enabled = false;
-            button_balloon.Enabled = false;
-            button_plane.Enabled = false;
-
+                     
 
             picture = "car";
             UpdateMovementButtonImages();
@@ -511,9 +506,12 @@ namespace unilab2025
                 }
 
                 else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                if (car_Count==0) lockedCarPattern = null;
+
             }
             else
             {
+                if (InputListBox.Items.Count < 1) return;
                 if (InputListBox == listBox_Order)
                 {
                     if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🚶‍"))
@@ -544,6 +542,7 @@ namespace unilab2025
                 }
 
                 else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                if(car_Count==0) lockedCarPattern = null;
 
             }
         }
@@ -631,7 +630,9 @@ namespace unilab2025
 
 
             }
-                
+
+
+           
         }
 
         void Left_Availabel_Input()
@@ -662,7 +663,8 @@ namespace unilab2025
                 label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
                 label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
             }
-            else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";            
+            else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}"; 
+            
         }
 
 
@@ -762,6 +764,9 @@ namespace unilab2025
         {
             
             picture = "walk";
+            InputListBox = listBox_Order;
+            listBox_Order.Focus();
+            ShowListBox();
             UpdateMovementButtonImages();
 
             //ボタンを有効にする            
@@ -862,6 +867,9 @@ namespace unilab2025
         private void button_balloon_Click(object sender, EventArgs e)
         {
             picture = "balloon";
+            InputListBox = listBox_Order;
+            listBox_Order.Focus();
+            ShowListBox();
             UpdateMovementButtonImages();
             //ボタンを有効にする
 
@@ -878,6 +886,9 @@ namespace unilab2025
         private void button_plane_Click(object sender, EventArgs e)
         {
             picture = "plane";
+            InputListBox = listBox_Order;
+            listBox_Order.Focus();
+            ShowListBox();
             UpdateMovementButtonImages();
 
             //ボタンを有効にする
@@ -894,20 +905,23 @@ namespace unilab2025
         //マップに戻る
         private void button_return_Click(object sender, EventArgs e)
         {
-            string message = "にゅうりょくしたないようがリセットされちゃうよ！\nほんとうにマップにもどりますか？";
-            string caption = "確認";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result;
-
-            // 確認ダイアログを表示します。
-            result = MessageBox.Show(this, message, caption, buttons, MessageBoxIcon.Warning);
-
-            // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
-            if (result == DialogResult.Yes)
+            if (!ClearCheck.IsCleared[_worldNumber, _level])
             {
-                Func.CreateStageSelect(this, _worldName, _worldNumber);
-            }
+                string message = "にゅうりょくしたないようがリセットされちゃうよ！\nほんとうにマップにもどりますか？";
+                string caption = "確認";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
 
+                // 確認ダイアログを表示します。
+                result = MessageBox.Show(this, message, caption, buttons, MessageBoxIcon.Warning);
+
+                // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
+                if (result == DialogResult.Yes)
+                {
+                    Func.CreateStageSelect(this, _worldName, _worldNumber);
+                }
+            }
+            else Func.CreateStageSelect(this, _worldName, _worldNumber);
         }
 
         /// <summary>
