@@ -216,7 +216,7 @@ namespace unilab2025
             List<Conversation> StartConv = new List<Conversation>();
             List<Conversation> EndConv = new List<Conversation>();
 
-            using (StreamReader sr = new StreamReader($"Story\\{ConvFileName}"))
+            using (StreamReader sr = new StreamReader($"Conversation\\{ConvFileName}"))
             {
                 bool isFirstRow = true;
                 bool isBeforePlay = true;

@@ -217,22 +217,22 @@ namespace unilab2025
             grade = Regex.Replace(stageName, @"[^0-9]", "");
             int chapter_num = int.Parse(grade) / 10;
 
-            string convFileName = "Story_Chapter" + _worldNumber + "-" + _level + ".csv";
-            if (File.Exists($"Story\\{convFileName}"))
+            string convFileName = "Conv_stage" + _worldNumber + "-" + _level + ".csv";
+            if (File.Exists($"Conversation\\{convFileName}"))
             {
-                (StartConv, EndConv) = Func.LoadStories(convFileName, "PLAY");
+                (StartConv, EndConv) = Func.LoadStories(convFileName, "※");
 
                 // 2. 開始時の会話を「現在再生中の会話」としてセット
                 currentConversation = StartConv;
                 isStartConv = true;
                 isMessageMode = false;
-                await Task.Delay((int)ConstNum.waitTime_Load);
 
                 // 3. 開始時の会話があれば、再生を開始する
                 //    この呼び出しで初めて Capt に値がセットされます！
 
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
+                    await Task.Delay((int)ConstNum.waitTime_Load+600);
                     Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }

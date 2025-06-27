@@ -63,6 +63,7 @@
             this.label_Car_Input = new System.Windows.Forms.Label();
             this.button_carEnter = new System.Windows.Forms.Button();
             this.behind = new System.Windows.Forms.PictureBox();
+
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -76,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
+
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -521,7 +523,6 @@
             this.Controls.Add(this.pictureBox_Map2);
             this.Controls.Add(this.pictureBox_Map1);
             this.Controls.Add(this.pictureBox_Order);
-
             this.Controls.Add(this.behind);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -542,6 +543,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
+
             this.ResumeLayout(false);
             this.PerformLayout();
 
