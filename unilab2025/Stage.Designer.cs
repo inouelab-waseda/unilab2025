@@ -56,8 +56,6 @@
             this.button_back = new System.Windows.Forms.Button();
             this.pictureBox_Map1 = new System.Windows.Forms.PictureBox();
             this.listBox_Order = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox_buttonBack = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -70,8 +68,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonBack)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -379,24 +375,6 @@
             this.listBox_Order.Size = new System.Drawing.Size(274, 268);
             this.listBox_Order.TabIndex = 34;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.pictureBox1.Location = new System.Drawing.Point(737, 552);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(334, 293);
-            this.pictureBox1.TabIndex = 35;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox_buttonBack
-            // 
-            this.pictureBox_buttonBack.Location = new System.Drawing.Point(754, 552);
-            this.pictureBox_buttonBack.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_buttonBack.Name = "pictureBox_buttonBack";
-            this.pictureBox_buttonBack.Size = new System.Drawing.Size(286, 293);
-            this.pictureBox_buttonBack.TabIndex = 26;
-            this.pictureBox_buttonBack.TabStop = false;
-            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -430,8 +408,6 @@
             this.Controls.Add(this.pictureBox_Map2);
             this.Controls.Add(this.pictureBox_Map1);
             this.Controls.Add(this.pictureBox_Order);
-            this.Controls.Add(this.pictureBox_buttonBack);
-            this.Controls.Add(this.pictureBox1);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
@@ -447,8 +423,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_buttonBack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -483,8 +457,6 @@
         private System.Windows.Forms.Button button_walk;
         private System.Windows.Forms.PictureBox pictureBox_Map1;
         private System.Windows.Forms.ListBox listBox_Order;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox_buttonBack;
     }
 }
 
