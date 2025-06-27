@@ -47,10 +47,17 @@ namespace unilab2025
             
             if (_worldNumber == 1)
             {
-                button_Stage3.Visible = false;
-                return;
+                button_Stage3.Visible = false;                
             }
             else button_Stage3.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-3"];
+            if (!ClearCheck.IsButtonEnabled[_worldNumber, 2])
+            {
+                button_Stage2.Visible = false;
+            }
+            if (!ClearCheck.IsButtonEnabled[_worldNumber, 3])
+            {
+                button_Stage3.Visible = false;
+            }
 
         }
 

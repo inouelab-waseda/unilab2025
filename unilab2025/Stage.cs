@@ -18,6 +18,7 @@ using System.Reflection.Emit;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 
 namespace unilab2025
@@ -117,6 +118,7 @@ namespace unilab2025
 
 
         Image character_me = Dictionaries.Img_DotPic["正面"];
+        public static string SelectCharacter;
 
         public static List<ListBox> ListBoxes = new List<ListBox>();
         public static ListBox InputListBox;   //入力先のリストボックス
@@ -200,9 +202,23 @@ namespace unilab2025
 
         private async void Stage_Load(object sender, EventArgs e)  //StageのFormの起動時処理
         {
-
+            if (MainCharacter.isBoy)
+            {
+                button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on_boy"];
+                SelectCharacter = "boy";
+            }
+            else if (MainCharacter.isGirl)
+            {
+                button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on_girl"];
+                SelectCharacter = "girl";
+            }
+            else
+            {
+                button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on_silver"];
+                SelectCharacter = "silver";
+            }
             lockedCarPattern = null;
-            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber+".2"];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
 
@@ -314,6 +330,7 @@ namespace unilab2025
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
             ClearCheck.IsButtonEnabled[1,1] = true;
+            
 
         }
 
@@ -930,7 +947,7 @@ namespace unilab2025
         private void UpdateMovementButtonImages()
         {
             // Reset all buttons to their "off" state
-            button_walk.BackgroundImage = Dictionaries.Img_Button["walk_off"];
+            button_walk.BackgroundImage = Dictionaries.Img_Button["walk_off_"+ SelectCharacter];
             button_car.BackgroundImage = Dictionaries.Img_Button["car_off"];
             button_plane.BackgroundImage = Dictionaries.Img_Button["plane_off"];
             button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_off"];
@@ -939,7 +956,7 @@ namespace unilab2025
             switch (picture)
             {
                 case "walk":
-                    button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on"];
+                    button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on_"+ SelectCharacter];
                     break;
                 case "car":
                     button_car.BackgroundImage = Dictionaries.Img_Button["car_on"];
