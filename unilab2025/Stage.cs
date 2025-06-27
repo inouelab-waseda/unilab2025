@@ -202,7 +202,7 @@ namespace unilab2025
         {
 
             lockedCarPattern = null;
-            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];//背景
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber+".2"];//背景
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
 
