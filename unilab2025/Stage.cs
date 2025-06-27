@@ -1355,40 +1355,14 @@ namespace unilab2025
                         break;
                     }
                         await Task.Delay(400);
-
-                    //if (Colision_detection(x, y, Map, move_copy) && jump == 0)
-                    //{
-                    //    //忍者を動かしてからミスの表示を出す
-                    //    (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    //    DisplayMessage("miss_out");
-                    //    //DrawCharacter(x, y, ref character_me);
-                    //    break;
-                    //}
-                    ////if (jump == 0 && Map[x + move_copy[0][0], y + move_copy[0][1]] == 2) //jumpの時着地先が木の場合、ゲームオーバー
-                    ////{
-                    ////    (x_now, y_now) = draw_move(x, y, ref move_copy);
-                    ////    Thread.Sleep(waittime);
-                    ////    (x_now, y_now) = draw_move(x, y, ref move_copy);
-
-                    ////    DisplayMessage("miss_out");
-                    ////    //DrawCharacter(x, y, ref character_me);
-                    ////    break;
-                    ////}
-                    //if (count_walk > 50) //無限ループ対策
-                    //{
-                    //    DisplayMessage("miss_countover");
-                    //    //DrawCharacter(x, y, ref character_me);
-                    //    break;
-                    //}
+                    
                 }
 
-                #endregion
-
-
-
-
+                
             }
         }
+
+        #endregion
 
 
         #region 会話進行処理
