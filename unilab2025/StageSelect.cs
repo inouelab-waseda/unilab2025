@@ -12,13 +12,15 @@ namespace unilab2025
 {
     public partial class StageSelect : Form
     {
-
-        #region 各種メンバ変数の定義など
         public StageSelect()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
         }
+        #region 各種メンバ変数の定義など
 
         private string _worldName;  //WorldMapで選択された学年
         private int _worldNumber;
@@ -39,10 +41,17 @@ namespace unilab2025
 
         private void StageSelect_Load(object sender, EventArgs e)
         {
-            pictureBox_Background.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
-            button1.Text = "ステージ" + _worldNumber+ "- 1";
-            button2.Text = "ステージ" + _worldNumber + "- 2";
-            button3.Text = "ステージ" + _worldNumber + "- 3";
+            this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
+            button_Stage1.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-1"];
+            button_Stage2.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-2"];
+            
+            if (_worldNumber == 1)
+            {
+                button_Stage3.Visible = false;
+                return;
+            }
+            else button_Stage3.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-3"];
+
         }
 
         private void button_ToMap_Click(object sender, EventArgs e)
@@ -51,19 +60,27 @@ namespace unilab2025
             else Func.CreateAnotherWorld(this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_StageI_Click(object sender, EventArgs e)
         {
-            Func.CreateStage(this, _worldName, _worldNumber, 1);
+            Button button = sender as Button;
+            if (button != null)
+            {
+                string NameWithoutButton = button.Name.Replace("button_Stage", "");
+                if (int.TryParse(NameWithoutButton, out int j))
+                {
+                    if (!ClearCheck.IsButtonEnabled[_worldNumber, j]) 
+                    {
+                        MessageBox.Show("まだできないよ");
+                        return;
+                    }
+                    
+                    ClearCheck.IsNew[_worldNumber, j] = false;
+                    Func.UpdateIsNew();
+                    Func.CreateStage(this, _worldName, _worldNumber, j);
+                }
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Func.CreateStage(this, _worldName, _worldNumber, 2);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Func.CreateStage(this, _worldName, _worldNumber, 3);
-        }
+     
     }
 }
