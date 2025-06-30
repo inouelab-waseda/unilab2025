@@ -38,6 +38,7 @@ namespace unilab2025
 
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Arrow_KeyDown);
+            this.KeyDown += new KeyEventHandler(Meteo_KeyDown);
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
@@ -56,6 +57,8 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
+
+            button_meteo.Visible = false;
 
 
             #region ボタン表示
@@ -1532,9 +1535,10 @@ namespace unilab2025
 
 
         #region 隕石
-        private TaskCompletionSource<bool> MeteoResult;//隕石の処理が終わったかどうか
+        public static TaskCompletionSource<bool> MeteoResult = new TaskCompletionSource<bool>();//隕石の処理が終わったかどうか
         private async void button_meteo_Click(object sender, EventArgs e)
         {
+            MeteoResult = new TaskCompletionSource<bool>();
             int n = rand.Next(4, 8);
             int m = rand.Next(4, 8);
             meteorTargetX = n;
@@ -1551,7 +1555,7 @@ namespace unilab2025
             pictureBox_Map2.Refresh();
             await Task.Delay(500);
             g2.Clear(Color.Transparent);//人の移動などのリセット
-            Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+            Image character_me = Dictionaries.Img_DotPic["正面"];
             g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             pictureBox_Map2.Refresh();
 
@@ -1572,8 +1576,7 @@ namespace unilab2025
                 }
             }
 
-            pictureBox_Map1.Refresh();
-            button_meteo.Visible = false;
+            pictureBox_Map1.Refresh();            
 
         }
 
@@ -1596,13 +1599,23 @@ namespace unilab2025
             if (meteorY >= (meteorTargetY - 2) * cell_length)
             {
                 meteorTimer.Stop();
+                meteorTimer.Tick -= meteorTimer_Tick;
                 MeteoResult?.SetResult(true);
                 pictureBox_Map2.Refresh();
+                MeteoResult = new TaskCompletionSource<bool>();
                 return;
             }
             return;
         }
-    
-        #endregion
+
+        private void Meteo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.I)
+            {
+                button_meteo.Visible = true;
+            }
+        }
+
+            #endregion
     }
 }
