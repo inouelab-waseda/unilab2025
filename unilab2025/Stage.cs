@@ -268,8 +268,7 @@ namespace unilab2025
                 button_carEnter.Visible = false;
                 listBox_Car.Visible = false;
                 pictureBox_Car.Visible=false;
-                label_Car.Visible = false;
-                label_Car_Input.Visible = false;
+                label_Car.Visible = false;                
                 label_Plane.Visible = false;
                 label_Balloon.Visible = false;
                 if (!(ClearCheck.IsCleared[_worldNumber,_level])) button_return.Visible = false;
@@ -319,8 +318,7 @@ namespace unilab2025
                 }
             }
             label_Walk.Text = $"あと {limit_LB_walk}";
-            label_Car.Text = $"あと {limit_LB_car}";
-            label_Car_Input.Text = $"あと {limit_LB_car_Input}";
+            label_Car.Text = $"あと {limit_LB_car}";            
             label_Plane.Text = $"あと {limit_LB_plane}";
             label_Balloon.Text = $"あと {limit_LB_balloon}";
             walk_Count = 0;
@@ -525,7 +523,7 @@ namespace unilab2025
                     label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
                 }
 
-                else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                
                 if (car_Count==0) lockedCarPattern = null;
 
             }
@@ -559,9 +557,7 @@ namespace unilab2025
                     label_Car.Text = $"あと {limit_LB_car - car_Count}";
                     label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
                     label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
-                }
-
-                else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                }                
                 if(car_Count==0) lockedCarPattern = null;
 
             }
@@ -683,7 +679,7 @@ namespace unilab2025
                 label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
                 label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
             }
-            else if (InputListBox == listBox_Car) label_Car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}"; 
+            
             
         }
 
