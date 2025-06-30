@@ -26,10 +26,31 @@ namespace unilab2025
         #region 読み込み時
         private void WorldMap_Load(object sender, EventArgs e)
         {
-            if (!(ClearCheck.IsCleared[1, 0])) button2.Visible = false;
-            if (!(ClearCheck.IsCleared[2, 0])) button3.Visible = false;
-            if (!(ClearCheck.IsCleared[3, 0])) button4.Visible = false;
-            if (!(ClearCheck.IsCleared[4,0])) button5.Visible = false;
+            int Map = 5;
+            if (!(ClearCheck.IsCleared[1, 0])) 
+            { 
+                button2.Visible = false;
+                Map -= 1;
+            }
+            if (!(ClearCheck.IsCleared[2, 0]))
+            {
+                button3.Visible = false;
+                Map -= 1;
+            }
+            if (!(ClearCheck.IsCleared[3, 0]))
+            {
+                button4.Visible = false;
+                Map -= 1;
+            }
+            if (!(ClearCheck.IsCleared[4, 0]))
+            {
+                button5.Visible = false;
+                Map -= 1;
+            }
+            
+            pictureBox_Map.BackgroundImage= Dictionaries.Img_Background["Map"+Map];
+
+            
             // buttonに対する処理
             foreach (Control control in this.Controls)
             {
