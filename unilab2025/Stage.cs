@@ -227,9 +227,7 @@ namespace unilab2025
 
             InputListBox = listBox_Order;
             ListBoxes.Add(listBox_Order);
-            ListBoxes.Add(listBox_Car);
-            picture = "walk";
-            UpdateMovementButtonImages();
+            ListBoxes.Add(listBox_Car);            
             listBox_Order.Focus();
             ShowListBox();
             grade = Regex.Replace(stageName, @"[^0-9]", "");
@@ -260,37 +258,6 @@ namespace unilab2025
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
 
-            if (_worldNumber == 1)
-            {
-                button_car.Visible = false;
-                button_balloon.Visible = false;
-                button_plane.Visible = false;
-                button_carEnter.Visible = false;
-                listBox_Car.Visible = false;
-                pictureBox_Car.Visible=false;
-                label_Car.Visible = false;                
-                label_Plane.Visible = false;
-                label_Balloon.Visible = false;
-                if (!(ClearCheck.IsCleared[_worldNumber,_level])) button_return.Visible = false;
-
-
-            }
-            if (_worldNumber == 2)
-            {
-                
-                button_balloon.Visible = false;
-                button_plane.Visible = false;
-                label_Plane.Visible = false;
-                label_Balloon.Visible = false;
-
-            }
-            if (_worldNumber == 3)
-            {
-
-                button_balloon.Visible = false;
-                label_Balloon.Visible = false;
-
-            }
             // それぞれの枠の高さ
             int height_LB_walk = 10;
             int height_LB_car = 10;
@@ -318,7 +285,7 @@ namespace unilab2025
                 }
             }
             label_Walk.Text = $"あと {limit_LB_walk}";
-            label_Car.Text = $"あと {limit_LB_car}";            
+            label_Car.Text = $"あと {limit_LB_car}";
             label_Plane.Text = $"あと {limit_LB_plane}";
             label_Balloon.Text = $"あと {limit_LB_balloon}";
             walk_Count = 0;
@@ -326,7 +293,125 @@ namespace unilab2025
             plane_Count = 0;
             balloon_Count = 0;
 
-            AllCount = limit_LB_walk+ limit_LB_car+ limit_LB_plane+ limit_LB_balloon;
+            if (_worldNumber == 1)
+            {
+                picture = "walk";
+                UpdateMovementButtonImages();
+                button_car.Visible = false;
+                button_balloon.Visible = false;
+                button_plane.Visible = false;
+                button_carEnter.Visible = false;
+                listBox_Car.Visible = false;
+                pictureBox_Car.Visible=false;
+                label_Car.Visible = false;                
+                label_Plane.Visible = false;
+                label_Balloon.Visible = false;
+                if (!(ClearCheck.IsCleared[_worldNumber,_level])) button_return.Visible = false;
+
+
+            }
+            else if (_worldNumber == 2)
+            {
+                picture = "walk";                
+                if (limit_LB_walk == 0)
+                {
+                    picture = "car";                    
+                    InputListBox = listBox_Car;
+                    listBox_Car.Focus();
+                    ShowListBox();                    
+                    button_walk.Visible = false;
+                    label_Walk.Visible = false;
+                }
+               
+                UpdateMovementButtonImages();
+                button_balloon.Visible = false;
+                button_plane.Visible = false;
+                label_Plane.Visible = false;
+                label_Balloon.Visible = false;
+
+            }
+            else if (_worldNumber == 3)
+            {
+                picture = "walk";
+                
+                if (limit_LB_walk == 0)
+                {
+                    picture = "car";
+                    button_walk.Visible = false;
+                    label_Walk.Visible = false;
+                    
+                }
+                if(limit_LB_car == 0)
+                {
+                    if(picture=="car") picture = "plane";                    
+                    button_car.Visible = false;
+                    label_Car.Visible = false;
+                    button_carEnter.Visible = false;
+                    listBox_Car.Visible = false;
+                    pictureBox_Car.Visible = false;
+                }
+                if (picture == "car")
+                {
+                    InputListBox = listBox_Car;
+                    listBox_Car.Focus();
+                    ShowListBox();
+                }
+                UpdateMovementButtonImages();
+                button_balloon.Visible = false;
+                label_Balloon.Visible = false;
+
+            }
+            else if(_worldNumber == 4)
+            {
+                picture = "walk";
+                
+                if (limit_LB_walk == 0)
+                {
+                    picture = "car";
+                    button_walk.Visible = false;
+                    label_Walk.Visible = false;
+
+                }
+                if (limit_LB_car == 0)
+                {
+                    if (picture == "car") picture = "plane";                    
+                    button_car.Visible = false;
+                    label_Car.Visible = false;
+                    button_carEnter.Visible = false;
+                    listBox_Car.Visible = false;
+                    pictureBox_Car.Visible = false;
+                }
+                if(limit_LB_plane == 0)
+                {
+                    if (picture == "plane") 
+                    { 
+                        picture = "balloon";
+                        pictureBox_buttonUp.Visible = false;
+                        pictureBox_buttonRight.Visible = false;
+                        pictureBox_buttonDown.Visible = false;
+                        pictureBox_buttonLeft.Visible = false;
+                        pictureBox_upperRight.Visible = true;
+                        pictureBox_lowerRight.Visible = true;
+                        pictureBox_lowerLeft.Visible = true;
+                        pictureBox_upperLeft.Visible = true;
+                    }              
+                    button_plane.Visible = false;
+                    label_Plane.Visible = false;
+                }
+                if (picture == "car")
+                {
+                    InputListBox = listBox_Car;
+                    listBox_Car.Focus();
+                    ShowListBox();
+                }
+
+                UpdateMovementButtonImages();
+            }
+
+            
+
+
+            AllCount = limit_LB_walk + limit_LB_car + limit_LB_plane + limit_LB_balloon;
             listBox_Order.Height = AllCount * listBox_Order.ItemHeight + 20;
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
