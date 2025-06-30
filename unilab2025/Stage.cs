@@ -610,6 +610,27 @@ namespace unilab2025
             {                
                 ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
                 button_return.Visible = true;
+                pictureBox_buttonUp.Enabled = false;
+                pictureBox_buttonRight.Enabled = false;
+                pictureBox_buttonDown.Enabled= false;
+                pictureBox_buttonLeft.Enabled = false;
+                pictureBox_upperRight.Enabled = false;
+                pictureBox_lowerRight.Enabled = false;
+                pictureBox_lowerLeft.Enabled = false;
+                pictureBox_upperLeft.Enabled = false;
+                listBox_Order.Enabled = false;
+                listBox_Car.Enabled = false;
+                button_back.Enabled = false;
+                button_balloon.Enabled = false;
+                button_car.Enabled = false;
+                button_carEnter.Enabled = false;
+                button_hint.Enabled = false;
+                button_info.Enabled = false;
+                button_plane.Enabled = false;
+                button_reset.Enabled = false;
+                button_walk.Enabled = false;
+                button_Start.Enabled = false;
+
 
 
                 if (_level == 3)
