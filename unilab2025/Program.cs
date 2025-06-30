@@ -917,4 +917,81 @@ namespace unilab2025
     #endregion
 
 
+    #region カスタムボタン（文字の上に画像を描画する）
+    public class CustomButton : Button
+    {
+        private Image foreImage;
+
+        public Image ForeImage
+        {
+            get { return foreImage; }
+            set
+            {
+                foreImage = value;
+                Invalidate();
+            }
+        }
+
+        private Image conditionImage;
+
+        public Image ConditionImage
+        {
+            get { return conditionImage; }
+            set
+            {
+                conditionImage = value;
+                Invalidate();
+            }
+        }
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            //ボタンのベース描画
+            base.OnPaint(pevent);
+
+            //文字の描画
+            TextRenderer.DrawText(pevent.Graphics, this.Text, this.Font, this.ClientRectangle, this.ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+
+            //ボタンサイズ
+            int buttonWidth = this.Width;
+            int buttonHeight = this.Height;
+
+            //背景画像を文字の上に描画
+            if (this.ForeImage != null)
+            {
+                //Zoomレイアウトで背景画像を描画
+                //画像サイズ
+                int imageWidth = this.ForeImage.Width;
+                int imageHeight = this.ForeImage.Height;
+
+                //縦横比を保ちながらスケーリング
+                float scale = Math.Min((float)buttonWidth / imageWidth, (float)buttonHeight / imageHeight);
+                int scaleWidth = (int)(imageWidth * scale);
+                int scaleHeight = (int)(imageHeight * scale);
+
+                //位置調整
+                int x = (buttonWidth - scaleWidth) / 2;
+                int y = (buttonHeight - scaleHeight) / 2;
+                Rectangle destRect = new Rectangle(x, y, scaleWidth, scaleHeight);
+
+                pevent.Graphics.DrawImage(this.ForeImage, destRect);
+            }
+
+            if (this.ConditionImage != null)
+            {
+                //画像サイズ
+                int imageWidth = this.ConditionImage.Width;
+                int imageHeight = this.ConditionImage.Height;
+
+                // 表示領域の大きさ指定
+                int scaleHeight = buttonHeight / 4;
+                double scale = (double)scaleHeight / imageHeight;
+                int scaleWidth = (int)(scale * imageWidth);
+                Rectangle destRect = new Rectangle(0, 0, scaleWidth, scaleHeight);
+
+                pevent.Graphics.DrawImage(this.ConditionImage, destRect);
+            }
+        }
+    }
+    #endregion
+
 }

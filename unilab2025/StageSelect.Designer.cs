@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StageSelect));
             this.button_ToMap = new System.Windows.Forms.Button();
-            this.button_Stage1 = new System.Windows.Forms.Button();
-            this.button_Stage2 = new System.Windows.Forms.Button();
-            this.button_Stage3 = new System.Windows.Forms.Button();
+            this.button_Stage1 = new unilab2025.CustomButton();
+            this.button_Stage2 = new unilab2025.CustomButton();
+            this.button_Stage3 = new unilab2025.CustomButton();
             this.SuspendLayout();
             // 
             // button_ToMap
@@ -51,6 +51,8 @@
             // 
             // button_Stage1
             // 
+            this.button_Stage1.ConditionImage = null;
+            this.button_Stage1.ForeImage = null;
             this.button_Stage1.BackColor = System.Drawing.Color.Transparent;
             this.button_Stage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_Stage1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -63,7 +65,10 @@
             this.button_Stage1.Click += new System.EventHandler(this.button_StageI_Click);
             // 
             // button_Stage2
-            // 
+            //
+            //            
+            this.button_Stage2.ConditionImage = null;
+            this.button_Stage2.ForeImage = null;
             this.button_Stage2.BackColor = System.Drawing.Color.Transparent;
             this.button_Stage2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_Stage2.Location = new System.Drawing.Point(507, 340);
@@ -76,6 +81,8 @@
             // 
             // button_Stage3
             // 
+            this.button_Stage3.ConditionImage = null;
+            this.button_Stage3.ForeImage = null;
             this.button_Stage3.BackColor = System.Drawing.Color.Transparent;
             this.button_Stage3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_Stage3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -107,8 +114,8 @@
 
         #endregion
         private System.Windows.Forms.Button button_ToMap;
-        private System.Windows.Forms.Button button_Stage1;
-        private System.Windows.Forms.Button button_Stage2;
-        private System.Windows.Forms.Button button_Stage3;
+        private CustomButton button_Stage1;
+        private CustomButton button_Stage2;
+        private CustomButton button_Stage3;
     }
 }

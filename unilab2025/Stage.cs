@@ -138,6 +138,8 @@ namespace unilab2025
         public static int cell_length;
         public static int For_count = 1; //for文のループ回数を保存
         //public static bool isEndfor = true; //forの最後が存在するか→ない場合はError
+        public static int AllCount = 0;
+
 
         public static int count = 0; //試行回数カウント
         public static int miss_count = 0; //ミスカウント
@@ -326,7 +328,8 @@ namespace unilab2025
             plane_Count = 0;
             balloon_Count = 0;
 
-                                     
+            AllCount = limit_LB_walk+ limit_LB_car+ limit_LB_plane+ limit_LB_balloon;
+            listBox_Order.Height = AllCount * listBox_Order.ItemHeight + 20;
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
             ClearCheck.IsButtonEnabled[1,1] = true;

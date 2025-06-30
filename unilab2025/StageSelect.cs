@@ -53,10 +53,31 @@ namespace unilab2025
             if (!ClearCheck.IsButtonEnabled[_worldNumber, 2])
             {
                 button_Stage2.Visible = false;
+                
             }
             if (!ClearCheck.IsButtonEnabled[_worldNumber, 3])
             {
                 button_Stage3.Visible = false;
+            }
+            foreach (Control control in this.Controls)
+            {
+                if (control is CustomButton button)
+                {
+                    string NameWithoutButton = button.Name.Replace("button_Stage", "");
+                    if (int.TryParse(NameWithoutButton, out int j))
+                    {
+                        if (ClearCheck.IsButtonEnabled[_worldNumber, j])
+                        {
+                            button.ForeImage = null;
+                            button.Cursor = Cursors.Hand;
+                            if (ClearCheck.IsNew[_worldNumber, j])
+                            {
+                                //button.BackColor = Color.FromArgb(255, 128, 128);
+                                button.ConditionImage = Dictionaries.Img_Button["New"];
+                            }
+                        }
+                    }
+                }
             }
 
         }
@@ -69,7 +90,8 @@ namespace unilab2025
 
         private void button_StageI_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            CustomButton button = sender as CustomButton;
             if (button != null)
             {
                 string NameWithoutButton = button.Name.Replace("button_Stage", "");
