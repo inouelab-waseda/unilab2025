@@ -69,13 +69,10 @@ namespace unilab2025
                             button.ConditionImage = null;
                         }
 
-
                     }
 
                 }
             }
-
-
 
 
         }

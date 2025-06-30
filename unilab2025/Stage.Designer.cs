@@ -62,6 +62,7 @@
             this.label_Balloon = new System.Windows.Forms.Label();
             this.button_carEnter = new System.Windows.Forms.Button();
             this.behind = new System.Windows.Forms.PictureBox();
+            this.button_meteo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -462,6 +463,17 @@
             this.behind.TabIndex = 42;
             this.behind.TabStop = false;
             // 
+            // button_meteo
+            // 
+            this.button_meteo.Font = new System.Drawing.Font("游ゴシック", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_meteo.Location = new System.Drawing.Point(1097, 395);
+            this.button_meteo.Name = "button_meteo";
+            this.button_meteo.Size = new System.Drawing.Size(173, 72);
+            this.button_meteo.TabIndex = 43;
+            this.button_meteo.Text = "いんせき";
+            this.button_meteo.UseVisualStyleBackColor = true;
+            this.button_meteo.Click += new System.EventHandler(this.button_meteo_Click);
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -469,6 +481,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1800, 911);
+            this.Controls.Add(this.button_meteo);
             this.Controls.Add(this.button_carEnter);
             this.Controls.Add(this.label_Balloon);
             this.Controls.Add(this.label_Plane);
@@ -560,6 +573,7 @@
         private System.Windows.Forms.Label label_Balloon;
         private System.Windows.Forms.Button button_carEnter;
         private System.Windows.Forms.PictureBox behind;
+        private System.Windows.Forms.Button button_meteo;
     }
 }
 

@@ -175,6 +175,11 @@ namespace unilab2025
 
         public static string lockedCarPattern = null;
 
+        private Random rand = new Random(); // フィールドに保持
+        public static int meteorTargetX, meteorTargetY;//隕石処理
+        public static int meteorX, meteorY;
+        public static int meteorX_speed, meteorY_speed;
+        System.Windows.Forms.Timer meteorTimer = new System.Windows.Forms.Timer();
 
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
         PictureBox pictureBox_Conv;
@@ -257,6 +262,9 @@ namespace unilab2025
             Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
             Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
             Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
+            Dictionaries.Img_DotPic["explosion"] = Image.FromFile(@"Image\\DotPic\\explosion.png");
+            Dictionaries.Img_DotPic["meteo"] = Image.FromFile(@"Image\\DotPic\\meteo.png");
+
 
             // それぞれの枠の高さ
             int height_LB_walk = 10;
@@ -1278,6 +1286,8 @@ namespace unilab2025
             }
         }
 
+        
+
         /// <summary>
         /// 動く際の描画や処理を行う関数
         /// </summary>
@@ -1518,6 +1528,81 @@ namespace unilab2025
             AdvanceConversation();
         }
 
+        #endregion
+
+
+        #region 隕石
+        private TaskCompletionSource<bool> MeteoResult;//隕石の処理が終わったかどうか
+        private async void button_meteo_Click(object sender, EventArgs e)
+        {
+            int n = rand.Next(4, 8);
+            int m = rand.Next(4, 8);
+            meteorTargetX = n;
+            meteorTargetY = m;
+            meteorX = (n - 4) * cell_length;
+            meteorY = (m - 4) * cell_length; // 空からスタート
+            meteorX_speed = (4 * cell_length) / 10;
+            meteorY_speed = (4 * cell_length) / 10;
+
+            await StartMeteorFallAsync();//隕石を落とす
+            await Task.Delay(100);
+            Image explosion = RotateImage(Dictionaries.Img_DotPic["explosion"], 0f);
+            g2.DrawImage(explosion, (n - 2) * cell_length - extra_length, (m - 2) * cell_length - 2 * extra_length, 4 * (cell_length + 2 * extra_length), 4 * (cell_length + 2 * extra_length));
+            pictureBox_Map2.Refresh();
+            await Task.Delay(500);
+            g2.Clear(Color.Transparent);//人の移動などのリセット
+            Image character_me = Dictionaries.Img_DotPic["銀髪ドット正面"];
+            g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+            pictureBox_Map2.Refresh();
+
+            Graphics g1 = Graphics.FromImage(bmp1);
+
+            for (int y = -1; y < 2; y++)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    if (map[n + x, m + y] == 2)
+                    {
+                        int placeX = (n + x) * cell_length;
+                        int placeY = (m + y) * cell_length;
+                        map[n + x, m + y] = 3;
+                        g1.DrawImage(Dictionaries.Img_Object["3"], placeX, placeY, cell_length, cell_length);
+                    }
+
+                }
+            }
+
+            pictureBox_Map1.Refresh();
+            button_meteo.Visible = false;
+
+        }
+
+        private async Task StartMeteorFallAsync()
+        {
+            MeteoResult = new TaskCompletionSource<bool>();
+            meteorTimer.Interval = 16;
+            meteorTimer.Tick += meteorTimer_Tick;
+            meteorTimer.Start();
+
+            await MeteoResult.Task;
+        }
+
+        private void meteorTimer_Tick(object sender, EventArgs e)
+        {
+            g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
+            pictureBox_Map2.Refresh();
+            meteorX += meteorX_speed;
+            meteorY += meteorY_speed; // 落下スピード
+            if (meteorY >= (meteorTargetY - 2) * cell_length)
+            {
+                meteorTimer.Stop();
+                MeteoResult?.SetResult(true);
+                pictureBox_Map2.Refresh();
+                return;
+            }
+            return;
+        }
+    
         #endregion
     }
 }

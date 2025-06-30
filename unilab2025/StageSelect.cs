@@ -42,6 +42,7 @@ namespace unilab2025
         private void StageSelect_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
+            if (_worldNumber > 4) return;
             button_Stage1.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-1"];
             button_Stage2.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-2"];
             
