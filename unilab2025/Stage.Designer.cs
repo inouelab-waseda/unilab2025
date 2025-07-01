@@ -440,6 +440,7 @@
             // 
             // button_carEnter
             // 
+            this.button_carEnter.BackColor = System.Drawing.Color.Transparent;
             this.button_carEnter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_carEnter.BackgroundImage")));
             this.button_carEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_carEnter.CausesValidation = false;
@@ -449,7 +450,7 @@
             this.button_carEnter.Name = "button_carEnter";
             this.button_carEnter.Size = new System.Drawing.Size(229, 93);
             this.button_carEnter.TabIndex = 41;
-            this.button_carEnter.UseVisualStyleBackColor = true;
+            this.button_carEnter.UseVisualStyleBackColor = false;
             this.button_carEnter.Click += new System.EventHandler(this.button_carEnter_Click);
             // 
             // behind

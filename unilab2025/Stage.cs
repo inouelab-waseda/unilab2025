@@ -304,122 +304,57 @@ namespace unilab2025
             plane_Count = 0;
             balloon_Count = 0;
 
-            if (_worldNumber == 1)
+            if (_worldNumber == 1&& !(ClearCheck.IsCleared[_worldNumber, _level])) button_return.Visible = false;
+            
+            picture = "walk";
+
+            if (limit_LB_walk == 0)
             {
-                picture = "walk";
-                UpdateMovementButtonImages();
+                picture = "car";
+                button_walk.Visible = false;
+                label_Walk.Visible = false;
+
+            }
+            if (limit_LB_car == 0)
+            {
+                if (picture == "car") picture = "plane";
                 button_car.Visible = false;
-                button_balloon.Visible = false;
-                button_plane.Visible = false;
+                label_Car.Visible = false;
                 button_carEnter.Visible = false;
                 listBox_Car.Visible = false;
-                pictureBox_Car.Visible=false;
-                label_Car.Visible = false;                
-                label_Plane.Visible = false;
-                label_Balloon.Visible = false;
-                if (!(ClearCheck.IsCleared[_worldNumber,_level])) button_return.Visible = false;
-
-
+                pictureBox_Car.Visible = false;
             }
-            else if (_worldNumber == 2)
+            if (limit_LB_plane == 0)
             {
-                picture = "walk";                
-                if (limit_LB_walk == 0)
+                if (picture == "plane")
                 {
-                    picture = "car";                    
-                    InputListBox = listBox_Car;
-                    listBox_Car.Focus();
-                    ShowListBox();                    
-                    button_walk.Visible = false;
-                    label_Walk.Visible = false;
+                    picture = "balloon";
+                    pictureBox_buttonUp.Visible = false;
+                    pictureBox_buttonRight.Visible = false;
+                    pictureBox_buttonDown.Visible = false;
+                    pictureBox_buttonLeft.Visible = false;
+                    pictureBox_upperRight.Visible = true;
+                    pictureBox_lowerRight.Visible = true;
+                    pictureBox_lowerLeft.Visible = true;
+                    pictureBox_upperLeft.Visible = true;
                 }
-               
-                UpdateMovementButtonImages();
-                button_balloon.Visible = false;
                 button_plane.Visible = false;
                 label_Plane.Visible = false;
-                label_Balloon.Visible = false;
-
             }
-            else if (_worldNumber == 3)
+            if (limit_LB_balloon == 0)
             {
-                picture = "walk";
-                
-                if (limit_LB_walk == 0)
-                {
-                    picture = "car";
-                    button_walk.Visible = false;
-                    label_Walk.Visible = false;
-                    
-                }
-                if(limit_LB_car == 0)
-                {
-                    if(picture=="car") picture = "plane";                    
-                    button_car.Visible = false;
-                    label_Car.Visible = false;
-                    button_carEnter.Visible = false;
-                    listBox_Car.Visible = false;
-                    pictureBox_Car.Visible = false;
-                }
-                if (picture == "car")
-                {
-                    InputListBox = listBox_Car;
-                    listBox_Car.Focus();
-                    ShowListBox();
-                }
-                UpdateMovementButtonImages();
                 button_balloon.Visible = false;
                 label_Balloon.Visible = false;
-
             }
-            else if(_worldNumber == 4)
+
+            if (picture == "car")
             {
-                picture = "walk";
-                
-                if (limit_LB_walk == 0)
-                {
-                    picture = "car";
-                    button_walk.Visible = false;
-                    label_Walk.Visible = false;
-
-                }
-                if (limit_LB_car == 0)
-                {
-                    if (picture == "car") picture = "plane";                    
-                    button_car.Visible = false;
-                    label_Car.Visible = false;
-                    button_carEnter.Visible = false;
-                    listBox_Car.Visible = false;
-                    pictureBox_Car.Visible = false;
-                }
-                if(limit_LB_plane == 0)
-                {
-                    if (picture == "plane") 
-                    { 
-                        picture = "balloon";
-                        pictureBox_buttonUp.Visible = false;
-                        pictureBox_buttonRight.Visible = false;
-                        pictureBox_buttonDown.Visible = false;
-                        pictureBox_buttonLeft.Visible = false;
-                        pictureBox_upperRight.Visible = true;
-                        pictureBox_lowerRight.Visible = true;
-                        pictureBox_lowerLeft.Visible = true;
-                        pictureBox_upperLeft.Visible = true;
-                    }              
-                    button_plane.Visible = false;
-                    label_Plane.Visible = false;
-                }
-                if (picture == "car")
-                {
-                    InputListBox = listBox_Car;
-                    listBox_Car.Focus();
-                    ShowListBox();
-                }
-
-                UpdateMovementButtonImages();
+                InputListBox = listBox_Car;
+                listBox_Car.Focus();
+                ShowListBox();
             }
 
-            
+            UpdateMovementButtonImages();
 
 
             AllCount = limit_LB_walk + limit_LB_car + limit_LB_plane + limit_LB_balloon;
@@ -1378,7 +1313,6 @@ namespace unilab2025
 
                     }
 
-
                     if (car_count > 0)
                     {
                         if (list_car[0].Contains("↑")) character_me = RotateImage(Dictionaries.Img_DotPic["car"], 0f);
@@ -1482,6 +1416,8 @@ namespace unilab2025
                 {
                     if (!Colision_detection(x, y, Map, move_copy))
                     {
+                        var Ice = new List<int[]>();
+                        MoveTo(Ice, Input_arrow[0]);
 
                         (x_now, y_now) = draw_move(x, y, ref move_copy);
                         if (car_finish == true && Input_arrow.Count > 0)
@@ -1506,7 +1442,27 @@ namespace unilab2025
                             }
                             Input_arrow.RemoveAt(0);
                         }
-                        if (car_count == 0) car_finish = true;
+                        if (car_count == 0) car_finish = true;//車の処理が終わったかどうか
+                        
+                        if (Map[x, y] == 7)//氷の処理
+                        {                            
+                            while (true)
+                            {
+                                if (!Colision_detection(x, y, Map, Ice))
+                                {
+                                    await Task.Delay(200);
+                                    (x_now, y_now) = place_update(x, y, Ice);
+                                    DrawCharacter(x_now, y_now, ref character_me);
+                                    pictureBox_Map2.Refresh();
+
+                                }
+                                else break;
+
+                            }
+                            
+
+                        }
+
                         move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     }
                     else
@@ -1523,11 +1479,11 @@ namespace unilab2025
                         button_Start.Enabled = true;
                         break;
                     }
-                        await Task.Delay(400);
+                    await Task.Delay(400);
                     
                 }
 
-                
+                                
             }
         }
 
