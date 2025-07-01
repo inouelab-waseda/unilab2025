@@ -440,15 +440,15 @@
             // 
             // button_carEnter
             // 
-            this.button_carEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_carEnter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_carEnter.BackgroundImage")));
+            this.button_carEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_carEnter.CausesValidation = false;
             this.button_carEnter.Font = new System.Drawing.Font("游ゴシック", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_carEnter.Location = new System.Drawing.Point(1543, 395);
-            this.button_carEnter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_carEnter.Location = new System.Drawing.Point(1485, 374);
+            this.button_carEnter.Margin = new System.Windows.Forms.Padding(4);
             this.button_carEnter.Name = "button_carEnter";
-            this.button_carEnter.Size = new System.Drawing.Size(171, 72);
+            this.button_carEnter.Size = new System.Drawing.Size(229, 93);
             this.button_carEnter.TabIndex = 41;
-            this.button_carEnter.Text = "いれる";
             this.button_carEnter.UseVisualStyleBackColor = true;
             this.button_carEnter.Click += new System.EventHandler(this.button_carEnter_Click);
             // 
@@ -457,7 +457,7 @@
             this.behind.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("behind.BackgroundImage")));
             this.behind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.behind.Location = new System.Drawing.Point(17, 101);
-            this.behind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.behind.Margin = new System.Windows.Forms.Padding(4);
             this.behind.Name = "behind";
             this.behind.Size = new System.Drawing.Size(827, 775);
             this.behind.TabIndex = 42;
@@ -466,9 +466,9 @@
             // button_meteo
             // 
             this.button_meteo.Font = new System.Drawing.Font("游ゴシック", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_meteo.Location = new System.Drawing.Point(1097, 395);
+            this.button_meteo.Location = new System.Drawing.Point(1075, 374);
             this.button_meteo.Name = "button_meteo";
-            this.button_meteo.Size = new System.Drawing.Size(173, 72);
+            this.button_meteo.Size = new System.Drawing.Size(195, 75);
             this.button_meteo.TabIndex = 43;
             this.button_meteo.Text = "いんせき";
             this.button_meteo.UseVisualStyleBackColor = true;

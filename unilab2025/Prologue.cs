@@ -42,6 +42,7 @@ namespace unilab2025
             this.WindowState = FormWindowState.Maximized;
             this.KeyDown += new KeyEventHandler(Prologue_KeyDown);
             this.KeyPreview = true;
+            this.BackgroundImage = Dictionaries.Img_Background["Stage1"];//背景
 
             //会話表示
             pictureBox_Conversation = Func.CreatePictureBox_Conv(this);
@@ -51,42 +52,47 @@ namespace unilab2025
 
             // キャラ選択
             boyChoiceBox = new PictureBox();
-            boyChoiceBox.Image = Dictionaries.Img_Character["Boy"]; // 例: 選択画面用のBoy画像
-            boyChoiceBox.Size = new Size(200, 200); // 適当なサイズに設定
-            boyChoiceBox.Location = new Point(this.ClientSize.Width / 2 - 300, this.ClientSize.Height / 2 - 100);
+            boyChoiceBox.Image = Dictionaries.Img_Character["Boy2"]; // 例: 選択画面用のBoy画像
+            boyChoiceBox.Size = new Size(300, 500); // 適当なサイズに設定
+            boyChoiceBox.Location = new Point(this.ClientSize.Width / 2, this.ClientSize.Height / 2 );
             boyChoiceBox.SizeMode = PictureBoxSizeMode.Zoom; // 画像サイズに合わせて調整
             boyChoiceBox.Click += BoyChoiceBox_Click;
             this.Controls.Add(boyChoiceBox);
             boyChoiceBox.Visible = false; // 最初は非表示
             boyChoiceBox.Enabled = false; // 最初は無効
+            boyChoiceBox.BackColor = Color.Transparent;
 
             girlChoiceBox = new PictureBox();
-            girlChoiceBox.Image = Dictionaries.Img_Character["Girl"]; // 例: 選択画面用のGirl画像
-            girlChoiceBox.Size = new Size(200, 200);
-            girlChoiceBox.Location = new Point(this.ClientSize.Width / 2 - 100, this.ClientSize.Height / 2 - 100);
+            girlChoiceBox.Image = Dictionaries.Img_Character["Girl2"]; // 例: 選択画面用のGirl画像
+            girlChoiceBox.Size = new Size(300, 500);
+            girlChoiceBox.Location = new Point(this.ClientSize.Width / 2+300 , this.ClientSize.Height / 2 );
             girlChoiceBox.SizeMode = PictureBoxSizeMode.Zoom;
             girlChoiceBox.Click += GirlChoiceBox_Click;
             this.Controls.Add(girlChoiceBox);
             girlChoiceBox.Visible = false;
             girlChoiceBox.Enabled = false;
+            girlChoiceBox.BackColor = Color.Transparent;
 
             silverChoiceBox = new PictureBox();
-            silverChoiceBox.Image = Dictionaries.Img_Character["Silver"]; // 例: 選択画面用のSilver画像
-            silverChoiceBox.Size = new Size(200, 200);
-            silverChoiceBox.Location = new Point(this.ClientSize.Width / 2 + 100, this.ClientSize.Height / 2 - 100);
+            silverChoiceBox.Image = Dictionaries.Img_Character["Silver2"]; // 例: 選択画面用のSilver画像
+            silverChoiceBox.Size = new Size(300, 500);
+            silverChoiceBox.Location = new Point(this.ClientSize.Width / 2 + 600, this.ClientSize.Height / 2);
             silverChoiceBox.SizeMode = PictureBoxSizeMode.Zoom;
             silverChoiceBox.Click += SilverChoiceBox_Click;
             this.Controls.Add(silverChoiceBox);
             silverChoiceBox.Visible = false;
             silverChoiceBox.Enabled = false;
+            silverChoiceBox.BackColor = Color.Transparent;
         }
 
         private void Prologue_Load(object sender, EventArgs e)
         {
+            
             // フォームロード時にOP会話を再生
             currentState = GameState.PlayingOpeningConversation;
             List<Conversation> opConversations = Dictionaries.Conversations["Op"];
             capturedScreen = Func.PlayConv(this, pictureBox_Conversation, opConversations);
+            
         }
 
         #region 諸々クリックの処理

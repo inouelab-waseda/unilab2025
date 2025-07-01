@@ -491,21 +491,41 @@ namespace unilab2025
                 {
                     int placeX = x * cell_length;
                     int placeY = y * cell_length;
-                    g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
-                    switch (map[x, y])
-                    {
-                        case 1:
-                            x_goal = x;
-                            y_goal = y;
-                            if (_worldNumber > 4)
-                            {
-                                int goal = 10 + _worldNumber;
-                                g2.DrawImage(Dictionaries.Img_Object[goal.ToString()], placeX, placeY, cell_length, cell_length);
-                            }
-                            break;
-                        default:
-                            break;
+                    if (_level == 3 && map[x, y] == 1) 
+                    { 
+                        g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);                                         
                     }
+                    else if (_worldNumber < 5) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    else
+                    {
+                        switch (_worldNumber)
+                        {
+                            case 5:
+                                break;
+                            case 6:
+                                if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
+                                break;
+                            case 7:
+                                break;
+                            case 8:
+                                break;
+                        }
+                    }
+                    //switch (map[x, y])
+                    //{
+                    //    case 1:
+                    //        x_goal = x;
+                    //        y_goal = y;
+                    //        if (_worldNumber > 4)
+                    //        {
+                    //            int goal = 10 + _worldNumber;
+                    //            g2.DrawImage(Dictionaries.Img_Object[goal.ToString()], placeX, placeY, cell_length, cell_length);
+                    //        }
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
                 }
             }
             // キャラクターの描画をループの外に出す
