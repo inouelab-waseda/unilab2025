@@ -426,11 +426,11 @@ namespace unilab2025
                 {
                     int placeX = x * cell_length;
                     int placeY = y * cell_length;
-                    if (_level == 3 && map[x, y] == 1) 
+                    if (_worldNumber < 5&&_level == 3 && map[x, y] == 1) 
                     { 
                         g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);                                         
                     }
-                    else if (_worldNumber < 5) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    else if (_worldNumber < 5|| _worldNumber==7) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                     else
                     {
                         switch (_worldNumber)
@@ -440,27 +440,12 @@ namespace unilab2025
                             case 6:
                                 if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
-                                break;
-                            case 7:
-                                break;
+                                break;                            
                             case 8:
                                 break;
                         }
                     }
-                    //switch (map[x, y])
-                    //{
-                    //    case 1:
-                    //        x_goal = x;
-                    //        y_goal = y;
-                    //        if (_worldNumber > 4)
-                    //        {
-                    //            int goal = 10 + _worldNumber;
-                    //            g2.DrawImage(Dictionaries.Img_Object[goal.ToString()], placeX, placeY, cell_length, cell_length);
-                    //        }
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
+                    
                 }
             }
             // キャラクターの描画をループの外に出す
@@ -1454,6 +1439,7 @@ namespace unilab2025
                                     (x_now, y_now) = place_update(x, y, Ice);
                                     DrawCharacter(x_now, y_now, ref character_me);
                                     pictureBox_Map2.Refresh();
+                                    if (!(Map[x, y] == 7)) break;
 
                                 }
                                 else break;
@@ -1479,6 +1465,31 @@ namespace unilab2025
                         button_Start.Enabled = true;
                         break;
                     }
+
+                    if (Map[x, y] == 8)
+                    {
+                        for (int i = 0; i < map_width; i++)
+                        {
+                            for (int j = 0; j < map_width; j++)
+                            {
+                                if (Map[i, j] == 8 && (i != x || j != y))
+                                {
+                                    await Task.Delay(400);
+                                    x = i;
+                                    x_now = i;
+                                    y = j;
+                                    y_now = j;
+                                    g2.Clear(Color.Transparent);
+                                    DrawCharacter(x_now, y_now, ref character_me);
+                                    pictureBox_Map2.Refresh();
+                                    isWarp = true;
+                                }
+                            }
+                            if (isWarp) break;
+                        }                        
+                        
+                    }
+
                     await Task.Delay(400);
                     
                 }
