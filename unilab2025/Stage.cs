@@ -1403,7 +1403,10 @@ namespace unilab2025
                 else
                 {
                     var Direction = new List<int[]>();
-                    MoveTo(Direction, Input_arrow[0]);
+                    if (Input_arrow.Count>0) 
+                    {                        
+                        MoveTo(Direction, Input_arrow[0]); 
+                    }
                     if (!Colision_detection(x, y, Map, move_copy))
                     {                      
 
