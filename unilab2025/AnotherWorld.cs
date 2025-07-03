@@ -18,7 +18,7 @@ namespace unilab2025
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            //this.KeyDown += new KeyEventHandler(WorldMap_KeyDown);
+            this.KeyDown += new KeyEventHandler(AnotherWorldMap_KeyDown);
             this.KeyPreview = true;
         }
 
@@ -45,6 +45,26 @@ namespace unilab2025
                 }
             }
         }
+
+        #region クリアチェックスキップ用
+        private void AnotherWorldMap_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.M)
+            {
+                
+                for (int i = 5; i < (int)ConstNum.numWorlds; i++)
+                {
+                    for (int j = 0; j <= 3; j++)
+                    {
+                        ClearCheck.IsNew[i, j] = true;
+                        ClearCheck.IsButtonEnabled[i, j] = true;
+                    }
+                }
+
+                Func.CreateAnotherWorld(this);
+            }
+        }
+        #endregion
 
     }
 }

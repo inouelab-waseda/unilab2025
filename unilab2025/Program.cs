@@ -723,7 +723,7 @@ namespace unilab2025
 
     public enum ConstNum
     {
-        numWorlds = 7 + 1,
+        numWorlds = 8 + 1,
         numStages = 3 + 1,
         waitTime_End = 100,
         waitTime_Load = 400

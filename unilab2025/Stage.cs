@@ -440,8 +440,11 @@ namespace unilab2025
                             case 6:
                                 if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
-                                break;                            
+                                break;
+                            
                             case 8:
+                                if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 200).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
                         }
                     }
@@ -1399,31 +1402,29 @@ namespace unilab2025
                 }
                 else
                 {
+                    var Direction = new List<int[]>();
+                    MoveTo(Direction, Input_arrow[0]);
                     if (!Colision_detection(x, y, Map, move_copy))
-                    {
-                        var Ice = new List<int[]>();
-                        MoveTo(Ice, Input_arrow[0]);
+                    {                      
 
                         (x_now, y_now) = draw_move(x, y, ref move_copy);
                         if (car_finish == true && Input_arrow.Count > 0)
                         {
                             if (Input_arrow[0].Contains("✈️"))//飛行機の処理
-                            {
-                                var Plane = new List<int[]>();
-                                MoveTo(Plane, Input_arrow[0]);
+                            {                                
                                 while (true)
                                 {
-                                    if (!Colision_detection(x, y, Map, Plane))
+                                    if (!Colision_detection(x, y, Map, Direction))
                                     {
                                         await Task.Delay(200);
-                                        (x_now, y_now) = place_update(x, y, Plane);
+                                        (x_now, y_now) = place_update(x, y, Direction);
                                         DrawCharacter(x_now, y_now, ref character_me);
                                         pictureBox_Map2.Refresh();
                                     }
                                     else break;
 
                                 }
-                                Plane.Clear();
+                                
                             }
                             Input_arrow.RemoveAt(0);
                         }
@@ -1433,10 +1434,10 @@ namespace unilab2025
                         {                            
                             while (true)
                             {
-                                if (!Colision_detection(x, y, Map, Ice))
+                                if (!Colision_detection(x, y, Map, Direction))
                                 {
                                     await Task.Delay(200);
-                                    (x_now, y_now) = place_update(x, y, Ice);
+                                    (x_now, y_now) = place_update(x, y, Direction);
                                     DrawCharacter(x_now, y_now, ref character_me);
                                     pictureBox_Map2.Refresh();
                                     if (!(Map[x, y] == 7)) break;
@@ -1444,8 +1445,7 @@ namespace unilab2025
                                 }
                                 else break;
 
-                            }
-                            
+                            }                            
 
                         }
 
@@ -1464,6 +1464,33 @@ namespace unilab2025
                         button_Start.Visible = true;
                         button_Start.Enabled = true;
                         break;
+                    }
+
+                    if(Map[x, y] == 6)
+                    {
+                        (x_now, y_now) = place_update(x, y, Direction);
+                        if (!Colision_detection(x, y, Map, Direction))
+                        {
+                            await Task.Delay(400);
+                            (x_now, y_now) = place_update(x, y, Direction);
+                            DrawCharacter(x_now, y_now, ref character_me);
+                            pictureBox_Map2.Refresh();
+                        }
+                        else
+                        {
+                            MessageBox.Show("前に進めません");
+                            g2.Clear(Color.Transparent);//人の移動などのリセット
+                            Input_arrow.Clear();//入力のリセット
+                            Image character_me = Dictionaries.Img_DotPic["正面"];
+                            DrawCharacter(x_start, y_start, ref character_me);
+                            pictureBox_Map2.Refresh();
+                            x_now = x_start;//スタート位置に戻す
+                            y_now = y_start;
+                            button_Start.Visible = true;
+                            button_Start.Enabled = true;
+                            break;
+                        }                           
+
                     }
 
                     if (Map[x, y] == 8)
