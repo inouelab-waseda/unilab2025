@@ -79,8 +79,7 @@ namespace unilab2025
             pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
             pictureBox_Map2.BringToFront(); //
-
-            
+                        
             
         }
 
