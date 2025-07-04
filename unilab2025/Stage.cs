@@ -33,12 +33,13 @@ namespace unilab2025
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             pictureBox_Conv = Func.CreatePictureBox_Conv(this);
-            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);            
             pictureBox_Conv.Visible = false;
 
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Arrow_KeyDown);
             this.KeyDown += new KeyEventHandler(Meteo_KeyDown);
+            this.KeyDown += new KeyEventHandler(Penguin_KeyDown);
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
@@ -195,6 +196,10 @@ namespace unilab2025
         public Graphics g1;
         public Graphics g2;
 
+        //ペンギン設定
+        public static Dictionary<string, Image> Img_Penguin = new Dictionary<string, Image>();
+        public static bool Penguin = false;
+
         //表示される絵文字
         public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
         {
@@ -202,7 +207,8 @@ namespace unilab2025
             { "walk", "🚶‍" },
             { "car", "🚗" },
             { "balloon" ,"🎈" },
-            { "plane","✈️" }
+            { "plane","✈️" },
+            { "penguin","🐧" }
 
         };
         public static string picture;
@@ -361,7 +367,17 @@ namespace unilab2025
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
             ClearCheck.IsButtonEnabled[1,1] = true;
-            
+
+            //ペンギンの設定
+            Img_Penguin.Clear();           
+            string[] files = Directory.GetFiles(@"Image\\DotPic\\Penguin");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Penguin_", "");
+                Img_Penguin[key] = Image.FromFile(file);
+            }
+
+
 
         }
 
@@ -725,7 +741,9 @@ namespace unilab2025
                     case "balloon":
                         balloon_Count += 1;
                         break;
-
+                    case "penguin":
+                        walk_Count += 1;
+                        break;
                     default:
                         // どのcaseにも当てはまらないときの処理
                         break;
@@ -808,6 +826,9 @@ namespace unilab2025
                         else goto default;
                     case "balloon":
                         if (balloon_Count < limit_LB_balloon) break;
+                        else goto default;
+                    case "penguin":
+                        if (walk_Count < limit_LB_walk) break;
                         else goto default;
                     default:
                         MessageBox.Show("これ以上入力できないよ！");
@@ -1288,7 +1309,7 @@ namespace unilab2025
                 (x_now, y_now) = place_update(a, b, move_next);
 
                 //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
-                if (Input_arrow.Count > 0)
+                if (Input_arrow.Count > 0&&Penguin==false)
                 {
                     if (car_count==0&&Input_arrow[0].Contains("🚗"))
                     {
@@ -1333,8 +1354,7 @@ namespace unilab2025
                         
                         
                     }
-                }
-                
+                }                
                 else if (Input_arrow.Count == 0&& car_count > 0)
                 {
                     
@@ -1346,8 +1366,15 @@ namespace unilab2025
                         list_car.RemoveAt(0);
                                      
                 }
+                else if(Input_arrow.Count > 0 && Penguin == true)
+                {
+                    if (Input_arrow[0].Contains("↑")) character_me = Img_Penguin["後ろ"];
+                    else if (Input_arrow[0].Contains("→")) character_me = Img_Penguin["右"];
+                    else if (Input_arrow[0].Contains("↓")) character_me = Img_Penguin["正面"];
+                    else if (Input_arrow[0].Contains("←")) character_me = Img_Penguin["左"];
+                }
 
-               
+
                 DrawCharacter(x_now, y_now, ref character_me);
                 pictureBox_Map2.Refresh();
                 
@@ -1367,6 +1394,7 @@ namespace unilab2025
                     g2.Clear(Color.Transparent);
                     Input_arrow.Clear();
                     Image character_me = Dictionaries.Img_DotPic["正面"];
+                    if(Penguin==true) character_me= Img_Penguin["正面"];
                     DrawCharacter(x_now, y_now, ref character_me);
                     pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
@@ -1459,6 +1487,7 @@ namespace unilab2025
                         g2.Clear(Color.Transparent);//人の移動などのリセット
                         Input_arrow.Clear();//入力のリセット
                         Image character_me = Dictionaries.Img_DotPic["正面"];
+                        if (Penguin == true) character_me = Img_Penguin["正面"];
                         DrawCharacter(x_start, y_start, ref character_me);
                         pictureBox_Map2.Refresh();
                         x_now = x_start;//スタート位置に戻す
@@ -1484,6 +1513,7 @@ namespace unilab2025
                             g2.Clear(Color.Transparent);//人の移動などのリセット
                             Input_arrow.Clear();//入力のリセット
                             Image character_me = Dictionaries.Img_DotPic["正面"];
+                            if (Penguin == true) character_me = Img_Penguin["正面"];
                             DrawCharacter(x_start, y_start, ref character_me);
                             pictureBox_Map2.Refresh();
                             x_now = x_start;//スタート位置に戻す
@@ -1632,6 +1662,39 @@ namespace unilab2025
             }
         }
 
-            #endregion
+
+        private void Penguin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.P)
+            {
+                if (_worldNumber == 6) 
+                {
+                    if (Penguin == false)
+                    {
+                        g2.Clear(Color.Transparent);
+                        g2.DrawImage(Img_Penguin["正面"], x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                        pictureBox_Map2.Refresh();
+                        Penguin = true;
+                        picture = "penguin";
+                    }
+                    else
+                    {
+                        g2.Clear(Color.Transparent);
+                        g2.DrawImage(Dictionaries.Img_DotPic["正面"], x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                        pictureBox_Map2.Refresh();
+                        Penguin = false;
+                        picture = "walk";
+                    }
+                
+                }
+
+            }
+        }
+
+
+
+
+
+        #endregion
     }
 }
