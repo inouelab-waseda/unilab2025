@@ -177,6 +177,7 @@ namespace unilab2025
         // イントロダクション会話を開始する
         private void StartIntroductionConversation()
         {
+            this.BackgroundImage = Dictionaries.Img_Background["Stage1"];//背景
             ShowCharacterSelectionButtons(false); // キャラクター選択PictureBoxを非表示にする
 
             // ドット絵の画像データを再ロードする（選択されたキャラクターに合わせて）

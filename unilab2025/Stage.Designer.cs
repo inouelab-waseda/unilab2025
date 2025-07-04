@@ -76,6 +76,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
+
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -534,6 +535,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
+
             this.ResumeLayout(false);
             this.PerformLayout();
 

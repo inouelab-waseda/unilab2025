@@ -187,10 +187,7 @@ namespace unilab2025
         //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
         PictureBox pictureBox_Conv;
         byte[] Capt;
-        List<Conversation> StartConv;
-        List<Conversation> EndConv;
         List<Conversation> Message;
-        bool isStartConv;
         bool isMessageMode;
         public List<Conversation> currentConversation;
         public Graphics g1;
@@ -246,24 +243,13 @@ namespace unilab2025
             grade = Regex.Replace(stageName, @"[^0-9]", "");
             int chapter_num = int.Parse(grade) / 10;
 
-            string convFileName = "Story_Chapter" + _worldNumber + "-" + _level + ".csv";
-            if (File.Exists($"Story\\{convFileName}"))
+            string convFileName = "Conv_stage" + _worldNumber + "-" + _level + ".csv";
+            if (File.Exists($"Conversation\\{convFileName}"))
             {
-                (StartConv, EndConv) = Func.LoadStories(convFileName, "PLAY");
+                // Func.LoadStoriesは最初のセグメントを返すように変更したため、戻り値を直接currentConversationに格納
+                currentConversation = Func.LoadStories(convFileName, "※");
 
-                // 2. 開始時の会話を「現在再生中の会話」としてセット
-                currentConversation = StartConv;
-                isStartConv = true;
                 isMessageMode = false;
-                await Task.Delay((int)ConstNum.waitTime_Load);
-
-                // 3. 開始時の会話があれば、再生を開始する
-                //    この呼び出しで初めて Capt に値がセットされます！
-
-                if (currentConversation != null && currentConversation.Count > 0)
-                {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
-                }
             }
 
 
@@ -368,19 +354,27 @@ namespace unilab2025
 
             ClearCheck.IsButtonEnabled[1,1] = true;
 
+            // 開始時の会話があれば、再生を開始する
+            if (currentConversation != null && currentConversation.Count > 0)
+            {
+                await Task.Delay((int)ConstNum.waitTime_Load + 600);
+                Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            }
+
+
             //ペンギンの設定
-            Img_Penguin.Clear();           
+            Img_Penguin.Clear();
             string[] files = Directory.GetFiles(@"Image\\DotPic\\Penguin");
             foreach (string file in files)
             {
                 string key = Path.GetFileNameWithoutExtension(file).Replace("Penguin_", "");
                 Img_Penguin[key] = Image.FromFile(file);
             }
+                       
 
             Penguin = false;
 
         }
-
 
 
         #region 各コントロール機能設定
@@ -730,8 +724,17 @@ namespace unilab2025
 
             }
 
+            //会話再生用
+            if (Func.WaitingForButton == "start")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
 
-           
         }
 
         void Left_Availabel_Input()
@@ -775,6 +778,17 @@ namespace unilab2025
             InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
             //if (isChange) Item_Change();            
             Left_Availabel_Input();
+
+            //会話再生用
+            if (Func.WaitingForButton == "up")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         private void PictureBox_upperRight_Click(object sender, EventArgs e)
         {
@@ -787,6 +801,17 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "→");
             Left_Availabel_Input();
+
+            //会話再生用
+            if (Func.WaitingForButton == "right")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         private void PictureBox_lowerRight_Click(object sender, EventArgs e)
         {
@@ -799,6 +824,17 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
             Left_Availabel_Input();
+
+            //会話再生用
+            if (Func.WaitingForButton == "down")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         private void PictureBox_lowerLeft_Click(object sender, EventArgs e)
         {
@@ -811,6 +847,17 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "←");
             Left_Availabel_Input();
+
+            //会話再生用
+            if (Func.WaitingForButton == "left")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         private void PictureBox_upperLeft_Click(object sender, EventArgs e)
         {
@@ -901,9 +948,18 @@ namespace unilab2025
             pictureBox_upperRight.Visible = false;
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
-            pictureBox_upperLeft.Visible = false; 
+            pictureBox_upperLeft.Visible = false;
 
-
+            //会話再生用
+            if (Func.WaitingForButton == "car")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         private void button_carEnter_Click(object sender, EventArgs e)
         {

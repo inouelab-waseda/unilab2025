@@ -211,44 +211,74 @@ namespace unilab2025
         //    return Message;
         //}
 
-        public static (List<Conversation>, List<Conversation>) LoadStories(string ConvFileName, string cutWord)
+        public static List<Conversation> LoadStories(string ConvFileName, string cutSymbol = "※")
         {
-            List<Conversation> StartConv = new List<Conversation>();
-            List<Conversation> EndConv = new List<Conversation>();
-
-            using (StreamReader sr = new StreamReader($"Story\\{ConvFileName}"))
+            // 全会話データを読み込む
+            activeConversation = new List<Conversation>();
+            using (StreamReader sr = new StreamReader($"Conversation\\{ConvFileName}"))
             {
                 bool isFirstRow = true;
-                bool isBeforePlay = true;
-
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
+                    if (isFirstRow) { isFirstRow = false; continue; }
                     string[] values = line.Split(',');
-
-                    if (isFirstRow) //escape 1st row
-                    {
-                        isFirstRow = false;
-                        continue;
-                    }
-                    if (values[1] == cutWord)
-                    {
-                        isBeforePlay = false;
-                        continue;
-                    }
-
-                    if (isBeforePlay)
-                    {
-                        StartConv.Add(new Conversation(values[0], values[1], values[2]));
-                    }
-                    else
-                    {
-                        EndConv.Add(new Conversation(values[0], values[1], values[2]));
-                    }
+                    activeConversation.Add(new Conversation(values[0], values[1], values[2]));
                 }
             }
 
-            return (StartConv, EndConv);
+            // 会話の再生を開始する準備
+            currentSegmentStartIndex = 0;
+            WaitingForButton = null;
+
+            // 最初のセグメントを返却
+            return GetNextSegment();
+        }
+
+        /// <summary>
+        /// 次に再生すべき会話セグメント（※までの塊）を取得する
+        /// </summary>
+        public static List<Conversation> GetNextSegment()
+        {
+            var segment = new List<Conversation>();
+            WaitingForButton = null; // まず待機状態をリセット
+
+            if (activeConversation == null || currentSegmentStartIndex >= activeConversation.Count)
+            {
+                return segment;
+            }
+
+            for (int i = currentSegmentStartIndex; i < activeConversation.Count; i++)
+            {
+                var currentConv = activeConversation[i];
+
+                // ※が含まれているかチェック
+                if (currentConv.Dialogue.Contains("※"))
+                {
+                    // セリフを「※」で分割
+                    string[] parts = currentConv.Dialogue.Split(new[] { '※' }, 2);
+
+                    // 分割したセリフ本体と、ボタン識別子を取得
+                    string dialogueText = parts[0]; // ※より前の部分
+                    WaitingForButton = parts.Length > 1 ? parts[1].Trim() : null; // ※より後の部分がボタン識別子
+                    
+                    if (!string.IsNullOrEmpty(dialogueText))
+                    {
+                        currentConv.Dialogue = dialogueText;
+                        segment.Add(currentConv);
+                    }
+
+                    currentSegmentStartIndex = i + 1;
+                    break; // 現在のセグメントはここまで
+                }
+                else
+                {
+                    segment.Add(currentConv);
+                    currentSegmentStartIndex = i + 1;
+                }
+            }
+
+            return segment;
         }
 
 
@@ -359,8 +389,8 @@ namespace unilab2025
                     currentX += g.MeasureString(normalText, baseFont, PointF.Empty, format).Width;
                 }
 
-                string baseText = match.Groups[1].Value; // 親文字 (例: 漢字)
-                string rubyText = match.Groups[2].Value; // ルビ (例: かんじ)
+                string baseText = match.Groups[1].Value; // 親文字
+                string rubyText = match.Groups[2].Value; // ルビ
 
                 // 親文字とルビのサイズを計測
                 SizeF baseSize = g.MeasureString(baseText, baseFont, PointF.Empty, format);
@@ -395,14 +425,25 @@ namespace unilab2025
         }
 
         public static int convIndex;
+        private static List<Conversation> activeConversation;
+        private static int currentSegmentStartIndex;
+        public static string WaitingForButton { get; private set; }
 
-        
+
 
         public static void DrawConv(Form currentForm, PictureBox pictureBox_Conv, byte[] Capt, List<Conversation> Conversations)
         {
             if (convIndex >= Conversations.Count)
             {
+                // 1つのセグメントの表示が終わった
                 ChangeControl(pictureBox_Conv, false);
+
+                // もし会話が一時停止状態でなく、全ての会話が終わったなら、リソースをクリア
+                if (string.IsNullOrEmpty(WaitingForButton) && (activeConversation == null || currentSegmentStartIndex >= activeConversation.Count))
+                {
+                    activeConversation = null;
+                }
+
                 return;
             }
 
