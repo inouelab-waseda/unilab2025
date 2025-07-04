@@ -377,7 +377,7 @@ namespace unilab2025
                 Img_Penguin[key] = Image.FromFile(file);
             }
 
-
+            Penguin = false;
 
         }
 
@@ -566,6 +566,10 @@ namespace unilab2025
                     {
                         balloon_Count -= 1;
                     }
+                    else if (InputListBox.SelectedItem.ToString().Contains("🐧"))
+                    {
+                        walk_Count -= 1;
+                    }
 
                 }
                 InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);//1つ消す
@@ -601,6 +605,10 @@ namespace unilab2025
                     else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🎈"))
                     {
                         balloon_Count -= 1;
+                    }
+                    else if (InputListBox.SelectedItem.ToString().Contains("🐧"))
+                    {
+                        walk_Count -= 1;
                     }
 
                 }
