@@ -617,6 +617,7 @@ namespace unilab2025
                 if(car_Count==0) lockedCarPattern = null;
 
             }
+            InputListBox.Focus();
         }
 
         private void button_reset_Click(object sender, EventArgs e)
@@ -633,6 +634,7 @@ namespace unilab2025
                 lockedCarPattern = null;
             }
             Left_Availabel_Input();
+            InputListBox.Focus();
         }
 
         private void DisplayMessage(string type)
@@ -734,7 +736,7 @@ namespace unilab2025
                     Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
-
+            InputListBox.Focus();
         }
 
         void Left_Availabel_Input()
@@ -778,6 +780,7 @@ namespace unilab2025
             InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
             //if (isChange) Item_Change();            
             Left_Availabel_Input();
+            InputListBox.Focus();
 
             //会話再生用
             if (Func.WaitingForButton == "up")
@@ -795,12 +798,14 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↗");
             Left_Availabel_Input();
+            InputListBox.Focus();
         }
         private void PictureBox_buttonRight_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "→");
             Left_Availabel_Input();
+            InputListBox.Focus();
 
             //会話再生用
             if (Func.WaitingForButton == "right")
@@ -824,6 +829,7 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
             Left_Availabel_Input();
+            InputListBox.Focus();
 
             //会話再生用
             if (Func.WaitingForButton == "down")
@@ -847,6 +853,7 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "←");
             Left_Availabel_Input();
+            InputListBox.Focus();
 
             //会話再生用
             if (Func.WaitingForButton == "left")
@@ -864,6 +871,7 @@ namespace unilab2025
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↖");
             Left_Availabel_Input();
+            InputListBox.Focus();
         }
 
         bool Input_check()
