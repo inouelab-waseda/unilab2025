@@ -1502,6 +1502,30 @@ namespace unilab2025
                     {                      
 
                         (x_now, y_now) = draw_move(x, y, ref move_copy);
+
+                        if (Map[x, y] == 8)
+                        {
+                            for (int i = 0; i < map_width; i++)
+                            {
+                                for (int j = 0; j < map_width; j++)
+                                {
+                                    if (Map[i, j] == 8 && (i != x || j != y))
+                                    {
+                                        await Task.Delay(400);
+                                        x = i;
+                                        x_now = i;
+                                        y = j;
+                                        y_now = j;
+                                        g2.Clear(Color.Transparent);
+                                        DrawCharacter(x_now, y_now, ref character_me);
+                                        pictureBox_Map2.Refresh();
+                                        isWarp = true;
+                                    }
+                                }
+                                if (isWarp) break;
+                            }
+
+                        }
                         if (car_finish == true && Input_arrow.Count > 0)
                         {
                             if (Input_arrow[0].Contains("✈️"))//飛行機の処理
@@ -1514,6 +1538,29 @@ namespace unilab2025
                                         (x_now, y_now) = place_update(x, y, Direction);
                                         DrawCharacter(x_now, y_now, ref character_me);
                                         pictureBox_Map2.Refresh();
+                                        if (Map[x, y] == 8)
+                                        {
+                                            for (int i = 0; i < map_width; i++)
+                                            {
+                                                for (int j = 0; j < map_width; j++)
+                                                {
+                                                    if (Map[i, j] == 8 && (i != x || j != y))
+                                                    {
+                                                        await Task.Delay(400);
+                                                        x = i;
+                                                        x_now = i;
+                                                        y = j;
+                                                        y_now = j;
+                                                        g2.Clear(Color.Transparent);
+                                                        DrawCharacter(x_now, y_now, ref character_me);
+                                                        pictureBox_Map2.Refresh();
+                                                        isWarp = true;
+                                                    }
+                                                }
+                                                if (isWarp) break;
+                                            }
+
+                                        }
                                     }
                                     else break;
 
@@ -1588,38 +1635,19 @@ namespace unilab2025
                         }                           
 
                     }
-
-                    if (Map[x, y] == 8)
-                    {
-                        for (int i = 0; i < map_width; i++)
-                        {
-                            for (int j = 0; j < map_width; j++)
-                            {
-                                if (Map[i, j] == 8 && (i != x || j != y))
-                                {
-                                    await Task.Delay(400);
-                                    x = i;
-                                    x_now = i;
-                                    y = j;
-                                    y_now = j;
-                                    g2.Clear(Color.Transparent);
-                                    DrawCharacter(x_now, y_now, ref character_me);
-                                    pictureBox_Map2.Refresh();
-                                    isWarp = true;
-                                }
-                            }
-                            if (isWarp) break;
-                        }                        
-                        
-                    }
+                                        
 
                     await Task.Delay(400);
-                    
+
+
                 }
 
                                 
             }
         }
+
+        
+
 
         #endregion
 
