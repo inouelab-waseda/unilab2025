@@ -196,6 +196,8 @@ namespace unilab2025
         //ペンギン設定
         public static Dictionary<string, Image> Img_Penguin = new Dictionary<string, Image>();
         public static bool Penguin = false;
+        public static int x_penguin; //現在位置ｘ
+        public static int y_penguin; //現在位置 y
 
         //表示される絵文字
         public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
@@ -1444,6 +1446,11 @@ namespace unilab2025
                     else if (Input_arrow[0].Contains("→")) character_me = Img_Penguin["右"];
                     else if (Input_arrow[0].Contains("↓")) character_me = Img_Penguin["正面"];
                     else if (Input_arrow[0].Contains("←")) character_me = Img_Penguin["左"];
+                    if (Map[x_now, y_now] == 7)
+                    {
+                        if (character_me == Img_Penguin["右"]) character_me = Img_Penguin["滑る右"];
+                        else if (character_me == Img_Penguin["左"]) character_me = Img_Penguin["滑る左"];
+                    }
                 }
 
 
@@ -1507,8 +1514,7 @@ namespace unilab2025
                         MoveTo(Direction, Input_arrow[0]); 
                     }
                     if (!Colision_detection(x, y, Map, move_copy))
-                    {                      
-
+                    {
                         (x_now, y_now) = draw_move(x, y, ref move_copy);
 
                         if (Map[x, y] == 8)
@@ -1586,7 +1592,7 @@ namespace unilab2025
                                 if (!Colision_detection(x, y, Map, Direction))
                                 {
                                     await Task.Delay(200);
-                                    (x_now, y_now) = place_update(x, y, Direction);
+                                    (x_now, y_now) = place_update(x, y, Direction);                                    
                                     DrawCharacter(x_now, y_now, ref character_me);
                                     pictureBox_Map2.Refresh();
                                     if (!(Map[x, y] == 7)) break;
