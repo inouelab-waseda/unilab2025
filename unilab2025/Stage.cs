@@ -1472,6 +1472,8 @@ namespace unilab2025
 
                     g2.Clear(Color.Transparent);
                     Input_arrow.Clear();
+                    car_finish = true;
+                    car_count = 0;
                     Image character_me = Dictionaries.Img_DotPic["正面"];
                     if(Penguin==true) character_me= Img_Penguin["正面"];
                     DrawCharacter(x_now, y_now, ref character_me);
@@ -1611,6 +1613,8 @@ namespace unilab2025
                         MessageBox.Show("前に進めません");
                         g2.Clear(Color.Transparent);//人の移動などのリセット
                         Input_arrow.Clear();//入力のリセット
+                        car_finish = true;
+                        car_count = 0;
                         Image character_me = Dictionaries.Img_DotPic["正面"];
                         if (Penguin == true) character_me = Img_Penguin["正面"];
                         DrawCharacter(x_start, y_start, ref character_me);
