@@ -193,6 +193,14 @@ namespace unilab2025
         public Graphics g1;
         public Graphics g2;
 
+        //パンダ設定
+        public static bool sasa;
+        public static bool panda;
+        public static int x_sasa; 
+        public static int y_sasa; 
+        public static int x_panda; 
+        public static int y_panda; 
+
         //ペンギン設定
         public static Dictionary<string, Image> Img_Penguin = new Dictionary<string, Image>();
         public static bool Penguin = false;
@@ -254,12 +262,12 @@ namespace unilab2025
                 isMessageMode = false;
             }
 
-
-            Dictionaries.Img_DotPic["car"] = Image.FromFile(@"Image\\DotPic\\car.png");
-            Dictionaries.Img_DotPic["ball"] = Image.FromFile(@"Image\\DotPic\\ball.png");
-            Dictionaries.Img_DotPic["plane"] = Image.FromFile(@"Image\\DotPic\\plane.png");
-            Dictionaries.Img_DotPic["explosion"] = Image.FromFile(@"Image\\DotPic\\explosion.png");
-            Dictionaries.Img_DotPic["meteo"] = Image.FromFile(@"Image\\DotPic\\meteo.png");
+            string[] files = Directory.GetFiles(@"Image\\DotPic\\Vehicle");
+            foreach (string file in files)
+            {
+                string key = Path.GetFileNameWithoutExtension(file).Replace("Img_", "");
+                Dictionaries.Img_DotPic[key] = Image.FromFile(file);
+            }          
 
 
             // それぞれの枠の高さ
@@ -366,14 +374,15 @@ namespace unilab2025
 
             //ペンギンの設定
             Img_Penguin.Clear();
-            string[] files = Directory.GetFiles(@"Image\\DotPic\\Penguin");
+            files = Directory.GetFiles(@"Image\\DotPic\\Penguin");
             foreach (string file in files)
             {
                 string key = Path.GetFileNameWithoutExtension(file).Replace("Penguin_", "");
                 Img_Penguin[key] = Image.FromFile(file);
             }
-                       
 
+            sasa = false;
+            panda = false;
             Penguin = false;
 
         }
@@ -447,7 +456,22 @@ namespace unilab2025
                         switch (_worldNumber)
                         {
                             case 5:
+                                if(map[x, y] == 4|| map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
+                                else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                if (map[x, y] == 4)
+                                {
+                                    g2.DrawImage(Dictionaries.Img_DotPic["sasa"], x * cell_length - extra_length, y * cell_length - extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                                    x_sasa = x;
+                                    y_sasa = y;
+                                }
+                                else if (map[x, y] == 5)
+                                {
+                                    g2.DrawImage(Dictionaries.Img_DotPic["Panda1"], x * cell_length - extra_length, y * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                                    x_panda = x;
+                                    y_panda = y;
+                                }
                                 break;
+        
                             case 6:
                                 if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
@@ -1319,6 +1343,7 @@ namespace unilab2025
 
             if (new_x <= 0 || (max_x - new_x) <= 1 || new_y <= 0 || (max_y - new_y) <= 1) return true;
             else if (Map[new_x, new_y] == 2) return true;
+            else if(Map[new_x, new_y] == 5&& sasa==false) return true;
             else
             {
                 //move.RemoveAt(0);
@@ -1455,6 +1480,7 @@ namespace unilab2025
 
 
                 DrawCharacter(x_now, y_now, ref character_me);
+                if (_worldNumber == 5) Panda();
                 pictureBox_Map2.Refresh();
                 
                 
@@ -1476,6 +1502,7 @@ namespace unilab2025
                     car_count = 0;
                     Image character_me = Dictionaries.Img_DotPic["正面"];
                     if(Penguin==true) character_me= Img_Penguin["正面"];
+                    if(_worldNumber==5)Panda();
                     DrawCharacter(x_now, y_now, ref character_me);
                     pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
@@ -1542,6 +1569,12 @@ namespace unilab2025
                             }
 
                         }
+                        if (Map[x, y] == 5 && sasa == true)
+                        {
+                            panda = true;
+                            //g2.DrawImage(Dictionaries.Img_DotPic["Panda2"], x * cell_length - extra_length, y * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                        }
+
                         if (car_finish == true && Input_arrow.Count > 0)
                         {
                             if (Input_arrow[0].Contains("✈️"))//飛行機の処理
@@ -1586,7 +1619,10 @@ namespace unilab2025
                             Input_arrow.RemoveAt(0);
                         }
                         if (car_count == 0) car_finish = true;//車の処理が終わったかどうか
-                        
+
+                        if (Map[x, y] == 4) sasa = true;     //笹を取ったかどうか                
+                        if (_worldNumber == 5) Panda();
+
                         if (Map[x, y] == 7)//氷の処理
                         {                            
                             while (true)
@@ -1617,6 +1653,7 @@ namespace unilab2025
                         car_count = 0;
                         Image character_me = Dictionaries.Img_DotPic["正面"];
                         if (Penguin == true) character_me = Img_Penguin["正面"];
+                        if (_worldNumber == 5) Panda();
                         DrawCharacter(x_start, y_start, ref character_me);
                         pictureBox_Map2.Refresh();
                         x_now = x_start;//スタート位置に戻す
@@ -1644,6 +1681,7 @@ namespace unilab2025
                             Image character_me = Dictionaries.Img_DotPic["正面"];
                             if (Penguin == true) character_me = Img_Penguin["正面"];
                             DrawCharacter(x_start, y_start, ref character_me);
+                            Panda();
                             pictureBox_Map2.Refresh();
                             x_now = x_start;//スタート位置に戻す
                             y_now = y_start;
@@ -1664,7 +1702,14 @@ namespace unilab2025
             }
         }
 
-        
+        private void Panda()
+        {
+            if(!sasa)g2.DrawImage(Dictionaries.Img_DotPic["sasa"], x_sasa * cell_length - extra_length, y_sasa * cell_length - extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+            if(!panda)g2.DrawImage(Dictionaries.Img_DotPic["Panda1"], x_panda * cell_length - extra_length, y_panda * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+            else g2.DrawImage(Dictionaries.Img_DotPic["Panda2"], x_panda * cell_length - extra_length, y_panda * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+        }
+
+
 
 
         #endregion
