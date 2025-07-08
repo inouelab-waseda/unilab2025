@@ -431,7 +431,7 @@ namespace unilab2025
 
 
 
-        public static void DrawConv(Form currentForm, PictureBox pictureBox_Conv, byte[] Capt, List<Conversation> Conversations)
+        public static  void DrawConv(Form currentForm, PictureBox pictureBox_Conv, byte[] Capt, List<Conversation> Conversations)
         {
             if (convIndex >= Conversations.Count)
             {
