@@ -1478,9 +1478,9 @@ namespace unilab2025
                     }
                 }
 
-
-                DrawCharacter(x_now, y_now, ref character_me);
                 if (_worldNumber == 5) Panda();
+                DrawCharacter(x_now, y_now, ref character_me);
+                
                 pictureBox_Map2.Refresh();
                 
                 
@@ -1499,10 +1499,10 @@ namespace unilab2025
                     g2.Clear(Color.Transparent);
                     Input_arrow.Clear();
                     car_finish = true;
-                    car_count = 0;
+                    car_count = 0;                    
+                    if (_worldNumber == 5) Panda();
                     Image character_me = Dictionaries.Img_DotPic["正面"];
-                    if(Penguin==true) character_me= Img_Penguin["正面"];
-                    if(_worldNumber==5)Panda();
+                    if(Penguin==true) character_me= Img_Penguin["正面"];                    
                     DrawCharacter(x_now, y_now, ref character_me);
                     pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
@@ -1511,6 +1511,9 @@ namespace unilab2025
                     {
                         MessageBox.Show("やり直し");
                         g2.Clear(Color.Transparent);
+                        sasa = false;
+                        panda = false;
+                        if (_worldNumber == 5) Panda();
                         DrawCharacter(x_start, y_start, ref character_me);
                         pictureBox_Map2.Refresh();                        
                         x_now = x_start;
@@ -1621,8 +1624,7 @@ namespace unilab2025
                         if (car_count == 0) car_finish = true;//車の処理が終わったかどうか
 
                         if (Map[x, y] == 4) sasa = true;     //笹を取ったかどうか                
-                        if (_worldNumber == 5) Panda();
-
+                        
                         if (Map[x, y] == 7)//氷の処理
                         {                            
                             while (true)
@@ -1651,6 +1653,8 @@ namespace unilab2025
                         Input_arrow.Clear();//入力のリセット
                         car_finish = true;
                         car_count = 0;
+                        sasa = false;
+                        panda = false;
                         Image character_me = Dictionaries.Img_DotPic["正面"];
                         if (Penguin == true) character_me = Img_Penguin["正面"];
                         if (_worldNumber == 5) Panda();
