@@ -602,7 +602,7 @@ namespace unilab2025
                     {
                         balloon_Count -= 1;
                     }
-                    else if (InputListBox.SelectedItem.ToString().Contains("🐧"))
+                    else if (InputListBox.Items[InputListBox.Items.Count - 1].ToString().Contains("🐧"))
                     {
                         walk_Count -= 1;
                     }
