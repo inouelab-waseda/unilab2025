@@ -41,7 +41,7 @@
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(1425, 686);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(331, 138);
             this.button5.TabIndex = 5;

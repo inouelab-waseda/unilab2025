@@ -48,9 +48,11 @@ namespace unilab2025
                 Map -= 1;
             }
             
-            pictureBox_Map.BackgroundImage= Dictionaries.Img_Background["Map"+Map];
+            this.BackgroundImage= Dictionaries.Img_Background["Map_" + Map];
+            //pictureBox_Map.BackgroundImage= Dictionaries.Img_Background["Map"+Map];
+            pictureBox_Map.Visible = false;
 
-            
+
             // buttonに対する処理
             foreach (Control control in this.Controls)
             {
