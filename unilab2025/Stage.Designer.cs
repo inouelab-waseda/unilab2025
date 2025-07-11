@@ -259,6 +259,7 @@
             this.button_hint.Size = new System.Drawing.Size(160, 68);
             this.button_hint.TabIndex = 20;
             this.button_hint.UseVisualStyleBackColor = false;
+            this.button_hint.Click += new System.EventHandler(this.button_hint_Click);
             // 
             // button_return
             // 

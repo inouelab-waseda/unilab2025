@@ -169,6 +169,7 @@ namespace unilab2025
         public static string hint;
         public static string hint_character;
         public static string hint_name;
+        public static bool hint_on;
 
         public static string grade;    //学年
         public static int gradenum;
@@ -366,6 +367,9 @@ namespace unilab2025
 
             ClearCheck.IsButtonEnabled[1,1] = true;
 
+            //ヒントのボタン
+            if (_worldNumber == 1 || _level == 1) button_hint.Visible = false;
+
             // 開始時の会話があれば、再生を開始する
             if (currentConversation != null && currentConversation.Count > 0)
             {
@@ -386,6 +390,11 @@ namespace unilab2025
             sasa = false;
             panda = false;
             Penguin = false;
+
+            hint_on = false;
+
+            
+
 
         }
 
@@ -475,12 +484,12 @@ namespace unilab2025
                                 break;
         
                             case 6:
-                                if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                if(map[x, y]<2|| map[x, y] ==9) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
                             
                             case 8:
-                                if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                if (map[x, y] < 2|| map[x, y] ==9) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 200).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
                         }
@@ -488,7 +497,11 @@ namespace unilab2025
                     
                 }
             }
+            g2.Clear(Color.Transparent);
             // キャラクターの描画をループの外に出す
+            character_me = Dictionaries.Img_DotPic["正面"];
+            if (Penguin == true) character_me = Img_Penguin["正面"];           
+            
             g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
 
             this.Invoke((MethodInvoker)delegate
@@ -687,18 +700,24 @@ namespace unilab2025
                 button_Start.Enabled = true;
                 return;
             }
+
+            if (hint_on)
+            {
+                CreateStage(stageName);
+                hint_on= false;
+            }
             move = Movement(); //ユーザーの入力を読み取る
             //List<string> Input_Main = 
 
             await SquareMovement(x_now, y_now, map, move); //キャラ動かす
-           
-            if(x_goal == x_now && y_goal == y_now)
-            {                
+
+            if (x_goal == x_now && y_goal == y_now)
+            {
                 ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
                 button_return.Visible = true;
                 pictureBox_buttonUp.Enabled = false;
                 pictureBox_buttonRight.Enabled = false;
-                pictureBox_buttonDown.Enabled= false;
+                pictureBox_buttonDown.Enabled = false;
                 pictureBox_buttonLeft.Enabled = false;
                 pictureBox_upperRight.Enabled = false;
                 pictureBox_lowerRight.Enabled = false;
@@ -723,7 +742,7 @@ namespace unilab2025
                 {
                     ClearCheck.IsCleared[_worldNumber, 0] = true;
                     switch (_worldNumber)
-                    {                        
+                    {
                         case 2:
                         case 3:
                         case 4:
@@ -735,7 +754,7 @@ namespace unilab2025
                             break; ;
                     }
                 }
-                else if(_level == 2 && _worldNumber == 1)
+                else if (_level == 2 && _worldNumber == 1)
                 {
                     ClearCheck.IsCleared[_worldNumber, 0] = true;
                     for (int j = 0; j <= 1; j++)
@@ -753,6 +772,7 @@ namespace unilab2025
 
 
             }
+            
 
             //会話再生用
             if (Func.WaitingForButton == "start")
@@ -1133,6 +1153,14 @@ namespace unilab2025
                 }
             }
             else Func.CreateStageSelect(this, _worldName, _worldNumber);
+        }
+
+        //ヒント
+        private void button_hint_Click(object sender, EventArgs e)
+        {
+            hint_on = true;
+            if (stageName=="stage3-2"|| stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2")
+            CreateStage(stageName + "hint");
         }
 
         /// <summary>
@@ -1560,7 +1588,6 @@ namespace unilab2025
                     //List<int[]>Direction  = new List<int[]>();
 
                     var Direction = move_copy;
-                                
                     
                     if (!Colision_detection(x, y, Map, move_copy))
                     {
@@ -1824,6 +1851,7 @@ namespace unilab2025
         }
 
         
+
         private void meteorTimer_Tick(object sender, EventArgs e)
         {
             g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
