@@ -54,13 +54,15 @@ namespace unilab2025
             boyChoiceBox = new PictureBox();
             boyChoiceBox.Image = Dictionaries.Img_Character["boy_select"]; // 例: 選択画面用のBoy画像
             boyChoiceBox.Size = new Size(300, 500); // 適当なサイズに設定
-            boyChoiceBox.Location = new Point(this.ClientSize.Width / 2, this.ClientSize.Height / 2 );
+            boyChoiceBox.Location = new Point(this.ClientSize.Width / 2-20, this.ClientSize.Height / 2 );
             boyChoiceBox.SizeMode = PictureBoxSizeMode.Zoom; // 画像サイズに合わせて調整
             boyChoiceBox.Click += BoyChoiceBox_Click;
             this.Controls.Add(boyChoiceBox);
             boyChoiceBox.Visible = false; // 最初は非表示
             boyChoiceBox.Enabled = false; // 最初は無効
             boyChoiceBox.BackColor = Color.Transparent;
+            this.boyChoiceBox.MouseEnter += new System.EventHandler(this.boyChoiceBox_MouseEnter);
+            this.boyChoiceBox.MouseLeave += new System.EventHandler(this.boyChoiceBox_MouseLeave);
 
             girlChoiceBox = new PictureBox();
             girlChoiceBox.Image = Dictionaries.Img_Character["girl_select"]; // 例: 選択画面用のGirl画像
@@ -72,17 +74,21 @@ namespace unilab2025
             girlChoiceBox.Visible = false;
             girlChoiceBox.Enabled = false;
             girlChoiceBox.BackColor = Color.Transparent;
+            this.girlChoiceBox.MouseEnter += new System.EventHandler(this.girlChoiceBox_MouseEnter);
+            this.girlChoiceBox.MouseLeave += new System.EventHandler(this.girlChoiceBox_MouseLeave);
 
             silverChoiceBox = new PictureBox();
             silverChoiceBox.Image = Dictionaries.Img_Character["Silver_select"]; // 例: 選択画面用のSilver画像
             silverChoiceBox.Size = new Size(300, 500);
-            silverChoiceBox.Location = new Point(this.ClientSize.Width / 2 + 600, this.ClientSize.Height / 2);
+            silverChoiceBox.Location = new Point(this.ClientSize.Width / 2 + 620, this.ClientSize.Height / 2);
             silverChoiceBox.SizeMode = PictureBoxSizeMode.Zoom;
             silverChoiceBox.Click += SilverChoiceBox_Click;
             this.Controls.Add(silverChoiceBox);
             silverChoiceBox.Visible = false;
             silverChoiceBox.Enabled = false;
             silverChoiceBox.BackColor = Color.Transparent;
+            this.silverChoiceBox.MouseEnter += new System.EventHandler(this.silverChoiceBox_MouseEnter);
+            this.silverChoiceBox.MouseLeave += new System.EventHandler(this.silverChoiceBox_MouseLeave);
         }
 
         private void Prologue_Load(object sender, EventArgs e)
@@ -191,6 +197,45 @@ namespace unilab2025
 
         #endregion
 
+        #region　ボタン表示
+
+        private void boyChoiceBox_MouseEnter(object sender, EventArgs e)
+        {
+            // マウスが上に乗ったら画像を切り替える
+            boyChoiceBox.Image = Dictionaries.Img_Character["boy_select2"];
+        }
+
+        private void boyChoiceBox_MouseLeave(object sender, EventArgs e)
+        {
+            // マウスが離れたら元に戻す
+            boyChoiceBox.Image = Dictionaries.Img_Character["boy_select"];
+        }
+        private void girlChoiceBox_MouseEnter(object sender, EventArgs e)
+        {
+            // マウスが上に乗ったら画像を切り替える
+            girlChoiceBox.Image = Dictionaries.Img_Character["girl_select2"];
+        }
+
+        private void girlChoiceBox_MouseLeave(object sender, EventArgs e)
+        {
+            // マウスが離れたら元に戻す
+            girlChoiceBox.Image = Dictionaries.Img_Character["girl_select"];
+        }
+        private void silverChoiceBox_MouseEnter(object sender, EventArgs e)
+        {
+            // マウスが上に乗ったら画像を切り替える
+            silverChoiceBox.Image = Dictionaries.Img_Character["Silver_select2"];
+        }
+
+        private void silverChoiceBox_MouseLeave(object sender, EventArgs e)
+        {
+            // マウスが離れたら元に戻す
+            silverChoiceBox.Image = Dictionaries.Img_Character["Silver_select"];
+        }
+
+
+
+        #endregion
 
         #region ストーリースキップ用
         //public Prologue関数内に以下を追記
