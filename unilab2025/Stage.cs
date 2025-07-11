@@ -1588,6 +1588,9 @@ namespace unilab2025
                                     {
                                         await Task.Delay(200);
                                         (x_now, y_now) = place_update(x, y, Direction);
+                                        if (Map[x, y] == 4) sasa = true;
+                                        if (Map[x, y] == 5 && sasa == true) panda = true;
+                                        if (_worldNumber == 5) Panda();
                                         DrawCharacter(x_now, y_now, ref character_me);
                                         pictureBox_Map2.Refresh();
                                         if (Map[x, y] == 8)
