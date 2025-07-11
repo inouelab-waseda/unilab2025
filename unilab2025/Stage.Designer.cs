@@ -76,7 +76,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
-
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -109,7 +108,7 @@
             this.button_reset.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_reset.BackgroundImage")));
             this.button_reset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_reset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_reset.Location = new System.Drawing.Point(1181, 505);
+            this.button_reset.Location = new System.Drawing.Point(1146, 505);
             this.button_reset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(200, 62);
@@ -121,7 +120,7 @@
             // 
             this.pictureBox_Car.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Car.BackgroundImage")));
             this.pictureBox_Car.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_Car.Location = new System.Drawing.Point(1401, 20);
+            this.pictureBox_Car.Location = new System.Drawing.Point(1430, 20);
             this.pictureBox_Car.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_Car.Name = "pictureBox_Car";
             this.pictureBox_Car.Size = new System.Drawing.Size(343, 469);
@@ -132,7 +131,7 @@
             // 
             this.pictureBox_Order.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Order.BackgroundImage")));
             this.pictureBox_Order.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_Order.Location = new System.Drawing.Point(961, 20);
+            this.pictureBox_Order.Location = new System.Drawing.Point(927, 22);
             this.pictureBox_Order.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_Order.Name = "pictureBox_Order";
             this.pictureBox_Order.Size = new System.Drawing.Size(343, 469);
@@ -144,7 +143,7 @@
             this.listBox_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.listBox_Car.FormattingEnabled = true;
             this.listBox_Car.ItemHeight = 33;
-            this.listBox_Car.Location = new System.Drawing.Point(1439, 114);
+            this.listBox_Car.Location = new System.Drawing.Point(1469, 114);
             this.listBox_Car.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_Car.Name = "listBox_Car";
             this.listBox_Car.Size = new System.Drawing.Size(273, 235);
@@ -370,7 +369,7 @@
             this.button_back.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_back.BackgroundImage")));
             this.button_back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_back.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_back.Location = new System.Drawing.Point(961, 505);
+            this.button_back.Location = new System.Drawing.Point(927, 505);
             this.button_back.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_back.Name = "button_back";
             this.button_back.Size = new System.Drawing.Size(200, 62);
@@ -393,7 +392,7 @@
             this.listBox_Order.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.listBox_Order.FormattingEnabled = true;
             this.listBox_Order.ItemHeight = 33;
-            this.listBox_Order.Location = new System.Drawing.Point(997, 109);
+            this.listBox_Order.Location = new System.Drawing.Point(963, 114);
             this.listBox_Order.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_Order.Name = "listBox_Order";
             this.listBox_Order.Size = new System.Drawing.Size(273, 202);
@@ -445,14 +444,17 @@
             this.button_carEnter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_carEnter.BackgroundImage")));
             this.button_carEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_carEnter.CausesValidation = false;
+            this.button_carEnter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_carEnter.Font = new System.Drawing.Font("游ゴシック", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_carEnter.Location = new System.Drawing.Point(1485, 374);
+            this.button_carEnter.Location = new System.Drawing.Point(1283, 154);
             this.button_carEnter.Margin = new System.Windows.Forms.Padding(4);
             this.button_carEnter.Name = "button_carEnter";
-            this.button_carEnter.Size = new System.Drawing.Size(229, 93);
+            this.button_carEnter.Size = new System.Drawing.Size(131, 107);
             this.button_carEnter.TabIndex = 41;
             this.button_carEnter.UseVisualStyleBackColor = false;
             this.button_carEnter.Click += new System.EventHandler(this.button_carEnter_Click);
+            this.button_carEnter.MouseEnter += new System.EventHandler(this.button_carEnter_MouseEnter);
+            this.button_carEnter.MouseLeave += new System.EventHandler(this.button_carEnter_MouseLeave);
             // 
             // behind
             // 
@@ -468,7 +470,7 @@
             // button_meteo
             // 
             this.button_meteo.Font = new System.Drawing.Font("游ゴシック", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_meteo.Location = new System.Drawing.Point(1075, 374);
+            this.button_meteo.Location = new System.Drawing.Point(1041, 377);
             this.button_meteo.Name = "button_meteo";
             this.button_meteo.Size = new System.Drawing.Size(195, 75);
             this.button_meteo.TabIndex = 43;
@@ -535,7 +537,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
-
             this.ResumeLayout(false);
             this.PerformLayout();
 

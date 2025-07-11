@@ -244,6 +244,8 @@ namespace unilab2025
             stageName = "stage" + _worldNumber + "-" + _level;
             map = CreateStage(stageName); //ステージ作成
 
+            button_carEnter.BackgroundImage= Dictionaries.Img_Button["入れるoff"];
+
 
             InputListBox = listBox_Order;
             ListBoxes.Add(listBox_Order);
@@ -997,6 +999,7 @@ namespace unilab2025
         }
         private void button_carEnter_Click(object sender, EventArgs e)
         {
+            
             if (!(car_Count < limit_LB_car))
             {
                 MessageBox.Show("これ以上入力できないよ!");
@@ -1056,7 +1059,21 @@ namespace unilab2025
 
             picture = "walk";
             UpdateMovementButtonImages();
+            
         }
+        private void button_carEnter_MouseEnter(object sender, EventArgs e)
+        {
+            // マウスが上に乗ったら画像を切り替える
+            button_carEnter.BackgroundImage = Dictionaries.Img_Button["入れるon"];
+        }
+
+        private void button_carEnter_MouseLeave(object sender, EventArgs e)
+        {
+            // マウスが離れたら元に戻す
+            button_carEnter.BackgroundImage = Dictionaries.Img_Button["入れるoff"];
+        }
+
+
 
         private void button_balloon_Click(object sender, EventArgs e)
         {
@@ -1806,6 +1823,7 @@ namespace unilab2025
             await MeteoResult.Task;
         }
 
+        
         private void meteorTimer_Tick(object sender, EventArgs e)
         {
             g2.DrawImage(Dictionaries.Img_DotPic["meteo"], meteorX, meteorY, 3 * (cell_length + 2 * extra_length), 3 * (cell_length + 2 * extra_length));
