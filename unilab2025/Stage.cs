@@ -1540,11 +1540,11 @@ namespace unilab2025
                 }
                 else
                 {
-                    var Direction = new List<int[]>();
-                    if (Input_arrow.Count>0) 
-                    {                        
-                        MoveTo(Direction, Input_arrow[0]); 
-                    }
+                    //List<int[]>Direction  = new List<int[]>();
+
+                    var Direction = move_copy;
+                                
+                    
                     if (!Colision_detection(x, y, Map, move_copy))
                     {
                         (x_now, y_now) = draw_move(x, y, ref move_copy);
@@ -1647,6 +1647,40 @@ namespace unilab2025
 
                         }
 
+                        if (Map[x, y] == 6)//ジャンプ処理
+                        {
+                            while (true)
+                            {
+                                (x_now, y_now) = place_update(x, y, Direction);
+                                if (!Colision_detection(x, y, Map, Direction))
+                                {
+                                    await Task.Delay(400);
+                                    (x_now, y_now) = place_update(x, y, Direction);
+                                    DrawCharacter(x_now, y_now, ref character_me);
+                                    pictureBox_Map2.Refresh();
+                                    if (Map[x, y] != 6) break;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("前に進めません");
+                                    g2.Clear(Color.Transparent);//人の移動などのリセット
+                                    Input_arrow.Clear();//入力のリセット
+                                    Image character_me = Dictionaries.Img_DotPic["正面"];
+                                    if (Penguin == true) character_me = Img_Penguin["正面"];
+                                    DrawCharacter(x_start, y_start, ref character_me);
+                                    pictureBox_Map2.Refresh();
+                                    x_now = x_start;//スタート位置に戻す
+                                    y_now = y_start;
+                                    button_Start.Visible = true;
+                                    button_Start.Enabled = true;
+                                    break;
+                                }
+                            }
+                        }
+
+
+
+
                         move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
                     }
                     else
@@ -1670,34 +1704,7 @@ namespace unilab2025
                         break;
                     }
 
-                    if(Map[x, y] == 6)
-                    {
-                        (x_now, y_now) = place_update(x, y, Direction);
-                        if (!Colision_detection(x, y, Map, Direction))
-                        {
-                            await Task.Delay(400);
-                            (x_now, y_now) = place_update(x, y, Direction);
-                            DrawCharacter(x_now, y_now, ref character_me);
-                            pictureBox_Map2.Refresh();
-                        }
-                        else
-                        {
-                            MessageBox.Show("前に進めません");
-                            g2.Clear(Color.Transparent);//人の移動などのリセット
-                            Input_arrow.Clear();//入力のリセット
-                            Image character_me = Dictionaries.Img_DotPic["正面"];
-                            if (Penguin == true) character_me = Img_Penguin["正面"];
-                            DrawCharacter(x_start, y_start, ref character_me);
-                            Panda();
-                            pictureBox_Map2.Refresh();
-                            x_now = x_start;//スタート位置に戻す
-                            y_now = y_start;
-                            button_Start.Visible = true;
-                            button_Start.Enabled = true;
-                            break;
-                        }                           
-
-                    }
+                    
                                         
 
                     await Task.Delay(400);
@@ -1709,6 +1716,7 @@ namespace unilab2025
             }
         }
 
+        
         private void Panda()
         {
             if(!sasa)g2.DrawImage(Dictionaries.Img_DotPic["sasa"], x_sasa * cell_length - extra_length, y_sasa * cell_length - extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
