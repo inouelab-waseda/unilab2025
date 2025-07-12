@@ -1078,6 +1078,14 @@ namespace unilab2025
             label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
 
             picture = "walk";
+            pictureBox_buttonUp.Visible = true;
+            pictureBox_buttonRight.Visible = true;
+            pictureBox_buttonDown.Visible = true;
+            pictureBox_buttonLeft.Visible = true;
+            pictureBox_upperRight.Visible = false;
+            pictureBox_lowerRight.Visible = false;
+            pictureBox_lowerLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;
             UpdateMovementButtonImages();
             
         }
@@ -1616,6 +1624,7 @@ namespace unilab2025
                             }
 
                         }
+                        isWarp = false;
                         if (Map[x, y] == 5 && sasa == true)
                         {
                             panda = true;
