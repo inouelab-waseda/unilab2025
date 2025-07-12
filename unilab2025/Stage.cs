@@ -1704,10 +1704,14 @@ namespace unilab2025
                         {
                             while (true)
                             {
+                                
+                                int x_jump=x_now;
+                                int y_jump=y_now;
                                 (x_now, y_now) = place_update(x, y, Direction);
                                 if (!Colision_detection(x, y, Map, Direction))
                                 {
                                     await Task.Delay(400);
+                                    await Jump(x_jump, y_jump,Direction);
                                     (x_now, y_now) = place_update(x, y, Direction);
                                     DrawCharacter(x_now, y_now, ref character_me);
                                     pictureBox_Map2.Refresh();
@@ -1775,6 +1779,26 @@ namespace unilab2025
             if(!sasa)g2.DrawImage(Dictionaries.Img_DotPic["sasa"], x_sasa * cell_length - extra_length, y_sasa * cell_length - extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             if(!panda)g2.DrawImage(Dictionaries.Img_DotPic["Panda1"], x_panda * cell_length - extra_length, y_panda * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             else g2.DrawImage(Dictionaries.Img_DotPic["Panda2"], x_panda * cell_length - extra_length, y_panda * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+        }
+        private async Task Jump(int x_jump,int y_jump, List<int[]> Direction)
+        {
+            int a = 0;
+            
+            while(true) 
+            {
+                if (a > (2 * cell_length)) break;
+                g2.Clear(Color.Transparent);//人の移動などのリセット
+                if (Direction[0][0]==1&& Direction[0][1]==0) g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan右"], 0f), x_jump * cell_length - extra_length+a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0] == -1 && Direction[0][1] == 0) g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan左"], 0f), x_jump * cell_length - extra_length - a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0] == 0 && Direction[0][1] == -1) break;//g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan右"], 0f), x_jump * cell_length - extra_length + a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0] == 0 && Direction[0][1] == 1) break;//g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan右"], 0f), x_jump * cell_length - extra_length + a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+
+                pictureBox_Map2.Refresh();
+                a += 30;
+                await Task.Delay(100);
+                
+            }
+           
         }
 
 
