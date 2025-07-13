@@ -19,6 +19,9 @@ namespace unilab2025
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
+            pictureBox_Conv = Func.CreatePictureBox_Conv(this);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv.Visible = false;
         }
         #region 各種メンバ変数の定義など
 
@@ -37,6 +40,10 @@ namespace unilab2025
             get { return _worldNumber; }
             set { _worldNumber = value; }
         }
+
+        private PictureBox pictureBox_Conv;
+        private List<Conversation> currentConversation;
+        private byte[] Capt;
         #endregion
 
         private void StageSelect_Load(object sender, EventArgs e)
@@ -85,6 +92,13 @@ namespace unilab2025
 
         private void button_ToMap_Click(object sender, EventArgs e)
         {
+            //会話再生用
+            if (Func.WaitingForButton == "returnMap")
+            {
+                // 次の会話セグメントを取得
+                CurrentFormState.StateData["ResumeConversation"] = true;
+            }
+
             if (_worldNumber <= 4) Func.CreateWorldMap(this);
             else Func.CreateAnotherWorld(this);
         }
@@ -110,7 +124,19 @@ namespace unilab2025
                 }
             }
         }
+        /// 会話を1フレーム進める
+        private void AdvanceConversation()
+        {
+            if (currentConversation != null && Capt != null)
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
+            }
+        }
 
-     
+        // 会話用のPictureBoxがクリックされたときの処理
+        private void pictureBox_Conv_Click(object sender, EventArgs e)
+        {
+            AdvanceConversation();
+        }
     }
 }
