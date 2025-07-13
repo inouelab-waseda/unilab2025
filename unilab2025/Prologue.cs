@@ -91,13 +91,13 @@ namespace unilab2025
             this.silverChoiceBox.MouseLeave += new System.EventHandler(this.silverChoiceBox_MouseLeave);
         }
 
-        private void Prologue_Load(object sender, EventArgs e)
+        private async void Prologue_Load(object sender, EventArgs e)
         {
             
             // フォームロード時にOP会話を再生
             currentState = GameState.PlayingOpeningConversation;
             List<Conversation> opConversations = Dictionaries.Conversations["Op"];
-            capturedScreen = Func.PlayConv(this, pictureBox_Conversation, opConversations);
+            capturedScreen = await Func.PlayConv(this, pictureBox_Conversation, opConversations);
             
         }
 
@@ -181,7 +181,7 @@ namespace unilab2025
         }
 
         // イントロダクション会話を開始する
-        private void StartIntroductionConversation()
+        private async void StartIntroductionConversation()
         {
             this.BackgroundImage = Dictionaries.Img_Background["Stage1"];//背景
             ShowCharacterSelectionButtons(false); // キャラクター選択PictureBoxを非表示にする
@@ -192,7 +192,7 @@ namespace unilab2025
             currentState = GameState.PlayingIntroductionConversation;
             List<Conversation> introConversations = Dictionaries.Conversations["Intro"];
             // 現在のフォームの画面を再度キャプチャして会話を開始
-            capturedScreen = Func.PlayConv(this, pictureBox_Conversation, introConversations);
+            capturedScreen = await Func.PlayConv(this, pictureBox_Conversation, introConversations);
         }
 
         #endregion

@@ -12,6 +12,10 @@ namespace unilab2025
 {
     public partial class WorldMap : Form
     {
+        private PictureBox pictureBox_Conv;
+        private List<Conversation> currentConversation;
+        private byte[] Capt;
+
         public WorldMap()
         {
             InitializeComponent();
@@ -21,10 +25,13 @@ namespace unilab2025
             this.KeyDown += new KeyEventHandler(WorldMap_KeyDown);
             this.KeyPreview = true;
 
+            pictureBox_Conv = Func.CreatePictureBox_Conv(this);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv.Visible = false;
         }
 
         #region 読み込み時
-        private void WorldMap_Load(object sender, EventArgs e)
+        private async void WorldMap_Load(object sender, EventArgs e)
         {
             int Map = 5;
             if (!(ClearCheck.IsCleared[1, 0])) 
@@ -76,7 +83,15 @@ namespace unilab2025
                 }
             }
 
-
+            if (CurrentFormState.StateData.ContainsKey("ResumeConversation") && (bool)CurrentFormState.StateData["ResumeConversation"])
+            {
+                CurrentFormState.StateData.Remove("ResumeConversation");
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         #endregion
 
@@ -135,7 +150,20 @@ namespace unilab2025
         }
         #endregion
 
+        /// 会話を1フレーム進める
+        private void AdvanceConversation()
+        {
+            if (currentConversation != null && Capt != null)
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
+            }
+        }
 
+        // 会話用のPictureBoxがクリックされたときの処理
+        private void pictureBox_Conv_Click(object sender, EventArgs e)
+        {
+            AdvanceConversation();
+        }
 
 
 

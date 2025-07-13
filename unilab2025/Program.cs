@@ -62,7 +62,7 @@ namespace unilab2025
         public static void CreateWorldMap(Form currentForm) //呼び出し方: Func.CreateWorldMap(this);
         {
             CurrentFormState.FormName = "WorldMap";
-            CurrentFormState.StateData.Clear();
+            //CurrentFormState.StateData.Clear();
 
             WorldMap form = new WorldMap();
             form.Show();
@@ -75,7 +75,7 @@ namespace unilab2025
         public static void CreateAnotherWorld(Form currentForm)
         {
             CurrentFormState.FormName = "AnotherWorld";
-            CurrentFormState.StateData.Clear();
+            //CurrentFormState.StateData.Clear();
 
             AnotherWorld form = new AnotherWorld();
             form.Show();
@@ -385,7 +385,8 @@ namespace unilab2025
                 if (match.Index > lastIndex)
                 {
                     string normalText = text.Substring(lastIndex, match.Index - lastIndex);
-                    g.DrawString(normalText, baseFont, brush, new PointF(currentX, currentY));
+                    // 描画時にも format を適用
+                    g.DrawString(normalText, baseFont, brush, new PointF(currentX, currentY), format); // <--- 修正
                     currentX += g.MeasureString(normalText, baseFont, PointF.Empty, format).Width;
                 }
 
@@ -398,11 +399,13 @@ namespace unilab2025
 
                 // ルビを親文字の中央上に描画
                 float rubyX = currentX + (baseSize.Width - rubySize.Width) / 2 + 3;
-                float rubyY = currentY - rubySize.Height + 10; // 親文字の上に来るように調整
-                g.DrawString(rubyText, rubyFont, brush, new PointF(rubyX, rubyY));
+                float rubyY = currentY - rubySize.Height + 10;
+                // 描画時にも format を適用
+                g.DrawString(rubyText, rubyFont, brush, new PointF(rubyX, rubyY), format); // <--- 修正
 
                 // 親文字を描画
-                g.DrawString(baseText, baseFont, brush, new PointF(currentX, currentY));
+                // 描画時にも format を適用
+                g.DrawString(baseText, baseFont, brush, new PointF(currentX, currentY), format); // <--- 修正
                 currentX += baseSize.Width;
 
                 lastIndex = match.Index + match.Length;
@@ -412,11 +415,12 @@ namespace unilab2025
             if (lastIndex < text.Length)
             {
                 string remainingText = text.Substring(lastIndex);
-                g.DrawString(remainingText, baseFont, brush, new PointF(currentX, currentY));
+                // 描画時にも format を適用
+                g.DrawString(remainingText, baseFont, brush, new PointF(currentX, currentY), format); // <--- 修正
             }
         }
 
-    public static Bitmap ByteArrayToBitmap(byte[] byteArray)
+        public static Bitmap ByteArrayToBitmap(byte[] byteArray)
         {
             using (MemoryStream ms = new MemoryStream(byteArray))
             {
@@ -425,9 +429,10 @@ namespace unilab2025
         }
 
         public static int convIndex;
-        private static List<Conversation> activeConversation;
-        private static int currentSegmentStartIndex;
+        public static List<Conversation> activeConversation;
+        public static int currentSegmentStartIndex;
         public static string WaitingForButton { get; private set; }
+        public static bool IsInputLocked = false;
 
 
 
@@ -478,7 +483,7 @@ namespace unilab2025
                 // キャラ名表示
                 string charaName = Conversations[convIndex].Character;
                 // 名前の描画位置 (ウィンドウ左上からのオフセット。お好みで調整してください)
-                Point namePosition = new Point(margin_x + 55, margin_y + 12);
+                Point namePosition = new Point(margin_x + 100, margin_y + 45);
                 g.DrawString(charaName, fnt_name, Brushes.Black, namePosition);
 
                 // キャラクターアイコン画像描画
@@ -524,7 +529,7 @@ namespace unilab2025
 
                     // アイコン表示領域の中央に画像を描画するための座標計算。
                     float drawX = iconArea.X + (iconArea.Width - newWidth) / 2 - 20;
-                    float drawY = iconArea.Y + (iconArea.Height - newHeight) / 2 + 30;
+                    float drawY = iconArea.Y + (iconArea.Height - newHeight) / 2 + 50;
 
                     // 計算した位置とサイズで画像を描画
                     g.DrawImage(charaImage, drawX, drawY, newWidth, newHeight);
@@ -537,7 +542,7 @@ namespace unilab2025
                 {
                     PointF startPoint = new PointF(
                         margin_x + text_start_offset_x,
-                        margin_y + text_start_offset_y + i * lineHeight + fnt_ruby.Height
+                        margin_y + text_start_offset_y + i * lineHeight + fnt_ruby.Height + 22
                     );
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
@@ -559,7 +564,7 @@ namespace unilab2025
                 string[] DialogueLines = Conversations[convIndex].Dialogue.Replace("\\n", "\\").Split(lineBreak);
                 for (int i = 0; i < DialogueLines.Length; i++)
                 {
-                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height);
+                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 22);
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
             }
@@ -576,6 +581,8 @@ namespace unilab2025
 
         public static void ChangeControl(PictureBox pictureBox_Conv, bool isStart)
         {
+            IsInputLocked = isStart;
+
             pictureBox_Conv.Enabled = isStart;
             pictureBox_Conv.Visible = isStart;
             if (isStart)
@@ -590,12 +597,15 @@ namespace unilab2025
             }
         }
 
-        public static byte[] PlayConv(Form currentForm, PictureBox pictureBox_Conv, List<Conversation> Conversations)
+        public static async Task<byte[]> PlayConv(Form currentForm, PictureBox pictureBox_Conv, List<Conversation> Conversations)
         {
+            await Task.Delay(100);
+
             byte[] Capt = CaptureClientArea(currentForm);
-            ChangeControl(pictureBox_Conv, true);
             convIndex = 0;
+
             DrawConv(currentForm, pictureBox_Conv, Capt, Conversations);
+            ChangeControl(pictureBox_Conv, true);
 
             return Capt;
         }
