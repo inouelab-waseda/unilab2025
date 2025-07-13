@@ -457,7 +457,7 @@ namespace unilab2025
                 {
                     int placeX = x * cell_length;
                     int placeY = y * cell_length;
-                    if (_worldNumber < 5&&_level == 3 && map[x, y] == 1) 
+                    if ((_worldNumber < 5&&_level == 3 && map[x, y] == 1)|| (_worldNumber ==1 && _level == 2 && map[x, y] == 1)) 
                     { 
                         g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);                                         
                     }
