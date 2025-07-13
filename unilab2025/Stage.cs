@@ -357,8 +357,8 @@ namespace unilab2025
             // 開始時の会話があれば、再生を開始する
             if (currentConversation != null && currentConversation.Count > 0)
             {
-                await Task.Delay((int)ConstNum.waitTime_Load + 600);
-                Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                await Task.Delay((int)ConstNum.waitTime_Load + 500);
+                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             }
 
 
@@ -635,11 +635,11 @@ namespace unilab2025
             Left_Availabel_Input();
         }
 
-        private void DisplayMessage(string type)
+        private async void DisplayMessage(string type)
         {
             isMessageMode = true;
             Message = Dictionaries.Conversations[type];
-            Capt = Func.PlayConv(this, pictureBox_Conv, Message);
+            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
         }
 
 
@@ -731,7 +731,7 @@ namespace unilab2025
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
 
@@ -772,7 +772,7 @@ namespace unilab2025
         }
 
 
-        private void PictureBox_buttonUp_Click(object sender, EventArgs e)
+        private async void PictureBox_buttonUp_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
@@ -786,7 +786,7 @@ namespace unilab2025
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
         }
@@ -796,7 +796,7 @@ namespace unilab2025
             InputListBox.Items.Add(Emoji[picture] + "  " + "↗");
             Left_Availabel_Input();
         }
-        private void PictureBox_buttonRight_Click(object sender, EventArgs e)
+        private async void PictureBox_buttonRight_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "→");
@@ -809,7 +809,7 @@ namespace unilab2025
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
         }
@@ -819,7 +819,7 @@ namespace unilab2025
             InputListBox.Items.Add(Emoji[picture] + "  " + "↘");
             Left_Availabel_Input();
         }
-        private void PictureBox_buttonDown_Click(object sender, EventArgs e)
+        private async void PictureBox_buttonDown_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
@@ -832,7 +832,7 @@ namespace unilab2025
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
         }
@@ -842,7 +842,7 @@ namespace unilab2025
             InputListBox.Items.Add(Emoji[picture] + "  " + "↙");
             Left_Availabel_Input();
         }
-        private void PictureBox_buttonLeft_Click(object sender, EventArgs e)
+        private async void PictureBox_buttonLeft_Click(object sender, EventArgs e)
         {
             if (Input_check()) return;
             InputListBox.Items.Add(Emoji[picture] + "  " + "←");
@@ -855,7 +855,7 @@ namespace unilab2025
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
         }
@@ -933,7 +933,7 @@ namespace unilab2025
             this.ActiveControl = null;
         }
 
-        private void button_car_Click(object sender, EventArgs e)
+        private async void button_car_Click(object sender, EventArgs e)
         {
             picture = "car";
             InputListBox = listBox_Car;
@@ -957,11 +957,11 @@ namespace unilab2025
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
         }
-        private void button_carEnter_Click(object sender, EventArgs e)
+        private async void button_carEnter_Click(object sender, EventArgs e)
         {
             if (!(car_Count < limit_LB_car))
             {
@@ -1022,6 +1022,17 @@ namespace unilab2025
 
             picture = "walk";
             UpdateMovementButtonImages();
+
+            //会話再生用
+            if (Func.WaitingForButton == "carEnter")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment();
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
 
         private void button_balloon_Click(object sender, EventArgs e)
@@ -1113,8 +1124,10 @@ namespace unilab2025
             }
         }
 
-        private void Arrow_KeyDown(object sender, KeyEventArgs e)
+        private async void Arrow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (Func.IsInputLocked) return;
+
             if (picture != "balloon")            {
                 
                 if (e.KeyCode == Keys.Up)
@@ -1122,33 +1135,80 @@ namespace unilab2025
                     if (Input_check()) return;
                     InputListBox.Items.Add(Emoji[picture] + "  " + "↑");
                     Left_Availabel_Input();
+
+                    //会話再生用
+                    if (Func.WaitingForButton == "up")
+                    {
+                        // 次の会話セグメントを取得して再生
+                        currentConversation = Func.GetNextSegment();
+                        if (currentConversation != null && currentConversation.Count > 0)
+                        {
+                            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                        }
+                    }
                 }
+
                 if (e.KeyCode == Keys.Right)
                 {
                     if (Input_check()) return;
                     InputListBox.Items.Add(Emoji[picture] + "  " + "→");
                     Left_Availabel_Input();
+
+                    //会話再生用
+                    if (Func.WaitingForButton == "right")
+                    {
+                        // 次の会話セグメントを取得して再生
+                        currentConversation = Func.GetNextSegment();
+                        if (currentConversation != null && currentConversation.Count > 0)
+                        {
+                            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                        }
+                    }
                 }
+
                 if (e.KeyCode == Keys.Down)
                 {
                     if (Input_check()) return;
                     InputListBox.Items.Add(Emoji[picture] + "  " + "↓");
                     Left_Availabel_Input();
+
+                    //会話再生用
+                    if (Func.WaitingForButton == "down")
+                    {
+                        // 次の会話セグメントを取得して再生
+                        currentConversation = Func.GetNextSegment();
+                        if (currentConversation != null && currentConversation.Count > 0)
+                        {
+                            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                        }
+                    }
                 }
+
                 if (e.KeyCode == Keys.Left)
                 {
                     if (Input_check()) return;
                     InputListBox.Items.Add(Emoji[picture] + "  " + "←");
                     Left_Availabel_Input();
+
+                    //会話再生用
+                    if (Func.WaitingForButton == "left")
+                    {
+                        // 次の会話セグメントを取得して再生
+                        currentConversation = Func.GetNextSegment();
+                        if (currentConversation != null && currentConversation.Count > 0)
+                        {
+                            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                        }
+                    }
                 }
             }
         }
-        private void button_info_Click(object sender, EventArgs e)
+        private async void button_info_Click(object sender, EventArgs e)
         {
             if (this.currentConversation != null && Func.convIndex < this.currentConversation.Count) return;
 
             currentConversation = Dictionaries.Conversations["Info"];
-            Capt = Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
         }
 
 
@@ -1475,6 +1535,17 @@ namespace unilab2025
                     else
                     {
                         MessageBox.Show("成功");
+
+                        //会話再生用
+                        if (Func.WaitingForButton == "Clear")
+                        {
+                            // 次の会話セグメントを取得して再生
+                            currentConversation = Func.GetNextSegment();
+                            if (currentConversation != null && currentConversation.Count > 0)
+                            {
+                                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                            }
+                        }
                     }
                         //else
                         //{
@@ -1720,6 +1791,8 @@ namespace unilab2025
 
         private void Meteo_KeyDown(object sender, KeyEventArgs e)
         {
+            if (Func.IsInputLocked) return;
+
             if (e.KeyCode == Keys.I)
             {
                 button_meteo.Visible = true;
@@ -1729,6 +1802,8 @@ namespace unilab2025
 
         private void Penguin_KeyDown(object sender, KeyEventArgs e)
         {
+            if (Func.IsInputLocked) return;
+
             if (e.KeyCode == Keys.P)
             {
                 if (_worldNumber == 6) 
