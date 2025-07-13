@@ -483,7 +483,7 @@ namespace unilab2025
                 // キャラ名表示
                 string charaName = Conversations[convIndex].Character;
                 // 名前の描画位置 (ウィンドウ左上からのオフセット。お好みで調整してください)
-                Point namePosition = new Point(margin_x + 55, margin_y + 12);
+                Point namePosition = new Point(margin_x + 100, margin_y + 45);
                 g.DrawString(charaName, fnt_name, Brushes.Black, namePosition);
 
                 // キャラクターアイコン画像描画
@@ -529,7 +529,7 @@ namespace unilab2025
 
                     // アイコン表示領域の中央に画像を描画するための座標計算。
                     float drawX = iconArea.X + (iconArea.Width - newWidth) / 2 - 20;
-                    float drawY = iconArea.Y + (iconArea.Height - newHeight) / 2 + 30;
+                    float drawY = iconArea.Y + (iconArea.Height - newHeight) / 2 + 50;
 
                     // 計算した位置とサイズで画像を描画
                     g.DrawImage(charaImage, drawX, drawY, newWidth, newHeight);
@@ -542,7 +542,7 @@ namespace unilab2025
                 {
                     PointF startPoint = new PointF(
                         margin_x + text_start_offset_x,
-                        margin_y + text_start_offset_y + i * lineHeight + fnt_ruby.Height
+                        margin_y + text_start_offset_y + i * lineHeight + fnt_ruby.Height + 22
                     );
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
@@ -564,7 +564,7 @@ namespace unilab2025
                 string[] DialogueLines = Conversations[convIndex].Dialogue.Replace("\\n", "\\").Split(lineBreak);
                 for (int i = 0; i < DialogueLines.Length; i++)
                 {
-                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height);
+                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 22);
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
             }
