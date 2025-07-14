@@ -447,7 +447,8 @@ namespace unilab2025
 
             //label_Info.BackgroundImage = Image.FromFile("focus.png");
 
-
+            g2.Clear(Color.Transparent);
+            // キャラクターの描画をループの外に出す
             cell_length = pictureBox_Map2.Width / map_width;
 
 
@@ -497,8 +498,8 @@ namespace unilab2025
                     
                 }
             }
-            g2.Clear(Color.Transparent);
-            // キャラクターの描画をループの外に出す
+            
+
             character_me = Dictionaries.Img_DotPic["正面"];
             if (Penguin == true) character_me = Img_Penguin["正面"];           
             
@@ -986,7 +987,7 @@ namespace unilab2025
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
 
-            this.ActiveControl = null;
+            //this.ActiveControl = null;
         }
 
         private async void button_car_Click(object sender, EventArgs e)
@@ -1184,6 +1185,8 @@ namespace unilab2025
             {
                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             }
+            InputListBox.Focus();
+            ShowListBox();
         }
 
         /// <summary>
@@ -1300,6 +1303,8 @@ namespace unilab2025
 
             currentConversation = Dictionaries.Conversations["Info"];
             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            InputListBox.Focus();
+            ShowListBox();
         }
 
 
@@ -1639,7 +1644,7 @@ namespace unilab2025
                     else
                     {
                         //ゴール時の処理
-                        if ((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1)&& !MainCharacter.isBoy&& !MainCharacter.isGirl)
+                        if (((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1))&& !MainCharacter.isBoy&& !MainCharacter.isGirl)
                         {
                             g2.Clear(Color.Transparent);
                             Image character = Dictionaries.Img_DotPic["ゴール"];
