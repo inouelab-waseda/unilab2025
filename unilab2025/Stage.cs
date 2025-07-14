@@ -1173,11 +1173,17 @@ namespace unilab2025
         }
 
         //ヒント
-        private void button_hint_Click(object sender, EventArgs e)
+        private async void button_hint_Click(object sender, EventArgs e)
         {
             hint_on = true;
             if (stageName=="stage3-2"|| stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2")
             CreateStage(stageName + "hint");
+
+            currentConversation = Dictionaries.Conversations[stageName + "hint"];
+            if (currentConversation != null && currentConversation.Count > 0)
+            {
+                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            }
         }
 
         /// <summary>
