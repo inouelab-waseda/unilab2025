@@ -1308,11 +1308,6 @@ namespace unilab2025
         }
 
 
-
-
-
-
-
         #endregion
 
         #region ボタンの表示
