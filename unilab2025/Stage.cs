@@ -333,14 +333,7 @@ namespace unilab2025
                 if (picture == "plane")
                 {
                     picture = "balloon";
-                    pictureBox_buttonUp.Visible = false;
-                    pictureBox_buttonRight.Visible = false;
-                    pictureBox_buttonDown.Visible = false;
-                    pictureBox_buttonLeft.Visible = false;
-                    pictureBox_upperRight.Visible = true;
-                    pictureBox_lowerRight.Visible = true;
-                    pictureBox_lowerLeft.Visible = true;
-                    pictureBox_upperLeft.Visible = true;
+                    
                 }
                 button_plane.Visible = false;
                 label_Plane.Visible = false;
@@ -358,10 +351,24 @@ namespace unilab2025
                 ShowListBox();
             }
 
-            UpdateMovementButtonImages();
+            if (_worldNumber > 1 && _worldNumber < 5 && _level == 1) { 
+                
+                pictureBox_buttonUp.Enabled = false;
+                pictureBox_buttonRight.Enabled = false;
+                pictureBox_buttonDown.Enabled = false;
+                pictureBox_buttonLeft.Enabled = false;
+                pictureBox_upperRight.Enabled = false;
+                pictureBox_lowerRight.Enabled = false;
+                pictureBox_lowerLeft.Enabled = false;
+                pictureBox_upperLeft.Enabled = false;
+            }
+            else 
+            {
+                UpdateMovementButtonImages();
+            }
 
 
-            AllCount = limit_LB_walk + limit_LB_car + limit_LB_plane + limit_LB_balloon;
+                AllCount = limit_LB_walk + limit_LB_car + limit_LB_plane + limit_LB_balloon;
             listBox_Order.Height = AllCount * listBox_Order.ItemHeight + 20;
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
@@ -977,6 +984,7 @@ namespace unilab2025
             ShowListBox();
             UpdateMovementButtonImages();
 
+            Enable();
             //ボタンを有効にする            
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonRight.Visible = true;
@@ -997,6 +1005,7 @@ namespace unilab2025
             listBox_Car.Focus();
             ShowListBox();
             UpdateMovementButtonImages();
+            Enable();
             //ボタンを有効にする
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonRight.Visible = true;
@@ -1017,6 +1026,18 @@ namespace unilab2025
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
+        }
+
+        private void Enable()
+        {
+            pictureBox_buttonUp.Enabled = true;
+            pictureBox_buttonRight.Enabled = true;
+            pictureBox_buttonDown.Enabled = true;
+            pictureBox_buttonLeft.Enabled = true;
+            pictureBox_upperRight.Enabled = true;
+            pictureBox_lowerRight.Enabled = true;
+            pictureBox_lowerLeft.Enabled = true;
+            pictureBox_upperLeft.Enabled = true;
         }
         private async void button_carEnter_Click(object sender, EventArgs e)
         {
@@ -1121,7 +1142,7 @@ namespace unilab2025
             ShowListBox();
             UpdateMovementButtonImages();
             //ボタンを有効にする
-
+            Enable();
             pictureBox_buttonUp.Visible = false;
             pictureBox_buttonRight.Visible = false;
             pictureBox_buttonDown.Visible = false;
@@ -1140,6 +1161,7 @@ namespace unilab2025
             ShowListBox();
             UpdateMovementButtonImages();
 
+            Enable();
             //ボタンを有効にする
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonRight.Visible = true;

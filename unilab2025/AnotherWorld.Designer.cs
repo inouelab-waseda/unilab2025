@@ -52,9 +52,9 @@
             // 
             // button_Japan
             // 
-            this.button_Japan.Location = new System.Drawing.Point(1142, 587);
+            this.button_Japan.Location = new System.Drawing.Point(666, 295);
             this.button_Japan.Name = "button_Japan";
-            this.button_Japan.Size = new System.Drawing.Size(315, 133);
+            this.button_Japan.Size = new System.Drawing.Size(149, 71);
             this.button_Japan.TabIndex = 1;
             this.button_Japan.Text = "日本";
             this.button_Japan.UseVisualStyleBackColor = true;
@@ -62,7 +62,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(503, 210);
+            this.button5.Location = new System.Drawing.Point(459, 245);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(126, 75);
             this.button5.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(503, 617);
+            this.button6.Location = new System.Drawing.Point(518, 625);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(151, 72);
             this.button6.TabIndex = 3;
@@ -82,7 +82,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(1092, 412);
+            this.button7.Location = new System.Drawing.Point(1121, 445);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(137, 56);
             this.button7.TabIndex = 4;
@@ -92,7 +92,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(274, 355);
+            this.button8.Location = new System.Drawing.Point(249, 377);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(154, 76);
             this.button8.TabIndex = 5;
