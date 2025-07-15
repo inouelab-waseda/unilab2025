@@ -52,31 +52,40 @@
             // 
             // button_Japan
             // 
+            this.button_Japan.BackColor = System.Drawing.Color.Transparent;
+            this.button_Japan.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Japan.BackgroundImage")));
+            this.button_Japan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_Japan.ForeColor = System.Drawing.Color.Black;
             this.button_Japan.Location = new System.Drawing.Point(666, 295);
             this.button_Japan.Name = "button_Japan";
             this.button_Japan.Size = new System.Drawing.Size(149, 71);
             this.button_Japan.TabIndex = 1;
-            this.button_Japan.Text = "日本";
-            this.button_Japan.UseVisualStyleBackColor = true;
+            this.button_Japan.UseVisualStyleBackColor = false;
             this.button_Japan.Click += new System.EventHandler(this.button_Japan_Click);
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.Color.Transparent;
+            this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Location = new System.Drawing.Point(459, 245);
+            this.button5.Margin = new System.Windows.Forms.Padding(0);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(126, 75);
+            this.button5.Size = new System.Drawing.Size(145, 77);
             this.button5.TabIndex = 2;
-            this.button5.Text = "中国";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.buttonI_Click);
             // 
             // button6
             // 
+            this.button6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button6.BackgroundImage")));
+            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button6.Location = new System.Drawing.Point(518, 625);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(151, 72);
             this.button6.TabIndex = 3;
-            this.button6.Text = "南極";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.buttonI_Click);
             // 
@@ -92,12 +101,14 @@
             // 
             // button8
             // 
+            this.button8.BackColor = System.Drawing.Color.Transparent;
+            this.button8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button8.BackgroundImage")));
+            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button8.Location = new System.Drawing.Point(249, 377);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(154, 76);
             this.button8.TabIndex = 5;
-            this.button8.Text = "エジプト";
-            this.button8.UseVisualStyleBackColor = true;
+            this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.buttonI_Click);
             // 
             // AnotherWorld
