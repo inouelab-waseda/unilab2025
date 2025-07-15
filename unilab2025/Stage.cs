@@ -1537,7 +1537,8 @@ namespace unilab2025
                 //    int goal = 10 + _worldNumber;
                 //    g2.DrawImage(Dictionaries.Img_Object[goal.ToString()], placeX, placeY, cell_length, cell_length);
                 //}
-                g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if(car_count == 0&&Input_arrow.Count > 0 && Input_arrow[0].Contains("🚶‍")) g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - 2 *extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                else g2.DrawImage(character_me, a * cell_length - extra_length, b * cell_length - extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
             }
 
 
@@ -1641,8 +1642,8 @@ namespace unilab2025
                     car_count = 0;                    
                     if (_worldNumber == 5) Panda();
                     Image character_me = Dictionaries.Img_DotPic["正面"];
-                    if(Penguin==true) character_me= Img_Penguin["正面"];                    
-                    DrawCharacter(x_now, y_now, ref character_me);
+                    if(Penguin==true) character_me= Img_Penguin["正面"];
+                    g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                     pictureBox_Map2.Refresh();
                     button_Start.Visible = true;
                     button_Start.Enabled = true;
@@ -1653,7 +1654,7 @@ namespace unilab2025
                         sasa = false;
                         panda = false;
                         if (_worldNumber == 5) Panda();
-                        DrawCharacter(x_start, y_start, ref character_me);
+                        g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);                        
                         pictureBox_Map2.Refresh();                        
                         x_now = x_start;
                         y_now = y_start;
@@ -1665,7 +1666,8 @@ namespace unilab2025
                         {
                             g2.Clear(Color.Transparent);
                             Image character = Dictionaries.Img_DotPic["ゴール"];
-                            DrawCharacter(x_now, y_now, ref character);
+                            g2.DrawImage(character, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                            
                             pictureBox_Map2.Refresh();
                         }
                         MessageBox.Show("成功");
@@ -1829,7 +1831,7 @@ namespace unilab2025
                                     Input_arrow.Clear();//入力のリセット
                                     Image character_me = Dictionaries.Img_DotPic["正面"];
                                     if (Penguin == true) character_me = Img_Penguin["正面"];
-                                    DrawCharacter(x_start, y_start, ref character_me);
+                                    g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);                                    
                                     pictureBox_Map2.Refresh();
                                     x_now = x_start;//スタート位置に戻す
                                     y_now = y_start;
@@ -1857,16 +1859,14 @@ namespace unilab2025
                         Image character_me = Dictionaries.Img_DotPic["正面"];
                         if (Penguin == true) character_me = Img_Penguin["正面"];
                         if (_worldNumber == 5) Panda();
-                        DrawCharacter(x_start, y_start, ref character_me);
+                        g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                         pictureBox_Map2.Refresh();
                         x_now = x_start;//スタート位置に戻す
                         y_now = y_start;
                         button_Start.Visible = true;
                         button_Start.Enabled = true;
                         break;
-                    }
-
-                    
+                    }                 
                                         
 
                     await Task.Delay(400);
