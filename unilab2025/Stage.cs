@@ -513,6 +513,10 @@ namespace unilab2025
             
             g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
 
+            if(_worldNumber == 3 && _level == 1)
+            {
+                g1.DrawImage(Dictionaries.Img_DotPic["Fuji"], 5 * cell_length, 1 * cell_length, 6 *cell_length, 3*cell_length);
+            }
             this.Invoke((MethodInvoker)delegate
             {
                 // pictureBox_Map2を同期的にRefreshする

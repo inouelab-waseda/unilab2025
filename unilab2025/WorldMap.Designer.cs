@@ -55,7 +55,7 @@
             // 
             this.pictureBox_Map.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox_Map.Location = new System.Drawing.Point(74, 62);
-            this.pictureBox_Map.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_Map.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox_Map.Name = "pictureBox_Map";
             this.pictureBox_Map.Size = new System.Drawing.Size(411, 287);
             this.pictureBox_Map.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -141,7 +141,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "WorldMap";
             this.Text = "WorldMap";
             this.Load += new System.EventHandler(this.WorldMap_Load);
