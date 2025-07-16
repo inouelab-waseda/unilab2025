@@ -225,6 +225,7 @@ namespace unilab2025
 
         private async void Stage_Load(object sender, EventArgs e)  //StageのFormの起動時処理
         {
+            Penguin = false;
             if (MainCharacter.isBoy)
             {
                 button_walk.BackgroundImage = Dictionaries.Img_Button["walk_on_boy"];
@@ -396,7 +397,7 @@ namespace unilab2025
 
             sasa = false;
             panda = false;
-            Penguin = false;
+            
 
             hint_on = false;
 
@@ -994,7 +995,7 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
-
+            if (Penguin) picture = "penguin";
             //this.ActiveControl = null;
         }
 
@@ -1015,6 +1016,7 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
+            
 
             //会話再生用
             if (Func.WaitingForButton == "car")
@@ -1100,6 +1102,7 @@ namespace unilab2025
             label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
 
             picture = "walk";
+            UpdateMovementButtonImages();
             pictureBox_buttonUp.Visible = true;
             pictureBox_buttonRight.Visible = true;
             pictureBox_buttonDown.Visible = true;
@@ -1108,7 +1111,7 @@ namespace unilab2025
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
             pictureBox_upperLeft.Visible = false;
-            UpdateMovementButtonImages();
+            if(Penguin) picture = "penguin";
             //会話再生用
             if (Func.WaitingForButton == "carEnter")
             {
@@ -1548,7 +1551,7 @@ namespace unilab2025
                 (x_now, y_now) = place_update(a, b, move_next);
 
                 //character_me = Character_Image(move_copy[0][0], move_copy[0][1], count_walk, jump, DoubleJump, character_me);
-                if (Input_arrow.Count > 0&&Penguin==false)
+                if (Input_arrow.Count > 0)
                 {
                     if (car_count==0&&Input_arrow[0].Contains("🚗"))
                     {
@@ -1605,7 +1608,7 @@ namespace unilab2025
                         list_car.RemoveAt(0);
                                      
                 }
-                else if(Input_arrow.Count > 0 && Penguin == true)
+                if(car_count == 0 && Input_arrow.Count > 0 && Penguin == true)
                 {
                     if (Input_arrow[0].Contains("↑")) character_me = Img_Penguin["後ろ"];
                     else if (Input_arrow[0].Contains("→")) character_me = Img_Penguin["右"];
@@ -1658,6 +1661,7 @@ namespace unilab2025
                         pictureBox_Map2.Refresh();                        
                         x_now = x_start;
                         y_now = y_start;
+                        
                     }
                     else
                     {
@@ -1670,6 +1674,7 @@ namespace unilab2025
                             
                             pictureBox_Map2.Refresh();
                         }
+                        
                         MessageBox.Show("成功");
 
                         //会話再生用
@@ -2012,7 +2017,7 @@ namespace unilab2025
         {
             if (Func.IsInputLocked) return;
 
-            if (e.KeyCode == Keys.I)
+            if (e.KeyCode == Keys.M)
             {
                 button_meteo.Visible = true;
             }
@@ -2027,8 +2032,20 @@ namespace unilab2025
             {
                 if (_worldNumber == 6) 
                 {
+                    listBox_Order.Items.Clear();//全て消す
+                    if (InputListBox == listBox_Order)
+                    {
+                        walk_Count = 0;
+                        car_Count = 0;
+                        plane_Count = 0;
+                        balloon_Count = 0;
+                        lockedCarPattern = null;
+                    }
+                    Left_Availabel_Input();
+                    InputListBox.Focus();
                     if (Penguin == false)
                     {
+                        
                         g2.Clear(Color.Transparent);
                         g2.DrawImage(Img_Penguin["正面"], x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                         pictureBox_Map2.Refresh();
