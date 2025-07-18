@@ -165,6 +165,7 @@ namespace unilab2025
         public static int car_Count = 0;        
         public static int plane_Count = 0;
         public static int balloon_Count = 0;
+        
 
         public static string hint;
         public static string hint_character;
@@ -302,10 +303,11 @@ namespace unilab2025
             }
             label_Walk.Text = $"あと {limit_LB_walk}";
             label_Car.Text = $"あと {limit_LB_car}";
+            label_car_Input.Text = $"あと {limit_LB_car_Input}";
             label_Plane.Text = $"あと {limit_LB_plane}";
-            label_Balloon.Text = $"あと {limit_LB_balloon}";
+            label_Balloon.Text = $"あと {limit_LB_balloon}";            
             walk_Count = 0;
-            car_Count = 0;
+            car_Count = 0;            
             plane_Count = 0;
             balloon_Count = 0;
 
@@ -326,6 +328,7 @@ namespace unilab2025
                 button_car.Visible = false;
                 label_Car.Visible = false;
                 button_carEnter.Visible = false;
+                label_car_Input.Visible = false;
                 listBox_Car.Visible = false;
                 pictureBox_Car.Visible = false;
             }
@@ -369,7 +372,7 @@ namespace unilab2025
             }
 
 
-                AllCount = limit_LB_walk + limit_LB_car + limit_LB_plane + limit_LB_balloon;
+            AllCount = limit_LB_walk + limit_LB_car + limit_LB_plane + limit_LB_balloon;
             listBox_Order.Height = AllCount * listBox_Order.ItemHeight + 20;
             listBox_Car.Height = limit_LB_car_Input * listBox_Car.ItemHeight+20;
 
@@ -591,10 +594,10 @@ namespace unilab2025
         {
             if (InputListBox.SelectedIndex > -1)
             {
-                
+
                 if (InputListBox == listBox_Order)
                 {
-                    if(InputListBox.SelectedItem.ToString().Contains("🚶‍"))
+                    if (InputListBox.SelectedItem.ToString().Contains("🚶‍"))
                     {
                         walk_Count -= 1;
                     }
@@ -616,6 +619,7 @@ namespace unilab2025
                     }
 
                 }
+                
                 InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);//1つ消す
                 if (InputListBox == listBox_Order)
                 {
@@ -624,9 +628,10 @@ namespace unilab2025
                     label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
                     label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
                 }
+                else label_car_Input.Text = $"あと {limit_LB_car_Input- listBox_Car.Items.Count}";
 
-                
-                if (car_Count==0) lockedCarPattern = null;
+
+                if (car_Count == 0) lockedCarPattern = null;
 
             }
             else
@@ -663,8 +668,9 @@ namespace unilab2025
                     label_Car.Text = $"あと {limit_LB_car - car_Count}";
                     label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
                     label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
-                }                
-                if(car_Count==0) lockedCarPattern = null;
+                }
+                else label_car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                if (car_Count == 0) lockedCarPattern = null;
 
             }
             InputListBox.Focus();
@@ -837,8 +843,9 @@ namespace unilab2025
                 label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
                 label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
             }
-            
-            
+            else label_car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+
+
         }
 
 
@@ -1687,11 +1694,12 @@ namespace unilab2025
                     else
                     {
                         //ゴール時の処理
-                        if (((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1))&& !MainCharacter.isBoy&& !MainCharacter.isGirl)
+                        if (((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1)))
                         {
                             g2.Clear(Color.Transparent);
                             Image character = Dictionaries.Img_DotPic["ゴール"];
-                            g2.DrawImage(character, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                            if(MainCharacter.isGirl) g2.DrawImage(character, x_now * cell_length - extra_length+5, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                            else g2.DrawImage(character, x_now * cell_length - extra_length-6, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                             
                             pictureBox_Map2.Refresh();
                         }

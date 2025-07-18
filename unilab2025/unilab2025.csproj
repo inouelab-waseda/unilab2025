@@ -64,6 +64,12 @@
     <Compile Include="MiniGame_Mario.Designer.cs">
       <DependentUpon>MiniGame_Mario.cs</DependentUpon>
     </Compile>
+	<Compile Include="minesweeper.cs">
+	  <SubType>Form</SubType>
+	</Compile>
+	<Compile Include="minesweeper.Designer.cs">
+	  <DependentUpon>minesweeper.cs</DependentUpon>
+	</Compile>	  
     <Compile Include="Stage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,9 @@
     <EmbeddedResource Include="MiniGame_Mario.resx">
       <DependentUpon>MiniGame_Mario.cs</DependentUpon>
     </EmbeddedResource>
+	<EmbeddedResource Include="minesweeper.resx">
+		<DependentUpon>minesweeper.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="Prologue.resx">
       <DependentUpon>Prologue.cs</DependentUpon>
     </EmbeddedResource>
