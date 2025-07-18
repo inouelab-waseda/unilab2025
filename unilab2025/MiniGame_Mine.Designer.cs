@@ -34,6 +34,7 @@
             this.button_Reset = new System.Windows.Forms.Button();
             this.label_Time = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button_explain = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,11 +81,22 @@
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // button_explain
+            // 
+            this.button_explain.Location = new System.Drawing.Point(40, 370);
+            this.button_explain.Name = "button_explain";
+            this.button_explain.Size = new System.Drawing.Size(321, 122);
+            this.button_explain.TabIndex = 4;
+            this.button_explain.Text = "ルール";
+            this.button_explain.UseVisualStyleBackColor = true;
+            this.button_explain.Click += new System.EventHandler(this.button_explain_Click);
+            // 
             // MiniGame_Mine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1687, 841);
+            this.Controls.Add(this.button_explain);
             this.Controls.Add(this.label_Time);
             this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.button_Return);
@@ -105,5 +117,6 @@
         private System.Windows.Forms.Button button_Reset;
         private System.Windows.Forms.Label label_Time;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button button_explain;
     }
 }

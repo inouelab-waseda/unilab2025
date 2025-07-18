@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,7 +35,13 @@ namespace unilab2025
         private bool isFirstClick;  // 最初のクリックかどうかを判定するフラグ
         private bool isGameOver;    // ゲームオーバー状態を管理するフラグ
 
-        private Stopwatch gameStopwatch;
+        private Stopwatch gameStopwatch;//時間
+
+        PictureBox pictureBox_Conv;
+        byte[] Capt;
+        List<Conversation> Message;
+        bool isMessageMode;
+        public List<Conversation> currentConversation;
 
 
         public MiniGame_Mine()
@@ -41,15 +49,20 @@ namespace unilab2025
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             gameStopwatch = new Stopwatch();
-
         }
 
-        private void minesweeper_Load(object sender, EventArgs e)
+        private async void minesweeper_Load(object sender, EventArgs e)
         {
             pictureBox1.Size = new Size(gridSize * 30 + 100, gridSize * 30 + 30 + 200);
             int Location_X = (this.ClientSize.Width - pictureBox1.Width) / 2;
             int Location_Y = (this.ClientSize.Height - pictureBox1.Height) / 2;
             pictureBox1.Location = new Point(Location_X, Location_Y);
+
+            currentConversation = Dictionaries.Conversations["mine"];
+            if (currentConversation != null && currentConversation.Count > 0)
+            {
+                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            }
             InitializeGame();
         }
 
@@ -194,7 +207,7 @@ namespace unilab2025
                     {
                         // クリック地点を中心とした10x10の範囲を計算
                         // (Math.Max/Minでグリッドの端をはみ出さないように調整)
-                        int areaSize = 5; // 中心から±5マスで10x10の範囲
+                        int areaSize = 10; // 中心から±5マスで10x10の範囲
                         int minX = Math.Max(0, x - areaSize);
                         int maxX = Math.Min(gridSize - 1, x + areaSize);
                         int minY = Math.Max(0, y - areaSize);
@@ -339,6 +352,11 @@ namespace unilab2025
 
             // 2. ラベルのテキストを更新する
             label_Time.Text = $"Time: {ts:mm\\:ss\\.ff}";
+        }
+
+        private void button_explain_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
