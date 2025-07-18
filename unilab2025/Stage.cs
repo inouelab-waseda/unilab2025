@@ -1691,7 +1691,8 @@ namespace unilab2025
                         {
                             g2.Clear(Color.Transparent);
                             Image character = Dictionaries.Img_DotPic["ゴール"];
-                            g2.DrawImage(character, x_now * cell_length - extra_length-6, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                            if(MainCharacter.isGirl) g2.DrawImage(character, x_now * cell_length - extra_length+5, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                            else g2.DrawImage(character, x_now * cell_length - extra_length-6, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                             
                             pictureBox_Map2.Refresh();
                         }
