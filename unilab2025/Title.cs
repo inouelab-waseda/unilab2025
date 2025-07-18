@@ -18,7 +18,9 @@ namespace unilab2025
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             pictureBox1.Click += pictureBox1_Click;
-
+            this.KeyDown += new KeyEventHandler(Title_KeyDown);
+            this.KeyPreview = true;
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -42,6 +44,18 @@ namespace unilab2025
             }
 
 
+        }
+
+        private void Title_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void Title_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.M)
+            {
+                Func.CreateMiniGame(this);
+            }
         }
     }
 }

@@ -30,4 +30,5 @@ C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.AnotherWo
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.StageCreate.resources
 C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.AnotherWorld.resources
 C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.StageCreate.resources
-C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.minesweeper.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.MiniGame_Mario.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.MiniGame.resources
