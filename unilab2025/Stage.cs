@@ -1687,11 +1687,11 @@ namespace unilab2025
                     else
                     {
                         //ゴール時の処理
-                        if (((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1))&& !MainCharacter.isBoy&& !MainCharacter.isGirl)
+                        if (((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1)))
                         {
                             g2.Clear(Color.Transparent);
                             Image character = Dictionaries.Img_DotPic["ゴール"];
-                            g2.DrawImage(character, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                            g2.DrawImage(character, x_now * cell_length - extra_length-6, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                             
                             pictureBox_Map2.Refresh();
                         }
