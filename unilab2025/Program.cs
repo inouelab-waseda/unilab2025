@@ -148,6 +148,18 @@ namespace unilab2025
                 currentForm.Dispose();
             }
         }
+        public static void CreateMineSweeper(Form currentForm)
+        {
+            CurrentFormState.FormName = "minesweeper";
+            //CurrentFormState.StateData.Clear();
+
+            minesweeper form = new minesweeper();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
     }
     #endregion
 
