@@ -46,6 +46,11 @@ namespace unilab2025
             }
         }
 
+        private void button_MiniGame_Click(object sender, EventArgs e)
+        {
+            Func.CreateMiniGame(this);
+        }
+
         #region クリアチェックスキップ用
         private void AnotherWorldMap_KeyDown(object sender, KeyEventArgs e)
         {

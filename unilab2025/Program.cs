@@ -122,6 +122,32 @@ namespace unilab2025
             }
         }
 
+        public static void CreateMiniGame(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame form = new MiniGame();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
+
+
+        public static void CreateMario(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame_Mario";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame_Mario form = new MiniGame_Mario();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
     }
     #endregion
 
