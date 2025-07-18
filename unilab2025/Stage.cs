@@ -328,6 +328,7 @@ namespace unilab2025
                 button_car.Visible = false;
                 label_Car.Visible = false;
                 button_carEnter.Visible = false;
+                label_car_Input.Visible = false;
                 listBox_Car.Visible = false;
                 pictureBox_Car.Visible = false;
             }
