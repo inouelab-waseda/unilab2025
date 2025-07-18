@@ -80,8 +80,8 @@ namespace unilab2025
             pictureBox_Map2.Location = new Point(0, 0); // 親コントロールの左上を基準に0,0に配置
 
             pictureBox_Map2.BringToFront(); //
-                        
-            
+
+
         }
 
 
@@ -689,9 +689,19 @@ namespace unilab2025
 
         private async void DisplayMessage(string type)
         {
-            isMessageMode = true;
-            Message = Dictionaries.Conversations[type];
-            Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            if (Func.IsInputLocked) return;
+
+            // Conv_Message.csvから読み込んだ辞書に、指定されたキーが存在するか確認
+            if (Dictionaries.Messages.ContainsKey(type))
+            {
+                isMessageMode = true;
+
+                // メッセージのテキストを取得
+                string messageText = Dictionaries.Messages[type][0].Dialogue;
+
+                // 新しいメソッドでシステムメッセージを再生
+                await Func.PlaySystemMessage(this, pictureBox_Conv, messageText);
+            }
         }
 
 
@@ -703,8 +713,9 @@ namespace unilab2025
         {
             button_Start.Visible = false;
             button_Start.Enabled = false;
-            if (listBox_Order.Items.Count == 0) { 
-                MessageBox.Show("やり直し");
+            if (listBox_Order.Items.Count == 0) {
+                //MessageBox.Show("やり直し");
+                DisplayMessage("ゴール未達");
                 button_Start.Visible = true;
                 button_Start.Enabled = true;
                 return;
@@ -951,10 +962,10 @@ namespace unilab2025
                         if (walk_Count < limit_LB_walk) break;
                         else goto default;
                     default:
-                        MessageBox.Show("これ以上入力できないよ！");
+                        //MessageBox.Show("これ以上入力できないよ！");
                         //label_Info.Text = "これ以上入力できないよ！";
                         //label_Info.Visible = true;
-                        //DisplayMessage("Overflow");
+                        DisplayMessage("手数オーバー");
                         result = true;
                         break;
                 }
@@ -963,10 +974,10 @@ namespace unilab2025
             {
                 if (!(listBox_Car.Items.Count < limit_LB_car_Input))                
                 {
-                    MessageBox.Show("これ以上入力できないよ！");
+                    //MessageBox.Show("これ以上入力できないよ！");
                     //label_Info.Text = "これ以上入力できないよ！";
                     //label_Info.Visible = true;
-                    //DisplayMessage("Overflow");
+                    DisplayMessage("手数オーバー");
                     result = true;                    
                 }
             }          
@@ -1046,12 +1057,14 @@ namespace unilab2025
             
             if (!(car_Count < limit_LB_car))
             {
-                MessageBox.Show("これ以上入力できないよ!");
+                //MessageBox.Show("これ以上入力できないよ!");
+                DisplayMessage("手数オーバー");
                 return;
             }
             if (listBox_Car.Items.Count < 1)
             {
-                MessageBox.Show("車の入力をしてね");
+                //MessageBox.Show("車の入力をしてね");
+                DisplayMessage("車未入力");
                 pictureBox_buttonUp.Visible = true;
                 pictureBox_buttonRight.Visible = true;
                 pictureBox_buttonDown.Visible = true;
@@ -1086,7 +1099,8 @@ namespace unilab2025
             else if (lockedCarPattern != combined)
             {
                 // エラーメッセージを表示して処理を中断
-                MessageBox.Show("くるまのルートがさいしょとちがうよ！\nくるまのルートは一つにしてね！");
+                //MessageBox.Show("くるまのルートがさいしょとちがうよ！\nくるまのルートは一つにしてね！");
+                DisplayMessage("車ルート変更");
                 return;
             }
 
@@ -1652,7 +1666,14 @@ namespace unilab2025
                     button_Start.Enabled = true;
                     if (x_now != x_goal || y_now != y_goal)
                     {
-                        MessageBox.Show("やり直し");
+                        //MessageBox.Show("やり直し");
+                        DisplayMessage("ゴール未達");
+                        // クリック待ち
+                        while (pictureBox_Conv.Visible)
+                        {
+                            await Task.Delay(50); // わずかに待機
+                        }
+
                         g2.Clear(Color.Transparent);
                         sasa = false;
                         panda = false;
@@ -1674,8 +1695,14 @@ namespace unilab2025
                             
                             pictureBox_Map2.Refresh();
                         }
-                        
-                        MessageBox.Show("成功");
+                        //MessageBox.Show("成功");
+                        DisplayMessage("ゴール");
+
+                        // クリックまで待機
+                        while (pictureBox_Conv.Visible)
+                        {
+                            await Task.Delay(50); // わずかに待機
+                        }
 
                         //会話再生用
                         if (Func.WaitingForButton == "Clear")
@@ -1831,7 +1858,8 @@ namespace unilab2025
                                 }
                                 else
                                 {
-                                    MessageBox.Show("前に進めません");
+                                    //MessageBox.Show("前に進めません");
+                                    DisplayMessage("行き止まり");
                                     g2.Clear(Color.Transparent);//人の移動などのリセット
                                     Input_arrow.Clear();//入力のリセット
                                     Image character_me = Dictionaries.Img_DotPic["正面"];
@@ -1854,7 +1882,8 @@ namespace unilab2025
                     }
                     else
                     {
-                        MessageBox.Show("前に進めません");
+                        //MessageBox.Show("前に進めません");
+                        DisplayMessage("行き止まり");
                         g2.Clear(Color.Transparent);//人の移動などのリセット
                         Input_arrow.Clear();//入力のリセット
                         car_finish = true;
@@ -1931,7 +1960,17 @@ namespace unilab2025
         // 会話用のPictureBoxがクリックされたときの処理
         private void pictureBox_Conv_Click(object sender, EventArgs e)
         {
-            AdvanceConversation();
+            if (isMessageMode)
+            {
+                // システムメッセージモードの場合、ウィンドウを閉じてフラグを戻すだけ
+                Func.ChangeControl(pictureBox_Conv, false);
+                isMessageMode = false;
+            }
+            else
+            {
+                // 通常の会話モードの場合、今まで通り会話を進める
+                AdvanceConversation();
+            }
         }
 
         #endregion

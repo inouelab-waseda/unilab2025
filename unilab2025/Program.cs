@@ -35,6 +35,7 @@ namespace unilab2025
             Func.LoadImg_Button_MapSelect();
             Func.LoadImg_Conversation();
             Func.LoadConversations();
+            Func.LoadMessagesFromCsv();
             Func.InitializeClearCheck();
 
             Application.Run(new Title());
@@ -483,7 +484,7 @@ namespace unilab2025
                 // キャラ名表示
                 string charaName = Conversations[convIndex].Character;
                 // 名前の描画位置 (ウィンドウ左上からのオフセット。お好みで調整してください)
-                Point namePosition = new Point(margin_x + 100, margin_y + 45);
+                Point namePosition = new Point(margin_x + 135, margin_y + 45);
                 g.DrawString(charaName, fnt_name, Brushes.Black, namePosition);
 
                 // キャラクターアイコン画像描画
@@ -558,13 +559,13 @@ namespace unilab2025
                 int textPaddingX = 60;
                 int sp_y = 70;
 
-                g.DrawImage(Dictionaries.Img_Conversation["MessageWindow"], margin_x, margin_y, dia_x, dia_y);
+                g.DrawImage(Dictionaries.Img_Conversation["MessageWindowNoName"], margin_x, margin_y, dia_x, dia_y);
 
                 char[] lineBreak = new char[] { '\\' };
                 string[] DialogueLines = Conversations[convIndex].Dialogue.Replace("\\n", "\\").Split(lineBreak);
                 for (int i = 0; i < DialogueLines.Length; i++)
                 {
-                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 22);
+                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 3);
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
             }
@@ -609,6 +610,54 @@ namespace unilab2025
 
             return Capt;
         }
+
+        // システムメッセージ用
+        public static async Task PlaySystemMessage(Form currentForm, PictureBox pictureBox_Conv, string message)
+        {
+            byte[] Capt = CaptureClientArea(currentForm);
+            Bitmap bmp_Capt = new Bitmap(ByteArrayToBitmap(Capt));
+            using (Graphics g = Graphics.FromImage(bmp_Capt))
+            {
+                // フォントやウィンドウのサイズを設定
+                Font fnt_dia = new Font("游ゴシック", 30);
+                Font fnt_ruby = new Font("游ゴシック", 12); // ルビ用のフォントも定義
+
+                // --- ここから DrawConv のナレーターモードのロジックを流用 ---
+                int dia_x = 1300;
+                int dia_y = 270;
+                int margin_x = (1400 - dia_x) / 2;
+                int margin_y = 400;
+                int lineHeight = fnt_dia.Height;
+                int textPaddingX = 60;
+                int sp_y = 70;
+
+                // 名前欄なしのメッセージウィンドウを描画
+                g.DrawImage(Dictionaries.Img_Conversation["MessageWindowNoName"], margin_x, margin_y, dia_x, dia_y);
+
+                // メッセージ内の改行文字「\n」に対応
+                char[] lineBreak = new char[] { '\\' };
+                string[] dialogueLines = message.Replace("\\n", "\\").Split(lineBreak);
+
+                // テキストを一行ずつ描画
+                for (int i = 0; i < dialogueLines.Length; i++)
+                {
+                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 3);
+                    DrawStringWithRuby(g, dialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
+                }
+                // --- ここまで ---
+
+                fnt_dia.Dispose();
+                fnt_ruby.Dispose();
+            }
+
+            pictureBox_Conv.Image = bmp_Capt;
+
+            // 会話ウィンドウを表示し、キーボード入力をロック
+            ChangeControl(pictureBox_Conv, true);
+
+            await Task.CompletedTask;
+        }
+
     }
 
     #endregion
@@ -674,7 +723,7 @@ namespace unilab2025
         //DictionaryにMessageCSVのデータを追加
         public static Dictionary<string, List<Message>> LoadMessagesFromCsv()
         {
-            string filePath = (@"Convertation\\Conv_Message.csv");
+            string filePath = (@"Conv_Message.csv");
             using (StreamReader reader = new StreamReader(filePath))
             {
                 while (!reader.EndOfStream)
@@ -682,7 +731,7 @@ namespace unilab2025
                     string line = reader.ReadLine();
                     string[] values = line.Split(',');
 
-                    if (values.Length < 2) continue; // 不正な行をスキップ
+                    if (values.Length < 2) continue; // 説明の行をスキップ
 
                     string key = values[0].Trim();
                     Message message = new Message
