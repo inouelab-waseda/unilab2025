@@ -33,5 +33,9 @@ namespace unilab2025
             Func.CreateMario(this);
         }
 
+        private void button_MineSweeper_Click(object sender, EventArgs e)
+        {
+            Func.CreateMine(this);
+        }
     }
 }

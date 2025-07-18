@@ -248,12 +248,7 @@ namespace unilab2025
                 Func.LoadImg_DotPic();
                 Func.CreateStage(this, "1年生", 1, 1);
             }
-
-            if (e.KeyCode == Keys.G)
-            {
-                Func.LoadImg_DotPic();
-                Func.CreateMiniGame(this);
-            }
+            
         }
         #endregion
     }

@@ -148,6 +148,19 @@ namespace unilab2025
                 currentForm.Dispose();
             }
         }
+
+        public static void CreateMine(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame_Mine";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame_Mine form = new MiniGame_Mine();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
     }
     #endregion
 

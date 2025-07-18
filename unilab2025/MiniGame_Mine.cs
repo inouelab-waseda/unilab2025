@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace unilab2025
 {
-    public partial class minesweeper : Form
+    public partial class MiniGame_Mine : Form
     {
         // セルの状態を管理する構造体
         private struct Cell
@@ -23,8 +24,8 @@ namespace unilab2025
         }
 
         // --- ゲーム設定 ---
-        private readonly int gridSize = 10; // グリッドのサイズ (10x10)
-        private readonly int mineCount = 10; // 地雷の数
+        private readonly int gridSize = 20; // グリッドのサイズ (10x10)
+        private readonly int mineCount = 40; // 地雷の数
 
 
         private Cell[,] grid;       // セルのロジックを管理する2次元配列
@@ -32,33 +33,33 @@ namespace unilab2025
         private bool isFirstClick;  // 最初のクリックかどうかを判定するフラグ
         private bool isGameOver;    // ゲームオーバー状態を管理するフラグ
 
+        private Stopwatch gameStopwatch;
 
 
-        public minesweeper()
+        public MiniGame_Mine()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            gameStopwatch = new Stopwatch();
 
         }
 
         private void minesweeper_Load(object sender, EventArgs e)
         {
+            pictureBox1.Size = new Size(gridSize * 30 + 100, gridSize * 30 + 30 + 200);
+            int Location_X = (this.ClientSize.Width - pictureBox1.Width) / 2;
+            int Location_Y = (this.ClientSize.Height - pictureBox1.Height) / 2;
+            pictureBox1.Location = new Point(Location_X, Location_Y);
             InitializeGame();
         }
 
         // ゲームの初期化
         private void InitializeGame()
         {
-            this.Text = "Minesweeper";
-            this.ClientSize = new Size(gridSize * 30, gridSize * 30 + 30); // ウィンドウサイズ調整
+                    
 
-            // UIコントロールを初期化
-            var menuStrip = new MenuStrip();
-            var gameMenu = new ToolStripMenuItem("Game");
-            var newGameMenuItem = new ToolStripMenuItem("New Game", null, (s, e) => ResetGame());
-            gameMenu.DropDownItems.Add(newGameMenuItem);
-            menuStrip.Items.Add(gameMenu);
-            this.Controls.Add(menuStrip);
+            this.Text = "Minesweeper";
+                                  
 
             // グリッドとボタンの配列を作成
             grid = new Cell[gridSize, gridSize];
@@ -84,7 +85,7 @@ namespace unilab2025
                         Tag = new Point(x, y) // ボタンに座標を記憶させる
                     };
                     buttons[x, y].MouseUp += Cell_MouseUp; // マウスイベントハンドラを追加
-                    this.Controls.Add(buttons[x, y]);
+                    pictureBox1.Controls.Add(buttons[x, y]);
                 }
             }
             this.ClientSize = new Size(gridSize * 30 + offsetX, gridSize * 30 + 30 + offsetY);
@@ -92,16 +93,20 @@ namespace unilab2025
         }
 
         // ゲームのリセット
+
+        private void button_Reset_Click(object sender, EventArgs e)
+        {
+            ResetGame();
+        }
         private void ResetGame()
         {
+            timer1.Stop(); // 念のためタイマーを停止
+            gameStopwatch.Reset();// 経過時間をリセット
+            label_Time.Text = "Time: 00:00.00"; // ラベル表示をリセット
+
+
             // 古いボタンを削除
-            for (int x = 0; x < gridSize; x++)
-            {
-                for (int y = 0; y < gridSize; y++)
-                {
-                    this.Controls.Remove(buttons[x, y]);
-                }
-            }
+            pictureBox1.Controls.Clear();
             InitializeGame();
         }
 
@@ -175,6 +180,8 @@ namespace unilab2025
                     PlaceMines(x, y);
                     CalculateAdjacentMines();
                     isFirstClick = false;
+                    timer1.Start();
+                    gameStopwatch.Start();
                 }
 
                 if (grid[x, y].isMine)
@@ -183,7 +190,28 @@ namespace unilab2025
                 }
                 else
                 {
-                    RevealCell(x, y);
+                    if (grid[x, y].adjacentMines == 0)
+                    {
+                        // クリック地点を中心とした10x10の範囲を計算
+                        // (Math.Max/Minでグリッドの端をはみ出さないように調整)
+                        int areaSize = 5; // 中心から±5マスで10x10の範囲
+                        int minX = Math.Max(0, x - areaSize);
+                        int maxX = Math.Min(gridSize - 1, x + areaSize);
+                        int minY = Math.Max(0, y - areaSize);
+                        int maxY = Math.Min(gridSize - 1, y + areaSize);
+
+                        // 範囲を引数として渡してセルを開く
+                        RevealCell(x, y, minX, maxX, minY, maxY);
+                    }
+                    else
+                    {
+                        // 0以外のセルは、そのマスだけを開く
+                        grid[x, y].isRevealed = true;
+                        buttons[x, y].Enabled = false;
+                        buttons[x, y].BackColor = Color.LightGray;
+                        buttons[x, y].Text = grid[x, y].adjacentMines.ToString();
+                        buttons[x, y].ForeColor = GetNumberColor(grid[x, y].adjacentMines);
+                    }
                     CheckForWin();
                 }
             }
@@ -199,20 +227,18 @@ namespace unilab2025
         }
 
         // セルを開く処理（再帰的に開く）
-        private void RevealCell(int x, int y)
+        private void RevealCell(int x, int y, int minX, int maxX, int minY, int maxY)
         {
-            // グリッドの範囲外、または既に開いているセルは処理しない
-            if (x < 0 || x >= gridSize || y < 0 || y >= gridSize || grid[x, y].isRevealed)
+            // グリッドの範囲外、または既に開いているセル、または指定範囲外は処理しない
+            if (x < minX || x > maxX || y < minY || y > maxY || grid[x, y].isRevealed)
             {
                 return;
             }
-            // 旗が立っているセルも処理しない
             if (grid[x, y].isFlagged) return;
-
 
             grid[x, y].isRevealed = true;
             Button button = buttons[x, y];
-            button.Enabled = false; // ボタンを無効化
+            button.Enabled = false;
             button.BackColor = Color.LightGray;
 
             if (grid[x, y].adjacentMines > 0)
@@ -220,14 +246,15 @@ namespace unilab2025
                 button.Text = grid[x, y].adjacentMines.ToString();
                 button.ForeColor = GetNumberColor(grid[x, y].adjacentMines);
             }
-            else // 隣接する地雷が0なら、周囲のセルも開く
+            else // 隣接する地雷が0なら、周囲のセルも開く（ただし範囲内で）
             {
                 for (int dx = -1; dx <= 1; dx++)
                 {
                     for (int dy = -1; dy <= 1; dy++)
                     {
                         if (dx == 0 && dy == 0) continue;
-                        RevealCell(x + dx, y + dy);
+                        // 再帰呼び出し時も、範囲情報を引き継ぐ
+                        RevealCell(x + dx, y + dy, minX, maxX, minY, maxY);
                     }
                 }
             }
@@ -237,6 +264,8 @@ namespace unilab2025
         private void GameOver(bool won)
         {
             isGameOver = true;
+            timer1.Stop();
+            gameStopwatch.Stop();
             // すべての地雷の場所を表示
             for (int x = 0; x < gridSize; x++)
             {
@@ -298,9 +327,18 @@ namespace unilab2025
             }
         }
 
+        private void button_Return_Click(object sender, EventArgs e)
+        {
+            Func.CreateMiniGame(this);
+        }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // Stopwatchから経過時間を取得
+            TimeSpan ts = gameStopwatch.Elapsed;
 
-
-
+            // 2. ラベルのテキストを更新する
+            label_Time.Text = $"Time: {ts:mm\\:ss\\.ff}";
+        }
     }
 }
