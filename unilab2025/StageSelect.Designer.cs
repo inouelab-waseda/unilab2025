@@ -98,7 +98,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1800, 911);
+            this.ClientSize = new System.Drawing.Size(1712, 911);
             this.Controls.Add(this.button_Stage3);
             this.Controls.Add(this.button_Stage2);
             this.Controls.Add(this.button_Stage1);

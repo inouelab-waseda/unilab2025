@@ -876,6 +876,14 @@ namespace unilab2025
 
             ClearCheck.IsButtonEnabled[1, 0] = true;
             ClearCheck.IsButtonEnabled[1, 1] = true;
+            ClearCheck.IsButtonEnabled[5, 0] = true;
+            ClearCheck.IsButtonEnabled[5, 1] = true;
+            ClearCheck.IsButtonEnabled[6, 0] = true;
+            ClearCheck.IsButtonEnabled[6, 1] = true;
+            ClearCheck.IsButtonEnabled[7, 0] = true;
+            ClearCheck.IsButtonEnabled[7, 1] = true;
+            ClearCheck.IsButtonEnabled[8, 0] = true;
+            ClearCheck.IsButtonEnabled[8, 1] = true;
         }
 
         public static void UpdateIsNew()    //IsNew配列の更新
