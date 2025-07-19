@@ -138,10 +138,16 @@ namespace unilab2025
             CreateGameOverUI();
             CreateExplanationUI();
             CreateOptionsUI();
-            InitializeGame();
+            this.Load += new EventHandler(MiniGame_Mario_Load);
         }
 
         #region 初期化処理
+
+        private void MiniGame_Mario_Load(object sender, EventArgs e)
+        {
+            InitializeGame();
+        }
+
         private void InitializeGame()
         {
             gameTimer.Stop();
@@ -168,27 +174,32 @@ namespace unilab2025
             int safeZoneEndX = playerRect.X + 300;
             int obstacleSize = gameSettings.ObstacleSize;
             int worldWidth = this.ClientSize.Width + obstacleSize;
-            for (int x = 0; x < worldWidth; x += obstacleSize)
+            int x; // ループ変数を外で宣言
+            for (x = 0; x < worldWidth; x += obstacleSize)
             {
                 bool inSafeZone = x > playerRect.X - obstacleSize && x < safeZoneEndX;
                 if (!inSafeZone)
                 {
-                    int numberOfLanes = pbCanvas.Height / obstacleSize + 1;
+                    int numberOfLanes = (int)Math.Ceiling((double)pbCanvas.Height / obstacleSize); // 小数点以下を切り上げる
                     for (int i = 0; i < numberOfLanes; i++)
                     {
                         int y = i * obstacleSize;
-                        if (rnd.Next(1, 101) <= gameSettings.ObstacleSpawnChance)
+                        if (y < pbCanvas.Height) // 生成位置が画面内であることを確認
                         {
-                            obstacles.Add(new Rectangle(x, y, obstacleSize, obstacleSize));
-                        }
-                        else if (rnd.Next(1, 101) <= gameSettings.ItemSpawnChance)
-                        {
-                            items.Add(new Rectangle(x, y, obstacleSize, obstacleSize));
+                            if (rnd.Next(1, 101) <= gameSettings.ObstacleSpawnChance)
+                            {
+                                obstacles.Add(new Rectangle(x, y, obstacleSize, obstacleSize));
+                            }
+                            else if (rnd.Next(1, 101) <= gameSettings.ItemSpawnChance)
+                            {
+                                items.Add(new Rectangle(x, y, obstacleSize, obstacleSize));
+                            }
                         }
                     }
                 }
             }
-            lastSpawnX = worldWidth;
+            lastSpawnX = x; // <-- ループを抜けた後のxの値を設定する
+
 
             this.ActiveControl = pbCanvas;
             gameOverPanel.Visible = false;
