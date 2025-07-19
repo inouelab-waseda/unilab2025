@@ -92,13 +92,6 @@ namespace unilab2025
 
         private void button_ToMap_Click(object sender, EventArgs e)
         {
-            //会話再生用
-            if (Func.WaitingForButton == "returnMap")
-            {
-                // 次の会話セグメントを取得
-                CurrentFormState.StateData["ResumeConversation"] = true;
-            }
-
             if (_worldNumber <= 4) Func.CreateWorldMap(this);
             else Func.CreateAnotherWorld(this);
         }

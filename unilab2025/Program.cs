@@ -63,7 +63,7 @@ namespace unilab2025
         public static void CreateWorldMap(Form currentForm) //呼び出し方: Func.CreateWorldMap(this);
         {
             CurrentFormState.FormName = "WorldMap";
-            //CurrentFormState.StateData.Clear();
+            CurrentFormState.StateData.Clear();
 
             WorldMap form = new WorldMap();
             form.Show();
@@ -76,7 +76,7 @@ namespace unilab2025
         public static void CreateAnotherWorld(Form currentForm)
         {
             CurrentFormState.FormName = "AnotherWorld";
-            //CurrentFormState.StateData.Clear();
+            CurrentFormState.StateData.Clear();
 
             AnotherWorld form = new AnotherWorld();
             form.Show();

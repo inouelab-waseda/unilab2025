@@ -19,6 +19,7 @@ using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Runtime.Remoting.Lifetime;
 
 
 namespace unilab2025
@@ -1708,6 +1709,13 @@ namespace unilab2025
                                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                             }
                         }
+
+                        // クリア後マップ遷移後会話再生用
+                        if (Func.WaitingForButton == "returnMap")
+                        {
+                            // 次の会話セグメントを取得
+                            CurrentFormState.StateData["ResumeConversation"] = true;
+                        }
                     }
                         //else
                         //{
@@ -1878,6 +1886,14 @@ namespace unilab2025
                     {
                         //MessageBox.Show("前に進めません");
                         DisplayMessage("行き止まり");
+                        while (pictureBox_Conv.Visible)
+
+                        {
+
+                            await Task.Delay(50); // わずかに待機
+
+                        }
+
                         g2.Clear(Color.Transparent);//人の移動などのリセット
                         Input_arrow.Clear();//入力のリセット
                         car_finish = true;
