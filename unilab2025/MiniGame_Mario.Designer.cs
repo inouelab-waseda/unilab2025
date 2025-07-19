@@ -44,9 +44,8 @@
             this.pbCanvas.BackColor = System.Drawing.Color.Transparent;
             this.pbCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbCanvas.Location = new System.Drawing.Point(0, 0);
-            this.pbCanvas.Margin = new System.Windows.Forms.Padding(2);
             this.pbCanvas.Name = "pbCanvas";
-            this.pbCanvas.Size = new System.Drawing.Size(1350, 729);
+            this.pbCanvas.Size = new System.Drawing.Size(2250, 1094);
             this.pbCanvas.TabIndex = 1;
             this.pbCanvas.TabStop = false;
             // 
@@ -54,10 +53,9 @@
             // 
             this.Button_Up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Up.Font = new System.Drawing.Font("MS UI Gothic", 45F);
-            this.Button_Up.Location = new System.Drawing.Point(1094, 504);
-            this.Button_Up.Margin = new System.Windows.Forms.Padding(2);
+            this.Button_Up.Location = new System.Drawing.Point(1823, 756);
             this.Button_Up.Name = "Button_Up";
-            this.Button_Up.Size = new System.Drawing.Size(90, 100);
+            this.Button_Up.Size = new System.Drawing.Size(150, 150);
             this.Button_Up.TabIndex = 2;
             this.Button_Up.Text = "▲";
             this.Button_Up.UseVisualStyleBackColor = true;
@@ -68,10 +66,9 @@
             // 
             this.Button_Down.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Down.Font = new System.Drawing.Font("MS UI Gothic", 45F);
-            this.Button_Down.Location = new System.Drawing.Point(1094, 608);
-            this.Button_Down.Margin = new System.Windows.Forms.Padding(2);
+            this.Button_Down.Location = new System.Drawing.Point(1823, 912);
             this.Button_Down.Name = "Button_Down";
-            this.Button_Down.Size = new System.Drawing.Size(90, 100);
+            this.Button_Down.Size = new System.Drawing.Size(150, 150);
             this.Button_Down.TabIndex = 3;
             this.Button_Down.Text = "▼";
             this.Button_Down.UseVisualStyleBackColor = true;
@@ -83,10 +80,9 @@
             this.lblScore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblScore.AutoSize = true;
             this.lblScore.Font = new System.Drawing.Font("MS UI Gothic", 30F);
-            this.lblScore.Location = new System.Drawing.Point(1250, 6);
-            this.lblScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblScore.Location = new System.Drawing.Point(2083, 9);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(155, 40);
+            this.lblScore.Size = new System.Drawing.Size(232, 60);
             this.lblScore.TabIndex = 4;
             this.lblScore.Text = "Score: 0";
             // 
@@ -100,10 +96,9 @@
             // 
             this.Button_Right.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Right.Font = new System.Drawing.Font("MS UI Gothic", 45F);
-            this.Button_Right.Location = new System.Drawing.Point(1188, 560);
-            this.Button_Right.Margin = new System.Windows.Forms.Padding(2);
+            this.Button_Right.Location = new System.Drawing.Point(1980, 840);
             this.Button_Right.Name = "Button_Right";
-            this.Button_Right.Size = new System.Drawing.Size(90, 100);
+            this.Button_Right.Size = new System.Drawing.Size(150, 150);
             this.Button_Right.TabIndex = 5;
             this.Button_Right.Text = "▶";
             this.Button_Right.UseVisualStyleBackColor = true;
@@ -112,26 +107,24 @@
             // 
             this.Button_Left.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Left.Font = new System.Drawing.Font("MS UI Gothic", 45F);
-            this.Button_Left.Location = new System.Drawing.Point(1000, 560);
-            this.Button_Left.Margin = new System.Windows.Forms.Padding(2);
+            this.Button_Left.Location = new System.Drawing.Point(1667, 840);
             this.Button_Left.Name = "Button_Left";
-            this.Button_Left.Size = new System.Drawing.Size(90, 100);
+            this.Button_Left.Size = new System.Drawing.Size(150, 150);
             this.Button_Left.TabIndex = 6;
             this.Button_Left.Text = "◀";
             this.Button_Left.UseVisualStyleBackColor = true;
             // 
             // MiniGame_Mario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.ClientSize = new System.Drawing.Size(2250, 1094);
             this.Controls.Add(this.Button_Left);
             this.Controls.Add(this.Button_Right);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.Button_Down);
             this.Controls.Add(this.Button_Up);
             this.Controls.Add(this.pbCanvas);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MiniGame_Mario";
             this.Text = "MiniGame_Mario";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MiniGame_Mario_KeyDown);
