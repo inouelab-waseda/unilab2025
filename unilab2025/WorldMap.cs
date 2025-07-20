@@ -83,9 +83,13 @@ namespace unilab2025
                 }
             }
 
-            if (CurrentFormState.StateData.ContainsKey("ResumeConversation") && (bool)CurrentFormState.StateData["ResumeConversation"])
+            // 画面遷移後に再生する会話があったら再生
+            if (CurrentFormState.NextConversationTrigger == "PLAY")
             {
-                CurrentFormState.StateData.Remove("ResumeConversation");
+                // フラグ消去
+                CurrentFormState.NextConversationTrigger = null;
+
+                // 会話再生
                 currentConversation = Func.GetNextSegment();
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
