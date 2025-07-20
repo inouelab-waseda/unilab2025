@@ -1338,7 +1338,19 @@ namespace unilab2025
         {
             if (this.currentConversation != null && Func.convIndex < this.currentConversation.Count) return;
 
-            currentConversation = Dictionaries.Conversations["Info"];
+            // 説明文切り替え
+            if (_level == 1 && (_worldNumber == 2 || _worldNumber == 3 || _worldNumber == 4))
+            {
+                currentConversation = Dictionaries.Conversations["Info_stage" + _worldNumber +"-1"];
+            }
+            else if(_worldNumber < 4)
+            {
+                currentConversation = Dictionaries.Conversations["Info_stage" + _worldNumber];
+            }
+            else
+            {
+                currentConversation = Dictionaries.Conversations["Info"];
+            }
             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             InputListBox.Focus();
             ShowListBox();
@@ -1707,14 +1719,42 @@ namespace unilab2025
                             if (currentConversation != null && currentConversation.Count > 0)
                             {
                                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                                while (pictureBox_Conv.Visible)
+                                {
+                                    await Task.Delay(50);
+                                }
                             }
+
                         }
 
                         // クリア後マップ遷移後会話再生用
                         if (Func.WaitingForButton == "returnMap")
                         {
-                            // 次の会話セグメントを取得
-                            CurrentFormState.StateData["ResumeConversation"] = true;
+                            // ステージクリア判定（順番的にここにないと駄目っぽい）
+                            ClearCheck.IsCleared[_worldNumber, _level] = true;
+                            ClearCheck.IsCleared[_worldNumber, 0] = true;
+
+                            if (_worldNumber <= 4)
+                            {
+                                for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
+                                {
+                                    ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+                                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                }
+                            }
+                            else
+                            {
+                                ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                                ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                                Func.UpdateIsNew();
+                            }
+
+                            // 遷移後再生フラグ
+                            CurrentFormState.NextConversationTrigger = "PLAY";
+
+                            // 画面遷移
+                            if (_worldNumber <= 4) Func.CreateWorldMap(this);
+                            else Func.CreateAnotherWorld(this);
                         }
                     }
                         //else
