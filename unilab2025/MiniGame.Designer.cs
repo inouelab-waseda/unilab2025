@@ -38,10 +38,10 @@
             this.button_Mario.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_Mario.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Mario.BackgroundImage")));
             this.button_Mario.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button_Mario.Location = new System.Drawing.Point(124, 200);
-            this.button_Mario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_Mario.Location = new System.Drawing.Point(155, 240);
+            this.button_Mario.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button_Mario.Name = "button_Mario";
-            this.button_Mario.Size = new System.Drawing.Size(267, 250);
+            this.button_Mario.Size = new System.Drawing.Size(333, 300);
             this.button_Mario.TabIndex = 0;
             this.button_Mario.UseVisualStyleBackColor = true;
             this.button_Mario.Click += new System.EventHandler(this.button_Mario_Click);
@@ -60,11 +60,11 @@
             // 
             // MiniGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1080, 608);
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.button_MineSweeper);
             this.Controls.Add(this.button_Mario);
             this.DoubleBuffered = true;

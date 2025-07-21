@@ -58,9 +58,7 @@
     <Compile Include="MiniGame.Designer.cs">
       <DependentUpon>MiniGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="MiniGame_Mario.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="MiniGame_Mario.cs" />
     <Compile Include="MiniGame_Mario.Designer.cs">
       <DependentUpon>MiniGame_Mario.cs</DependentUpon>
     </Compile>
