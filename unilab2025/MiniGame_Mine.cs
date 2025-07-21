@@ -29,6 +29,8 @@ namespace unilab2025
         private readonly int gridSize = 20; // グリッドのサイズ (10x10)
         private readonly int mineCount = 40; // 地雷の数
 
+        public int Location_x;
+        public int Location_y;
 
         private Cell[,] grid;       // セルのロジックを管理する2次元配列
         private Button[,] buttons;  // 画面に表示するボタンの2次元配列
@@ -43,27 +45,40 @@ namespace unilab2025
         bool isMessageMode;
         public List<Conversation> currentConversation;
 
+        Panel instructionPanel = new Panel();
+
 
         public MiniGame_Mine()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             gameStopwatch = new Stopwatch();
+            instructionPanel.Visible = false;
+
+            
+
         }
 
         private async void minesweeper_Load(object sender, EventArgs e)
         {
+            Location_x = this.ClientSize.Width;
+            Location_y= this.ClientSize.Height;
             pictureBox1.Size = new Size(gridSize * 30 + 100, gridSize * 30 + 30 + 200);
             int Location_X = (this.ClientSize.Width - pictureBox1.Width) / 2;
             int Location_Y = (this.ClientSize.Height - pictureBox1.Height) / 2;
             pictureBox1.Location = new Point(Location_X, Location_Y);
 
-            currentConversation = Dictionaries.Conversations["mine"];
-            if (currentConversation != null && currentConversation.Count > 0)
-            {
-                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
-            }
-            InitializeGame();
+            settingsPanel.Location = new Point(
+                (Location_x - settingsPanel.Width) / 2,
+                (Location_y - settingsPanel.Height) / 2);
+
+            //currentConversation = Dictionaries.Conversations["mine"];
+            //if (currentConversation != null && currentConversation.Count > 0)
+            //{
+            //    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            //}
+            InstructionPanel();
+            //InitializeGame();
         }
 
         // ゲームの初期化
@@ -356,7 +371,86 @@ namespace unilab2025
 
         private void button_explain_Click(object sender, EventArgs e)
         {
+            settingsPanel.Visible = false;
+            instructionPanel.Visible = true;
+        }
+
+        private void button_option_Click(object sender, EventArgs e)
+        {
+            instructionPanel.Visible = false;
+            settingsPanel.Visible = true;
+        }
+
+        private void button_keep_Click(object sender, EventArgs e)
+        {
+            settingsPanel.Visible = false;
+            instructionPanel.Visible = true;
+        }
+        private void button_back_Click(object sender, EventArgs e)
+        {
 
         }
+
+        private void InstructionPanel()
+        {
+            // 1. パネル（土台）を作成する
+            
+            instructionPanel.Name = "instructionPanel";
+            instructionPanel = new Panel { Size = new Size(660, 576), BackColor = Color.FromArgb(220, 240, 240, 240), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("MS UI Gothic", 15) };
+            this.Controls.Add(instructionPanel);
+            //instructionPanel.Size = new Size(880, 720); // パネルのサイズ
+            //instructionPanel.Size = new System.Drawing.Size(880, 720);
+            //instructionPanel.BorderStyle = BorderStyle.FixedSingle; // 枠線をつける
+            //instructionPanel.Visible = true;
+
+            // フォームの中央に配置する
+            instructionPanel.Location = new Point(
+                (Location_x - instructionPanel.Width) / 2,
+                (Location_y - instructionPanel.Height) / 2);
+
+            // 2. ラベル（説明文）を作成する
+            Label Label1 = new Label { Text = "ゲームのせつめい", Font = new Font("MS UI Gothic", 30), Size = new Size(600, 50), Location = new Point(instructionPanel.Width / 2-150, 20) };
+            instructionPanel.Controls.Add(Label1);
+            //playerPictureBox = new PictureBox { Size = new Size(40, 40), Location = new Point(80, 100), SizeMode = PictureBoxSizeMode.Zoom };
+            Label playerLabel = new Label { Text = "◀ このペンギンをそうさします", Location = new Point(130, 110), Size = new Size(400, 30) };
+            //instructionPanel.Controls.Add(playerPictureBox);
+            instructionPanel.Controls.Add(playerLabel);
+            //instructionPanel = new PictureBox { Size = new Size(40, 40), Location = new Point(80, 160), SizeMode = PictureBoxSizeMode.Zoom };
+            Label obstacleLabel = new Label { Text = "◀ このかべはよけてください", Location = new Point(130, 170), Size = new Size(400, 30) };
+            //instructionPanel.Controls.Add(obstaclePictureBox);
+            instructionPanel.Controls.Add(obstacleLabel);
+
+
+            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(320, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            startButton.Click += (s, e) =>
+            {
+                instructionPanel.Visible = false;
+                InitializeGame();
+
+            };
+            instructionPanel.Controls.Add(startButton);
+            Button optionsButton = new Button { Text = "オプション", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(60, 460), BackColor = Color.White, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            optionsButton.Click += (s, e) =>
+            {
+                instructionPanel.Visible = false;
+                settingsPanel.Visible = true;
+            };
+            instructionPanel.Controls.Add(optionsButton);
+            
+
+            // 5. 最後に、パネルをフォームの上に乗せる
+            this.Controls.Add(instructionPanel);
+
+            // パネルを一番手前に表示する
+            instructionPanel.BringToFront();
+
+
+        }
+        private void ShowOptionsPanel()
+        {
+            settingsPanel.Visible = true;
+        }
+
+        
     }
 }
