@@ -29,6 +29,8 @@ namespace unilab2025
         public int gridSize_x = 20; // グリッドのサイズ (10x10)
         public int gridSize_y = 20;
         public int mineCount = 40; // 地雷の数
+        public int wide_x=10;
+        public int wide_y = 10;
 
         public int Location_x;
         public int Location_y;
@@ -240,11 +242,11 @@ namespace unilab2025
                     {
                         // クリック地点を中心とした10x10の範囲を計算
                         // (Math.Max/Minでグリッドの端をはみ出さないように調整)
-                        int areaSize = 10; // 中心から±5マスで10x10の範囲
-                        int minX = Math.Max(0, x - areaSize);
-                        int maxX = Math.Min(gridSize_x - 1, x + areaSize);
-                        int minY = Math.Max(0, y - areaSize);
-                        int maxY = Math.Min(gridSize_y - 1, y + areaSize);
+                        // 中心から±5マスで10x10の範囲
+                        int minX = Math.Max(0, x - wide_x);
+                        int maxX = Math.Min(gridSize_x - 1, x + wide_x);
+                        int minY = Math.Max(0, y - wide_y);
+                        int maxY = Math.Min(gridSize_y - 1, y + wide_y);
 
                         // 範囲を引数として渡してセルを開く
                         RevealCell(x, y, minX, maxX, minY, maxY);
@@ -404,6 +406,21 @@ namespace unilab2025
             gridSize_x = (int)numericUpDown2.Value;
             mineCount = (int)numericUpDown3.Value;
 
+            if (comboBox1.SelectedItem == "たくさん")
+            {
+                wide_x = gridSize_x/2;
+                wide_y = gridSize_y/2;
+            }
+            else if(comboBox1.SelectedItem == "ふつう")
+            {
+                wide_x = gridSize_x / 3;
+                wide_y = gridSize_y / 3;
+            }
+            else if (comboBox1.SelectedItem == "すこし")
+            {
+                wide_x = 3;
+                wide_y = 3;
+            }
 
 
         }
