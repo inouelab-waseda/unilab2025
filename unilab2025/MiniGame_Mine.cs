@@ -26,8 +26,9 @@ namespace unilab2025
         }
 
         // --- ゲーム設定 ---
-        private readonly int gridSize = 20; // グリッドのサイズ (10x10)
-        private readonly int mineCount = 40; // 地雷の数
+        public int gridSize_x = 20; // グリッドのサイズ (10x10)
+        public int gridSize_y = 20;
+        public int mineCount = 40; // 地雷の数
 
         public int Location_x;
         public int Location_y;
@@ -46,6 +47,7 @@ namespace unilab2025
         public List<Conversation> currentConversation;
 
         Panel instructionPanel = new Panel();
+        Panel gameOverPanel = new Panel();
 
 
         public MiniGame_Mine()
@@ -62,36 +64,51 @@ namespace unilab2025
         private async void minesweeper_Load(object sender, EventArgs e)
         {
             Location_x = this.ClientSize.Width;
-            Location_y= this.ClientSize.Height;
-            pictureBox1.Size = new Size(gridSize * 30 + 100, gridSize * 30 + 30 + 200);
-            int Location_X = (this.ClientSize.Width - pictureBox1.Width) / 2;
-            int Location_Y = (this.ClientSize.Height - pictureBox1.Height) / 2;
-            pictureBox1.Location = new Point(Location_X, Location_Y);
+            Location_y= this.ClientSize.Height;           
 
             settingsPanel.Location = new Point(
                 (Location_x - settingsPanel.Width) / 2,
                 (Location_y - settingsPanel.Height) / 2);
+
+            numericUpDown1.Value = 20;
+            numericUpDown2.Value = 20;
+            numericUpDown3.Value = 40;
+            comboBox1.SelectedItem = "たくさん";
 
             //currentConversation = Dictionaries.Conversations["mine"];
             //if (currentConversation != null && currentConversation.Count > 0)
             //{
             //    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             //}
+            LayoutControls();
             InstructionPanel();
+            CreateGameOver();
             //InitializeGame();
+            button_explain.Enabled = false;
+            button_Reset.Enabled = false;
         }
+
+        private void LayoutControls()
+        {
+            // PictureBoxをフォームの中央に配置
+            pictureBox1.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
+            pictureBox1.Location = new Point(
+                (Location_x - pictureBox1.Width) / 2,
+                (Location_y - pictureBox1.Height) / 2);
+            
+        }
+
 
         // ゲームの初期化
         private void InitializeGame()
         {
-                    
-
+            
             this.Text = "Minesweeper";
                                   
 
             // グリッドとボタンの配列を作成
-            grid = new Cell[gridSize, gridSize];
-            buttons = new Button[gridSize, gridSize];
+            grid = new Cell[gridSize_x, gridSize_y];
+            buttons = new Button[gridSize_x, gridSize_y];
             isFirstClick = true;
             isGameOver = false;
 
@@ -101,9 +118,9 @@ namespace unilab2025
 
 
             // ボタンを動的に生成してフォームに配置
-            for (int x = 0; x < gridSize; x++)
+            for (int x = 0; x < gridSize_x; x++)
             {
-                for (int y = 0; y < gridSize; y++)
+                for (int y = 0; y < gridSize_y; y++)
                 {
                     buttons[x, y] = new Button
                     {
@@ -116,7 +133,7 @@ namespace unilab2025
                     pictureBox1.Controls.Add(buttons[x, y]);
                 }
             }
-            this.ClientSize = new Size(gridSize * 30 + offsetX, gridSize * 30 + 30 + offsetY);
+            this.ClientSize = new Size(gridSize_x * 30 + offsetX, gridSize_y * 30 + 30 + offsetY);
 
         }
 
@@ -135,6 +152,7 @@ namespace unilab2025
 
             // 古いボタンを削除
             pictureBox1.Controls.Clear();
+            LayoutControls();
             InitializeGame();
         }
 
@@ -145,8 +163,8 @@ namespace unilab2025
             int minesPlaced = 0;
             while (minesPlaced < mineCount)
             {
-                int x = random.Next(gridSize);
-                int y = random.Next(gridSize);
+                int x = random.Next(gridSize_x);
+                int y = random.Next(gridSize_y);
 
                 // 最初のクリック箇所と地雷の場所が重ならず、まだ地雷がない場合
                 if ((x != firstClickX || y != firstClickY) && !grid[x, y].isMine)
@@ -160,9 +178,9 @@ namespace unilab2025
         // 隣接する地雷の数を計算
         private void CalculateAdjacentMines()
         {
-            for (int x = 0; x < gridSize; x++)
+            for (int x = 0; x < gridSize_x; x++)
             {
-                for (int y = 0; y < gridSize; y++)
+                for (int y = 0; y < gridSize_y; y++)
                 {
                     if (grid[x, y].isMine) continue;
 
@@ -178,7 +196,7 @@ namespace unilab2025
                             int ny = y + dy;
 
                             // グリッドの範囲内かチェック
-                            if (nx >= 0 && nx < gridSize && ny >= 0 && ny < gridSize && grid[nx, ny].isMine)
+                            if (nx >= 0 && nx < gridSize_x && ny >= 0 && ny < gridSize_y && grid[nx, ny].isMine)
                             {
                                 count++;
                             }
@@ -224,9 +242,9 @@ namespace unilab2025
                         // (Math.Max/Minでグリッドの端をはみ出さないように調整)
                         int areaSize = 10; // 中心から±5マスで10x10の範囲
                         int minX = Math.Max(0, x - areaSize);
-                        int maxX = Math.Min(gridSize - 1, x + areaSize);
+                        int maxX = Math.Min(gridSize_x - 1, x + areaSize);
                         int minY = Math.Max(0, y - areaSize);
-                        int maxY = Math.Min(gridSize - 1, y + areaSize);
+                        int maxY = Math.Min(gridSize_y - 1, y + areaSize);
 
                         // 範囲を引数として渡してセルを開く
                         RevealCell(x, y, minX, maxX, minY, maxY);
@@ -295,9 +313,9 @@ namespace unilab2025
             timer1.Stop();
             gameStopwatch.Stop();
             // すべての地雷の場所を表示
-            for (int x = 0; x < gridSize; x++)
+            for (int x = 0; x < gridSize_x; x++)
             {
-                for (int y = 0; y < gridSize; y++)
+                for (int y = 0; y < gridSize_y; y++)
                 {
                     if (grid[x, y].isMine)
                     {
@@ -313,6 +331,7 @@ namespace unilab2025
             }
             else
             {
+                gameOverPanel.Visible = true;
                 MessageBox.Show("ゲームオーバー", "敗北");
             }
         }
@@ -321,9 +340,9 @@ namespace unilab2025
         private void CheckForWin()
         {
             int revealedCount = 0;
-            for (int x = 0; x < gridSize; x++)
+            for (int x = 0; x < gridSize_x; x++)
             {
-                for (int y = 0; y < gridSize; y++)
+                for (int y = 0; y < gridSize_y; y++)
                 {
                     if (grid[x, y].isRevealed)
                     {
@@ -332,7 +351,7 @@ namespace unilab2025
                 }
             }
 
-            if (revealedCount == (gridSize * gridSize) - mineCount)
+            if (revealedCount == (gridSize_x * gridSize_y) - mineCount)
             {
                 GameOver(true);
             }
@@ -357,6 +376,7 @@ namespace unilab2025
 
         private void button_Return_Click(object sender, EventArgs e)
         {
+           
             Func.CreateMiniGame(this);
         }
 
@@ -374,21 +394,25 @@ namespace unilab2025
             settingsPanel.Visible = false;
             instructionPanel.Visible = true;
         }
-
-        private void button_option_Click(object sender, EventArgs e)
-        {
-            instructionPanel.Visible = false;
-            settingsPanel.Visible = true;
-        }
+                
 
         private void button_keep_Click(object sender, EventArgs e)
         {
             settingsPanel.Visible = false;
             instructionPanel.Visible = true;
+            gridSize_y = (int)numericUpDown1.Value;
+            gridSize_x = (int)numericUpDown2.Value;
+            mineCount = (int)numericUpDown3.Value;
+
+
+
         }
         private void button_back_Click(object sender, EventArgs e)
         {
-
+            numericUpDown1.Value = 20;
+            numericUpDown2.Value = 20;
+            numericUpDown3.Value = 40;
+            comboBox1.SelectedItem = "たくさん";
         }
 
         private void InstructionPanel()
@@ -396,7 +420,7 @@ namespace unilab2025
             // 1. パネル（土台）を作成する
             
             instructionPanel.Name = "instructionPanel";
-            instructionPanel = new Panel { Size = new Size(660, 576), BackColor = Color.FromArgb(220, 240, 240, 240), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("MS UI Gothic", 15) };
+            instructionPanel = new Panel { Size = new Size(660, 576), BackColor = Color.FromArgb(220, 240, 240, 240), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("Meiryo UI", 12F) };
             this.Controls.Add(instructionPanel);
             //instructionPanel.Size = new Size(880, 720); // パネルのサイズ
             //instructionPanel.Size = new System.Drawing.Size(880, 720);
@@ -409,23 +433,49 @@ namespace unilab2025
                 (Location_y - instructionPanel.Height) / 2);
 
             // 2. ラベル（説明文）を作成する
-            Label Label1 = new Label { Text = "ゲームのせつめい", Font = new Font("MS UI Gothic", 30), Size = new Size(600, 50), Location = new Point(instructionPanel.Width / 2-150, 20) };
+            Label Label1 = new Label { Text = "ゲームのせつめい", Font = new Font("Meiryo UI", 30), Size = new Size(600, 50), Location = new Point(instructionPanel.Width / 2-150, 20), };
             instructionPanel.Controls.Add(Label1);
             //playerPictureBox = new PictureBox { Size = new Size(40, 40), Location = new Point(80, 100), SizeMode = PictureBoxSizeMode.Zoom };
-            Label playerLabel = new Label { Text = "◀ このペンギンをそうさします", Location = new Point(130, 110), Size = new Size(400, 30) };
+            Label Label2 = new Label { Text = "1. マスをクリック", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 80), Size = new Size(400, 30) };
             //instructionPanel.Controls.Add(playerPictureBox);
-            instructionPanel.Controls.Add(playerLabel);
+            instructionPanel.Controls.Add(Label2);
             //instructionPanel = new PictureBox { Size = new Size(40, 40), Location = new Point(80, 160), SizeMode = PictureBoxSizeMode.Zoom };
-            Label obstacleLabel = new Label { Text = "◀ このかべはよけてください", Location = new Point(130, 170), Size = new Size(400, 30) };
+            Label Label3 = new Label { Text = "さいしょはどこかすきなマスを選んでクリックしよう", Location = new Point(90, 110), Size = new Size(500, 30) };
             //instructionPanel.Controls.Add(obstaclePictureBox);
-            instructionPanel.Controls.Add(obstacleLabel);
+            instructionPanel.Controls.Add(Label3);
+            Label Label4 = new Label { Text = "2. すうじはヒント ", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 140), Size = new Size(400, 30) };            
+            instructionPanel.Controls.Add(Label4);            
+            Label Label5 = new Label { Text = "まわりのばくだんのかずをおしえてくれるよ", Location = new Point(90, 170), Size = new Size(500, 30) };            
+            instructionPanel.Controls.Add(Label5);
+            Label Label6 = new Label { Text = "3. ばくだんにはたを立てよう ", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 200), Size = new Size(400, 30) };
+            instructionPanel.Controls.Add(Label6);
+            Label Label7 = new Label { Text = "ばくだんだとおもうマスをみぎクリックしてはたをたてよう", Location = new Point(90, 230), Size = new Size(500, 30) };
+            instructionPanel.Controls.Add(Label7);
+            Label Label8 = new Label { Text = "4. ばくだんいがいをぜんぶひらけばクリア！！ ", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 260), Size = new Size(400, 30) };
+            instructionPanel.Controls.Add(Label8);
+            Label Label9 = new Label { Text = "まちがえてばくだんをクリックするとゲームオーバーだよ", Location = new Point(90, 290), Size = new Size(500, 30) };
+            instructionPanel.Controls.Add(Label9);
 
-
-            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(320, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
-            startButton.Click += (s, e) =>
+            Button backButton = new Button { Text = "もどる", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(120, 60), Location = new Point(instructionPanel.Width-150, 20)};
+            backButton.Visible = false;            
+            backButton.Click += (s, e) =>
             {
                 instructionPanel.Visible = false;
-                InitializeGame();
+
+            };
+            instructionPanel.Controls.Add(backButton);
+            backButton.BringToFront();
+
+            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(350, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            
+            startButton.Click += (s, e) =>
+            {
+                backButton.Visible = true;
+                instructionPanel.Visible = false;
+                LayoutControls();
+                ResetGame();
+                button_explain.Enabled = true;
+                button_Reset.Enabled = true;
 
             };
             instructionPanel.Controls.Add(startButton);
@@ -446,10 +496,21 @@ namespace unilab2025
 
 
         }
-        private void ShowOptionsPanel()
+
+        private void CreateGameOver()
         {
-            settingsPanel.Visible = true;
+            gameOverPanel = new Panel { Size = new Size(400, 300), BackColor = Color.FromArgb(220, 255, 255, 255), BorderStyle = BorderStyle.FixedSingle, Location = new Point(ClientSize.Width / 2 - 200, ClientSize.Height / 2 - 150), Visible = false };
+            Label lblGameOverTitle = new Label { Text = "Game Over", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };            
+            Button btnRestart = new Button { Text = "リスタート", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(20, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            btnRestart.Click += (s, e) => InitializeGame();
+            Button btnBackToList = new Button { Text = "いちらんにもどる", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(200, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            btnBackToList.Click += (s, e) => Func.CreateMiniGame(this);
+            gameOverPanel.Controls.Add(lblGameOverTitle);            
+            gameOverPanel.Controls.Add(btnRestart);
+            gameOverPanel.Controls.Add(btnBackToList);
+            this.Controls.Add(gameOverPanel);
         }
+        
 
         
     }

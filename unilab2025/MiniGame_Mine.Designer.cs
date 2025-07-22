@@ -35,8 +35,11 @@
             this.label_Time = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button_explain = new System.Windows.Forms.Button();
-            this.button_option = new System.Windows.Forms.Button();
             this.settingsPanel = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -66,9 +69,9 @@
             // 
             // button_Return
             // 
-            this.button_Return.Location = new System.Drawing.Point(28, 27);
+            this.button_Return.Location = new System.Drawing.Point(28, 9);
             this.button_Return.Name = "button_Return";
-            this.button_Return.Size = new System.Drawing.Size(333, 122);
+            this.button_Return.Size = new System.Drawing.Size(198, 82);
             this.button_Return.TabIndex = 1;
             this.button_Return.Text = "一覧に戻る";
             this.button_Return.UseVisualStyleBackColor = true;
@@ -76,11 +79,11 @@
             // 
             // button_Reset
             // 
-            this.button_Reset.Location = new System.Drawing.Point(1463, 300);
+            this.button_Reset.Location = new System.Drawing.Point(28, 175);
             this.button_Reset.Name = "button_Reset";
-            this.button_Reset.Size = new System.Drawing.Size(182, 93);
+            this.button_Reset.Size = new System.Drawing.Size(333, 108);
             this.button_Reset.TabIndex = 2;
-            this.button_Reset.Text = "リセット";
+            this.button_Reset.Text = "あたらしくはじめる";
             this.button_Reset.UseVisualStyleBackColor = true;
             this.button_Reset.Visible = false;
             this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
@@ -89,7 +92,7 @@
             // 
             this.label_Time.AutoSize = true;
             this.label_Time.Font = new System.Drawing.Font("MS UI Gothic", 30F);
-            this.label_Time.Location = new System.Drawing.Point(1356, 27);
+            this.label_Time.Location = new System.Drawing.Point(1346, 9);
             this.label_Time.Name = "label_Time";
             this.label_Time.Size = new System.Drawing.Size(254, 40);
             this.label_Time.TabIndex = 3;
@@ -102,27 +105,21 @@
             // 
             // button_explain
             // 
-            this.button_explain.Location = new System.Drawing.Point(28, 310);
+            this.button_explain.Location = new System.Drawing.Point(264, 9);
             this.button_explain.Name = "button_explain";
-            this.button_explain.Size = new System.Drawing.Size(333, 133);
+            this.button_explain.Size = new System.Drawing.Size(198, 82);
             this.button_explain.TabIndex = 4;
-            this.button_explain.Text = "説明";
+            this.button_explain.Text = "せつめい";
             this.button_explain.UseVisualStyleBackColor = true;
             this.button_explain.Click += new System.EventHandler(this.button_explain_Click);
-            // 
-            // button_option
-            // 
-            this.button_option.Location = new System.Drawing.Point(28, 161);
-            this.button_option.Name = "button_option";
-            this.button_option.Size = new System.Drawing.Size(333, 130);
-            this.button_option.TabIndex = 5;
-            this.button_option.Text = "オプション";
-            this.button_option.UseVisualStyleBackColor = true;
-            this.button_option.Click += new System.EventHandler(this.button_option_Click);
             // 
             // settingsPanel
             // 
             this.settingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.settingsPanel.Controls.Add(this.label10);
+            this.settingsPanel.Controls.Add(this.label9);
+            this.settingsPanel.Controls.Add(this.label8);
+            this.settingsPanel.Controls.Add(this.comboBox1);
             this.settingsPanel.Controls.Add(this.label7);
             this.settingsPanel.Controls.Add(this.label6);
             this.settingsPanel.Controls.Add(this.label5);
@@ -140,6 +137,49 @@
             this.settingsPanel.Size = new System.Drawing.Size(880, 720);
             this.settingsPanel.TabIndex = 6;
             this.settingsPanel.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("MS UI Gothic", 10F);
+            this.label10.Location = new System.Drawing.Point(107, 470);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(337, 14);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "（クリックしたときにどれくらいたくさんマスがひらくかきめられるよ）";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("MS UI Gothic", 15F);
+            this.label9.Location = new System.Drawing.Point(616, 431);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(168, 20);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "（デフォルト: たくさん）";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("MS UI Gothic", 15F);
+            this.label8.Location = new System.Drawing.Point(106, 431);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(147, 20);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "ひろがりのおおきさ";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("MS UI Gothic", 20F);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "たくさん",
+            "ふつう",
+            "すこし"});
+            this.comboBox1.Location = new System.Drawing.Point(429, 422);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(150, 35);
+            this.comboBox1.TabIndex = 7;
             // 
             // label7
             // 
@@ -185,7 +225,7 @@
             // button_back
             // 
             this.button_back.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.button_back.Location = new System.Drawing.Point(57, 525);
+            this.button_back.Location = new System.Drawing.Point(76, 525);
             this.button_back.Name = "button_back";
             this.button_back.Size = new System.Drawing.Size(305, 104);
             this.button_back.TabIndex = 7;
@@ -244,7 +284,7 @@
             // numericUpDown2
             // 
             this.numericUpDown2.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.numericUpDown2.Location = new System.Drawing.Point(429, 139);
+            this.numericUpDown2.Location = new System.Drawing.Point(429, 235);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(150, 34);
             this.numericUpDown2.TabIndex = 1;
@@ -252,7 +292,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("MS UI Gothic", 20F);
-            this.numericUpDown1.Location = new System.Drawing.Point(429, 234);
+            this.numericUpDown1.Location = new System.Drawing.Point(429, 140);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(150, 34);
             this.numericUpDown1.TabIndex = 0;
@@ -263,7 +303,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1687, 841);
             this.Controls.Add(this.settingsPanel);
-            this.Controls.Add(this.button_option);
             this.Controls.Add(this.button_explain);
             this.Controls.Add(this.label_Time);
             this.Controls.Add(this.button_Reset);
@@ -291,7 +330,6 @@
         private System.Windows.Forms.Label label_Time;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button_explain;
-        private System.Windows.Forms.Button button_option;
         private System.Windows.Forms.Panel settingsPanel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -305,5 +343,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
