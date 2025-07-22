@@ -1752,9 +1752,20 @@ namespace unilab2025
                             // 遷移後再生フラグ
                             CurrentFormState.NextConversationTrigger = "PLAY";
 
-                            // 画面遷移
-                            if (_worldNumber <= 4) Func.CreateWorldMap(this);
-                            else Func.CreateAnotherWorld(this);
+                            string message = "マップにもどる？";
+                            string caption = "確認";
+                            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                            DialogResult result;
+
+                            // 確認ダイアログを表示します。
+                            result = MessageBox.Show(this, message, caption, buttons, MessageBoxIcon.Warning);
+
+                            // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
+                            if (result == DialogResult.Yes)
+                            {
+                                if (_worldNumber <= 4) Func.CreateWorldMap(this);
+                                else Func.CreateAnotherWorld(this);
+                            }
                         }
                     }
                         //else
