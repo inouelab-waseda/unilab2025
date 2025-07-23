@@ -279,8 +279,12 @@ namespace unilab2025
         /// <summary>
         /// 次に再生すべき会話セグメント（※までの塊）を取得する
         /// </summary>
+        public static List<string> deferredCommands=new List<string>();
+        public static int Cov_Count;
+
         public static List<Conversation> GetNextSegment(Form currentForm)
         {
+            Cov_Count = 0;
             var segment = new List<Conversation>();
             WaitingForButton = null; // まず待機状態をリセット
 
@@ -309,17 +313,20 @@ namespace unilab2025
                         segment.Add(currentConv);
                     }
 
+                    Cov_Count = i;
+
                     currentSegmentStartIndex = i + 1;
                     break; // 現在のセグメントはここまで
                 }
                 else if (currentConv.Dialogue.Contains("C."))
                 {
                     // コマンド文字列はそのまま渡す
-                    string[] commandLines = currentConv.Dialogue.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string cmd in commandLines)
-                    {
-                        ExecuteInlineAction(cmd.Trim(), currentForm);
-                    }
+                    deferredCommands.Clear();
+                    deferredCommands.Add(currentConv.Dialogue);
+                    //foreach (string cmd in deferredCommands)
+                    //{
+                    //    ExecuteInlineAction(cmd.Trim(), currentForm);
+                    //}
                     currentSegmentStartIndex = i + 1;
 
                     continue;
@@ -537,10 +544,31 @@ namespace unilab2025
                 if (string.IsNullOrEmpty(WaitingForButton) && (activeConversation == null || currentSegmentStartIndex >= activeConversation.Count))
                 {
                     activeConversation = null;
+                    
+                }
+
+                if (deferredCommands != null)
+                {
+                    foreach (string cmd in deferredCommands)
+                    {
+                        ExecuteInlineAction(cmd.Trim(), currentForm);
+                    }
+                    deferredCommands.Clear();
                 }
 
                 return;
             }
+            //if(convIndex>= Cov_Count-1)
+            //{
+            //    if (deferredCommands != null)
+            //    {
+            //        foreach (string cmd in deferredCommands)
+            //        {
+            //            ExecuteInlineAction(cmd.Trim(), currentForm);
+            //        }
+            //        deferredCommands.Clear();
+            //    }
+            //}
 
             Bitmap bmp_Capt = ByteArrayToBitmap(Capt);
             Graphics g = Graphics.FromImage(bmp_Capt);
