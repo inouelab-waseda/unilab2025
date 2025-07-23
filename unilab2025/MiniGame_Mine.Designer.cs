@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiniGame_Mine));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button_Return = new System.Windows.Forms.Button();
             this.button_Reset = new System.Windows.Forms.Button();
@@ -61,11 +62,13 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Location = new System.Drawing.Point(453, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(971, 755);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // button_Return
             // 
@@ -333,6 +336,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1687, 841);
             this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.button_explain);
@@ -340,6 +345,7 @@
             this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.button_Return);
             this.Controls.Add(this.pictureBox1);
+            this.DoubleBuffered = true;
             this.Name = "MiniGame_Mine";
             this.Text = "minesweeper";
             this.Load += new System.EventHandler(this.minesweeper_Load);

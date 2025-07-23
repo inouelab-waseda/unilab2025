@@ -58,6 +58,7 @@ namespace unilab2025
         public MiniGame_Mine()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
             this.WindowState = FormWindowState.Maximized;
             gameStopwatch = new Stopwatch();
             instructionPanel.Visible = false;
@@ -85,7 +86,7 @@ namespace unilab2025
             //{
             //    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             //}
-            LayoutControls();
+            //LayoutControls();
             InstructionPanel();
             CreateGameOver();
             //InitializeGame();
@@ -154,6 +155,7 @@ namespace unilab2025
             gameStopwatch.Reset();// 経過時間をリセット
             label_Time.Text = "Time: 00:00.00"; // ラベル表示をリセット
 
+            pictureBox1.Visible = true;
             this.SuspendLayout();
             pictureBox1.SuspendLayout();
             // 古いボタンを削除
@@ -452,7 +454,7 @@ namespace unilab2025
             // 1. パネル（土台）を作成する
             
             instructionPanel.Name = "instructionPanel";
-            instructionPanel = new Panel { Size = new Size(660, 576), BackColor = Color.FromArgb(220, 240, 240, 240), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("Meiryo UI", 12F) };
+            instructionPanel = new Panel { Size = new Size(660, 576), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("Meiryo UI", 12F) };
             this.Controls.Add(instructionPanel);
             //instructionPanel.Size = new Size(880, 720); // パネルのサイズ
             //instructionPanel.Size = new System.Drawing.Size(880, 720);
@@ -537,7 +539,7 @@ namespace unilab2025
         {
             gameOverPanel = new Panel { Size = new Size(400, 300), BackColor = Color.FromArgb(220, 255, 255, 255), BorderStyle = BorderStyle.FixedSingle, Location = new Point((Location_x - 400) / 2,(Location_y - 300) / 2), Visible = false };
             lblGameOverTitle = new Label { Text = "Game Over", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
-            lblClearTitle = new Label { Text = "Clear!　おめでとう！", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
+            lblClearTitle = new Label { Text = "Clear!", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
             Button btnRestart = new Button { Text = "リスタート", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(20, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
             btnRestart.Click += (s, e) => { instructionPanel.Visible = true; gameOverPanel.Visible = false; };
             Button btnBackToList = new Button { Text = "いちらんにもどる", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(200, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
