@@ -42,6 +42,9 @@ namespace unilab2025
 
         private Stopwatch gameStopwatch;//時間
 
+        private Label lblGameOverTitle;
+        private Label lblClearTitle;
+
         PictureBox pictureBox_Conv;
         byte[] Capt;
         List<Conversation> Message;
@@ -97,7 +100,7 @@ namespace unilab2025
             pictureBox1.Location = new Point(
                 (Location_x - pictureBox1.Width) / 2,
                 (Location_y - pictureBox1.Height) / 2);
-            
+            pictureBox1.Update(); // UI再描画を明示的に促す
         }
 
 
@@ -151,11 +154,15 @@ namespace unilab2025
             gameStopwatch.Reset();// 経過時間をリセット
             label_Time.Text = "Time: 00:00.00"; // ラベル表示をリセット
 
-
+            this.SuspendLayout();
+            pictureBox1.SuspendLayout();
             // 古いボタンを削除
             pictureBox1.Controls.Clear();
             LayoutControls();
             InitializeGame();
+
+            pictureBox1.ResumeLayout();
+            this.ResumeLayout();
         }
 
         // 地雷の配置（最初のクリック後に行う）
@@ -329,12 +336,18 @@ namespace unilab2025
 
             if (won)
             {
-                MessageBox.Show("クリア！おめでとう！", "勝利");
+                
+                gameOverPanel.Visible = true;
+                lblGameOverTitle.Visible = false;
+                lblClearTitle.Visible = true;
+                //MessageBox.Show("クリア！おめでとう！", "勝利");
             }
             else
             {
                 gameOverPanel.Visible = true;
-                MessageBox.Show("ゲームオーバー", "敗北");
+                lblGameOverTitle.Visible = true;
+                lblClearTitle.Visible = false;
+                //MessageBox.Show("ゲームオーバー", "敗北");
             }
         }
 
@@ -422,6 +435,8 @@ namespace unilab2025
                 wide_y = 3;
             }
 
+           
+
 
         }
         private void button_back_Click(object sender, EventArgs e)
@@ -432,7 +447,7 @@ namespace unilab2025
             comboBox1.SelectedItem = "たくさん";
         }
 
-        private void InstructionPanel()
+        private async Task InstructionPanel()
         {
             // 1. パネル（土台）を作成する
             
@@ -483,16 +498,20 @@ namespace unilab2025
             instructionPanel.Controls.Add(backButton);
             backButton.BringToFront();
 
-            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(350, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            Button startButton = new Button { Text = "あたらしくはじめる", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(350, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
             
-            startButton.Click += (s, e) =>
+            startButton.Click += async(s, e) =>
             {
-                backButton.Visible = true;
+                //instructionPanel.SuspendLayout();
                 instructionPanel.Visible = false;
-                LayoutControls();
+                //instructionPanel.ResumeLayout();
+                Application.DoEvents();
+                //await Task.Yield();
+                //LayoutControls();
                 ResetGame();
                 button_explain.Enabled = true;
                 button_Reset.Enabled = true;
+                backButton.Visible = true;
 
             };
             instructionPanel.Controls.Add(startButton);
@@ -516,19 +535,35 @@ namespace unilab2025
 
         private void CreateGameOver()
         {
-            gameOverPanel = new Panel { Size = new Size(400, 300), BackColor = Color.FromArgb(220, 255, 255, 255), BorderStyle = BorderStyle.FixedSingle, Location = new Point(ClientSize.Width / 2 - 200, ClientSize.Height / 2 - 150), Visible = false };
-            Label lblGameOverTitle = new Label { Text = "Game Over", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };            
+            gameOverPanel = new Panel { Size = new Size(400, 300), BackColor = Color.FromArgb(220, 255, 255, 255), BorderStyle = BorderStyle.FixedSingle, Location = new Point((Location_x - 400) / 2,(Location_y - 300) / 2), Visible = false };
+            lblGameOverTitle = new Label { Text = "Game Over", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
+            lblClearTitle = new Label { Text = "Clear!　おめでとう！", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
             Button btnRestart = new Button { Text = "リスタート", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(20, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
-            btnRestart.Click += (s, e) => InitializeGame();
+            btnRestart.Click += (s, e) => { instructionPanel.Visible = true; gameOverPanel.Visible = false; };
             Button btnBackToList = new Button { Text = "いちらんにもどる", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(200, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
             btnBackToList.Click += (s, e) => Func.CreateMiniGame(this);
-            gameOverPanel.Controls.Add(lblGameOverTitle);            
+            gameOverPanel.Controls.Add(lblGameOverTitle);
+            gameOverPanel.Controls.Add(lblClearTitle);
             gameOverPanel.Controls.Add(btnRestart);
             gameOverPanel.Controls.Add(btnBackToList);
             this.Controls.Add(gameOverPanel);
+            gameOverPanel.BringToFront();
         }
-        
 
-        
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown3.Maximum = (int)numericUpDown1.Value* (int)numericUpDown2.Value;
+            label3.Text = "ばくだんのかず （0-"+ numericUpDown1.Value * numericUpDown2.Value + "）";
+            label7.Text = "（おすすめ: "+ (int)numericUpDown1.Value* (int)numericUpDown2.Value*0.1 +"）";
+            //numericUpDown3.Value= numericUpDown1.Value* numericUpDown2.Value*0.1M;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown3.Maximum = (int)numericUpDown1.Value * (int)numericUpDown2.Value;
+            label3.Text = "ばくだんのかず （0-" + numericUpDown1.Value * numericUpDown2.Value + "）";
+            label7.Text = "（おすすめ: " + (int)numericUpDown1.Value * (int)numericUpDown2.Value * 0.1 + "）";
+            //numericUpDown3.Value = numericUpDown1.Value * numericUpDown2.Value * 0.1M;
+        }
     }
 }
