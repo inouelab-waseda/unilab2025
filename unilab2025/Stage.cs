@@ -2028,7 +2028,7 @@ namespace unilab2025
         private void AdvanceConversation()
         {
             if (currentConversation != null && Capt != null)
-            {
+            {                
                 Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
             }
         }

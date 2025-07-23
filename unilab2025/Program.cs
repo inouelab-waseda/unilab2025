@@ -169,6 +169,7 @@ namespace unilab2025
     //会話データ読込
     public static partial class Func
     {
+
         //セリフCSV読み込み
         public static List<Conversation> LoadConversationCSV(string ConvertationCSVFileName)
         {
@@ -313,7 +314,7 @@ namespace unilab2025
                 }
                 else if (currentConv.Dialogue.Contains("C."))
                 {
-                    // コマンド文字列はそのまま渡す（複数行ある場合は分割）
+                    // コマンド文字列はそのまま渡す
                     string[] commandLines = currentConv.Dialogue.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string cmd in commandLines)
                     {
