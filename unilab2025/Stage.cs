@@ -463,24 +463,36 @@ namespace unilab2025
             // キャラクターの描画をループの外に出す
             cell_length = pictureBox_Map2.Width / map_width;
 
-
+            Random rand = new Random();
             for (int y = 0; y < map_width; y++)
             {
                 for (int x = 0; x < map_width; x++)
                 {
                     int placeX = x * cell_length;
                     int placeY = y * cell_length;
-                    if ((_worldNumber < 5&&_level == 3 && map[x, y] == 1)|| (_worldNumber ==1 && _level == 2 && map[x, y] == 1)) 
-                    { 
-                        g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);                                         
+                    if ((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1))
+                    {
+
+                        g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 100).ToString()], placeX, placeY, cell_length, cell_length);
+
                     }
-                    else if (_worldNumber < 5|| _worldNumber==7) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    else if (_worldNumber < 5 || _worldNumber == 7) 
+                    { 
+                        //if((x==0||y==0||x== map_width-1||y== map_width-1)&& map[x, y] == 2)
+                        //{
+                        //    int num = rand.Next(0,80);
+                        //    int num2 = num / 20;
+                        //    g1.DrawImage(Dictionaries.Img_Object["grass"+num2], placeX, placeY, cell_length, cell_length);
+                        //}
+                        //else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                        g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    }
                     else
                     {
                         switch (_worldNumber)
                         {
                             case 5:
-                                if(map[x, y] == 4|| map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
+                                if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 if (map[x, y] == 4)
                                 {
@@ -495,12 +507,12 @@ namespace unilab2025
                                     y_panda = y;
                                 }
                                 break;
-        
+
                             case 6:
-                                if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
-                                else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
+                                if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 100).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
-                            
+
                             case 8:
                                 if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 200).ToString()], placeX, placeY, cell_length, cell_length);
