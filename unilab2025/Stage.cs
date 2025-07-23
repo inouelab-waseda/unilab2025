@@ -263,7 +263,7 @@ namespace unilab2025
             if (File.Exists($"Conversation\\{convFileName}"))
             {
                 // Func.LoadStoriesは最初のセグメントを返すように変更したため、戻り値を直接currentConversationに格納
-                currentConversation = Func.LoadStories(convFileName, "※");
+                currentConversation = Func.LoadStories(convFileName,this, "※");
 
                 isMessageMode = false;
             }
@@ -817,7 +817,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "start")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -874,7 +874,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "up")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -899,7 +899,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "right")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -923,7 +923,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "down")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -947,7 +947,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "left")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1053,7 +1053,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "car")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1150,7 +1150,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "carEnter")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1293,7 +1293,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "up")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1311,7 +1311,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "right")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1329,7 +1329,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "down")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1347,7 +1347,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "left")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1741,7 +1741,7 @@ namespace unilab2025
                         if (Func.WaitingForButton == "Clear")
                         {
                             // 次の会話セグメントを取得して再生
-                            currentConversation = Func.GetNextSegment();
+                            currentConversation = Func.GetNextSegment(this);
                             if (currentConversation != null && currentConversation.Count > 0)
                             {
                                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);

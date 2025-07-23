@@ -251,7 +251,7 @@ namespace unilab2025
         //    return Message;
         //}
 
-        public static List<Conversation> LoadStories(string ConvFileName, string cutSymbol = "※")
+        public static List<Conversation> LoadStories(string ConvFileName, Form currentForm, string cutSymbol = "※")
         {
             // 全会話データを読み込む
             activeConversation = new List<Conversation>();
@@ -272,13 +272,13 @@ namespace unilab2025
             WaitingForButton = null;
 
             // 最初のセグメントを返却
-            return GetNextSegment();
+            return GetNextSegment(currentForm);
         }
 
         /// <summary>
         /// 次に再生すべき会話セグメント（※までの塊）を取得する
         /// </summary>
-        public static List<Conversation> GetNextSegment()
+        public static List<Conversation> GetNextSegment(Form currentForm)
         {
             var segment = new List<Conversation>();
             WaitingForButton = null; // まず待機状態をリセット
@@ -311,6 +311,19 @@ namespace unilab2025
                     currentSegmentStartIndex = i + 1;
                     break; // 現在のセグメントはここまで
                 }
+                else if (currentConv.Dialogue.Contains("C."))
+                {
+                    // コマンド文字列はそのまま渡す（複数行ある場合は分割）
+                    string[] commandLines = currentConv.Dialogue.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string cmd in commandLines)
+                    {
+                        ExecuteInlineAction(cmd.Trim(), currentForm);
+                    }
+                    currentSegmentStartIndex = i + 1;
+
+                    continue;
+                    //break; // コマンドは会話に表示しない
+                }
                 else
                 {
                     segment.Add(currentConv);
@@ -321,6 +334,42 @@ namespace unilab2025
             return segment;
         }
 
+        //コマンド実行
+        public static void ExecuteInlineAction(string command, Form form)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(command)) return;
+
+                // 独自コマンドの対応
+                if (command.Equals("C.show_finger1", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger1", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger1", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger1", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"命令実行エラー: {ex.Message}", "エラー");
+            }
+        }
 
         //メッセージボックス
         public static PictureBox CreatePictureBox_Conv(Form currentForm)

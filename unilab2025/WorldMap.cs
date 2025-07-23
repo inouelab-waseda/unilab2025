@@ -90,7 +90,7 @@ namespace unilab2025
                 CurrentFormState.NextConversationTrigger = null;
 
                 // 会話再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
