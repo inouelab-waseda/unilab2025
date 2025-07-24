@@ -249,7 +249,7 @@ namespace unilab2025
             map = CreateStage(stageName); //ステージ作成
 
             button_carEnter.BackgroundImage= Dictionaries.Img_Button["入れるoff"];
-
+            
 
             InputListBox = listBox_Order;
             ListBoxes.Add(listBox_Order);
@@ -928,6 +928,10 @@ namespace unilab2025
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
+                else
+                {
+                    Func.Commond_Action(this);
+                }
             }
         }
         private void PictureBox_lowerLeft_Click(object sender, EventArgs e)
@@ -1408,6 +1412,10 @@ namespace unilab2025
             pictureBox_buttonLeft.Image = RotateImage(original, 270f);
             pictureBox_upperLeft.Image = RotateImage(original, 315f);
         }
+
+
+        //指差しボタンの動き
+
 
 
         #endregion

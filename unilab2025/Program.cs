@@ -320,8 +320,7 @@ namespace unilab2025
                 }
                 else if (currentConv.Dialogue.Contains("C."))
                 {
-                    // コマンド文字列はそのまま渡す
-                    deferredCommands.Clear();
+                    // コマンド文字列はそのまま渡す                    
                     deferredCommands.Add(currentConv.Dialogue);
                     //foreach (string cmd in deferredCommands)
                     //{
@@ -371,11 +370,84 @@ namespace unilab2025
                     return;
                 }
 
+                else if (command.Equals("C.show_finger2", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger2", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger2", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger2", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.show_finger3", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger3", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger3", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger3", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.show_finger4", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger4", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger4", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger4", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+
             }
 
             catch (Exception ex)
             {
                 MessageBox.Show($"命令実行エラー: {ex.Message}", "エラー");
+            }
+        }
+
+        public static void Commond_Action(Form currentForm)
+        {
+            if (deferredCommands != null)
+            {
+                foreach (string cmd in deferredCommands)
+                {
+                    ExecuteInlineAction(cmd.Trim(), currentForm);
+                }
+                deferredCommands.Clear();
             }
         }
 

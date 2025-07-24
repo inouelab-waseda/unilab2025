@@ -65,6 +65,9 @@
             this.button_meteo = new System.Windows.Forms.Button();
             this.label_car_Input = new System.Windows.Forms.Label();
             this.pictureBox_finger1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -79,6 +82,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger4)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -122,7 +128,6 @@
             // pictureBox_Car
             // 
             this.pictureBox_Car.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Car.BackgroundImage")));
-            this.pictureBox_Car.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox_Car.Location = new System.Drawing.Point(1429, 20);
             this.pictureBox_Car.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_Car.Name = "pictureBox_Car";
@@ -505,6 +510,42 @@
             this.pictureBox_finger1.TabStop = false;
             this.pictureBox_finger1.Visible = false;
             // 
+            // pictureBox_finger2
+            // 
+            this.pictureBox_finger2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger2.BackgroundImage")));
+            this.pictureBox_finger2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger2.Location = new System.Drawing.Point(1124, 776);
+            this.pictureBox_finger2.Name = "pictureBox_finger2";
+            this.pictureBox_finger2.Size = new System.Drawing.Size(184, 167);
+            this.pictureBox_finger2.TabIndex = 47;
+            this.pictureBox_finger2.TabStop = false;
+            this.pictureBox_finger2.Visible = false;
+            // 
+            // pictureBox_finger3
+            // 
+            this.pictureBox_finger3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger3.BackgroundImage")));
+            this.pictureBox_finger3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger3.Location = new System.Drawing.Point(1230, 736);
+            this.pictureBox_finger3.Name = "pictureBox_finger3";
+            this.pictureBox_finger3.Size = new System.Drawing.Size(184, 167);
+            this.pictureBox_finger3.TabIndex = 48;
+            this.pictureBox_finger3.TabStop = false;
+            this.pictureBox_finger3.Visible = false;
+            // 
+            // pictureBox_finger4
+            // 
+            this.pictureBox_finger4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger4.BackgroundImage")));
+            this.pictureBox_finger4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger4.Location = new System.Drawing.Point(1273, 278);
+            this.pictureBox_finger4.Name = "pictureBox_finger4";
+            this.pictureBox_finger4.Size = new System.Drawing.Size(155, 149);
+            this.pictureBox_finger4.TabIndex = 49;
+            this.pictureBox_finger4.TabStop = false;
+            this.pictureBox_finger4.Visible = false;
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -512,6 +553,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1909, 944);
+            this.Controls.Add(this.pictureBox_finger4);
+            this.Controls.Add(this.pictureBox_finger3);
+            this.Controls.Add(this.pictureBox_finger2);
             this.Controls.Add(this.pictureBox_finger1);
             this.Controls.Add(this.label_car_Input);
             this.Controls.Add(this.button_meteo);
@@ -567,6 +611,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -610,6 +657,9 @@
         private System.Windows.Forms.Button button_meteo;
         private System.Windows.Forms.Label label_car_Input;
         private System.Windows.Forms.PictureBox pictureBox_finger1;
+        private System.Windows.Forms.PictureBox pictureBox_finger2;
+        private System.Windows.Forms.PictureBox pictureBox_finger3;
+        private System.Windows.Forms.PictureBox pictureBox_finger4;
     }
 }
 
