@@ -210,6 +210,8 @@ namespace unilab2025
         public static int x_penguin; //現在位置ｘ
         public static int y_penguin; //現在位置 y
 
+
+
         //表示される絵文字
         public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
         {
@@ -1415,6 +1417,122 @@ namespace unilab2025
 
 
         //指差しボタンの動き
+        private void pictureBox_finger1_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+        private void pictureBox_finger2_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+        private void pictureBox_finger3_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+        private void pictureBox_finger4_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+
+        private Dictionary<PictureBox, System.Windows.Forms.Timer> pointerTimers = new Dictionary<PictureBox, System.Windows.Forms.Timer>();
+        private Dictionary<PictureBox, int> originalYPositions = new Dictionary<PictureBox, int>();
+        private Dictionary<PictureBox, bool> movingUpMap = new Dictionary<PictureBox, bool>();
+
+        private void SetupPointerAnimation(PictureBox name)
+        {
+            if (!pointerTimers.ContainsKey(name))
+            {
+                // 初期Y座標記録
+                originalYPositions[name] = name.Top;
+                movingUpMap[name] = true;
+
+                System.Windows.Forms.Timer moveTimer = new System.Windows.Forms.Timer();
+                moveTimer.Interval = 50;
+                moveTimer.Tick += (s, e) => MovePointer(name);
+                pointerTimers[name] = moveTimer;
+            }
+
+            pointerTimers[name].Start();
+        }
+
+        private void MovePointer(PictureBox name)
+        {
+            int delta = 2;
+
+            if (!originalYPositions.ContainsKey(name)) return;
+
+            int originalY = originalYPositions[name];
+            bool movingUp = movingUpMap[name];
+
+            if (movingUp)
+            {
+                name.Top -= delta;
+                if (name.Top <= originalY - 5)
+                    movingUpMap[name] = false;
+            }
+            else
+            {
+                name.Top += delta;
+                if (name.Top >= originalY + 5)
+                    movingUpMap[name] = true;
+            }
+        }
+
+        private void StopPointerAnimation(PictureBox name)
+        {
+            if (pointerTimers.ContainsKey(name))
+            {
+                pointerTimers[name].Stop();
+            }
+        }
 
 
 

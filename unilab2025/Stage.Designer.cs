@@ -128,6 +128,7 @@
             // pictureBox_Car
             // 
             this.pictureBox_Car.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Car.BackgroundImage")));
+            this.pictureBox_Car.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox_Car.Location = new System.Drawing.Point(1429, 20);
             this.pictureBox_Car.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_Car.Name = "pictureBox_Car";
@@ -509,6 +510,7 @@
             this.pictureBox_finger1.TabIndex = 46;
             this.pictureBox_finger1.TabStop = false;
             this.pictureBox_finger1.Visible = false;
+            this.pictureBox_finger1.VisibleChanged += new System.EventHandler(this.pictureBox_finger1_VisibleChanged);
             // 
             // pictureBox_finger2
             // 
@@ -521,6 +523,7 @@
             this.pictureBox_finger2.TabIndex = 47;
             this.pictureBox_finger2.TabStop = false;
             this.pictureBox_finger2.Visible = false;
+            this.pictureBox_finger2.VisibleChanged += new System.EventHandler(this.pictureBox_finger2_VisibleChanged);
             // 
             // pictureBox_finger3
             // 
@@ -533,6 +536,7 @@
             this.pictureBox_finger3.TabIndex = 48;
             this.pictureBox_finger3.TabStop = false;
             this.pictureBox_finger3.Visible = false;
+            this.pictureBox_finger3.VisibleChanged += new System.EventHandler(this.pictureBox_finger3_VisibleChanged);
             // 
             // pictureBox_finger4
             // 
@@ -545,6 +549,7 @@
             this.pictureBox_finger4.TabIndex = 49;
             this.pictureBox_finger4.TabStop = false;
             this.pictureBox_finger4.Visible = false;
+            this.pictureBox_finger4.VisibleChanged += new System.EventHandler(this.pictureBox_finger4_VisibleChanged);
             // 
             // Stage
             // 
