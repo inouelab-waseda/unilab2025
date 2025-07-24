@@ -33,6 +33,7 @@ namespace unilab2025
         public int mineCount = 40; // 地雷の数
         public int wide_x=10;
         public int wide_y = 10;
+        public string mine;
 
         public int Location_x;
         public int Location_y;
@@ -56,11 +57,12 @@ namespace unilab2025
         Panel instructionPanel = new Panel();
         Panel gameOverPanel = new Panel();
 
+        private Panel boardPanel;
 
         public MiniGame_Mine()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
+            this.DoubleBuffered = true;            
             this.WindowState = FormWindowState.Maximized;
             gameStopwatch = new Stopwatch();
             instructionPanel.Visible = false;
@@ -82,6 +84,7 @@ namespace unilab2025
             numericUpDown2.Value = 20;
             numericUpDown3.Value = 40;
             comboBox1.SelectedItem = "たくさん";
+            mine= "たくさん";
 
             //currentConversation = Dictionaries.Conversations["mine"];
             //if (currentConversation != null && currentConversation.Count > 0)
@@ -106,7 +109,14 @@ namespace unilab2025
         //    pictureBox1.Update(); // UI再描画を明示的に促す
         //}
 
-
+        public class DoubleBufferedPanel : Panel
+        {
+            public DoubleBufferedPanel()
+            {
+                this.DoubleBuffered = true;
+                this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            }
+        }
         // ゲームの初期化
         private void InitializeGame()
         {
@@ -122,9 +132,28 @@ namespace unilab2025
             gridSize_x_b = gridSize_x;
             gridSize_y_b = gridSize_y;
 
-            int offsetX = (Location_x - (gridSize_x * 30 + 100)) / 2+50; // フォームの左端から50ピクセル右にずらす
-            int offsetY = (Location_y - (gridSize_y * 30 + 200)) / 2+100; // メニューバーの下から100ピクセル下にずらす
+            if (boardPanel == null)
+            {
+                boardPanel = new DoubleBufferedPanel
+                {
+                    BackColor = Color.Transparent,
+                    // パネルだけをダブルバッファに（拡張メソッドや継承で設定してもOK）
+                };
+                this.Controls.Add(boardPanel);
+            }
+            else
+            {
+                boardPanel.SuspendLayout();
+                boardPanel.Controls.Clear();
+            }
 
+
+            int offsetX = 50; // フォームの左端から50ピクセル右にずらす
+            int offsetY =100; // メニューバーの下から100ピクセル下にずらす
+
+            boardPanel.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
+            boardPanel.Location = new Point((Location_x - boardPanel.Width) / 2,(Location_y - boardPanel.Height) / 2); // 必要なら中央配置でもOK
+            
 
             // ボタンを動的に生成してフォームに配置
             for (int x = 0; x < gridSize_x; x++)
@@ -139,11 +168,11 @@ namespace unilab2025
                         Tag = new Point(x, y) // ボタンに座標を記憶させる
                     };
                     buttons[x, y].MouseUp += Cell_MouseUp; // マウスイベントハンドラを追加
-                    this.Controls.Add(buttons[x, y]);
+                    boardPanel.Controls.Add(buttons[x, y]);
                 }
             }
-            this.ClientSize = new Size(gridSize_x * 30 + offsetX, gridSize_y * 30 + 30 + offsetY);
-
+            //this.ClientSize = new Size(gridSize_x * 30 + offsetX, gridSize_y * 30 + 30 + offsetY);
+            boardPanel.ResumeLayout();
         }
 
         // ゲームのリセット
@@ -154,42 +183,27 @@ namespace unilab2025
         }
         private void ResetGame()
         {
+            
             timer1.Stop(); // 念のためタイマーを停止
             gameStopwatch.Reset();// 経過時間をリセット
             label_Time.Text = "Time: 00:00.00"; // ラベル表示をリセット
-            RemoveGameButtons();
-            //pictureBox1.Visible = true;
             this.SuspendLayout();
-            //pictureBox1.SuspendLayout();
-            // 古いボタンを削除
+            RemoveGameButtons();
             
-            //LayoutControls();
-            
-
             InitializeGame();
-
-            //pictureBox1.ResumeLayout();
+            
             this.ResumeLayout();
         }
         private void RemoveGameButtons()
         {
-            this.SuspendLayout();
-            if (buttons == null) return;
-
-            for (int x = 0; x < gridSize_x_b; x++)
+           
+            if (buttons != null) 
             {
-                for (int y = 0; y < gridSize_y_b; y++)
-                {
-                    if (buttons[x, y] != null)
-                    {
-                        this.Controls.Remove(buttons[x, y]);
-                        buttons[x, y].Dispose();
-                        buttons[x, y] = null; // 参照をクリア
-                    }
-                }
+                //boardPanel.Visible = false;  // 非表示にしてから削除
+                this.Controls.Remove(boardPanel);
+                boardPanel.Dispose();
+                boardPanel = null;
             }
-            this.ResumeLayout();
-            this.Invalidate();
         }
 
 
@@ -443,6 +457,13 @@ namespace unilab2025
         {
             settingsPanel.Visible = false;
             instructionPanel.Visible = true;
+            if (gridSize_y != (int)numericUpDown1.Value|| gridSize_x != (int)numericUpDown2.Value|| mineCount != (int)numericUpDown3.Value|| comboBox1.SelectedItem != mine)
+            {
+                if (boardPanel != null)
+                {
+                    boardPanel.Visible = false;
+                }
+            }
             gridSize_y = (int)numericUpDown1.Value;
             gridSize_x = (int)numericUpDown2.Value;
             mineCount = (int)numericUpDown3.Value;
@@ -451,16 +472,19 @@ namespace unilab2025
             {
                 wide_x = gridSize_x/2;
                 wide_y = gridSize_y/2;
+                mine = "たくさん";
             }
             else if(comboBox1.SelectedItem == "ふつう")
             {
                 wide_x = gridSize_x / 3;
                 wide_y = gridSize_y / 3;
+                mine = "ふつう";
             }
             else if (comboBox1.SelectedItem == "すこし")
             {
                 wide_x = 3;
                 wide_y = 3;
+                mine = "すこし";
             }
 
            
