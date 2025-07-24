@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiniGame_Mine));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button_Return = new System.Windows.Forms.Button();
             this.button_Reset = new System.Windows.Forms.Button();
             this.label_Time = new System.Windows.Forms.Label();
@@ -53,22 +52,11 @@
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.settingsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Location = new System.Drawing.Point(453, 27);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(971, 755);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // button_Return
             // 
@@ -344,12 +332,10 @@
             this.Controls.Add(this.label_Time);
             this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.button_Return);
-            this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.Name = "MiniGame_Mine";
             this.Text = "minesweeper";
             this.Load += new System.EventHandler(this.minesweeper_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.settingsPanel.ResumeLayout(false);
             this.settingsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
@@ -361,8 +347,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button_Return;
         private System.Windows.Forms.Button button_Reset;
         private System.Windows.Forms.Label label_Time;

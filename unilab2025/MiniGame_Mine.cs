@@ -28,6 +28,8 @@ namespace unilab2025
         // --- ゲーム設定 ---
         public int gridSize_x = 20; // グリッドのサイズ (10x10)
         public int gridSize_y = 20;
+        public int gridSize_x_b = 20; // グリッドのサイズ (10x10)
+        public int gridSize_y_b = 20;
         public int mineCount = 40; // 地雷の数
         public int wide_x=10;
         public int wide_y = 10;
@@ -94,15 +96,15 @@ namespace unilab2025
             button_Reset.Enabled = false;
         }
 
-        private void LayoutControls()
-        {
-            // PictureBoxをフォームの中央に配置
-            pictureBox1.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
-            pictureBox1.Location = new Point(
-                (Location_x - pictureBox1.Width) / 2,
-                (Location_y - pictureBox1.Height) / 2);
-            pictureBox1.Update(); // UI再描画を明示的に促す
-        }
+        //private void LayoutControls()
+        //{
+        //    // PictureBoxをフォームの中央に配置
+        //    pictureBox1.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
+        //    pictureBox1.Location = new Point(
+        //        (Location_x - pictureBox1.Width) / 2,
+        //        (Location_y - pictureBox1.Height) / 2);
+        //    pictureBox1.Update(); // UI再描画を明示的に促す
+        //}
 
 
         // ゲームの初期化
@@ -117,10 +119,11 @@ namespace unilab2025
             buttons = new Button[gridSize_x, gridSize_y];
             isFirstClick = true;
             isGameOver = false;
+            gridSize_x_b = gridSize_x;
+            gridSize_y_b = gridSize_y;
 
-
-            int offsetX = 50; // フォームの左端から50ピクセル右にずらす
-            int offsetY = 100; // メニューバーの下から100ピクセル下にずらす
+            int offsetX = (Location_x - (gridSize_x * 30 + 100)) / 2+50; // フォームの左端から50ピクセル右にずらす
+            int offsetY = (Location_y - (gridSize_y * 30 + 200)) / 2+100; // メニューバーの下から100ピクセル下にずらす
 
 
             // ボタンを動的に生成してフォームに配置
@@ -136,7 +139,7 @@ namespace unilab2025
                         Tag = new Point(x, y) // ボタンに座標を記憶させる
                     };
                     buttons[x, y].MouseUp += Cell_MouseUp; // マウスイベントハンドラを追加
-                    pictureBox1.Controls.Add(buttons[x, y]);
+                    this.Controls.Add(buttons[x, y]);
                 }
             }
             this.ClientSize = new Size(gridSize_x * 30 + offsetX, gridSize_y * 30 + 30 + offsetY);
@@ -154,18 +157,41 @@ namespace unilab2025
             timer1.Stop(); // 念のためタイマーを停止
             gameStopwatch.Reset();// 経過時間をリセット
             label_Time.Text = "Time: 00:00.00"; // ラベル表示をリセット
-
-            pictureBox1.Visible = true;
+            RemoveGameButtons();
+            //pictureBox1.Visible = true;
             this.SuspendLayout();
-            pictureBox1.SuspendLayout();
+            //pictureBox1.SuspendLayout();
             // 古いボタンを削除
-            pictureBox1.Controls.Clear();
-            LayoutControls();
+            
+            //LayoutControls();
+            
+
             InitializeGame();
 
-            pictureBox1.ResumeLayout();
+            //pictureBox1.ResumeLayout();
             this.ResumeLayout();
         }
+        private void RemoveGameButtons()
+        {
+            this.SuspendLayout();
+            if (buttons == null) return;
+
+            for (int x = 0; x < gridSize_x_b; x++)
+            {
+                for (int y = 0; y < gridSize_y_b; y++)
+                {
+                    if (buttons[x, y] != null)
+                    {
+                        this.Controls.Remove(buttons[x, y]);
+                        buttons[x, y].Dispose();
+                        buttons[x, y] = null; // 参照をクリア
+                    }
+                }
+            }
+            this.ResumeLayout();
+            this.Invalidate();
+        }
+
 
         // 地雷の配置（最初のクリック後に行う）
         private void PlaceMines(int firstClickX, int firstClickY)
