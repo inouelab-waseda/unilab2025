@@ -193,6 +193,7 @@ namespace unilab2025
         List<Conversation> Message;
         bool isMessageMode;
         public List<Conversation> currentConversation;
+        public List<Conversation> infoConversation;
         public Graphics g1;
         public Graphics g2;
 
@@ -405,7 +406,19 @@ namespace unilab2025
 
             hint_on = false;
 
-            
+            // 説明文切り替え
+            if (_level == 1 && (_worldNumber == 2 || _worldNumber == 3 || _worldNumber == 4))
+            {
+                infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber + "-1"];
+            }
+            else if (_worldNumber < 4)
+            {
+                infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber];
+            }
+            else
+            {
+                infoConversation = Dictionaries.Conversations["Info"];
+            }
 
 
         }
@@ -1348,19 +1361,7 @@ namespace unilab2025
         {
             if (this.currentConversation != null && Func.convIndex < this.currentConversation.Count) return;
 
-            // 説明文切り替え
-            if (_level == 1 && (_worldNumber == 2 || _worldNumber == 3 || _worldNumber == 4))
-            {
-                currentConversation = Dictionaries.Conversations["Info_stage" + _worldNumber +"-1"];
-            }
-            else if(_worldNumber < 4)
-            {
-                currentConversation = Dictionaries.Conversations["Info_stage" + _worldNumber];
-            }
-            else
-            {
-                currentConversation = Dictionaries.Conversations["Info"];
-            }
+            currentConversation = infoConversation;
             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             InputListBox.Focus();
             ShowListBox();
