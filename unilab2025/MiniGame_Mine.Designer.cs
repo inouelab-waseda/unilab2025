@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiniGame_Mine));
             this.button_Return = new System.Windows.Forms.Button();
             this.button_Reset = new System.Windows.Forms.Button();
             this.label_Time = new System.Windows.Forms.Label();
@@ -52,20 +52,11 @@
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.settingsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(453, 27);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(971, 755);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // button_Return
             // 
@@ -187,9 +178,9 @@
             this.label7.Font = new System.Drawing.Font("MS UI Gothic", 15F);
             this.label7.Location = new System.Drawing.Point(616, 335);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 20);
+            this.label7.Size = new System.Drawing.Size(125, 20);
             this.label7.TabIndex = 11;
-            this.label7.Text = "（デフォルト: 40）";
+            this.label7.Text = "（おすすめ: 40）";
             // 
             // label6
             // 
@@ -249,9 +240,9 @@
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 15F);
             this.label3.Location = new System.Drawing.Point(106, 341);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(117, 20);
+            this.label3.Size = new System.Drawing.Size(193, 20);
             this.label3.TabIndex = 5;
-            this.label3.Text = "ばくだんのかず";
+            this.label3.Text = "ばくだんのかず （0-400）";
             // 
             // label2
             // 
@@ -259,9 +250,9 @@
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 15F);
             this.label2.Location = new System.Drawing.Point(106, 243);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 20);
+            this.label2.Size = new System.Drawing.Size(208, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "はば（よこの長さ）";
+            this.label2.Text = "はば（よこの長さ） （1-45）";
             // 
             // label1
             // 
@@ -269,9 +260,9 @@
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 15F);
             this.label1.Location = new System.Drawing.Point(106, 148);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 20);
+            this.label1.Size = new System.Drawing.Size(223, 20);
             this.label1.TabIndex = 3;
-            this.label1.Text = "たかさ（たての長さ）";
+            this.label1.Text = "たかさ（たての長さ） （1-20）";
             // 
             // numericUpDown3
             // 
@@ -285,33 +276,66 @@
             // 
             this.numericUpDown2.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.numericUpDown2.Location = new System.Drawing.Point(429, 235);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(150, 34);
             this.numericUpDown2.TabIndex = 1;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.numericUpDown1.Location = new System.Drawing.Point(429, 140);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(150, 34);
             this.numericUpDown1.TabIndex = 0;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // MiniGame_Mine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1687, 841);
             this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.button_explain);
             this.Controls.Add(this.label_Time);
             this.Controls.Add(this.button_Reset);
             this.Controls.Add(this.button_Return);
-            this.Controls.Add(this.pictureBox1);
+            this.DoubleBuffered = true;
             this.Name = "MiniGame_Mine";
             this.Text = "minesweeper";
             this.Load += new System.EventHandler(this.minesweeper_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.settingsPanel.ResumeLayout(false);
             this.settingsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
@@ -323,8 +347,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button_Return;
         private System.Windows.Forms.Button button_Reset;
         private System.Windows.Forms.Label label_Time;

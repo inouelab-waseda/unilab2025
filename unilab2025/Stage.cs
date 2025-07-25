@@ -211,6 +211,8 @@ namespace unilab2025
         public static int x_penguin; //現在位置ｘ
         public static int y_penguin; //現在位置 y
 
+
+
         //表示される絵文字
         public static Dictionary<string, string> Emoji = new Dictionary<string, string>()
         {
@@ -250,7 +252,7 @@ namespace unilab2025
             map = CreateStage(stageName); //ステージ作成
 
             button_carEnter.BackgroundImage= Dictionaries.Img_Button["入れるoff"];
-
+            
 
             InputListBox = listBox_Order;
             ListBoxes.Add(listBox_Order);
@@ -264,7 +266,7 @@ namespace unilab2025
             if (File.Exists($"Conversation\\{convFileName}"))
             {
                 // Func.LoadStoriesは最初のセグメントを返すように変更したため、戻り値を直接currentConversationに格納
-                currentConversation = Func.LoadStories(convFileName, "※");
+                currentConversation = Func.LoadStories(convFileName,this, "※");
 
                 isMessageMode = false;
             }
@@ -476,24 +478,36 @@ namespace unilab2025
             // キャラクターの描画をループの外に出す
             cell_length = pictureBox_Map2.Width / map_width;
 
-
+            Random rand = new Random();
             for (int y = 0; y < map_width; y++)
             {
                 for (int x = 0; x < map_width; x++)
                 {
                     int placeX = x * cell_length;
                     int placeY = y * cell_length;
-                    if ((_worldNumber < 5&&_level == 3 && map[x, y] == 1)|| (_worldNumber ==1 && _level == 2 && map[x, y] == 1)) 
-                    { 
-                        g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);                                         
+                    if ((_worldNumber < 5 && _level == 3 && map[x, y] == 1) || (_worldNumber == 1 && _level == 2 && map[x, y] == 1))
+                    {
+
+                        g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 100).ToString()], placeX, placeY, cell_length, cell_length);
+
                     }
-                    else if (_worldNumber < 5|| _worldNumber==7) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    else if (_worldNumber < 5 || _worldNumber == 7) 
+                    { 
+                        //if((x==0||y==0||x== map_width-1||y== map_width-1)&& map[x, y] == 2)
+                        //{
+                        //    int num = rand.Next(0,80);
+                        //    int num2 = num / 20;
+                        //    g1.DrawImage(Dictionaries.Img_Object["grass"+num2], placeX, placeY, cell_length, cell_length);
+                        //}
+                        //else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                        g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                    }
                     else
                     {
                         switch (_worldNumber)
                         {
                             case 5:
-                                if(map[x, y] == 4|| map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
+                                if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 if (map[x, y] == 4)
                                 {
@@ -508,12 +522,12 @@ namespace unilab2025
                                     y_panda = y;
                                 }
                                 break;
-        
+
                             case 6:
-                                if(map[x, y]<2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
-                                else g1.DrawImage(Dictionaries.Img_Object[(map[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
+                                if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 100).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
-                            
+
                             case 8:
                                 if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 200).ToString()], placeX, placeY, cell_length, cell_length);
@@ -818,7 +832,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "start")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -875,7 +889,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "up")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -900,7 +914,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "right")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -924,10 +938,14 @@ namespace unilab2025
             if (Func.WaitingForButton == "down")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+                else
+                {
+                    Func.Commond_Action(this);
                 }
             }
         }
@@ -948,7 +966,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "left")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1054,7 +1072,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "car")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1151,7 +1169,7 @@ namespace unilab2025
             if (Func.WaitingForButton == "carEnter")
             {
                 // 次の会話セグメントを取得して再生
-                currentConversation = Func.GetNextSegment();
+                currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1294,7 +1312,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "up")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1312,7 +1330,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "right")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1330,7 +1348,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "down")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1348,7 +1366,7 @@ namespace unilab2025
                     if (Func.WaitingForButton == "left")
                     {
                         // 次の会話セグメントを取得して再生
-                        currentConversation = Func.GetNextSegment();
+                        currentConversation = Func.GetNextSegment(this);
                         if (currentConversation != null && currentConversation.Count > 0)
                         {
                             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -1397,6 +1415,126 @@ namespace unilab2025
             pictureBox_buttonLeft.Image = RotateImage(original, 270f);
             pictureBox_upperLeft.Image = RotateImage(original, 315f);
         }
+
+
+        //指差しボタンの動き
+        private void pictureBox_finger1_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+        private void pictureBox_finger2_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+        private void pictureBox_finger3_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+        private void pictureBox_finger4_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+
+
+        private Dictionary<PictureBox, System.Windows.Forms.Timer> pointerTimers = new Dictionary<PictureBox, System.Windows.Forms.Timer>();
+        private Dictionary<PictureBox, int> originalYPositions = new Dictionary<PictureBox, int>();
+        private Dictionary<PictureBox, bool> movingUpMap = new Dictionary<PictureBox, bool>();
+
+        private void SetupPointerAnimation(PictureBox name)
+        {
+            if (!pointerTimers.ContainsKey(name))
+            {
+                // 初期Y座標記録
+                originalYPositions[name] = name.Top;
+                movingUpMap[name] = true;
+
+                System.Windows.Forms.Timer moveTimer = new System.Windows.Forms.Timer();
+                moveTimer.Interval = 50;
+                moveTimer.Tick += (s, e) => MovePointer(name);
+                pointerTimers[name] = moveTimer;
+            }
+
+            pointerTimers[name].Start();
+        }
+
+        private void MovePointer(PictureBox name)
+        {
+            int delta = 2;
+
+            if (!originalYPositions.ContainsKey(name)) return;
+
+            int originalY = originalYPositions[name];
+            bool movingUp = movingUpMap[name];
+
+            if (movingUp)
+            {
+                name.Top -= delta;
+                if (name.Top <= originalY - 5)
+                    movingUpMap[name] = false;
+            }
+            else
+            {
+                name.Top += delta;
+                if (name.Top >= originalY + 5)
+                    movingUpMap[name] = true;
+            }
+        }
+
+        private void StopPointerAnimation(PictureBox name)
+        {
+            if (pointerTimers.ContainsKey(name))
+            {
+                pointerTimers[name].Stop();
+            }
+        }
+
 
 
         #endregion
@@ -1730,7 +1868,7 @@ namespace unilab2025
                         if (Func.WaitingForButton == "Clear")
                         {
                             // 次の会話セグメントを取得して再生
-                            currentConversation = Func.GetNextSegment();
+                            currentConversation = Func.GetNextSegment(this);
                             if (currentConversation != null && currentConversation.Count > 0)
                             {
                                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
@@ -2028,7 +2166,7 @@ namespace unilab2025
         private void AdvanceConversation()
         {
             if (currentConversation != null && Capt != null)
-            {
+            {                
                 Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
             }
         }

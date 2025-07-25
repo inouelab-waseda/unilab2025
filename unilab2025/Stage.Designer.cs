@@ -64,6 +64,10 @@
             this.behind = new System.Windows.Forms.PictureBox();
             this.button_meteo = new System.Windows.Forms.Button();
             this.label_car_Input = new System.Windows.Forms.Label();
+            this.pictureBox_finger1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -77,6 +81,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger4)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -143,11 +151,11 @@
             // 
             this.listBox_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.listBox_Car.FormattingEnabled = true;
-            this.listBox_Car.ItemHeight = 33;
+            this.listBox_Car.ItemHeight = 27;
             this.listBox_Car.Location = new System.Drawing.Point(1469, 114);
             this.listBox_Car.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_Car.Name = "listBox_Car";
-            this.listBox_Car.Size = new System.Drawing.Size(273, 202);
+            this.listBox_Car.Size = new System.Drawing.Size(273, 193);
             this.listBox_Car.TabIndex = 7;
             // 
             // label1
@@ -156,7 +164,7 @@
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label1.Location = new System.Drawing.Point(1236, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 28);
+            this.label1.Size = new System.Drawing.Size(0, 22);
             this.label1.TabIndex = 8;
             // 
             // label2
@@ -165,7 +173,7 @@
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label2.Location = new System.Drawing.Point(851, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 28);
+            this.label2.Size = new System.Drawing.Size(0, 22);
             this.label2.TabIndex = 9;
             // 
             // button_walk
@@ -393,11 +401,11 @@
             // 
             this.listBox_Order.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.listBox_Order.FormattingEnabled = true;
-            this.listBox_Order.ItemHeight = 33;
+            this.listBox_Order.ItemHeight = 26;
             this.listBox_Order.Location = new System.Drawing.Point(963, 114);
             this.listBox_Order.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_Order.Name = "listBox_Order";
-            this.listBox_Order.Size = new System.Drawing.Size(273, 169);
+            this.listBox_Order.Size = new System.Drawing.Size(273, 160);
             this.listBox_Order.TabIndex = 34;
             // 
             // label_Walk
@@ -406,7 +414,7 @@
             this.label_Walk.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.label_Walk.Location = new System.Drawing.Point(1268, 809);
             this.label_Walk.Name = "label_Walk";
-            this.label_Walk.Size = new System.Drawing.Size(96, 34);
+            this.label_Walk.Size = new System.Drawing.Size(78, 27);
             this.label_Walk.TabIndex = 36;
             this.label_Walk.Text = "label3";
             // 
@@ -416,7 +424,7 @@
             this.label_Car.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.label_Car.Location = new System.Drawing.Point(1377, 706);
             this.label_Car.Name = "label_Car";
-            this.label_Car.Size = new System.Drawing.Size(96, 34);
+            this.label_Car.Size = new System.Drawing.Size(78, 27);
             this.label_Car.TabIndex = 37;
             this.label_Car.Text = "label4";
             // 
@@ -426,7 +434,7 @@
             this.label_Plane.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.label_Plane.Location = new System.Drawing.Point(1600, 706);
             this.label_Plane.Name = "label_Plane";
-            this.label_Plane.Size = new System.Drawing.Size(96, 34);
+            this.label_Plane.Size = new System.Drawing.Size(78, 27);
             this.label_Plane.TabIndex = 38;
             this.label_Plane.Text = "label5";
             // 
@@ -436,7 +444,7 @@
             this.label_Balloon.Font = new System.Drawing.Font("MS UI Gothic", 20F);
             this.label_Balloon.Location = new System.Drawing.Point(1488, 809);
             this.label_Balloon.Name = "label_Balloon";
-            this.label_Balloon.Size = new System.Drawing.Size(96, 34);
+            this.label_Balloon.Size = new System.Drawing.Size(78, 27);
             this.label_Balloon.TabIndex = 39;
             this.label_Balloon.Text = "label6";
             // 
@@ -449,7 +457,7 @@
             this.button_carEnter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_carEnter.Font = new System.Drawing.Font("游ゴシック", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_carEnter.Location = new System.Drawing.Point(1283, 154);
-            this.button_carEnter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_carEnter.Margin = new System.Windows.Forms.Padding(4);
             this.button_carEnter.Name = "button_carEnter";
             this.button_carEnter.Size = new System.Drawing.Size(131, 108);
             this.button_carEnter.TabIndex = 41;
@@ -463,7 +471,7 @@
             this.behind.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("behind.BackgroundImage")));
             this.behind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.behind.Location = new System.Drawing.Point(17, 101);
-            this.behind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.behind.Margin = new System.Windows.Forms.Padding(4);
             this.behind.Name = "behind";
             this.behind.Size = new System.Drawing.Size(827, 775);
             this.behind.TabIndex = 42;
@@ -487,9 +495,61 @@
             this.label_car_Input.Font = new System.Drawing.Font("MS UI Gothic", 30F);
             this.label_car_Input.Location = new System.Drawing.Point(1599, 403);
             this.label_car_Input.Name = "label_car_Input";
-            this.label_car_Input.Size = new System.Drawing.Size(143, 50);
+            this.label_car_Input.Size = new System.Drawing.Size(112, 40);
             this.label_car_Input.TabIndex = 45;
             this.label_car_Input.Text = "label4";
+            // 
+            // pictureBox_finger1
+            // 
+            this.pictureBox_finger1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger1.BackgroundImage")));
+            this.pictureBox_finger1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger1.Location = new System.Drawing.Point(1494, 639);
+            this.pictureBox_finger1.Name = "pictureBox_finger1";
+            this.pictureBox_finger1.Size = new System.Drawing.Size(184, 167);
+            this.pictureBox_finger1.TabIndex = 46;
+            this.pictureBox_finger1.TabStop = false;
+            this.pictureBox_finger1.Visible = false;
+            this.pictureBox_finger1.VisibleChanged += new System.EventHandler(this.pictureBox_finger1_VisibleChanged);
+            // 
+            // pictureBox_finger2
+            // 
+            this.pictureBox_finger2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger2.BackgroundImage")));
+            this.pictureBox_finger2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger2.Location = new System.Drawing.Point(1124, 801);
+            this.pictureBox_finger2.Name = "pictureBox_finger2";
+            this.pictureBox_finger2.Size = new System.Drawing.Size(138, 131);
+            this.pictureBox_finger2.TabIndex = 47;
+            this.pictureBox_finger2.TabStop = false;
+            this.pictureBox_finger2.Visible = false;
+            this.pictureBox_finger2.VisibleChanged += new System.EventHandler(this.pictureBox_finger2_VisibleChanged);
+            // 
+            // pictureBox_finger3
+            // 
+            this.pictureBox_finger3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger3.BackgroundImage")));
+            this.pictureBox_finger3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger3.Location = new System.Drawing.Point(1223, 753);
+            this.pictureBox_finger3.Name = "pictureBox_finger3";
+            this.pictureBox_finger3.Size = new System.Drawing.Size(184, 167);
+            this.pictureBox_finger3.TabIndex = 48;
+            this.pictureBox_finger3.TabStop = false;
+            this.pictureBox_finger3.Visible = false;
+            this.pictureBox_finger3.VisibleChanged += new System.EventHandler(this.pictureBox_finger3_VisibleChanged);
+            // 
+            // pictureBox_finger4
+            // 
+            this.pictureBox_finger4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger4.BackgroundImage")));
+            this.pictureBox_finger4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger4.Location = new System.Drawing.Point(1273, 278);
+            this.pictureBox_finger4.Name = "pictureBox_finger4";
+            this.pictureBox_finger4.Size = new System.Drawing.Size(155, 149);
+            this.pictureBox_finger4.TabIndex = 49;
+            this.pictureBox_finger4.TabStop = false;
+            this.pictureBox_finger4.Visible = false;
+            this.pictureBox_finger4.VisibleChanged += new System.EventHandler(this.pictureBox_finger4_VisibleChanged);
             // 
             // Stage
             // 
@@ -498,6 +558,10 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1909, 944);
+            this.Controls.Add(this.pictureBox_finger4);
+            this.Controls.Add(this.pictureBox_finger3);
+            this.Controls.Add(this.pictureBox_finger2);
+            this.Controls.Add(this.pictureBox_finger1);
             this.Controls.Add(this.label_car_Input);
             this.Controls.Add(this.button_meteo);
             this.Controls.Add(this.button_carEnter);
@@ -551,6 +615,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_lowerRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -593,6 +661,10 @@
         private System.Windows.Forms.PictureBox behind;
         private System.Windows.Forms.Button button_meteo;
         private System.Windows.Forms.Label label_car_Input;
+        private System.Windows.Forms.PictureBox pictureBox_finger1;
+        private System.Windows.Forms.PictureBox pictureBox_finger2;
+        private System.Windows.Forms.PictureBox pictureBox_finger3;
+        private System.Windows.Forms.PictureBox pictureBox_finger4;
     }
 }
 

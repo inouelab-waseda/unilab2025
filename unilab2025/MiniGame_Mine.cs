@@ -28,7 +28,12 @@ namespace unilab2025
         // --- ゲーム設定 ---
         public int gridSize_x = 20; // グリッドのサイズ (10x10)
         public int gridSize_y = 20;
+        public int gridSize_x_b = 20; // グリッドのサイズ (10x10)
+        public int gridSize_y_b = 20;
         public int mineCount = 40; // 地雷の数
+        public int wide_x=10;
+        public int wide_y = 10;
+        public string mine;
 
         public int Location_x;
         public int Location_y;
@@ -40,6 +45,9 @@ namespace unilab2025
 
         private Stopwatch gameStopwatch;//時間
 
+        private Label lblGameOverTitle;
+        private Label lblClearTitle;
+
         PictureBox pictureBox_Conv;
         byte[] Capt;
         List<Conversation> Message;
@@ -49,10 +57,12 @@ namespace unilab2025
         Panel instructionPanel = new Panel();
         Panel gameOverPanel = new Panel();
 
+        private Panel boardPanel;
 
         public MiniGame_Mine()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;            
             this.WindowState = FormWindowState.Maximized;
             gameStopwatch = new Stopwatch();
             instructionPanel.Visible = false;
@@ -74,13 +84,14 @@ namespace unilab2025
             numericUpDown2.Value = 20;
             numericUpDown3.Value = 40;
             comboBox1.SelectedItem = "たくさん";
+            mine= "たくさん";
 
             //currentConversation = Dictionaries.Conversations["mine"];
             //if (currentConversation != null && currentConversation.Count > 0)
             //{
             //    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
             //}
-            LayoutControls();
+            //LayoutControls();
             InstructionPanel();
             CreateGameOver();
             //InitializeGame();
@@ -88,17 +99,24 @@ namespace unilab2025
             button_Reset.Enabled = false;
         }
 
-        private void LayoutControls()
+        //private void LayoutControls()
+        //{
+        //    // PictureBoxをフォームの中央に配置
+        //    pictureBox1.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
+        //    pictureBox1.Location = new Point(
+        //        (Location_x - pictureBox1.Width) / 2,
+        //        (Location_y - pictureBox1.Height) / 2);
+        //    pictureBox1.Update(); // UI再描画を明示的に促す
+        //}
+
+        public class DoubleBufferedPanel : Panel
         {
-            // PictureBoxをフォームの中央に配置
-            pictureBox1.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
-            pictureBox1.Location = new Point(
-                (Location_x - pictureBox1.Width) / 2,
-                (Location_y - pictureBox1.Height) / 2);
-            
+            public DoubleBufferedPanel()
+            {
+                this.DoubleBuffered = true;
+                this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            }
         }
-
-
         // ゲームの初期化
         private void InitializeGame()
         {
@@ -111,11 +129,31 @@ namespace unilab2025
             buttons = new Button[gridSize_x, gridSize_y];
             isFirstClick = true;
             isGameOver = false;
+            gridSize_x_b = gridSize_x;
+            gridSize_y_b = gridSize_y;
+
+            if (boardPanel == null)
+            {
+                boardPanel = new DoubleBufferedPanel
+                {
+                    BackColor = Color.Transparent,
+                    // パネルだけをダブルバッファに（拡張メソッドや継承で設定してもOK）
+                };
+                this.Controls.Add(boardPanel);
+            }
+            else
+            {
+                boardPanel.SuspendLayout();
+                boardPanel.Controls.Clear();
+            }
 
 
             int offsetX = 50; // フォームの左端から50ピクセル右にずらす
-            int offsetY = 100; // メニューバーの下から100ピクセル下にずらす
+            int offsetY =100; // メニューバーの下から100ピクセル下にずらす
 
+            boardPanel.Size = new Size(gridSize_x * 30 + 100, gridSize_y * 30 + 200);
+            boardPanel.Location = new Point((Location_x - boardPanel.Width) / 2,(Location_y - boardPanel.Height) / 2); // 必要なら中央配置でもOK
+            
 
             // ボタンを動的に生成してフォームに配置
             for (int x = 0; x < gridSize_x; x++)
@@ -130,11 +168,11 @@ namespace unilab2025
                         Tag = new Point(x, y) // ボタンに座標を記憶させる
                     };
                     buttons[x, y].MouseUp += Cell_MouseUp; // マウスイベントハンドラを追加
-                    pictureBox1.Controls.Add(buttons[x, y]);
+                    boardPanel.Controls.Add(buttons[x, y]);
                 }
             }
-            this.ClientSize = new Size(gridSize_x * 30 + offsetX, gridSize_y * 30 + 30 + offsetY);
-
+            //this.ClientSize = new Size(gridSize_x * 30 + offsetX, gridSize_y * 30 + 30 + offsetY);
+            boardPanel.ResumeLayout();
         }
 
         // ゲームのリセット
@@ -145,16 +183,29 @@ namespace unilab2025
         }
         private void ResetGame()
         {
+            
             timer1.Stop(); // 念のためタイマーを停止
             gameStopwatch.Reset();// 経過時間をリセット
             label_Time.Text = "Time: 00:00.00"; // ラベル表示をリセット
-
-
-            // 古いボタンを削除
-            pictureBox1.Controls.Clear();
-            LayoutControls();
+            this.SuspendLayout();
+            RemoveGameButtons();
+            
             InitializeGame();
+            
+            this.ResumeLayout();
         }
+        private void RemoveGameButtons()
+        {
+           
+            if (buttons != null) 
+            {
+                //boardPanel.Visible = false;  // 非表示にしてから削除
+                this.Controls.Remove(boardPanel);
+                boardPanel.Dispose();
+                boardPanel = null;
+            }
+        }
+
 
         // 地雷の配置（最初のクリック後に行う）
         private void PlaceMines(int firstClickX, int firstClickY)
@@ -240,11 +291,11 @@ namespace unilab2025
                     {
                         // クリック地点を中心とした10x10の範囲を計算
                         // (Math.Max/Minでグリッドの端をはみ出さないように調整)
-                        int areaSize = 10; // 中心から±5マスで10x10の範囲
-                        int minX = Math.Max(0, x - areaSize);
-                        int maxX = Math.Min(gridSize_x - 1, x + areaSize);
-                        int minY = Math.Max(0, y - areaSize);
-                        int maxY = Math.Min(gridSize_y - 1, y + areaSize);
+                        // 中心から±5マスで10x10の範囲
+                        int minX = Math.Max(0, x - wide_x);
+                        int maxX = Math.Min(gridSize_x - 1, x + wide_x);
+                        int minY = Math.Max(0, y - wide_y);
+                        int maxY = Math.Min(gridSize_y - 1, y + wide_y);
 
                         // 範囲を引数として渡してセルを開く
                         RevealCell(x, y, minX, maxX, minY, maxY);
@@ -327,12 +378,18 @@ namespace unilab2025
 
             if (won)
             {
-                MessageBox.Show("クリア！おめでとう！", "勝利");
+                
+                gameOverPanel.Visible = true;
+                lblGameOverTitle.Visible = false;
+                lblClearTitle.Visible = true;
+                //MessageBox.Show("クリア！おめでとう！", "勝利");
             }
             else
             {
                 gameOverPanel.Visible = true;
-                MessageBox.Show("ゲームオーバー", "敗北");
+                lblGameOverTitle.Visible = true;
+                lblClearTitle.Visible = false;
+                //MessageBox.Show("ゲームオーバー", "敗北");
             }
         }
 
@@ -400,10 +457,37 @@ namespace unilab2025
         {
             settingsPanel.Visible = false;
             instructionPanel.Visible = true;
+            if (gridSize_y != (int)numericUpDown1.Value|| gridSize_x != (int)numericUpDown2.Value|| mineCount != (int)numericUpDown3.Value|| comboBox1.SelectedItem != mine)
+            {
+                if (boardPanel != null)
+                {
+                    boardPanel.Visible = false;
+                }
+            }
             gridSize_y = (int)numericUpDown1.Value;
             gridSize_x = (int)numericUpDown2.Value;
             mineCount = (int)numericUpDown3.Value;
 
+            if (comboBox1.SelectedItem == "たくさん")
+            {
+                wide_x = gridSize_x/2;
+                wide_y = gridSize_y/2;
+                mine = "たくさん";
+            }
+            else if(comboBox1.SelectedItem == "ふつう")
+            {
+                wide_x = gridSize_x / 3;
+                wide_y = gridSize_y / 3;
+                mine = "ふつう";
+            }
+            else if (comboBox1.SelectedItem == "すこし")
+            {
+                wide_x = 3;
+                wide_y = 3;
+                mine = "すこし";
+            }
+
+           
 
 
         }
@@ -415,12 +499,12 @@ namespace unilab2025
             comboBox1.SelectedItem = "たくさん";
         }
 
-        private void InstructionPanel()
+        private async Task InstructionPanel()
         {
             // 1. パネル（土台）を作成する
             
             instructionPanel.Name = "instructionPanel";
-            instructionPanel = new Panel { Size = new Size(660, 576), BackColor = Color.FromArgb(220, 240, 240, 240), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("Meiryo UI", 12F) };
+            instructionPanel = new Panel { Size = new Size(660, 576), BorderStyle = BorderStyle.FixedSingle, Visible = true, Font = new Font("Meiryo UI", 12F) };
             this.Controls.Add(instructionPanel);
             //instructionPanel.Size = new Size(880, 720); // パネルのサイズ
             //instructionPanel.Size = new System.Drawing.Size(880, 720);
@@ -466,16 +550,20 @@ namespace unilab2025
             instructionPanel.Controls.Add(backButton);
             backButton.BringToFront();
 
-            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(350, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            Button startButton = new Button { Text = "あたらしくはじめる", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(350, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
             
-            startButton.Click += (s, e) =>
+            startButton.Click += async(s, e) =>
             {
-                backButton.Visible = true;
+                //instructionPanel.SuspendLayout();
                 instructionPanel.Visible = false;
-                LayoutControls();
+                //instructionPanel.ResumeLayout();
+                Application.DoEvents();
+                //await Task.Yield();
+                //LayoutControls();
                 ResetGame();
                 button_explain.Enabled = true;
                 button_Reset.Enabled = true;
+                backButton.Visible = true;
 
             };
             instructionPanel.Controls.Add(startButton);
@@ -499,19 +587,35 @@ namespace unilab2025
 
         private void CreateGameOver()
         {
-            gameOverPanel = new Panel { Size = new Size(400, 300), BackColor = Color.FromArgb(220, 255, 255, 255), BorderStyle = BorderStyle.FixedSingle, Location = new Point(ClientSize.Width / 2 - 200, ClientSize.Height / 2 - 150), Visible = false };
-            Label lblGameOverTitle = new Label { Text = "Game Over", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };            
+            gameOverPanel = new Panel { Size = new Size(400, 300), BackColor = Color.FromArgb(220, 255, 255, 255), BorderStyle = BorderStyle.FixedSingle, Location = new Point((Location_x - 400) / 2,(Location_y - 300) / 2), Visible = false };
+            lblGameOverTitle = new Label { Text = "Game Over", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
+            lblClearTitle = new Label { Text = "Clear!", Font = new Font("Arial", 48, FontStyle.Bold), ForeColor = Color.SteelBlue, AutoSize = false, Size = new Size(400, 70), TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 30) };
             Button btnRestart = new Button { Text = "リスタート", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(20, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
-            btnRestart.Click += (s, e) => InitializeGame();
+            btnRestart.Click += (s, e) => { instructionPanel.Visible = true; gameOverPanel.Visible = false; };
             Button btnBackToList = new Button { Text = "いちらんにもどる", Font = new Font("Meiryo UI", 14, FontStyle.Bold), Size = new Size(180, 60), Location = new Point(200, 210), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
             btnBackToList.Click += (s, e) => Func.CreateMiniGame(this);
-            gameOverPanel.Controls.Add(lblGameOverTitle);            
+            gameOverPanel.Controls.Add(lblGameOverTitle);
+            gameOverPanel.Controls.Add(lblClearTitle);
             gameOverPanel.Controls.Add(btnRestart);
             gameOverPanel.Controls.Add(btnBackToList);
             this.Controls.Add(gameOverPanel);
+            gameOverPanel.BringToFront();
         }
-        
 
-        
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown3.Maximum = (int)numericUpDown1.Value* (int)numericUpDown2.Value;
+            label3.Text = "ばくだんのかず （0-"+ numericUpDown1.Value * numericUpDown2.Value + "）";
+            label7.Text = "（おすすめ: "+ (int)numericUpDown1.Value* (int)numericUpDown2.Value*0.1 +"）";
+            //numericUpDown3.Value= numericUpDown1.Value* numericUpDown2.Value*0.1M;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown3.Maximum = (int)numericUpDown1.Value * (int)numericUpDown2.Value;
+            label3.Text = "ばくだんのかず （0-" + numericUpDown1.Value * numericUpDown2.Value + "）";
+            label7.Text = "（おすすめ: " + (int)numericUpDown1.Value * (int)numericUpDown2.Value * 0.1 + "）";
+            //numericUpDown3.Value = numericUpDown1.Value * numericUpDown2.Value * 0.1M;
+        }
     }
 }

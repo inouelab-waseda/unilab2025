@@ -169,6 +169,7 @@ namespace unilab2025
     //会話データ読込
     public static partial class Func
     {
+
         //セリフCSV読み込み
         public static List<Conversation> LoadConversationCSV(string ConvertationCSVFileName)
         {
@@ -251,7 +252,7 @@ namespace unilab2025
         //    return Message;
         //}
 
-        public static List<Conversation> LoadStories(string ConvFileName, string cutSymbol = "※")
+        public static List<Conversation> LoadStories(string ConvFileName, Form currentForm, string cutSymbol = "※")
         {
             // 全会話データを読み込む
             activeConversation = new List<Conversation>();
@@ -272,14 +273,18 @@ namespace unilab2025
             WaitingForButton = null;
 
             // 最初のセグメントを返却
-            return GetNextSegment();
+            return GetNextSegment(currentForm);
         }
 
         /// <summary>
         /// 次に再生すべき会話セグメント（※までの塊）を取得する
         /// </summary>
-        public static List<Conversation> GetNextSegment()
+        public static List<string> deferredCommands=new List<string>();
+        public static int Cov_Count;
+
+        public static List<Conversation> GetNextSegment(Form currentForm)
         {
+            Cov_Count = 0;
             var segment = new List<Conversation>();
             WaitingForButton = null; // まず待機状態をリセット
 
@@ -308,8 +313,23 @@ namespace unilab2025
                         segment.Add(currentConv);
                     }
 
+                    Cov_Count = i;
+
                     currentSegmentStartIndex = i + 1;
                     break; // 現在のセグメントはここまで
+                }
+                else if (currentConv.Dialogue.Contains("C."))
+                {
+                    // コマンド文字列はそのまま渡す                    
+                    deferredCommands.Add(currentConv.Dialogue);
+                    //foreach (string cmd in deferredCommands)
+                    //{
+                    //    ExecuteInlineAction(cmd.Trim(), currentForm);
+                    //}
+                    currentSegmentStartIndex = i + 1;
+
+                    continue;
+                    //break; // コマンドは会話に表示しない
                 }
                 else
                 {
@@ -321,6 +341,115 @@ namespace unilab2025
             return segment;
         }
 
+        //コマンド実行
+        public static void ExecuteInlineAction(string command, Form form)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(command)) return;
+
+                // 独自コマンドの対応
+                if (command.Equals("C.show_finger1", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger1", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger1", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger1", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+
+                else if (command.Equals("C.show_finger2", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger2", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger2", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger2", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.show_finger3", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger3", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger3", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger3", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.show_finger4", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger4", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger4", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger4", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"命令実行エラー: {ex.Message}", "エラー");
+            }
+        }
+
+        public static void Commond_Action(Form currentForm)
+        {
+            if (deferredCommands != null)
+            {
+                foreach (string cmd in deferredCommands)
+                {
+                    ExecuteInlineAction(cmd.Trim(), currentForm);
+                }
+                deferredCommands.Clear();
+            }
+        }
 
         //メッセージボックス
         public static PictureBox CreatePictureBox_Conv(Form currentForm)
@@ -487,10 +616,31 @@ namespace unilab2025
                 if (string.IsNullOrEmpty(WaitingForButton) && (activeConversation == null || currentSegmentStartIndex >= activeConversation.Count))
                 {
                     activeConversation = null;
+                    
+                }
+
+                if (deferredCommands != null)
+                {
+                    foreach (string cmd in deferredCommands)
+                    {
+                        ExecuteInlineAction(cmd.Trim(), currentForm);
+                    }
+                    deferredCommands.Clear();
                 }
 
                 return;
             }
+            //if(convIndex>= Cov_Count-1)
+            //{
+            //    if (deferredCommands != null)
+            //    {
+            //        foreach (string cmd in deferredCommands)
+            //        {
+            //            ExecuteInlineAction(cmd.Trim(), currentForm);
+            //        }
+            //        deferredCommands.Clear();
+            //    }
+            //}
 
             Bitmap bmp_Capt = ByteArrayToBitmap(Capt);
             Graphics g = Graphics.FromImage(bmp_Capt);
