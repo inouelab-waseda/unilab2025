@@ -83,7 +83,7 @@ namespace unilab2025
 
             pictureBox_Map2.BringToFront(); //
 
-
+            Func.OnNextHintCommand = () => { _hintCount++; };
         }
 
 
@@ -188,13 +188,15 @@ namespace unilab2025
         public static int meteorX_speed, meteorY_speed;
         System.Windows.Forms.Timer meteorTimer = new System.Windows.Forms.Timer();
 
-        //public static List<Conversation> Conversations = new List<Conversation>();  //会話文を入れるリスト
+        //会話文
         PictureBox pictureBox_Conv;
         byte[] Capt;
         List<Conversation> Message;
         bool isMessageMode;
         public List<Conversation> currentConversation;
         public List<Conversation> infoConversation;
+        private int _hintCount = 0;
+
         public Graphics g1;
         public Graphics g2;
 
@@ -410,7 +412,7 @@ namespace unilab2025
             hint_on = false;
 
             // 説明文切り替え
-            if (_level == 1 && (_worldNumber == 2 || _worldNumber == 3 || _worldNumber == 4))
+            if (_level == 1 && (_worldNumber == 3 || _worldNumber == 4))
             {
                 infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber + "-1"];
             }
@@ -1381,6 +1383,11 @@ namespace unilab2025
         private async void button_info_Click(object sender, EventArgs e)
         {
             if (this.currentConversation != null && Func.convIndex < this.currentConversation.Count) return;
+
+            if (_worldNumber == 2 && _level == 1)
+            {
+                infoConversation = Dictionaries.Conversations["Info_stage2-1-" + _hintCount];
+            }
 
             currentConversation = infoConversation;
             Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
