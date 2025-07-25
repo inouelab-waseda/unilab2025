@@ -62,6 +62,7 @@ namespace unilab2025
         public MiniGame_Mine()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
             this.DoubleBuffered = true;            
             this.WindowState = FormWindowState.Maximized;
             gameStopwatch = new Stopwatch();

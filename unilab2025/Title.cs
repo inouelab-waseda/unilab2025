@@ -16,6 +16,7 @@ namespace unilab2025
         public Title()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             pictureBox1.Click += pictureBox1_Click;
             this.KeyDown += new KeyEventHandler(Title_KeyDown);

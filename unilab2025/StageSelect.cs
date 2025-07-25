@@ -15,6 +15,7 @@ namespace unilab2025
         public StageSelect()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
