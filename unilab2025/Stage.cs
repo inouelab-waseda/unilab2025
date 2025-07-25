@@ -919,6 +919,7 @@ namespace unilab2025
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+
                 }
             }
         }
@@ -943,6 +944,7 @@ namespace unilab2025
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                    
                 }
                 else
                 {
