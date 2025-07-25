@@ -341,6 +341,8 @@ namespace unilab2025
             return segment;
         }
 
+        public static Action OnNextHintCommand;
+
         //コマンド実行
         public static void ExecuteInlineAction(string command, Form form)
         {
@@ -429,6 +431,10 @@ namespace unilab2025
                         ctrls[0].Visible = false;
                     }
                     return;
+                }
+                else if (command.Equals("C.nextHint", StringComparison.OrdinalIgnoreCase))
+                {
+                    OnNextHintCommand?.Invoke();
                 }
 
             }
