@@ -517,9 +517,9 @@
             this.pictureBox_finger2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_finger2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger2.BackgroundImage")));
             this.pictureBox_finger2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox_finger2.Location = new System.Drawing.Point(1124, 776);
+            this.pictureBox_finger2.Location = new System.Drawing.Point(1124, 801);
             this.pictureBox_finger2.Name = "pictureBox_finger2";
-            this.pictureBox_finger2.Size = new System.Drawing.Size(184, 167);
+            this.pictureBox_finger2.Size = new System.Drawing.Size(138, 131);
             this.pictureBox_finger2.TabIndex = 47;
             this.pictureBox_finger2.TabStop = false;
             this.pictureBox_finger2.Visible = false;
@@ -530,7 +530,7 @@
             this.pictureBox_finger3.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_finger3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger3.BackgroundImage")));
             this.pictureBox_finger3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox_finger3.Location = new System.Drawing.Point(1230, 736);
+            this.pictureBox_finger3.Location = new System.Drawing.Point(1223, 753);
             this.pictureBox_finger3.Name = "pictureBox_finger3";
             this.pictureBox_finger3.Size = new System.Drawing.Size(184, 167);
             this.pictureBox_finger3.TabIndex = 48;
