@@ -2420,7 +2420,7 @@ namespace unilab2025
                 {
                     n = rand.Next(1, map_width);
                     m = rand.Next(1, map_width);
-                    if (map[n, m] == 3)
+                    if (map[n, m] == 3&&(x_start!=n||y_start!=m))
                     {
                         x_start =n;
                         x_now = n;
