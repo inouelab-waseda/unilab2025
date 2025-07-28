@@ -2375,13 +2375,97 @@ namespace unilab2025
 
         #region UFO
 
-        private void UFO_KeyDown(object sender, KeyEventArgs e)
+        private async void UFO_KeyDown(object sender, KeyEventArgs e)
         {
             if (Func.IsInputLocked) return;
 
             if (e.KeyCode == Keys.U)
             {
-                button_meteo.Visible = true;
+                g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start-1) * cell_length - 3 * extra_length-10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                
+                pictureBox_Map2.Refresh();
+                int n;
+                int m;
+                await Task.Delay(200);
+                Image character_me;
+
+                for (int i = 1; i < 6; i++)
+                {                    
+                    g2.Clear(Color.Transparent);
+                    character_me = Dictionaries.Img_DotPic["正面"];
+                    if (Penguin == true) character_me = Img_Penguin["正面"];
+                    g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start - 1) * cell_length - 3 * extra_length - 10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    g2.DrawImage(Dictionaries.Img_DotPic["Light"+i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
+                    if(_worldNumber==5) Panda();
+                    pictureBox_Map2.Refresh();
+                    await Task.Delay(200);
+                }
+                for (int i = 5; i > 0; i--)
+                {
+                    g2.Clear(Color.Transparent);             
+                    
+                    g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start - 1) * cell_length - 3 * extra_length - 10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    g2.DrawImage(Dictionaries.Img_DotPic["Light" + i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
+                    if (_worldNumber == 5) Panda();
+                    pictureBox_Map2.Refresh();
+                    await Task.Delay(200);
+                }
+                g2.Clear(Color.Transparent);
+                if (_worldNumber == 5) Panda();
+                pictureBox_Map2.Refresh();
+                await Task.Delay(200);
+
+                while (true)
+                {
+                    n = rand.Next(1, map_width);
+                    m = rand.Next(1, map_width);
+                    if (map[n, m] == 3)
+                    {
+                        x_start =n;
+                        x_now = n;
+                        y_start=m;
+                        y_now = m;
+                        break;
+                    }
+                }
+
+                g2.Clear(Color.Transparent);
+                if (_worldNumber == 5) Panda();
+                g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start - 1) * cell_length - 3 * extra_length - 10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                pictureBox_Map2.Refresh();
+                await Task.Delay(200);
+
+                for (int i = 1; i < 6; i++)
+                {
+                    g2.Clear(Color.Transparent);                    
+                    g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start - 1) * cell_length - 3 * extra_length - 10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    g2.DrawImage(Dictionaries.Img_DotPic["Light" + i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
+                    if (_worldNumber == 5) Panda();
+                    pictureBox_Map2.Refresh();
+                    await Task.Delay(200);
+                }
+                for (int i = 5; i > 0; i--)
+                {
+                    g2.Clear(Color.Transparent);
+                    character_me = Dictionaries.Img_DotPic["正面"];
+                    if (Penguin == true) character_me = Img_Penguin["正面"];
+                    g2.DrawImage(character_me, x_now * cell_length - extra_length, y_now * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start - 1) * cell_length - 3 * extra_length - 10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                    g2.DrawImage(Dictionaries.Img_DotPic["Light" + i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
+                    if (_worldNumber == 5) Panda();
+                    pictureBox_Map2.Refresh();
+                    await Task.Delay(200);
+                }
+                g2.Clear(Color.Transparent);
+                character_me = Dictionaries.Img_DotPic["正面"];
+                if (Penguin == true) character_me = Img_Penguin["正面"];
+                g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (_worldNumber == 5) Panda();
+                pictureBox_Map2.Refresh();
+                await Task.Delay(200);
+
+
             }
         }
 
