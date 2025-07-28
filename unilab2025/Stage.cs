@@ -43,6 +43,7 @@ namespace unilab2025
             this.KeyDown += new KeyEventHandler(Arrow_KeyDown);
             this.KeyDown += new KeyEventHandler(Meteo_KeyDown);
             this.KeyDown += new KeyEventHandler(Penguin_KeyDown);
+            this.KeyDown += new KeyEventHandler(UFO_KeyDown);
             this.listBox_Order.Click += new System.EventHandler(this.listBox_Order_Click);
             this.listBox_Car.Click += new System.EventHandler(this.listBox_Car_Click);
 
@@ -2321,7 +2322,10 @@ namespace unilab2025
             }
         }
 
+        #endregion
 
+
+        #region ペンギン
         private void Penguin_KeyDown(object sender, KeyEventArgs e)
         {
             if (Func.IsInputLocked) return;
@@ -2364,10 +2368,26 @@ namespace unilab2025
             }
         }
 
+        #endregion
 
+
+
+
+        #region UFO
+
+        private void UFO_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Func.IsInputLocked) return;
+
+            if (e.KeyCode == Keys.U)
+            {
+                button_meteo.Visible = true;
+            }
+        }
 
 
 
         #endregion
+
     }
 }
