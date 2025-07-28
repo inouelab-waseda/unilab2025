@@ -35,6 +35,7 @@ namespace unilab2025
         private PictureBox boyChoiceBox;
         private PictureBox girlChoiceBox;
         private PictureBox silverChoiceBox;
+        private Label centerLabel;
 
         public Prologue()
         {
@@ -90,6 +91,20 @@ namespace unilab2025
             silverChoiceBox.BackColor = Color.Transparent;
             this.silverChoiceBox.MouseEnter += new System.EventHandler(this.silverChoiceBox_MouseEnter);
             this.silverChoiceBox.MouseLeave += new System.EventHandler(this.silverChoiceBox_MouseLeave);
+
+            //言葉の表示
+            centerLabel = new Label();
+            centerLabel.Text = "すきなキャラクターをえらんでね";
+            centerLabel.Font = new Font("Meiryo UI", 30F, FontStyle.Bold); // フォントとサイズ
+            centerLabel.ForeColor = Color.White; // 文字色（必要に応じて）
+            centerLabel.BackColor = Color.Transparent; // 背景を透過
+            centerLabel.AutoSize = true; // テキストのサイズに合わせる
+            centerLabel.Location = new Point((this.ClientSize.Width - centerLabel.Width) / 2+40,(this.ClientSize.Height - centerLabel.Height) / 3 );            
+            centerLabel.BringToFront();
+            this.Controls.Add(centerLabel);
+
+
+
         }
 
         private async void Prologue_Load(object sender, EventArgs e)
@@ -162,6 +177,7 @@ namespace unilab2025
         {
             MainCharacter.isBoy = true;
             MainCharacter.isGirl = false; // GirlとSilverはfalseに
+            centerLabel.Visible=false;
             StartIntroductionConversation();
         }
 
@@ -170,6 +186,7 @@ namespace unilab2025
         {
             MainCharacter.isBoy = false;
             MainCharacter.isGirl = true;
+            centerLabel.Visible = false;
             StartIntroductionConversation();
         }
 
@@ -178,6 +195,7 @@ namespace unilab2025
         {
             MainCharacter.isBoy = false; // BoyとGirlはfalseに
             MainCharacter.isGirl = false; // Silverの場合、両方falseで表現
+            centerLabel.Visible = false;
             StartIntroductionConversation();
         }
 
