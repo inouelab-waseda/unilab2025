@@ -2397,7 +2397,7 @@ namespace unilab2025
                     g2.DrawImage(Dictionaries.Img_DotPic["Light"+i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
                     if(_worldNumber==5) Panda();
                     pictureBox_Map2.Refresh();
-                    await Task.Delay(200);
+                    await Task.Delay(100);
                 }
                 for (int i = 5; i > 0; i--)
                 {
@@ -2407,7 +2407,7 @@ namespace unilab2025
                     g2.DrawImage(Dictionaries.Img_DotPic["Light" + i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
                     if (_worldNumber == 5) Panda();
                     pictureBox_Map2.Refresh();
-                    await Task.Delay(200);
+                    await Task.Delay(100);
                 }
                 g2.Clear(Color.Transparent);
                 if (_worldNumber == 5) Panda();
@@ -2441,7 +2441,7 @@ namespace unilab2025
                     g2.DrawImage(Dictionaries.Img_DotPic["Light" + i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
                     if (_worldNumber == 5) Panda();
                     pictureBox_Map2.Refresh();
-                    await Task.Delay(200);
+                    await Task.Delay(100);
                 }
                 for (int i = 5; i > 0; i--)
                 {
@@ -2453,7 +2453,7 @@ namespace unilab2025
                     g2.DrawImage(Dictionaries.Img_DotPic["Light" + i], x_start * cell_length - extra_length - 2, y_start * cell_length - 2 * extra_length - 13, cell_length + extra_length + 10, cell_length + 2 * extra_length + 10);
                     if (_worldNumber == 5) Panda();
                     pictureBox_Map2.Refresh();
-                    await Task.Delay(200);
+                    await Task.Delay(100);
                 }
                 g2.Clear(Color.Transparent);
                 character_me = Dictionaries.Img_DotPic["正面"];
