@@ -530,17 +530,18 @@ namespace unilab2025
             instructionPanel.Controls.Add(Label3);
             Label Label4 = new Label { Text = "2. すうじはヒント ", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 140), Size = new Size(400, 30) };            
             instructionPanel.Controls.Add(Label4);            
-            Label Label5 = new Label { Text = "まわりのばくだんのかずをおしえてくれるよ", Location = new Point(90, 170), Size = new Size(500, 30) };            
+            Label Label5 = new Label { Text = "まわりのばくだんのかずをおしえてくれるよ", Location = new Point(90, 170), Size = new Size(300, 30) };            
             instructionPanel.Controls.Add(Label5);
             Label Label6 = new Label { Text = "3. ばくだんにはたを立てよう ", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 200), Size = new Size(400, 30) };
             instructionPanel.Controls.Add(Label6);
-            Label Label7 = new Label { Text = "ばくだんだとおもうマスをみぎクリックしてはたをたてよう", Location = new Point(90, 230), Size = new Size(500, 30) };
+            Label Label7 = new Label { Text = "ばくだんだとおもうマスをみぎクリックしてはたをたてよう", Location = new Point(90, 230), Size = new Size(350, 30) };
             instructionPanel.Controls.Add(Label7);
             Label Label8 = new Label { Text = "4. ばくだんいがいをぜんぶひらけばクリア！！ ", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Location = new Point(50, 260), Size = new Size(400, 30) };
             instructionPanel.Controls.Add(Label8);
-            Label Label9 = new Label { Text = "まちがえてばくだんをクリックするとゲームオーバーだよ", Location = new Point(90, 290), Size = new Size(500, 30) };
+            Label Label9 = new Label { Text = "まちがえてばくだんをクリックするとゲームオーバーだよ", Location = new Point(90, 290), Size = new Size(350, 30) };
             instructionPanel.Controls.Add(Label9);
-
+            PictureBox Rule = new PictureBox {Image = Dictionaries.Img_Button["mineRule"], SizeMode = PictureBoxSizeMode.StretchImage,Size = new Size(200, 200), Location = new Point(450, 140),BorderStyle = BorderStyle.FixedSingle};
+            instructionPanel.Controls.Add(Rule);
             Button backButton = new Button { Text = "もどる", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(120, 60), Location = new Point(instructionPanel.Width-150, 20)};
             backButton.Visible = false;            
             backButton.Click += (s, e) =>
