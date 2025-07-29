@@ -148,6 +148,7 @@ namespace unilab2025
                     {
                         // オープニング会話終了後、キャラクター選択へ
                         currentState = GameState.CharacterSelection;
+                        centerLabel.Visible = true;
                         ShowCharacterSelectionButtons(true); // キャラクター選択ボタンを表示
                     }
                     else if (currentState == GameState.PlayingIntroductionConversation)
@@ -170,8 +171,7 @@ namespace unilab2025
             girlChoiceBox.Visible = show;
             girlChoiceBox.Enabled = show;
             silverChoiceBox.Visible = show;
-            silverChoiceBox.Enabled = show;
-            centerLabel.Visible = true;
+            silverChoiceBox.Enabled = show;            
         }
 
         // 男の子選択PictureBoxクリック時の処理
