@@ -99,7 +99,8 @@ namespace unilab2025
             centerLabel.ForeColor = Color.White; // 文字色（必要に応じて）
             centerLabel.BackColor = Color.Transparent; // 背景を透過
             centerLabel.AutoSize = true; // テキストのサイズに合わせる
-            centerLabel.Location = new Point((this.ClientSize.Width - centerLabel.Width) / 2+40,(this.ClientSize.Height - centerLabel.Height) / 3 );            
+            centerLabel.Location = new Point((this.ClientSize.Width - centerLabel.Width) / 2+40,(this.ClientSize.Height - centerLabel.Height) / 3 );
+            centerLabel.Visible = false;
             centerLabel.BringToFront();
             this.Controls.Add(centerLabel);
 
@@ -170,6 +171,7 @@ namespace unilab2025
             girlChoiceBox.Enabled = show;
             silverChoiceBox.Visible = show;
             silverChoiceBox.Enabled = show;
+            centerLabel.Visible = true;
         }
 
         // 男の子選択PictureBoxクリック時の処理
