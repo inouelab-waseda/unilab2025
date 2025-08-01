@@ -50,11 +50,12 @@
             // button_MineSweeper
             // 
             this.button_MineSweeper.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_MineSweeper.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_MineSweeper.BackgroundImage")));
+            this.button_MineSweeper.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_MineSweeper.Location = new System.Drawing.Point(531, 179);
             this.button_MineSweeper.Name = "button_MineSweeper";
             this.button_MineSweeper.Size = new System.Drawing.Size(262, 250);
             this.button_MineSweeper.TabIndex = 1;
-            this.button_MineSweeper.Text = "マインスイーパー";
             this.button_MineSweeper.UseVisualStyleBackColor = true;
             this.button_MineSweeper.Click += new System.EventHandler(this.button_MineSweeper_Click);
             // 
