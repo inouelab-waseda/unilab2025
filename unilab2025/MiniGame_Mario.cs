@@ -11,8 +11,8 @@ namespace unilab2025
     #region ゲーム設定クラス
     public class GameSettings
     {
-        public const int DefaultPlayerSize = 40;
-        public const int DefaultObstacleSize = 30;
+        public const int DefaultPlayerSize = 60;
+        public const int DefaultObstacleSize = 60;
         public const int DefaultPlayerSpeed = 3;
         public const int DefaultBaseScrollSpeed = 1;
         // パーセント表記 (1-100%) に変更
