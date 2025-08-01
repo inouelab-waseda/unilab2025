@@ -1224,11 +1224,26 @@ namespace unilab2025
             //会話再生用
             if (Func.WaitingForButton == "carEnterWait")
             {
+                //ここPictureBox_finger5の実装終わり次第修正しといて！よろしく～
+                var ctrls = this.Controls.Find("pictureBox_finger1", true);
+                //var ctrls = this.Controls.Find("pictureBox_finger5", true);
+                if (ctrls.Length > 0)
+                {
+                    ctrls[0].Visible = true;
+
+                }
+
+                await Task.Delay(5000);
+
+                if (ctrls.Length > 0)
+                {
+                    ctrls[0].Visible = false;
+                }
+
                 // 次の会話セグメントを取得して再生
                 currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
-                    await Task.Delay(2000);
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
