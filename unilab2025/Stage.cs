@@ -1866,6 +1866,29 @@ namespace unilab2025
                             await Task.Delay(50); // わずかに待機
                         }
 
+                        pictureBox_buttonUp.Enabled = true;
+                        pictureBox_buttonRight.Enabled = true;
+                        pictureBox_buttonDown.Enabled = true;
+                        pictureBox_buttonLeft.Enabled = true;
+                        pictureBox_upperRight.Enabled = true;
+                        pictureBox_lowerRight.Enabled = true;
+                        pictureBox_lowerLeft.Enabled = true;
+                        pictureBox_upperLeft.Enabled = true;
+                        listBox_Order.Enabled = true;
+                        listBox_Car.Enabled = true;
+                        button_back.Enabled = true;
+                        button_balloon.Enabled = true;
+                        button_car.Enabled = true;
+                        button_carEnter.Enabled = true;
+                        button_hint.Enabled = true;
+                        button_info.Enabled = true;
+                        button_plane.Enabled = true;
+                        button_reset.Enabled = true;
+                        button_walk.Enabled = true;
+                        button_return.Enabled = true;
+                        button_Start.Visible = true;
+                        button_Start.Enabled = true;
+
                         g2.Clear(Color.Transparent);
                         sasa = false;
                         panda = false;
@@ -2098,6 +2121,29 @@ namespace unilab2025
                                 }
                                 else
                                 {
+                                    Func.IsInputLocked = false;
+                                    pictureBox_buttonUp.Enabled = true;
+                                    pictureBox_buttonRight.Enabled = true;
+                                    pictureBox_buttonDown.Enabled = true;
+                                    pictureBox_buttonLeft.Enabled = true;
+                                    pictureBox_upperRight.Enabled = true;
+                                    pictureBox_lowerRight.Enabled = true;
+                                    pictureBox_lowerLeft.Enabled = true;
+                                    pictureBox_upperLeft.Enabled = true;
+                                    listBox_Order.Enabled = true;
+                                    listBox_Car.Enabled = true;
+                                    button_back.Enabled = true;
+                                    button_balloon.Enabled = true;
+                                    button_car.Enabled = true;
+                                    button_carEnter.Enabled = true;
+                                    button_hint.Enabled = true;
+                                    button_info.Enabled = true;
+                                    button_plane.Enabled = true;
+                                    button_reset.Enabled = true;
+                                    button_walk.Enabled = true;
+                                    button_return.Enabled = true;
+                                    button_Start.Visible = true;
+                                    button_Start.Enabled = true;
                                     //MessageBox.Show("前に進めません");
                                     DisplayMessage("行き止まり");
                                     g2.Clear(Color.Transparent);//人の移動などのリセット
@@ -2122,6 +2168,29 @@ namespace unilab2025
                     }
                     else
                     {
+                        Func.IsInputLocked = false;
+                        pictureBox_buttonUp.Enabled = true;
+                        pictureBox_buttonRight.Enabled = true;
+                        pictureBox_buttonDown.Enabled = true;
+                        pictureBox_buttonLeft.Enabled = true;
+                        pictureBox_upperRight.Enabled = true;
+                        pictureBox_lowerRight.Enabled = true;
+                        pictureBox_lowerLeft.Enabled = true;
+                        pictureBox_upperLeft.Enabled = true;
+                        listBox_Order.Enabled = true;
+                        listBox_Car.Enabled = true;
+                        button_back.Enabled = true;
+                        button_balloon.Enabled = true;
+                        button_car.Enabled = true;
+                        button_carEnter.Enabled = true;
+                        button_hint.Enabled = true;
+                        button_info.Enabled = true;
+                        button_plane.Enabled = true;
+                        button_reset.Enabled = true;
+                        button_walk.Enabled = true;
+                        button_return.Enabled = true;
+                        button_Start.Visible = true;
+                        button_Start.Enabled = true;
                         //MessageBox.Show("前に進めません");
                         DisplayMessage("行き止まり");
                         while (pictureBox_Conv.Visible)
