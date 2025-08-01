@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiniGame));
             this.button_Mario = new System.Windows.Forms.Button();
             this.button_MineSweeper = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_Mario
@@ -38,10 +39,10 @@
             this.button_Mario.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_Mario.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Mario.BackgroundImage")));
             this.button_Mario.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button_Mario.Location = new System.Drawing.Point(155, 240);
-            this.button_Mario.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button_Mario.Location = new System.Drawing.Point(150, 179);
+            this.button_Mario.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button_Mario.Name = "button_Mario";
-            this.button_Mario.Size = new System.Drawing.Size(333, 300);
+            this.button_Mario.Size = new System.Drawing.Size(266, 250);
             this.button_Mario.TabIndex = 0;
             this.button_Mario.UseVisualStyleBackColor = true;
             this.button_Mario.Click += new System.EventHandler(this.button_Mario_Click);
@@ -49,26 +50,36 @@
             // button_MineSweeper
             // 
             this.button_MineSweeper.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_MineSweeper.Location = new System.Drawing.Point(689, 200);
-            this.button_MineSweeper.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_MineSweeper.Location = new System.Drawing.Point(531, 179);
             this.button_MineSweeper.Name = "button_MineSweeper";
-            this.button_MineSweeper.Size = new System.Drawing.Size(267, 250);
+            this.button_MineSweeper.Size = new System.Drawing.Size(262, 250);
             this.button_MineSweeper.TabIndex = 1;
             this.button_MineSweeper.Text = "マインスイーパー";
             this.button_MineSweeper.UseVisualStyleBackColor = true;
             this.button_MineSweeper.Click += new System.EventHandler(this.button_MineSweeper_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(46, 26);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(343, 147);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "ステージにもどる";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MiniGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.ClientSize = new System.Drawing.Size(1080, 608);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button_MineSweeper);
             this.Controls.Add(this.button_Mario);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MiniGame";
             this.Text = "MiniGame";
             this.Load += new System.EventHandler(this.MiniGame_Load);
@@ -80,5 +91,6 @@
 
         private System.Windows.Forms.Button button_Mario;
         private System.Windows.Forms.Button button_MineSweeper;
+        private System.Windows.Forms.Button button1;
     }
 }
