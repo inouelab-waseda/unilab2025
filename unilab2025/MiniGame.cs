@@ -15,6 +15,7 @@ namespace unilab2025
         public MiniGame()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -36,6 +37,11 @@ namespace unilab2025
         private void button_MineSweeper_Click(object sender, EventArgs e)
         {
             Func.CreateMine(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Func.CreateAnotherWorld(this);
         }
     }
 }

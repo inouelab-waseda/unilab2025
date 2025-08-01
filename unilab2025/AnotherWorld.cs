@@ -14,7 +14,8 @@ namespace unilab2025
     {
         public AnotherWorld()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;

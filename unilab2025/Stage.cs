@@ -512,12 +512,12 @@ namespace unilab2025
 
                     }
                     else if (_worldNumber < 5 || _worldNumber == 7) 
-                    { 
-                        //if((x==0||y==0||x== map_width-1||y== map_width-1)&& map[x, y] == 2)
+                    {
+                        //if (map[x, y] == 2)
                         //{
-                        //    int num = rand.Next(0,80);
+                        //    int num = rand.Next(0, 40);
                         //    int num2 = num / 20;
-                        //    g1.DrawImage(Dictionaries.Img_Object["grass"+num2], placeX, placeY, cell_length, cell_length);
+                        //    g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
                         //}
                         //else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                         g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
@@ -789,8 +789,7 @@ namespace unilab2025
             button_return.Enabled = false;
             button_Start.Visible = false;
             button_Start.Enabled = false;
-
-
+            
             if (listBox_Order.Items.Count == 0) {
                 //MessageBox.Show("やり直し");
                 DisplayMessage("ゴール未達");
@@ -817,6 +816,7 @@ namespace unilab2025
                 button_return.Enabled = true;
                 button_Start.Visible = true;
                 button_Start.Enabled = true;
+                
                 return;
             }
 
@@ -1884,6 +1884,29 @@ namespace unilab2025
                             await Task.Delay(50); // わずかに待機
                         }
 
+                        pictureBox_buttonUp.Enabled = true;
+                        pictureBox_buttonRight.Enabled = true;
+                        pictureBox_buttonDown.Enabled = true;
+                        pictureBox_buttonLeft.Enabled = true;
+                        pictureBox_upperRight.Enabled = true;
+                        pictureBox_lowerRight.Enabled = true;
+                        pictureBox_lowerLeft.Enabled = true;
+                        pictureBox_upperLeft.Enabled = true;
+                        listBox_Order.Enabled = true;
+                        listBox_Car.Enabled = true;
+                        button_back.Enabled = true;
+                        button_balloon.Enabled = true;
+                        button_car.Enabled = true;
+                        button_carEnter.Enabled = true;
+                        button_hint.Enabled = true;
+                        button_info.Enabled = true;
+                        button_plane.Enabled = true;
+                        button_reset.Enabled = true;
+                        button_walk.Enabled = true;
+                        button_return.Enabled = true;
+                        button_Start.Visible = true;
+                        button_Start.Enabled = true;
+
                         g2.Clear(Color.Transparent);
                         for (int i = 0; i < sasa.Count; i++)
                         {
@@ -1939,23 +1962,30 @@ namespace unilab2025
                         // クリア後マップ遷移後会話再生用
                         if (Func.WaitingForButton == "returnMap")
                         {
-                            // ステージクリア判定（順番的にここにないと駄目っぽい）
-                            ClearCheck.IsCleared[_worldNumber, _level] = true;
-                            ClearCheck.IsCleared[_worldNumber, 0] = true;
 
-                            if (_worldNumber <= 4)
+                            if ((_worldNumber == 1 && _level == 2) || (_worldNumber <= 4 && _level == 3))
                             {
+                                ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                ClearCheck.IsCleared[_worldNumber, 0] = true;
                                 for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
                                 {
                                     ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
                                     ClearCheck.IsNew[_worldNumber + 1, j] = true;
                                 }
                             }
-                            else
+                            else if(_level == 3)
                             {
+                                ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                ClearCheck.IsCleared[_worldNumber, 0] = true;
                                 ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
                                 ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                                 Func.UpdateIsNew();
+                            }
+                            else
+                            {
+                                ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                                ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                             }
 
                             // 遷移後再生フラグ
@@ -1972,8 +2002,15 @@ namespace unilab2025
                             // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
                             if (result == DialogResult.Yes)
                             {
-                                if (_worldNumber <= 4) Func.CreateWorldMap(this);
-                                else Func.CreateAnotherWorld(this);
+                                if ((_worldNumber == 1 && _level == 2) || _level == 3)
+                                {
+                                    if (_worldNumber <= 4) Func.CreateWorldMap(this);
+                                    else Func.CreateAnotherWorld(this);
+                                }
+                                else
+                                {
+                                    Func.CreateStageSelect(this, _worldName, _worldNumber);
+                                }
                             }
                         }
                     }
@@ -2134,6 +2171,29 @@ namespace unilab2025
                                 }
                                 else
                                 {
+                                    Func.IsInputLocked = false;
+                                    pictureBox_buttonUp.Enabled = true;
+                                    pictureBox_buttonRight.Enabled = true;
+                                    pictureBox_buttonDown.Enabled = true;
+                                    pictureBox_buttonLeft.Enabled = true;
+                                    pictureBox_upperRight.Enabled = true;
+                                    pictureBox_lowerRight.Enabled = true;
+                                    pictureBox_lowerLeft.Enabled = true;
+                                    pictureBox_upperLeft.Enabled = true;
+                                    listBox_Order.Enabled = true;
+                                    listBox_Car.Enabled = true;
+                                    button_back.Enabled = true;
+                                    button_balloon.Enabled = true;
+                                    button_car.Enabled = true;
+                                    button_carEnter.Enabled = true;
+                                    button_hint.Enabled = true;
+                                    button_info.Enabled = true;
+                                    button_plane.Enabled = true;
+                                    button_reset.Enabled = true;
+                                    button_walk.Enabled = true;
+                                    button_return.Enabled = true;
+                                    button_Start.Visible = true;
+                                    button_Start.Enabled = true;
                                     //MessageBox.Show("前に進めません");
                                     DisplayMessage("行き止まり");
                                     g2.Clear(Color.Transparent);//人の移動などのリセット
@@ -2158,6 +2218,29 @@ namespace unilab2025
                     }
                     else
                     {
+                        Func.IsInputLocked = false;
+                        pictureBox_buttonUp.Enabled = true;
+                        pictureBox_buttonRight.Enabled = true;
+                        pictureBox_buttonDown.Enabled = true;
+                        pictureBox_buttonLeft.Enabled = true;
+                        pictureBox_upperRight.Enabled = true;
+                        pictureBox_lowerRight.Enabled = true;
+                        pictureBox_lowerLeft.Enabled = true;
+                        pictureBox_upperLeft.Enabled = true;
+                        listBox_Order.Enabled = true;
+                        listBox_Car.Enabled = true;
+                        button_back.Enabled = true;
+                        button_balloon.Enabled = true;
+                        button_car.Enabled = true;
+                        button_carEnter.Enabled = true;
+                        button_hint.Enabled = true;
+                        button_info.Enabled = true;
+                        button_plane.Enabled = true;
+                        button_reset.Enabled = true;
+                        button_walk.Enabled = true;
+                        button_return.Enabled = true;
+                        button_Start.Visible = true;
+                        button_Start.Enabled = true;
                         //MessageBox.Show("前に進めません");
                         DisplayMessage("行き止まり");
                         while (pictureBox_Conv.Visible)
