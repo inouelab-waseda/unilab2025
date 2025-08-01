@@ -15,10 +15,14 @@ namespace unilab2025
         public StageSelect()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
+            pictureBox_Conv = Func.CreatePictureBox_Conv(this);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv.Visible = false;
         }
         #region 各種メンバ変数の定義など
 
@@ -37,20 +41,53 @@ namespace unilab2025
             get { return _worldNumber; }
             set { _worldNumber = value; }
         }
+
+        private PictureBox pictureBox_Conv;
+        private List<Conversation> currentConversation;
+        private byte[] Capt;
         #endregion
 
         private void StageSelect_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Dictionaries.Img_Background["Stage" + _worldNumber];
+            
             button_Stage1.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-1"];
             button_Stage2.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-2"];
             
             if (_worldNumber == 1)
             {
-                button_Stage3.Visible = false;
-                return;
+                button_Stage3.Visible = false;                
             }
             else button_Stage3.BackgroundImage = Dictionaries.Img_Button_MapSelect[_worldNumber + "-3"];
+            if (!ClearCheck.IsButtonEnabled[_worldNumber, 2])
+            {
+                button_Stage2.Visible = false;
+                
+            }
+            if (!ClearCheck.IsButtonEnabled[_worldNumber, 3])
+            {
+                button_Stage3.Visible = false;
+            }
+            foreach (Control control in this.Controls)
+            {
+                if (control is CustomButton button)
+                {
+                    string NameWithoutButton = button.Name.Replace("button_Stage", "");
+                    if (int.TryParse(NameWithoutButton, out int j))
+                    {
+                        if (ClearCheck.IsButtonEnabled[_worldNumber, j])
+                        {
+                            button.ForeImage = null;
+                            button.Cursor = Cursors.Hand;
+                            if (ClearCheck.IsNew[_worldNumber, j])
+                            {
+                                //button.BackColor = Color.FromArgb(255, 128, 128);
+                                button.ConditionImage = Dictionaries.Img_Button["New"];
+                            }
+                        }
+                    }
+                }
+            }
 
         }
 
@@ -62,7 +99,8 @@ namespace unilab2025
 
         private void button_StageI_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            CustomButton button = sender as CustomButton;
             if (button != null)
             {
                 string NameWithoutButton = button.Name.Replace("button_Stage", "");
@@ -80,7 +118,19 @@ namespace unilab2025
                 }
             }
         }
+        /// 会話を1フレーム進める
+        private void AdvanceConversation()
+        {
+            if (currentConversation != null && Capt != null)
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
+            }
+        }
 
-     
+        // 会話用のPictureBoxがクリックされたときの処理
+        private void pictureBox_Conv_Click(object sender, EventArgs e)
+        {
+            AdvanceConversation();
+        }
     }
 }

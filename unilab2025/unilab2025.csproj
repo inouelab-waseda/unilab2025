@@ -52,6 +52,22 @@
     <Compile Include="AnotherWorld.Designer.cs">
       <DependentUpon>AnotherWorld.cs</DependentUpon>
     </Compile>
+    <Compile Include="MiniGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiniGame.Designer.cs">
+      <DependentUpon>MiniGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MiniGame_Mario.cs" />
+    <Compile Include="MiniGame_Mario.Designer.cs">
+      <DependentUpon>MiniGame_Mario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MiniGame_Mine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiniGame_Mine.Designer.cs">
+      <DependentUpon>MiniGame_Mine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Stage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +109,15 @@
     <EmbeddedResource Include="AnotherWorld.resx">
       <DependentUpon>AnotherWorld.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniGame.resx">
+      <DependentUpon>MiniGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniGame_Mario.resx">
+      <DependentUpon>MiniGame_Mario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniGame_Mine.resx">
+      <DependentUpon>MiniGame_Mine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Prologue.resx">
       <DependentUpon>Prologue.cs</DependentUpon>

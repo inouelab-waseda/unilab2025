@@ -35,6 +35,7 @@ namespace unilab2025
             Func.LoadImg_Button_MapSelect();
             Func.LoadImg_Conversation();
             Func.LoadConversations();
+            Func.LoadMessagesFromCsv();
             Func.InitializeClearCheck();
 
             Application.Run(new Title());
@@ -121,6 +122,45 @@ namespace unilab2025
             }
         }
 
+        public static void CreateMiniGame(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame form = new MiniGame();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
+
+
+        public static void CreateMario(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame_Mario";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame_Mario form = new MiniGame_Mario();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
+
+        public static void CreateMine(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame_Mine";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame_Mine form = new MiniGame_Mine();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
     }
     #endregion
 
@@ -129,6 +169,7 @@ namespace unilab2025
     //会話データ読込
     public static partial class Func
     {
+
         //セリフCSV読み込み
         public static List<Conversation> LoadConversationCSV(string ConvertationCSVFileName)
         {
@@ -211,46 +252,248 @@ namespace unilab2025
         //    return Message;
         //}
 
-        public static (List<Conversation>, List<Conversation>) LoadStories(string ConvFileName, string cutWord)
+        public static List<Conversation> LoadStories(string ConvFileName, Form currentForm, string cutSymbol = "※")
         {
-            List<Conversation> StartConv = new List<Conversation>();
-            List<Conversation> EndConv = new List<Conversation>();
-
-            using (StreamReader sr = new StreamReader($"Story\\{ConvFileName}"))
+            // 全会話データを読み込む
+            activeConversation = new List<Conversation>();
+            using (StreamReader sr = new StreamReader($"Conversation\\{ConvFileName}"))
             {
                 bool isFirstRow = true;
-                bool isBeforePlay = true;
-
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
+                    if (isFirstRow) { isFirstRow = false; continue; }
                     string[] values = line.Split(',');
-
-                    if (isFirstRow) //escape 1st row
-                    {
-                        isFirstRow = false;
-                        continue;
-                    }
-                    if (values[1] == cutWord)
-                    {
-                        isBeforePlay = false;
-                        continue;
-                    }
-
-                    if (isBeforePlay)
-                    {
-                        StartConv.Add(new Conversation(values[0], values[1], values[2]));
-                    }
-                    else
-                    {
-                        EndConv.Add(new Conversation(values[0], values[1], values[2]));
-                    }
+                    activeConversation.Add(new Conversation(values[0], values[1], values[2]));
                 }
             }
 
-            return (StartConv, EndConv);
+            // 会話の再生を開始する準備
+            currentSegmentStartIndex = 0;
+            WaitingForButton = null;
+
+            // 最初のセグメントを返却
+            return GetNextSegment(currentForm);
         }
 
+        /// <summary>
+        /// 次に再生すべき会話セグメント（※までの塊）を取得する
+        /// </summary>
+        public static List<string> deferredCommands=new List<string>();
+        public static int Cov_Count;
+
+        public static List<Conversation> GetNextSegment(Form currentForm)
+        {
+            Cov_Count = 0;
+            var segment = new List<Conversation>();
+            WaitingForButton = null; // まず待機状態をリセット
+
+            if (activeConversation == null || currentSegmentStartIndex >= activeConversation.Count)
+            {
+                return segment;
+            }
+
+            for (int i = currentSegmentStartIndex; i < activeConversation.Count; i++)
+            {
+                var currentConv = activeConversation[i];
+
+                // ※が含まれているかチェック
+                if (currentConv.Dialogue.Contains("※"))
+                {
+                    // セリフを「※」で分割
+                    string[] parts = currentConv.Dialogue.Split(new[] { '※' }, 2);
+
+                    // 分割したセリフ本体と、ボタン識別子を取得
+                    string dialogueText = parts[0]; // ※より前の部分
+                    WaitingForButton = parts.Length > 1 ? parts[1].Trim() : null; // ※より後の部分がボタン識別子
+                    
+                    if (!string.IsNullOrEmpty(dialogueText))
+                    {
+                        currentConv.Dialogue = dialogueText;
+                        segment.Add(currentConv);
+                    }
+
+                    Cov_Count = i;
+
+                    currentSegmentStartIndex = i + 1;
+                    break; // 現在のセグメントはここまで
+                }
+                else if (currentConv.Dialogue.Contains("C."))
+                {
+                    // コマンド文字列はそのまま渡す                    
+                    deferredCommands.Add(currentConv.Dialogue);
+                    //foreach (string cmd in deferredCommands)
+                    //{
+                    //    ExecuteInlineAction(cmd.Trim(), currentForm);
+                    //}
+                    currentSegmentStartIndex = i + 1;
+
+                    continue;
+                    //break; // コマンドは会話に表示しない
+                }
+                else
+                {
+                    segment.Add(currentConv);
+                    currentSegmentStartIndex = i + 1;
+                }
+            }
+
+            return segment;
+        }
+
+        public static Action OnNextHintCommand;
+
+        //コマンド実行
+        public static void ExecuteInlineAction(string command, Form form)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(command)) return;
+
+                // 独自コマンドの対応
+                if (command.Equals("C.show_finger1", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger1", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+
+                    }                    
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger1", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger1", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+
+                else if (command.Equals("C.show_finger2", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger2", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    var arrow1 = form.Controls.Find("pictureBox_buttonUp", true);
+                    if (arrow1.Length > 0) arrow1[0].Enabled = false;
+                    var arrow2 = form.Controls.Find("pictureBox_buttonRight", true);
+                    if (arrow2.Length > 0) arrow2[0].Enabled = false;
+                    var arrow3 = form.Controls.Find("pictureBox_buttonDown", true);
+                    if (arrow3.Length > 0) arrow3[0].Enabled = true;
+                    var arrow4 = form.Controls.Find("pictureBox_buttonLeft", true);
+                    if (arrow4.Length > 0) arrow4[0].Enabled = false;
+                    var arrow5 = form.Controls.Find("button_back", true);
+                    if (arrow5.Length > 0) arrow5[0].Enabled = false;
+                    var arrow6 = form.Controls.Find("button_reset", true);
+                    if (arrow6.Length > 0) arrow6[0].Enabled = false;
+
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger2", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger2", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.show_finger3", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger3", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    var arrow1 = form.Controls.Find("pictureBox_buttonUp", true);
+                    if (arrow1.Length > 0) arrow1[0].Enabled = false;
+                    var arrow2 = form.Controls.Find("pictureBox_buttonRight", true);
+                    if (arrow2.Length > 0) arrow2[0].Enabled = true;
+                    var arrow3 = form.Controls.Find("pictureBox_buttonDown", true);
+                    if (arrow3.Length > 0) arrow3[0].Enabled = false;
+                    var arrow4 = form.Controls.Find("pictureBox_buttonLeft", true);
+                    if (arrow4.Length > 0) arrow4[0].Enabled = false;
+                    var arrow5 = form.Controls.Find("button_back", true);
+                    if (arrow5.Length > 0) arrow5[0].Enabled = false;
+                    var arrow6 = form.Controls.Find("button_reset", true);
+                    if (arrow6.Length > 0) arrow6[0].Enabled = false;
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger3", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger3", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    var arrow1 = form.Controls.Find("pictureBox_buttonUp", true);
+                    if (arrow1.Length > 0) arrow1[0].Enabled = true;
+                    var arrow2 = form.Controls.Find("pictureBox_buttonRight", true);
+                    if (arrow2.Length > 0) arrow2[0].Enabled = true;
+                    var arrow3 = form.Controls.Find("pictureBox_buttonDown", true);
+                    if (arrow3.Length > 0) arrow3[0].Enabled = true;
+                    var arrow4 = form.Controls.Find("pictureBox_buttonLeft", true);
+                    if (arrow4.Length > 0) arrow4[0].Enabled = true;
+                    var arrow5 = form.Controls.Find("button_back", true);
+                    if (arrow5.Length > 0) arrow5[0].Enabled = true;
+                    var arrow6 = form.Controls.Find("button_reset", true);
+                    if (arrow6.Length > 0) arrow6[0].Enabled = true;
+                    return;
+                }
+                else if (command.Equals("C.show_finger4", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger4", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.not_show_finger4", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = false
+                    var ctrls = form.Controls.Find("pictureBox_finger4", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = false;
+                    }
+                    return;
+                }
+                else if (command.Equals("C.nextHint", StringComparison.OrdinalIgnoreCase))
+                {
+                    OnNextHintCommand?.Invoke();
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"命令実行エラー: {ex.Message}", "エラー");
+            }
+        }
+
+        public static void Commond_Action(Form currentForm)
+        {
+            if (deferredCommands != null)
+            {
+                foreach (string cmd in deferredCommands)
+                {
+                    ExecuteInlineAction(cmd.Trim(), currentForm);
+                }
+                deferredCommands.Clear();
+            }
+        }
 
         //メッセージボックス
         public static PictureBox CreatePictureBox_Conv(Form currentForm)
@@ -355,12 +598,13 @@ namespace unilab2025
                 if (match.Index > lastIndex)
                 {
                     string normalText = text.Substring(lastIndex, match.Index - lastIndex);
-                    g.DrawString(normalText, baseFont, brush, new PointF(currentX, currentY));
+                    // 描画時にも format を適用
+                    g.DrawString(normalText, baseFont, brush, new PointF(currentX, currentY), format); // <--- 修正
                     currentX += g.MeasureString(normalText, baseFont, PointF.Empty, format).Width;
                 }
 
-                string baseText = match.Groups[1].Value; // 親文字 (例: 漢字)
-                string rubyText = match.Groups[2].Value; // ルビ (例: かんじ)
+                string baseText = match.Groups[1].Value; // 親文字
+                string rubyText = match.Groups[2].Value; // ルビ
 
                 // 親文字とルビのサイズを計測
                 SizeF baseSize = g.MeasureString(baseText, baseFont, PointF.Empty, format);
@@ -368,11 +612,13 @@ namespace unilab2025
 
                 // ルビを親文字の中央上に描画
                 float rubyX = currentX + (baseSize.Width - rubySize.Width) / 2 + 3;
-                float rubyY = currentY - rubySize.Height + 10; // 親文字の上に来るように調整
-                g.DrawString(rubyText, rubyFont, brush, new PointF(rubyX, rubyY));
+                float rubyY = currentY - rubySize.Height + 10;
+                // 描画時にも format を適用
+                g.DrawString(rubyText, rubyFont, brush, new PointF(rubyX, rubyY), format); // <--- 修正
 
                 // 親文字を描画
-                g.DrawString(baseText, baseFont, brush, new PointF(currentX, currentY));
+                // 描画時にも format を適用
+                g.DrawString(baseText, baseFont, brush, new PointF(currentX, currentY), format); // <--- 修正
                 currentX += baseSize.Width;
 
                 lastIndex = match.Index + match.Length;
@@ -382,11 +628,12 @@ namespace unilab2025
             if (lastIndex < text.Length)
             {
                 string remainingText = text.Substring(lastIndex);
-                g.DrawString(remainingText, baseFont, brush, new PointF(currentX, currentY));
+                // 描画時にも format を適用
+                g.DrawString(remainingText, baseFont, brush, new PointF(currentX, currentY), format); // <--- 修正
             }
         }
 
-    public static Bitmap ByteArrayToBitmap(byte[] byteArray)
+        public static Bitmap ByteArrayToBitmap(byte[] byteArray)
         {
             using (MemoryStream ms = new MemoryStream(byteArray))
             {
@@ -395,16 +642,49 @@ namespace unilab2025
         }
 
         public static int convIndex;
+        public static List<Conversation> activeConversation;
+        public static int currentSegmentStartIndex;
+        public static string WaitingForButton { get; private set; }
+        public static bool IsInputLocked = false;
 
-        
 
-        public static void DrawConv(Form currentForm, PictureBox pictureBox_Conv, byte[] Capt, List<Conversation> Conversations)
+
+        public static  void DrawConv(Form currentForm, PictureBox pictureBox_Conv, byte[] Capt, List<Conversation> Conversations)
         {
             if (convIndex >= Conversations.Count)
             {
+                // 1つのセグメントの表示が終わった
                 ChangeControl(pictureBox_Conv, false);
+
+                // もし会話が一時停止状態でなく、全ての会話が終わったなら、リソースをクリア
+                if (string.IsNullOrEmpty(WaitingForButton) && (activeConversation == null || currentSegmentStartIndex >= activeConversation.Count))
+                {
+                    activeConversation = null;
+                    
+                }
+
+                if (deferredCommands != null)
+                {
+                    foreach (string cmd in deferredCommands)
+                    {
+                        ExecuteInlineAction(cmd.Trim(), currentForm);
+                    }
+                    deferredCommands.Clear();
+                }
+
                 return;
             }
+            //if(convIndex>= Cov_Count-1)
+            //{
+            //    if (deferredCommands != null)
+            //    {
+            //        foreach (string cmd in deferredCommands)
+            //        {
+            //            ExecuteInlineAction(cmd.Trim(), currentForm);
+            //        }
+            //        deferredCommands.Clear();
+            //    }
+            //}
 
             Bitmap bmp_Capt = ByteArrayToBitmap(Capt);
             Graphics g = Graphics.FromImage(bmp_Capt);
@@ -421,8 +701,8 @@ namespace unilab2025
                 // ウィンドウ座標
                 int dia_x = 1300;
                 int dia_y = 270;
-                int margin_x = (1536 - dia_x) / 2; // 画面中央に配置
-                int margin_y = 600;
+                int margin_x = (1400 - dia_x) / 2; // 画面中央に配置
+                int margin_y = 400;
                 int lineHeight = fnt_dia.Height;
 
                 // ウィンドウ内部の余白設定
@@ -437,7 +717,7 @@ namespace unilab2025
                 // キャラ名表示
                 string charaName = Conversations[convIndex].Character;
                 // 名前の描画位置 (ウィンドウ左上からのオフセット。お好みで調整してください)
-                Point namePosition = new Point(margin_x + 55, margin_y + 12);
+                Point namePosition = new Point(margin_x + 135, margin_y + 45);
                 g.DrawString(charaName, fnt_name, Brushes.Black, namePosition);
 
                 // キャラクターアイコン画像描画
@@ -483,7 +763,7 @@ namespace unilab2025
 
                     // アイコン表示領域の中央に画像を描画するための座標計算。
                     float drawX = iconArea.X + (iconArea.Width - newWidth) / 2 - 20;
-                    float drawY = iconArea.Y + (iconArea.Height - newHeight) / 2 + 30;
+                    float drawY = iconArea.Y + (iconArea.Height - newHeight) / 2 + 50;
 
                     // 計算した位置とサイズで画像を描画
                     g.DrawImage(charaImage, drawX, drawY, newWidth, newHeight);
@@ -496,7 +776,7 @@ namespace unilab2025
                 {
                     PointF startPoint = new PointF(
                         margin_x + text_start_offset_x,
-                        margin_y + text_start_offset_y + i * lineHeight + fnt_ruby.Height
+                        margin_y + text_start_offset_y + i * lineHeight + fnt_ruby.Height + 22
                     );
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
@@ -506,19 +786,19 @@ namespace unilab2025
                 // ナレーターモード（キャラクター無し）のレイアウト
                 int dia_x = 1300;
                 int dia_y = 270;
-                int margin_x = (1536 - dia_x) / 2;
-                int margin_y = 600;
+                int margin_x = (1400 - dia_x) / 2;
+                int margin_y = 400;
                 int lineHeight = fnt_dia.Height;
                 int textPaddingX = 60;
                 int sp_y = 70;
 
-                g.DrawImage(Dictionaries.Img_Conversation["MessageWindow"], margin_x, margin_y, dia_x, dia_y);
+                g.DrawImage(Dictionaries.Img_Conversation["MessageWindowNoName"], margin_x, margin_y, dia_x, dia_y);
 
                 char[] lineBreak = new char[] { '\\' };
                 string[] DialogueLines = Conversations[convIndex].Dialogue.Replace("\\n", "\\").Split(lineBreak);
                 for (int i = 0; i < DialogueLines.Length; i++)
                 {
-                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height);
+                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 3);
                     DrawStringWithRuby(g, DialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
                 }
             }
@@ -535,6 +815,8 @@ namespace unilab2025
 
         public static void ChangeControl(PictureBox pictureBox_Conv, bool isStart)
         {
+            IsInputLocked = isStart;
+
             pictureBox_Conv.Enabled = isStart;
             pictureBox_Conv.Visible = isStart;
             if (isStart)
@@ -549,15 +831,66 @@ namespace unilab2025
             }
         }
 
-        public static byte[] PlayConv(Form currentForm, PictureBox pictureBox_Conv, List<Conversation> Conversations)
+        public static async Task<byte[]> PlayConv(Form currentForm, PictureBox pictureBox_Conv, List<Conversation> Conversations)
         {
+            await Task.Delay(100);
+
             byte[] Capt = CaptureClientArea(currentForm);
-            ChangeControl(pictureBox_Conv, true);
             convIndex = 0;
+
             DrawConv(currentForm, pictureBox_Conv, Capt, Conversations);
+            ChangeControl(pictureBox_Conv, true);
 
             return Capt;
         }
+
+        // システムメッセージ用
+        public static async Task PlaySystemMessage(Form currentForm, PictureBox pictureBox_Conv, string message)
+        {
+            byte[] Capt = CaptureClientArea(currentForm);
+            Bitmap bmp_Capt = new Bitmap(ByteArrayToBitmap(Capt));
+            using (Graphics g = Graphics.FromImage(bmp_Capt))
+            {
+                // フォントやウィンドウのサイズを設定
+                Font fnt_dia = new Font("游ゴシック", 30);
+                Font fnt_ruby = new Font("游ゴシック", 12); // ルビ用のフォントも定義
+
+                // --- ここから DrawConv のナレーターモードのロジックを流用 ---
+                int dia_x = 1300;
+                int dia_y = 270;
+                int margin_x = (1400 - dia_x) / 2;
+                int margin_y = 400;
+                int lineHeight = fnt_dia.Height;
+                int textPaddingX = 60;
+                int sp_y = 70;
+
+                // 名前欄なしのメッセージウィンドウを描画
+                g.DrawImage(Dictionaries.Img_Conversation["MessageWindowNoName"], margin_x, margin_y, dia_x, dia_y);
+
+                // メッセージ内の改行文字「\n」に対応
+                char[] lineBreak = new char[] { '\\' };
+                string[] dialogueLines = message.Replace("\\n", "\\").Split(lineBreak);
+
+                // テキストを一行ずつ描画
+                for (int i = 0; i < dialogueLines.Length; i++)
+                {
+                    PointF startPoint = new PointF(margin_x + textPaddingX, margin_y + sp_y + i * lineHeight + fnt_ruby.Height + 3);
+                    DrawStringWithRuby(g, dialogueLines[i], fnt_dia, fnt_ruby, Brushes.Black, startPoint);
+                }
+                // --- ここまで ---
+
+                fnt_dia.Dispose();
+                fnt_ruby.Dispose();
+            }
+
+            pictureBox_Conv.Image = bmp_Capt;
+
+            // 会話ウィンドウを表示し、キーボード入力をロック
+            ChangeControl(pictureBox_Conv, true);
+
+            await Task.CompletedTask;
+        }
+
     }
 
     #endregion
@@ -623,7 +956,7 @@ namespace unilab2025
         //DictionaryにMessageCSVのデータを追加
         public static Dictionary<string, List<Message>> LoadMessagesFromCsv()
         {
-            string filePath = (@"Convertation\\Conv_Message.csv");
+            string filePath = (@"Conv_Message.csv");
             using (StreamReader reader = new StreamReader(filePath))
             {
                 while (!reader.EndOfStream)
@@ -631,7 +964,7 @@ namespace unilab2025
                     string line = reader.ReadLine();
                     string[] values = line.Split(',');
 
-                    if (values.Length < 2) continue; // 不正な行をスキップ
+                    if (values.Length < 2) continue; // 説明の行をスキップ
 
                     string key = values[0].Trim();
                     Message message = new Message
@@ -723,7 +1056,7 @@ namespace unilab2025
 
     public enum ConstNum
     {
-        numWorlds = 7 + 1,
+        numWorlds = 8 + 1,
         numStages = 3 + 1,
         waitTime_End = 100,
         waitTime_Load = 400
@@ -732,6 +1065,7 @@ namespace unilab2025
     {
         public static string FormName = "Prologue";
         public static Dictionary<string, object> StateData = new Dictionary<string, object>();
+        public static string NextConversationTrigger = null;
     }
 
     public partial class ClearCheck
@@ -776,6 +1110,14 @@ namespace unilab2025
 
             ClearCheck.IsButtonEnabled[1, 0] = true;
             ClearCheck.IsButtonEnabled[1, 1] = true;
+            ClearCheck.IsButtonEnabled[5, 0] = true;
+            ClearCheck.IsButtonEnabled[5, 1] = true;
+            ClearCheck.IsButtonEnabled[6, 0] = true;
+            ClearCheck.IsButtonEnabled[6, 1] = true;
+            ClearCheck.IsButtonEnabled[7, 0] = true;
+            ClearCheck.IsButtonEnabled[7, 1] = true;
+            ClearCheck.IsButtonEnabled[8, 0] = true;
+            ClearCheck.IsButtonEnabled[8, 1] = true;
         }
 
         public static void UpdateIsNew()    //IsNew配列の更新
@@ -916,5 +1258,82 @@ namespace unilab2025
 
     #endregion
 
+
+    #region カスタムボタン（文字の上に画像を描画する）
+    public class CustomButton : Button
+    {
+        private Image foreImage;
+
+        public Image ForeImage
+        {
+            get { return foreImage; }
+            set
+            {
+                foreImage = value;
+                Invalidate();
+            }
+        }
+
+        private Image conditionImage;
+
+        public Image ConditionImage
+        {
+            get { return conditionImage; }
+            set
+            {
+                conditionImage = value;
+                Invalidate();
+            }
+        }
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            //ボタンのベース描画
+            base.OnPaint(pevent);
+
+            //文字の描画
+            TextRenderer.DrawText(pevent.Graphics, this.Text, this.Font, this.ClientRectangle, this.ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+
+            //ボタンサイズ
+            int buttonWidth = this.Width;
+            int buttonHeight = this.Height;
+
+            //背景画像を文字の上に描画
+            if (this.ForeImage != null)
+            {
+                //Zoomレイアウトで背景画像を描画
+                //画像サイズ
+                int imageWidth = this.ForeImage.Width;
+                int imageHeight = this.ForeImage.Height;
+
+                //縦横比を保ちながらスケーリング
+                float scale = Math.Min((float)buttonWidth / imageWidth, (float)buttonHeight / imageHeight);
+                int scaleWidth = (int)(imageWidth * scale);
+                int scaleHeight = (int)(imageHeight * scale);
+
+                //位置調整
+                int x = (buttonWidth - scaleWidth) / 2;
+                int y = (buttonHeight - scaleHeight) / 2;
+                Rectangle destRect = new Rectangle(x, y, scaleWidth, scaleHeight);
+
+                pevent.Graphics.DrawImage(this.ForeImage, destRect);
+            }
+
+            if (this.ConditionImage != null)
+            {
+                //画像サイズ
+                int imageWidth = this.ConditionImage.Width;
+                int imageHeight = this.ConditionImage.Height;
+
+                // 表示領域の大きさ指定
+                int scaleHeight = buttonHeight / 4;
+                double scale = (double)scaleHeight / imageHeight;
+                int scaleWidth = (int)(scale * imageWidth);
+                Rectangle destRect = new Rectangle(0, 0, scaleWidth, scaleHeight);
+
+                pevent.Graphics.DrawImage(this.ConditionImage, destRect);
+            }
+        }
+    }
+    #endregion
 
 }
