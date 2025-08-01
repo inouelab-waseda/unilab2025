@@ -1220,6 +1220,18 @@ namespace unilab2025
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
+
+            //会話再生用
+            if (Func.WaitingForButton == "carEnterWait")
+            {
+                // 次の会話セグメントを取得して再生
+                currentConversation = Func.GetNextSegment(this);
+                if (currentConversation != null && currentConversation.Count > 0)
+                {
+                    await Task.Delay(2000);
+                    Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+                }
+            }
         }
         private void button_carEnter_MouseEnter(object sender, EventArgs e)
         {
