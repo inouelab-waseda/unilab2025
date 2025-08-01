@@ -38,6 +38,7 @@ namespace unilab2025
             pictureBox_Conv = Func.CreatePictureBox_Conv(this);
             pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);            
             pictureBox_Conv.Visible = false;
+            this.DoubleBuffered = true;
 
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Arrow_KeyDown);

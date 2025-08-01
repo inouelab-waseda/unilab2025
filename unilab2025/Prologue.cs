@@ -45,6 +45,7 @@ namespace unilab2025
             this.KeyDown += new KeyEventHandler(Prologue_KeyDown);
             this.KeyPreview = true;
             this.BackgroundImage = Dictionaries.Img_Background["Character_select"];//背景
+            this.DoubleBuffered = true;
 
             //会話表示
             pictureBox_Conversation = Func.CreatePictureBox_Conv(this);
