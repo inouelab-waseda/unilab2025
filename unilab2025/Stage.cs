@@ -1962,23 +1962,30 @@ namespace unilab2025
                         // クリア後マップ遷移後会話再生用
                         if (Func.WaitingForButton == "returnMap")
                         {
-                            // ステージクリア判定（順番的にここにないと駄目っぽい）
-                            ClearCheck.IsCleared[_worldNumber, _level] = true;
-                            ClearCheck.IsCleared[_worldNumber, 0] = true;
 
-                            if (_worldNumber <= 4)
+                            if ((_worldNumber == 1 && _level == 2) || (_worldNumber <= 4 && _level == 3))
                             {
+                                ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                ClearCheck.IsCleared[_worldNumber, 0] = true;
                                 for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
                                 {
                                     ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
                                     ClearCheck.IsNew[_worldNumber + 1, j] = true;
                                 }
                             }
-                            else
+                            else if(_level == 3)
                             {
+                                ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                ClearCheck.IsCleared[_worldNumber, 0] = true;
                                 ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
                                 ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                                 Func.UpdateIsNew();
+                            }
+                            else
+                            {
+                                ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                                ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                             }
 
                             // 遷移後再生フラグ
@@ -1995,8 +2002,15 @@ namespace unilab2025
                             // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
                             if (result == DialogResult.Yes)
                             {
-                                if (_worldNumber <= 4) Func.CreateWorldMap(this);
-                                else Func.CreateAnotherWorld(this);
+                                if ((_worldNumber == 1 && _level == 2) || _level == 3)
+                                {
+                                    if (_worldNumber <= 4) Func.CreateWorldMap(this);
+                                    else Func.CreateAnotherWorld(this);
+                                }
+                                else
+                                {
+                                    Func.CreateStageSelect(this, _worldName, _worldNumber);
+                                }
                             }
                         }
                     }
