@@ -356,6 +356,8 @@ namespace unilab2025
                 label_car_Input.Visible = false;
                 listBox_Car.Visible = false;
                 pictureBox_Car.Visible = false;
+                pictureBox_car_enter.Visible = false;
+                label_car_Input.Visible = false;
             }
             if (limit_LB_plane == 0)
             {

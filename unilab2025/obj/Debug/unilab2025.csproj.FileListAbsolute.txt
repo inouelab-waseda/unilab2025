@@ -36,3 +36,5 @@ C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.GameSetti
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.GameSettings.resources
 C:\Users\ryota\source\repos\unilab2025\unilab2025\obj\Debug\unilab2025.MiniGame_Mine.resources
 C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.MiniGame_Mine.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.MiniGame_Nono.resources
+C:\Users\funno\Source\Repos\unilab2025\unilab2025\obj\Debug\unilab2025.MiniGame_Nono_Stage.resources
