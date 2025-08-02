@@ -44,6 +44,7 @@ namespace unilab2025
             this.WindowState = FormWindowState.Maximized;
             this.KeyDown += new KeyEventHandler(Prologue_KeyDown);
             this.KeyPreview = true;
+            this.DoubleBuffered = true;
             this.BackgroundImage = Dictionaries.Img_Background["Character_select"];//背景
 
             //会話表示

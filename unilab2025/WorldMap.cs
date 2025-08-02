@@ -25,6 +25,7 @@ namespace unilab2025
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.KeyDown += new KeyEventHandler(WorldMap_KeyDown);
             this.KeyPreview = true;
+            this.DoubleBuffered = true;
 
             pictureBox_Conv = Func.CreatePictureBox_Conv(this);
             pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);

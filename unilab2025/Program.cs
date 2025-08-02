@@ -470,6 +470,16 @@ namespace unilab2025
                     }
                     return;
                 }
+                else if (command.Equals("C.show_finger5", StringComparison.OrdinalIgnoreCase))
+                {
+                    // pictureBox_finger1 を探して Visible = true
+                    var ctrls = form.Controls.Find("pictureBox_finger5", true);
+                    if (ctrls.Length > 0)
+                    {
+                        ctrls[0].Visible = true;
+                    }
+                    return;
+                }
                 else if (command.Equals("C.nextHint", StringComparison.OrdinalIgnoreCase))
                 {
                     OnNextHintCommand?.Invoke();

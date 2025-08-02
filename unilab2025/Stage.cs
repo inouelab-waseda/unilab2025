@@ -35,6 +35,7 @@ namespace unilab2025
             this.WindowState = FormWindowState.Maximized;
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.DoubleBuffered = true;
             pictureBox_Conv = Func.CreatePictureBox_Conv(this);
             pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);            
             pictureBox_Conv.Visible = false;
@@ -326,11 +327,11 @@ namespace unilab2025
                     }
                 }
             }
-            label_Walk.Text = $"あと {limit_LB_walk}";
-            label_Car.Text = $"あと {limit_LB_car}";
-            label_car_Input.Text = $"あと {limit_LB_car_Input}";
-            label_Plane.Text = $"あと {limit_LB_plane}";
-            label_Balloon.Text = $"あと {limit_LB_balloon}";            
+            label_Walk.Text = $"{limit_LB_walk}";
+            label_Car.Text = $"{limit_LB_car}";
+            label_car_Input.Text = $"{limit_LB_car_Input}";
+            label_Plane.Text = $"{limit_LB_plane}";
+            label_Balloon.Text = $"{limit_LB_balloon}";            
             walk_Count = 0;
             car_Count = 0;            
             plane_Count = 0;
@@ -672,12 +673,12 @@ namespace unilab2025
                 InputListBox.Items.RemoveAt(InputListBox.SelectedIndex);//1つ消す
                 if (InputListBox == listBox_Order)
                 {
-                    label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
-                    label_Car.Text = $"あと {limit_LB_car - car_Count}";
-                    label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
-                    label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+                    label_Walk.Text = $"{limit_LB_walk - walk_Count}";
+                    label_Car.Text = $"{limit_LB_car - car_Count}";
+                    label_Plane.Text = $"{limit_LB_plane - plane_Count}";
+                    label_Balloon.Text = $"{limit_LB_balloon - balloon_Count}";
                 }
-                else label_car_Input.Text = $"あと {limit_LB_car_Input- listBox_Car.Items.Count}";
+                else label_car_Input.Text = $"{limit_LB_car_Input- listBox_Car.Items.Count}";
 
 
                 if (car_Count == 0) lockedCarPattern = null;
@@ -713,12 +714,12 @@ namespace unilab2025
                 InputListBox.Items.RemoveAt(InputListBox.Items.Count - 1);//1つ消す
                 if (InputListBox == listBox_Order)
                 {
-                    label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
-                    label_Car.Text = $"あと {limit_LB_car - car_Count}";
-                    label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
-                    label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+                    label_Walk.Text = $"{limit_LB_walk - walk_Count}";
+                    label_Car.Text = $"{limit_LB_car - car_Count}";
+                    label_Plane.Text = $"{limit_LB_plane - plane_Count}";
+                    label_Balloon.Text = $"{limit_LB_balloon - balloon_Count}";
                 }
-                else label_car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+                else label_car_Input.Text = $"{limit_LB_car_Input - listBox_Car.Items.Count}";
                 if (car_Count == 0) lockedCarPattern = null;
 
             }
@@ -909,12 +910,12 @@ namespace unilab2025
             }
             if (InputListBox == listBox_Order) 
             { 
-                label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
-                label_Car.Text = $"あと {limit_LB_car - car_Count}";
-                label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
-                label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+                label_Walk.Text = $"{limit_LB_walk - walk_Count}";
+                label_Car.Text = $"{limit_LB_car - car_Count}";
+                label_Plane.Text = $"{limit_LB_plane - plane_Count}";
+                label_Balloon.Text = $"{limit_LB_balloon - balloon_Count}";
             }
-            else label_car_Input.Text = $"あと {limit_LB_car_Input - listBox_Car.Items.Count}";
+            else label_car_Input.Text = $"{limit_LB_car_Input - listBox_Car.Items.Count}";
 
 
         }
@@ -1194,10 +1195,10 @@ namespace unilab2025
 
             listBox_Order.Items.Add("🚗 (" + combined + ")");
             car_Count += 1;
-            label_Walk.Text = $"あと {limit_LB_walk - walk_Count}";
-            label_Car.Text = $"あと {limit_LB_car - car_Count}";
-            label_Plane.Text = $"あと {limit_LB_plane - plane_Count}";
-            label_Balloon.Text = $"あと {limit_LB_balloon - balloon_Count}";
+            label_Walk.Text = $"{limit_LB_walk - walk_Count}";
+            label_Car.Text = $"{limit_LB_car - car_Count}";
+            label_Plane.Text = $"{limit_LB_plane - plane_Count}";
+            label_Balloon.Text = $"{limit_LB_balloon - balloon_Count}";
 
             picture = "walk";
             UpdateMovementButtonImages();
@@ -1225,7 +1226,13 @@ namespace unilab2025
             if (Func.WaitingForButton == "carEnterWait")
             {
                 //ここPictureBox_finger5の実装終わり次第修正しといて！よろしく～
-                var ctrls = this.Controls.Find("pictureBox_finger1", true);
+                var ctrls = this.Controls.Find("pictureBox_finger4", false);
+                if (ctrls.Length > 0)
+                {
+                    ctrls[0].Visible = false;
+                }
+
+                ctrls = this.Controls.Find("pictureBox_finger1", true);
                 //var ctrls = this.Controls.Find("pictureBox_finger5", true);
                 if (ctrls.Length > 0)
                 {
@@ -1544,6 +1551,21 @@ namespace unilab2025
         }
 
         private void pictureBox_finger4_VisibleChanged(object sender, EventArgs e)
+        {
+            var pic = sender as PictureBox;
+            if (pic != null)
+            {
+                if (pic.Visible)
+                {
+                    SetupPointerAnimation(pic);
+                }
+                else
+                {
+                    StopPointerAnimation(pic);
+                }
+            }
+        }
+        private void pictureBox_finger5_VisibleChanged(object sender, EventArgs e)
         {
             var pic = sender as PictureBox;
             if (pic != null)
@@ -2451,6 +2473,11 @@ namespace unilab2025
                 return;
             }
             return;
+        }
+
+        private void pictureBox_Car_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Meteo_KeyDown(object sender, KeyEventArgs e)
