@@ -161,6 +161,19 @@ namespace unilab2025
                 currentForm.Dispose();
             }
         }
+
+        public static void CreateNono(Form currentForm)
+        {
+            CurrentFormState.FormName = "MiniGame_Nono";
+            //CurrentFormState.StateData.Clear();
+
+            MiniGame_Nono form = new MiniGame_Nono();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
     }
     #endregion
 
