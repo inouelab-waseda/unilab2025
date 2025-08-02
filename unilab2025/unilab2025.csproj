@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -68,6 +68,18 @@
     <Compile Include="MiniGame_Mine.Designer.cs">
       <DependentUpon>MiniGame_Mine.cs</DependentUpon>
     </Compile>
+    <Compile Include="MiniGame_Nono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiniGame_Nono.Designer.cs">
+      <DependentUpon>MiniGame_Nono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MiniGame_Nono_Stage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiniGame_Nono_Stage.Designer.cs">
+      <DependentUpon>MiniGame_Nono_Stage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Stage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +130,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MiniGame_Mine.resx">
       <DependentUpon>MiniGame_Mine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniGame_Nono.resx">
+      <DependentUpon>MiniGame_Nono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniGame_Nono_Stage.resx">
+      <DependentUpon>MiniGame_Nono_Stage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Prologue.resx">
       <DependentUpon>Prologue.cs</DependentUpon>
