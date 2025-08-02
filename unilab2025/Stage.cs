@@ -2402,10 +2402,10 @@ namespace unilab2025
             {
                 if (a > (2 * cell_length)) break;
                 g2.Clear(Color.Transparent);//人の移動などのリセット
-                if (Direction[0][0]==1&& Direction[0][1]==0) g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan右"], 0f), x_jump * cell_length - extra_length+a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-                if (Direction[0][0] == -1 && Direction[0][1] == 0) g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan左"], 0f), x_jump * cell_length - extra_length - a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-                if (Direction[0][0] == 0 && Direction[0][1] == -1) break;//g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan右"], 0f), x_jump * cell_length - extra_length + a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
-                if (Direction[0][0] == 0 && Direction[0][1] == 1) break;//g2.DrawImage(RotateImage(Dictionaries.Img_DotPic["tazan右"], 0f), x_jump * cell_length - extra_length + a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0]==1&& Direction[0][1]==0) g2.DrawImage(Dictionaries.Img_DotPic["tazan_右"], x_jump * cell_length - extra_length+a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0] == -1 && Direction[0][1] == 0) g2.DrawImage(Dictionaries.Img_DotPic["tazan_左"], x_jump * cell_length - extra_length - a, y_jump * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0] == 0 && Direction[0][1] == -1) g2.DrawImage(Dictionaries.Img_DotPic["tazan_後ろ"], x_jump * cell_length - extra_length, y_jump * cell_length - 2 * extra_length-a, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                if (Direction[0][0] == 0 && Direction[0][1] == 1) g2.DrawImage(Dictionaries.Img_DotPic["tazan_正面"], x_jump * cell_length - extra_length, y_jump * cell_length - 2 * extra_length+a, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
 
                 pictureBox_Map2.Refresh();
                 a += 30;
