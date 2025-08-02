@@ -702,7 +702,7 @@ namespace unilab2025
                 int dia_x = 1300;
                 int dia_y = 270;
                 int margin_x = (1400 - dia_x) / 2; // 画面中央に配置
-                int margin_y = 400;
+                int margin_y = 500;
                 int lineHeight = fnt_dia.Height;
 
                 // ウィンドウ内部の余白設定
@@ -787,7 +787,7 @@ namespace unilab2025
                 int dia_x = 1300;
                 int dia_y = 270;
                 int margin_x = (1400 - dia_x) / 2;
-                int margin_y = 400;
+                int margin_y = 500;
                 int lineHeight = fnt_dia.Height;
                 int textPaddingX = 60;
                 int sp_y = 70;
