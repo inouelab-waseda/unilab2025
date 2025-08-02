@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnotherWorld));
             this.button_Japan = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button_MiniGame = new System.Windows.Forms.Button();
+            this.button5 = new unilab2025.CustomButton();
+            this.button6 = new unilab2025.CustomButton();
+            this.button7 = new unilab2025.CustomButton();
+            this.button8 = new unilab2025.CustomButton();
+            this.button_MiniGame = new unilab2025.CustomButton();
             this.SuspendLayout();
             // 
             // button_Japan
@@ -148,10 +148,10 @@
 
         #endregion
         private System.Windows.Forms.Button button_Japan;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button_MiniGame;
+        private CustomButton button5;
+        private CustomButton button6;
+        private CustomButton button7;
+        private CustomButton button8;
+        private CustomButton button_MiniGame;
     }
 }

@@ -27,7 +27,35 @@ namespace unilab2025
         
         private void AnotherWorld_Load(object sender, EventArgs e)
         {
-            
+            // buttonに対する処理
+            foreach (Control control in this.Controls)
+            {
+                if (control is CustomButton button)
+                {
+                    string NameWithoutButton = button.Name.Replace("button", "");
+                    if (int.TryParse(NameWithoutButton, out int i))
+                    {
+                        button.ForeImage = null;
+                        if (ClearCheck.IsNew[i, 0])
+                        {
+                            button.ConditionImage = Dictionaries.Img_Button["New"];
+                        }
+                        else if (ClearCheck.IsCleared[i, 0])
+                        {
+                            //button.BackColor = Color.FromArgb(255, 128, 128);
+                            button.ConditionImage = Dictionaries.Img_Button["Clear"];
+                        }
+                        else
+                        {
+                            button.ConditionImage = null;
+                        }
+
+                    }
+
+                }
+            }
+
+
         }
 
         private void button_Japan_Click(object sender, EventArgs e)
@@ -37,7 +65,7 @@ namespace unilab2025
 
         private void buttonI_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
+            CustomButton button = sender as CustomButton;
             if (button != null)
             {
                 string NameWithoutButton = button.Name.Replace("button", "");
@@ -58,16 +86,16 @@ namespace unilab2025
         {
             if (e.KeyCode == Keys.M)
             {
-                
                 for (int i = 5; i < (int)ConstNum.numWorlds; i++)
                 {
-                    for (int j = 0; j <= 3; j++)
+                    for (int j = 0; j < (int)ConstNum.numStages; j++)
                     {
-                        ClearCheck.IsNew[i, j] = true;
+                        ClearCheck.IsNew[i, j] = false;
+                        ClearCheck.IsCleared[i, j] = true;
                         ClearCheck.IsButtonEnabled[i, j] = true;
                     }
                 }
-
+               
                 Func.CreateAnotherWorld(this);
             }
         }

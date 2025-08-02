@@ -53,6 +53,10 @@ namespace unilab2025
             }
             if (!(ClearCheck.IsCleared[4, 0]))
             {
+                for(int i = 5; i < 9; i++)
+                {
+                    ClearCheck.IsNew[i, 0] = true;
+                }
                 button5.Visible = false;
                 Map -= 1;
             }
@@ -74,8 +78,9 @@ namespace unilab2025
                         if (ClearCheck.IsNew[i, 0])
                         {                            
                             button.ConditionImage = Dictionaries.Img_Button["New"];
+                            
                         }
-                        else if (ClearCheck.IsCleared[i, 0])
+                        else if (i!=5&&ClearCheck.IsCleared[i, 0])
                         {
                             //button.BackColor = Color.FromArgb(255, 128, 128);
                             button.ConditionImage = Dictionaries.Img_Button["Clear"];
