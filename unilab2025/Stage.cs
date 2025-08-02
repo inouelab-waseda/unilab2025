@@ -834,6 +834,7 @@ namespace unilab2025
             {
                 ClearCheck.IsCleared[_worldNumber, _level] = true;    //クリア状況管理
                 button_return.Visible = true;
+                button_Start.Enabled = false;
 
                 if (_level == 3)
                 {

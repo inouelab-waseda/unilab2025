@@ -393,6 +393,10 @@ namespace unilab2025
                     if (arrow5.Length > 0) arrow5[0].Enabled = false;
                     var arrow6 = form.Controls.Find("button_reset", true);
                     if (arrow6.Length > 0) arrow6[0].Enabled = false;
+                    var arrow7 = form.Controls.Find("button_Start", true);
+                    if (arrow7.Length > 0) arrow7[0].Enabled = false;
+                    var arrow8 = form.Controls.Find("button_carEnter", true);
+                    if (arrow8.Length > 0) arrow8[0].Enabled = false;
 
                     return;
                 }
@@ -437,17 +441,15 @@ namespace unilab2025
                         ctrls[0].Visible = false;
                     }
                     var arrow1 = form.Controls.Find("pictureBox_buttonUp", true);
-                    if (arrow1.Length > 0) arrow1[0].Enabled = true;
+                    if (arrow1.Length > 0) arrow1[0].Enabled = false;
                     var arrow2 = form.Controls.Find("pictureBox_buttonRight", true);
-                    if (arrow2.Length > 0) arrow2[0].Enabled = true;
+                    if (arrow2.Length > 0) arrow2[0].Enabled = false;
                     var arrow3 = form.Controls.Find("pictureBox_buttonDown", true);
-                    if (arrow3.Length > 0) arrow3[0].Enabled = true;
+                    if (arrow3.Length > 0) arrow3[0].Enabled = false;
                     var arrow4 = form.Controls.Find("pictureBox_buttonLeft", true);
-                    if (arrow4.Length > 0) arrow4[0].Enabled = true;
-                    var arrow5 = form.Controls.Find("button_back", true);
-                    if (arrow5.Length > 0) arrow5[0].Enabled = true;
-                    var arrow6 = form.Controls.Find("button_reset", true);
-                    if (arrow6.Length > 0) arrow6[0].Enabled = true;
+                    if (arrow4.Length > 0) arrow4[0].Enabled = false;
+                    var arrow8 = form.Controls.Find("button_carEnter", true);
+                    if (arrow8.Length > 0) arrow8[0].Enabled = true;
                     return;
                 }
                 else if (command.Equals("C.show_finger4", StringComparison.OrdinalIgnoreCase))
@@ -458,6 +460,8 @@ namespace unilab2025
                     {
                         ctrls[0].Visible = true;
                     }
+
+
                     return;
                 }
                 else if (command.Equals("C.not_show_finger4", StringComparison.OrdinalIgnoreCase))
@@ -478,6 +482,10 @@ namespace unilab2025
                     {
                         ctrls[0].Visible = true;
                     }
+                    var arrow7 = form.Controls.Find("button_Start", true);
+                    if (arrow7.Length > 0) arrow7[0].Enabled = true;
+                    var arrow8 = form.Controls.Find("button_carEnter", true);
+                    if (arrow8.Length > 0) arrow8[0].Enabled = false;
                     return;
                 }
                 else if (command.Equals("C.nextHint", StringComparison.OrdinalIgnoreCase))

@@ -561,7 +561,7 @@
             this.pictureBox_finger5.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_finger5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger5.BackgroundImage")));
             this.pictureBox_finger5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox_finger5.Location = new System.Drawing.Point(1716, 537);
+            this.pictureBox_finger5.Location = new System.Drawing.Point(1724, 536);
             this.pictureBox_finger5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_finger5.Name = "pictureBox_finger5";
             this.pictureBox_finger5.Size = new System.Drawing.Size(139, 131);
