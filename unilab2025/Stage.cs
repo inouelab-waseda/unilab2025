@@ -344,15 +344,26 @@ namespace unilab2025
             if (limit_LB_walk == 0)
             {
                 picture = "car";
-                button_walk.BackgroundImage = Dictionaries.Img_Button[""];
+                if (MainCharacter.isBoy)
+                {
+                    button_walk.BackgroundImage = Dictionaries.Img_Button["walk_lock_boy"];
+                }
+                else if (MainCharacter.isGirl)
+                {
+                    button_walk.BackgroundImage = Dictionaries.Img_Button["walk_lock_girl"];
+                }
+                else
+                {
+                    button_walk.BackgroundImage = Dictionaries.Img_Button["walk_lock_silver"];
+                }                
                 button_walk.Enabled = false;
-                //button_walk.Visible = false;
-                //label_Walk.Visible = false;                
+                
+                          
             }
             if (limit_LB_car == 0)
             {
                 if (picture == "car") picture = "plane";
-                if (_worldNumber ==3|| _worldNumber == 4)
+                if (_worldNumber==1)
                 {
                     button_car.Visible = false;
                     label_Car.Visible = false;
@@ -360,10 +371,12 @@ namespace unilab2025
                     label_car_Input.Visible = false;
                     listBox_Car.Visible = false;
                     pictureBox_Car.Visible = false;
+                    pictureBox_car2.Visible = false;
+                    pictureBox_car_enter.Visible = false;
                 }
                 else
                 {
-                    button_car.BackgroundImage = Dictionaries.Img_Button[""];
+                    button_car.BackgroundImage = Dictionaries.Img_Button["car_lock"];
                     button_car.Enabled = false;
                     button_carEnter.Enabled = false;
                     listBox_Car.Enabled = false;
@@ -377,21 +390,32 @@ namespace unilab2025
                     picture = "balloon";
                     
                 }
-                if (_worldNumber ==4)
+                if (_worldNumber <3)
                 {
                     button_plane.Visible = false;
                     label_Plane.Visible = false;
+                    pictureBox_plane.Visible = false;
                 }
                 else
                 {
-                    button_plane.BackgroundImage = Dictionaries.Img_Button[""];
+                    button_plane.BackgroundImage = Dictionaries.Img_Button["plane_lock"];
                     button_plane.Enabled = false;
                 }
             }
             if (limit_LB_balloon == 0)
             {
-                button_balloon.BackgroundImage = Dictionaries.Img_Button[""];
-                label_Balloon.Enabled = false;
+                if (_worldNumber < 4)
+                {
+                    button_balloon.Visible = false;
+                    label_Balloon.Visible = false;
+                    pictureBox_balloon.Visible = false;
+                }
+                else
+                {
+                    button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_lock"];
+                    label_Balloon.Enabled = false;
+                }
+                
             }
 
             if (picture == "car")
@@ -609,12 +633,14 @@ namespace unilab2025
                 pictureBox_lowerLeft.Visible = false;
                 pictureBox_upperLeft.Visible = false;
 
-                button_walk.Enabled = true;
-                if (_worldNumber >= 2) button_car.Enabled = true;
-                if (_worldNumber >= 3) button_plane.Enabled = true;
-                if (_worldNumber >= 4) button_balloon.Enabled = true;
+                if (limit_LB_walk!=0) button_walk.Enabled = true;
+                if (limit_LB_car != 0) button_car.Enabled = true;
+                if (limit_LB_plane != 0) button_plane.Enabled = true;
+                if (limit_LB_balloon != 0) button_balloon.Enabled = true;
 
-                picture = "walk";
+                if (limit_LB_walk != 0) picture = "walk";
+                if (limit_LB_plane != 0 && picture == "car") picture = "plane";
+                if (limit_LB_balloon != 0 && picture == "car") picture = "balloon";
                 InputListBox = listBox_Order;
                 listBox_Order.Focus();
                 ShowListBox();
@@ -1222,16 +1248,20 @@ namespace unilab2025
             label_Balloon.Text = $"{limit_LB_balloon - balloon_Count}";
 
             picture = "walk";
-            UpdateMovementButtonImages();
-            pictureBox_buttonUp.Visible = true;
-            pictureBox_buttonRight.Visible = true;
-            pictureBox_buttonDown.Visible = true;
-            pictureBox_buttonLeft.Visible = true;
-            pictureBox_upperRight.Visible = false;
-            pictureBox_lowerRight.Visible = false;
-            pictureBox_lowerLeft.Visible = false;
-            pictureBox_upperLeft.Visible = false;
-            if(Penguin) picture = "penguin";
+            if (limit_LB_walk != 0)
+            {
+                
+                UpdateMovementButtonImages();
+                pictureBox_buttonUp.Visible = true;
+                pictureBox_buttonRight.Visible = true;
+                pictureBox_buttonDown.Visible = true;
+                pictureBox_buttonLeft.Visible = true;
+                pictureBox_upperRight.Visible = false;
+                pictureBox_lowerRight.Visible = false;
+                pictureBox_lowerLeft.Visible = false;
+                pictureBox_upperLeft.Visible = false;
+                if (Penguin) picture = "penguin";
+            }
             //会話再生用
             if (Func.WaitingForButton == "carEnter")
             {
@@ -1373,11 +1403,15 @@ namespace unilab2025
         private void UpdateMovementButtonImages()
         {
             // Reset all buttons to their "off" state
-            button_walk.BackgroundImage = Dictionaries.Img_Button["walk_off_"+ SelectCharacter];
-            button_car.BackgroundImage = Dictionaries.Img_Button["car_off"];
-            button_plane.BackgroundImage = Dictionaries.Img_Button["plane_off"];
-            button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_off"];
-
+            if(limit_LB_walk == 0) button_walk.BackgroundImage = Dictionaries.Img_Button["walk_lock_" + SelectCharacter];
+            else button_walk.BackgroundImage = Dictionaries.Img_Button["walk_off_"+ SelectCharacter];
+            if (limit_LB_car == 0) button_car.BackgroundImage = Dictionaries.Img_Button["car_lock"];
+            else button_car.BackgroundImage = Dictionaries.Img_Button["car_off"];
+            if (limit_LB_plane == 0) button_plane.BackgroundImage = Dictionaries.Img_Button["plane_lock"];
+            else button_plane.BackgroundImage = Dictionaries.Img_Button["plane_off"];
+            if (limit_LB_balloon == 0) button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_lock"];
+            else button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_off"];
+            
             // Set the selected button to its "on" state
             switch (picture)
             {

@@ -85,6 +85,11 @@ namespace unilab2025
                                 //button.BackColor = Color.FromArgb(255, 128, 128);
                                 button.ConditionImage = Dictionaries.Img_Button["New"];
                             }
+                            if (ClearCheck.IsCleared[_worldNumber, j])
+                            {
+                                //button.BackColor = Color.FromArgb(255, 128, 128);
+                                button.ConditionImage = Dictionaries.Img_Button["Clear"];
+                            }
                         }
                     }
                 }
