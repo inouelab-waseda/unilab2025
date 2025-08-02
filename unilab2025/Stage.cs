@@ -2026,8 +2026,7 @@ namespace unilab2025
                             {
                                 ClearCheck.IsCleared[_worldNumber, _level] = true;
                                 ClearCheck.IsCleared[_worldNumber, 0] = true;
-                                ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
-                                ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                                
                                 Func.UpdateIsNew();
                             }
                             else
