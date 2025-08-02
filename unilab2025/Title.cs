@@ -21,7 +21,7 @@ namespace unilab2025
             pictureBox1.Click += pictureBox1_Click;
             this.KeyDown += new KeyEventHandler(Title_KeyDown);
             this.KeyPreview = true;
-            
+            this.DoubleBuffered = true;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

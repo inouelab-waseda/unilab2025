@@ -21,6 +21,7 @@ namespace unilab2025
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.KeyDown += new KeyEventHandler(AnotherWorldMap_KeyDown);
             this.KeyPreview = true;
+            this.DoubleBuffered = true;
         }
 
         
