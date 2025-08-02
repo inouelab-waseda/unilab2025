@@ -344,18 +344,31 @@ namespace unilab2025
             if (limit_LB_walk == 0)
             {
                 picture = "car";
-                button_walk.Visible = false;
-                label_Walk.Visible = false;                
+                button_walk.BackgroundImage = Dictionaries.Img_Button[""];
+                button_walk.Enabled = false;
+                //button_walk.Visible = false;
+                //label_Walk.Visible = false;                
             }
             if (limit_LB_car == 0)
             {
                 if (picture == "car") picture = "plane";
-                button_car.Visible = false;
-                label_Car.Visible = false;
-                button_carEnter.Visible = false;
-                label_car_Input.Visible = false;
-                listBox_Car.Visible = false;
-                pictureBox_Car.Visible = false;
+                if (_worldNumber ==3|| _worldNumber == 4)
+                {
+                    button_car.Visible = false;
+                    label_Car.Visible = false;
+                    button_carEnter.Visible = false;
+                    label_car_Input.Visible = false;
+                    listBox_Car.Visible = false;
+                    pictureBox_Car.Visible = false;
+                }
+                else
+                {
+                    button_car.BackgroundImage = Dictionaries.Img_Button[""];
+                    button_car.Enabled = false;
+                    button_carEnter.Enabled = false;
+                    listBox_Car.Enabled = false;
+                    pictureBox_Car.Enabled=false;
+                }
             }
             if (limit_LB_plane == 0)
             {
@@ -364,13 +377,21 @@ namespace unilab2025
                     picture = "balloon";
                     
                 }
-                button_plane.Visible = false;
-                label_Plane.Visible = false;
+                if (_worldNumber ==4)
+                {
+                    button_plane.Visible = false;
+                    label_Plane.Visible = false;
+                }
+                else
+                {
+                    button_plane.BackgroundImage = Dictionaries.Img_Button[""];
+                    button_plane.Enabled = false;
+                }
             }
             if (limit_LB_balloon == 0)
             {
-                button_balloon.Visible = false;
-                label_Balloon.Visible = false;
+                button_balloon.BackgroundImage = Dictionaries.Img_Button[""];
+                label_Balloon.Enabled = false;
             }
 
             if (picture == "car")
