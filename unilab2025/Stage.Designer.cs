@@ -66,7 +66,6 @@
             this.label_car_Input = new System.Windows.Forms.Label();
             this.pictureBox_finger1 = new System.Windows.Forms.PictureBox();
             this.pictureBox_finger2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox_finger3 = new System.Windows.Forms.PictureBox();
             this.pictureBox_finger4 = new System.Windows.Forms.PictureBox();
             this.pictureBox_finger5 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -75,6 +74,7 @@
             this.pictureBox_plane = new System.Windows.Forms.PictureBox();
             this.pictureBox_balloon = new System.Windows.Forms.PictureBox();
             this.pictureBox_car_enter = new System.Windows.Forms.PictureBox();
+            this.pictureBox_finger3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -90,7 +90,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.behind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -99,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_plane)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_balloon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_car_enter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -542,20 +542,6 @@
             this.pictureBox_finger2.Visible = false;
             this.pictureBox_finger2.VisibleChanged += new System.EventHandler(this.pictureBox_finger2_VisibleChanged);
             // 
-            // pictureBox_finger3
-            // 
-            this.pictureBox_finger3.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_finger3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger3.BackgroundImage")));
-            this.pictureBox_finger3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox_finger3.Location = new System.Drawing.Point(1223, 776);
-            this.pictureBox_finger3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox_finger3.Name = "pictureBox_finger3";
-            this.pictureBox_finger3.Size = new System.Drawing.Size(158, 144);
-            this.pictureBox_finger3.TabIndex = 48;
-            this.pictureBox_finger3.TabStop = false;
-            this.pictureBox_finger3.Visible = false;
-            this.pictureBox_finger3.VisibleChanged += new System.EventHandler(this.pictureBox_finger3_VisibleChanged);
-            // 
             // pictureBox_finger4
             // 
             this.pictureBox_finger4.BackColor = System.Drawing.Color.Transparent;
@@ -641,6 +627,7 @@
             // 
             // pictureBox_car_enter
             // 
+            this.pictureBox_car_enter.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pictureBox_car_enter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_car_enter.BackgroundImage")));
             this.pictureBox_car_enter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox_car_enter.Location = new System.Drawing.Point(1589, 392);
@@ -649,6 +636,19 @@
             this.pictureBox_car_enter.TabIndex = 57;
             this.pictureBox_car_enter.TabStop = false;
             // 
+            // pictureBox_finger3
+            // 
+            this.pictureBox_finger3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_finger3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_finger3.BackgroundImage")));
+            this.pictureBox_finger3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_finger3.Location = new System.Drawing.Point(1120, 791);
+            this.pictureBox_finger3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox_finger3.Name = "pictureBox_finger3";
+            this.pictureBox_finger3.Size = new System.Drawing.Size(131, 129);
+            this.pictureBox_finger3.TabIndex = 58;
+            this.pictureBox_finger3.TabStop = false;
+            this.pictureBox_finger3.Visible = false;
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -656,6 +656,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1904, 931);
+            this.Controls.Add(this.pictureBox_finger3);
             this.Controls.Add(this.label_Balloon);
             this.Controls.Add(this.label_Plane);
             this.Controls.Add(this.label_Car);
@@ -701,7 +702,6 @@
             this.Controls.Add(this.behind);
             this.Controls.Add(this.pictureBox_finger1);
             this.Controls.Add(this.pictureBox_walk);
-            this.Controls.Add(this.pictureBox_finger3);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -723,7 +723,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.behind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -732,6 +731,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_plane)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_balloon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_car_enter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -776,7 +776,6 @@
         private System.Windows.Forms.Label label_car_Input;
         private System.Windows.Forms.PictureBox pictureBox_finger1;
         private System.Windows.Forms.PictureBox pictureBox_finger2;
-        private System.Windows.Forms.PictureBox pictureBox_finger3;
         private System.Windows.Forms.PictureBox pictureBox_finger4;
         private System.Windows.Forms.PictureBox pictureBox_finger5;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -785,6 +784,7 @@
         private System.Windows.Forms.PictureBox pictureBox_plane;
         private System.Windows.Forms.PictureBox pictureBox_balloon;
         private System.Windows.Forms.PictureBox pictureBox_car_enter;
+        private System.Windows.Forms.PictureBox pictureBox_finger3;
     }
 }
 

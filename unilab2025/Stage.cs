@@ -345,8 +345,7 @@ namespace unilab2025
             {
                 picture = "car";
                 button_walk.Visible = false;
-                label_Walk.Visible = false;
-
+                label_Walk.Visible = false;                
             }
             if (limit_LB_car == 0)
             {
