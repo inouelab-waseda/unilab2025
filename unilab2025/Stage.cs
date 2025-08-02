@@ -599,8 +599,7 @@ namespace unilab2025
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 200).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
                         }
-                    }
-                    
+                    }   
                 }
             }
             
@@ -1385,7 +1384,7 @@ namespace unilab2025
         private async void button_hint_Click(object sender, EventArgs e)
         {
             hint_on = true;
-            if (stageName=="stage3-2"|| stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2")
+            if (stageName=="stage3-2"|| stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2" || stageName == "stage6-3")
             CreateStage(stageName + "hint");
 
             currentConversation = Dictionaries.Conversations[stageName + "hint"];
@@ -2081,7 +2080,6 @@ namespace unilab2025
                             {
                                 ClearCheck.IsCleared[_worldNumber, _level] = true;
                                 ClearCheck.IsCleared[_worldNumber, 0] = true;
-                                
                                 Func.UpdateIsNew();
                             }
                             else
