@@ -2025,7 +2025,7 @@ namespace unilab2025
                             else if(_level == 3)
                             {
                                 ClearCheck.IsCleared[_worldNumber, _level] = true;
-                                ClearCheck.IsCleared[_worldNumber, 0] = true
+                                ClearCheck.IsCleared[_worldNumber, 0] = true;
                                 Func.UpdateIsNew();
                             }
                             else
