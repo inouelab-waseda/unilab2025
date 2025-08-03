@@ -367,20 +367,36 @@ namespace unilab2025
             explanationPanel.Controls.Add(keyboardLabel);
             Label screenBtnLabel = new Label { Text = "みぎしたのボタンでもそうさできます。", Location = new Point(80, 390), Size = new Size(500, 30) };
             explanationPanel.Controls.Add(screenBtnLabel);
-            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(320, 460), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
-            startButton.Click += (s, e) =>
-            {
-                explanationPanel.Visible = false;
-                gameTimer.Start();
-            };
-            explanationPanel.Controls.Add(startButton);
-            Button optionsButton = new Button { Text = "オプション", Font = new Font("Meiryo UI", 14F, FontStyle.Bold), Size = new Size(220, 60), Location = new Point(60, 460), BackColor = Color.White, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+
+            // ボタンのレイアウト設定
+            int buttonY = 460;
+            int buttonWidth = 180;
+            int buttonHeight = 60;
+            int totalWidth = explanationPanel.Width;
+            int gap = (totalWidth - (buttonWidth * 3)) / 4; // ボタン間の隙間を均等に計算
+
+            // いちらんにもどるボタン (新規追加)
+            Button btnBackToList = new Button { Text = "いちらんにもどる", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Size = new Size(buttonWidth, buttonHeight), Location = new Point(gap, buttonY), BackColor = Color.WhiteSmoke, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            btnBackToList.Click += (s, e) => Func.CreateMiniGame(this); // ゲームオーバー画面のボタンと同じ動作
+            explanationPanel.Controls.Add(btnBackToList);
+
+            // オプションボタン (位置とサイズを調整)
+            Button optionsButton = new Button { Text = "オプション", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Size = new Size(buttonWidth, buttonHeight), Location = new Point(gap * 2 + buttonWidth, buttonY), BackColor = Color.White, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
             optionsButton.Click += (s, e) =>
             {
                 explanationPanel.Visible = false;
                 ShowOptionsPanel();
             };
             explanationPanel.Controls.Add(optionsButton);
+
+            // ゲームスタートボタン (位置とサイズを調整)
+            Button startButton = new Button { Text = "ゲームスタート！", Font = new Font("Meiryo UI", 12F, FontStyle.Bold), Size = new Size(buttonWidth, buttonHeight), Location = new Point(gap * 3 + buttonWidth * 2, buttonY), BackColor = Color.LightCyan, FlatStyle = FlatStyle.Flat, ForeColor = Color.SteelBlue };
+            startButton.Click += (s, e) =>
+            {
+                explanationPanel.Visible = false;
+                gameTimer.Start();
+            };
+            explanationPanel.Controls.Add(startButton);
         }
 
         private void SaveSettingsAndClose(object sender, EventArgs e)
