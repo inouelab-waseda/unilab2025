@@ -558,14 +558,16 @@ namespace unilab2025
                     }
                     else if (_worldNumber < 5 || _worldNumber == 7) 
                     {
-                        //if (map[x, y] == 2)
-                        //{
-                        //    int num = rand.Next(0, 40);
-                        //    int num2 = num / 20;
-                        //    g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
-                        //}
-                        //else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
-                        g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                        if (map[x, y] == 2)
+                        {
+                            int num = rand.Next(0, 10);
+                            int num2;
+                            if (num <= 1) num2 = 0;
+                            else num2 = 1;
+                            g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
+                        }
+                        else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                        // g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                     }
                     else
                     {
