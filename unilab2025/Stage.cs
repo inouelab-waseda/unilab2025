@@ -378,9 +378,11 @@ namespace unilab2025
                 {
                     button_car.BackgroundImage = Dictionaries.Img_Button["car_lock"];
                     button_car.Enabled = false;
-                    button_carEnter.Enabled = false;
-                    listBox_Car.Enabled = false;
-                    pictureBox_Car.Enabled=false;
+                    button_carEnter.Visible = false;
+                    label_car_Input.Visible = false;
+                    listBox_Car.Visible = false;
+                    pictureBox_Car.Visible = false;                    
+                    pictureBox_car_enter.Visible = false;
                 }
             }
             if (limit_LB_plane == 0)
@@ -893,7 +895,7 @@ namespace unilab2025
                             for (int j = 0; j <= 1; j++)
                             {
                                 ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-                                ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                if (!ClearCheck.IsCleared[_worldNumber+1,j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
                             }
                             break; ;
                     }
@@ -904,13 +906,13 @@ namespace unilab2025
                     for (int j = 0; j <= 1; j++)
                     {
                         ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-                        ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                        if (!ClearCheck.IsCleared[_worldNumber + 1, j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
                     }
                 }
                 else
                 {
                     ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
-                    ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                    if (!ClearCheck.IsCleared[_worldNumber, _level + 1]) ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                     Func.UpdateIsNew();
                 }
                 button_return.Enabled = true;
@@ -2086,7 +2088,7 @@ namespace unilab2025
                             {
                                 ClearCheck.IsCleared[_worldNumber, _level] = true;
                                 ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
-                                ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                                if(!ClearCheck.IsCleared[_worldNumber, _level+1]) ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                             }
 
                             // 遷移後再生フラグ
