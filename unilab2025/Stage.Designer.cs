@@ -75,6 +75,7 @@
             this.pictureBox_balloon = new System.Windows.Forms.PictureBox();
             this.pictureBox_car_enter = new System.Windows.Forms.PictureBox();
             this.pictureBox_finger3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_tutorialCapt = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Car)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Order)).BeginInit();
@@ -99,6 +100,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_balloon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_car_enter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tutorialCapt)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Map2
@@ -472,7 +474,7 @@
             this.button_carEnter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_carEnter.Font = new System.Drawing.Font("游ゴシック", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_carEnter.Location = new System.Drawing.Point(1283, 154);
-            this.button_carEnter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_carEnter.Margin = new System.Windows.Forms.Padding(4);
             this.button_carEnter.Name = "button_carEnter";
             this.button_carEnter.Size = new System.Drawing.Size(131, 108);
             this.button_carEnter.TabIndex = 41;
@@ -486,7 +488,7 @@
             this.behind.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("behind.BackgroundImage")));
             this.behind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.behind.Location = new System.Drawing.Point(17, 101);
-            this.behind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.behind.Margin = new System.Windows.Forms.Padding(4);
             this.behind.Name = "behind";
             this.behind.Size = new System.Drawing.Size(827, 775);
             this.behind.TabIndex = 42;
@@ -656,6 +658,16 @@
             this.pictureBox_finger3.Visible = false;
             this.pictureBox_finger3.VisibleChanged += new System.EventHandler(this.pictureBox_finger3_VisibleChanged);
             // 
+            // pictureBox_tutorialCapt
+            // 
+            this.pictureBox_tutorialCapt.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_tutorialCapt.BackgroundImage")));
+            this.pictureBox_tutorialCapt.Location = new System.Drawing.Point(359, 40);
+            this.pictureBox_tutorialCapt.Name = "pictureBox_tutorialCapt";
+            this.pictureBox_tutorialCapt.Size = new System.Drawing.Size(1125, 600);
+            this.pictureBox_tutorialCapt.TabIndex = 59;
+            this.pictureBox_tutorialCapt.TabStop = false;
+            this.pictureBox_tutorialCapt.Visible = false;
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -663,6 +675,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1821, 931);
+            this.Controls.Add(this.pictureBox_tutorialCapt);
             this.Controls.Add(this.pictureBox_finger3);
             this.Controls.Add(this.label_Balloon);
             this.Controls.Add(this.label_Plane);
@@ -739,6 +752,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_balloon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_car_enter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_finger3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tutorialCapt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -792,6 +806,7 @@
         private System.Windows.Forms.PictureBox pictureBox_balloon;
         private System.Windows.Forms.PictureBox pictureBox_car_enter;
         private System.Windows.Forms.PictureBox pictureBox_finger3;
+        private System.Windows.Forms.PictureBox pictureBox_tutorialCapt;
     }
 }
 

@@ -1275,34 +1275,23 @@ namespace unilab2025
             //会話再生用
             if (Func.WaitingForButton == "carEnterWait")
             {
-                //ここPictureBox_finger5の実装終わり次第修正しといて！よろしく～
-                var ctrls = this.Controls.Find("pictureBox_finger4", false);
-                if (ctrls.Length > 0)
-                {
-                    ctrls[0].Visible = false;
-                }
-
-                ctrls = this.Controls.Find("pictureBox_finger1", true);
-                //var ctrls = this.Controls.Find("pictureBox_finger5", true);
-                if (ctrls.Length > 0)
-                {
-                    ctrls[0].Visible = true;
-
-                }
-
-                await Task.Delay(5000);
-
-                if (ctrls.Length > 0)
-                {
-                    ctrls[0].Visible = false;
-                }
+                // スクショ表示
+                this.pictureBox_tutorialCapt.Visible = true;
 
                 // 次の会話セグメントを取得して再生
                 currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
                 {
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+
+                    while (pictureBox_Conv.Visible)
+                    {
+                        await Task.Delay(50);
+                    }
                 }
+
+                // スクショ非表示
+                this.pictureBox_tutorialCapt.Visible = false;
             }
         }
         private void button_carEnter_MouseEnter(object sender, EventArgs e)
@@ -2076,7 +2065,7 @@ namespace unilab2025
                                     ClearCheck.IsNew[_worldNumber + 1, j] = true;
                                 }
                             }
-                            else if(_level == 3)
+                            else if (_level == 3)
                             {
                                 ClearCheck.IsCleared[_worldNumber, _level] = true;
                                 ClearCheck.IsCleared[_worldNumber, 0] = true;
@@ -2089,10 +2078,23 @@ namespace unilab2025
                                 ClearCheck.IsNew[_worldNumber, _level + 1] = true;
                             }
 
+                            if (ClearCheck.IsCleared[5, 3] && ClearCheck.IsCleared[6, 3] && ClearCheck.IsCleared[7, 3] && ClearCheck.IsCleared[8, 3])
+                            {
+                                ClearCheck.Completed = true;
+                            }
+
                             // 遷移後再生フラグ
                             CurrentFormState.NextConversationTrigger = "PLAY";
 
-                            string message = "マップにもどる？";
+                            string message;
+                            if ((_worldNumber == 1 && _level == 2) || _level == 3)
+                            {
+                                message = "マップにもどる？";
+                            }
+                            else
+                            {
+                                message = "レベルせんたくにもどる？";
+                            }
                             string caption = "確認";
                             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                             DialogResult result;

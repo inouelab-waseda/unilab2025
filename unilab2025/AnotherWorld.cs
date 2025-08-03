@@ -12,6 +12,10 @@ namespace unilab2025
 {
     public partial class AnotherWorld : Form
     {
+        private PictureBox pictureBox_Conv;
+        private List<Conversation> currentConversation;
+        private byte[] Capt;
+
         public AnotherWorld()
         {
             InitializeComponent();
@@ -22,10 +26,14 @@ namespace unilab2025
             this.KeyDown += new KeyEventHandler(AnotherWorldMap_KeyDown);
             this.KeyPreview = true;
             this.DoubleBuffered = true;
+
+            pictureBox_Conv = Func.CreatePictureBox_Conv(this);
+            pictureBox_Conv.Click += new EventHandler(pictureBox_Conv_Click);
+            pictureBox_Conv.Visible = false;
         }
 
         
-        private void AnotherWorld_Load(object sender, EventArgs e)
+        private async void AnotherWorld_Load(object sender, EventArgs e)
         {
             // buttonに対する処理
             foreach (Control control in this.Controls)
@@ -55,7 +63,18 @@ namespace unilab2025
                 }
             }
 
-
+            if (ClearCheck.Completed && !ClearCheck.PlayGameEndStory)
+            {
+                ClearCheck.PlayGameEndStory = true;
+                currentConversation = Dictionaries.Conversations["end"];
+                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            }
+            else if (!ClearCheck.PlayAnotherWorldIntro)
+            {
+                ClearCheck.PlayAnotherWorldIntro = true;
+                currentConversation = Dictionaries.Conversations["world"];
+                Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+            }
         }
 
         private void button_Japan_Click(object sender, EventArgs e)
@@ -80,6 +99,23 @@ namespace unilab2025
         {
             Func.CreateMiniGame(this);
         }
+
+        #region　会話処理
+        /// 会話を1フレーム進める
+        private void AdvanceConversation()
+        {
+            if (currentConversation != null && Capt != null)
+            {
+                Func.DrawConv(this, pictureBox_Conv, Capt, currentConversation);
+            }
+        }
+
+        // 会話用のPictureBoxがクリックされたときの処理
+        private void pictureBox_Conv_Click(object sender, EventArgs e)
+        {
+            AdvanceConversation();
+        }
+        #endregion
 
         #region クリアチェックスキップ用
         private void AnotherWorldMap_KeyDown(object sender, KeyEventArgs e)
