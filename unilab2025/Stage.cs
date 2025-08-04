@@ -1958,7 +1958,7 @@ namespace unilab2025
                         list_car.RemoveAt(0);
                                      
                 }
-                if(car_count == 0 && Input_arrow.Count > 0 && Penguin == true)
+                if(car_count == 0 && Input_arrow.Count > 0&& !(Input_arrow[0].Contains("✈️")) && Penguin == true)
                 {
                     if (Input_arrow[0].Contains("↑")) character_me = Img_Penguin["後ろ"];
                     else if (Input_arrow[0].Contains("→")) character_me = Img_Penguin["右"];

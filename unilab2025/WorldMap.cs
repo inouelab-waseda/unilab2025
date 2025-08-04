@@ -14,9 +14,7 @@ namespace unilab2025
     {
         private PictureBox pictureBox_Conv;
         private List<Conversation> currentConversation;
-        private byte[] Capt;
-
-        public int ToMap=0;
+        private byte[] Capt;       
 
         public WorldMap()
         {
@@ -80,10 +78,10 @@ namespace unilab2025
                         if (ClearCheck.IsNew[i, 0])
                         {
                             if (i != 5) button.ConditionImage = Dictionaries.Img_Button["New"];
-                            else if (i == 5 && ToMap == 0) 
+                            else if (i == 5 && MainNew.isNew) 
                             { 
                                 button.ConditionImage = Dictionaries.Img_Button["New"];
-                                ToMap = 1;
+                                MainNew.isNew=false;
                             }
 
 

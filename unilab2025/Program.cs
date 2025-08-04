@@ -950,6 +950,11 @@ namespace unilab2025
         public static bool isHard = false;
     }
     #endregion
+    public partial class MainNew
+    {
+        public static bool isNew = true;
+        
+    }
 
     #region 各データのDictionaryと読み込み関数
     public partial class Dictionaries
