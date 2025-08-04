@@ -53,6 +53,7 @@
             this.button_NonoLevel1.Size = new System.Drawing.Size(245, 245);
             this.button_NonoLevel1.TabIndex = 4;
             this.button_NonoLevel1.UseVisualStyleBackColor = true;
+            this.button_NonoLevel1.Visible = false;
             this.button_NonoLevel1.Click += new System.EventHandler(this.LevelButton_Click);
             // 
             // button_NonoLevel2
@@ -62,6 +63,7 @@
             this.button_NonoLevel2.Size = new System.Drawing.Size(245, 245);
             this.button_NonoLevel2.TabIndex = 1;
             this.button_NonoLevel2.UseVisualStyleBackColor = true;
+            this.button_NonoLevel2.Visible = false;
             this.button_NonoLevel2.Click += new System.EventHandler(this.LevelButton_Click);
             // 
             // button_NonoLevel3
@@ -71,6 +73,7 @@
             this.button_NonoLevel3.Size = new System.Drawing.Size(245, 245);
             this.button_NonoLevel3.TabIndex = 3;
             this.button_NonoLevel3.UseVisualStyleBackColor = true;
+            this.button_NonoLevel3.Visible = false;
             this.button_NonoLevel3.Click += new System.EventHandler(this.LevelButton_Click);
             // 
             // button_NonoLevel4
@@ -80,6 +83,7 @@
             this.button_NonoLevel4.Size = new System.Drawing.Size(245, 245);
             this.button_NonoLevel4.TabIndex = 5;
             this.button_NonoLevel4.UseVisualStyleBackColor = true;
+            this.button_NonoLevel4.Visible = false;
             this.button_NonoLevel4.Click += new System.EventHandler(this.LevelButton_Click);
             // 
             // button_NonoLevel5
@@ -89,9 +93,9 @@
             this.button_NonoLevel5.Size = new System.Drawing.Size(245, 245);
             this.button_NonoLevel5.TabIndex = 2;
             this.button_NonoLevel5.UseVisualStyleBackColor = true;
+            this.button_NonoLevel5.Visible = false;
             this.button_NonoLevel5.Click += new System.EventHandler(this.LevelButton_Click);
             // 
-
             // button_NonoLevel6
             // 
             this.button_NonoLevel6.Location = new System.Drawing.Point(1210, 450);
@@ -99,6 +103,7 @@
             this.button_NonoLevel6.Size = new System.Drawing.Size(245, 245);
             this.button_NonoLevel6.TabIndex = 6;
             this.button_NonoLevel6.UseVisualStyleBackColor = true;
+            this.button_NonoLevel6.Visible = false;
             this.button_NonoLevel6.Click += new System.EventHandler(this.LevelButton_Click);
             // 
             // MiniGame_Nono
