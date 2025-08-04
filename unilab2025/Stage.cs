@@ -2206,48 +2206,46 @@ namespace unilab2025
                                     await Task.Delay(50);
                                 }
                             }
-
-                        }
-
-                        // クリア後マップ遷移後会話再生用
-                        if (Func.WaitingForButton == "returnMap")
-                        {
-
-                            if ((_worldNumber == 1 && _level == 2) || (_worldNumber <= 4 && _level == 3))
+                            // クリア後マップ遷移後会話再生用
+                            if (Func.WaitingForButton == "returnMap")
                             {
-                                ClearCheck.IsCleared[_worldNumber, _level] = true;
-                                ClearCheck.IsCleared[_worldNumber, 0] = true;
-                                for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
+
+                                if ((_worldNumber == 1 && _level == 2) || (_worldNumber <= 4 && _level == 3))
                                 {
-                                    ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-                                    if (!ClearCheck.IsCleared[_worldNumber+1, j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                    ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                    ClearCheck.IsCleared[_worldNumber, 0] = true;
+                                    for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
+                                    {
+                                        ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
+                                        if (!ClearCheck.IsCleared[_worldNumber + 1, j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                    }
                                 }
-                            }
-                            else if (_level == 3)
-                            {
-                                ClearCheck.IsCleared[_worldNumber, _level] = true;
-                                ClearCheck.IsCleared[_worldNumber, 0] = true;
-                                Func.UpdateIsNew();
-                            }
-                            else
-                            {
-                                ClearCheck.IsCleared[_worldNumber, _level] = true;
-                                ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
-                                if(!ClearCheck.IsCleared[_worldNumber, _level+1]) ClearCheck.IsNew[_worldNumber, _level + 1] = true;
-                            }
+                                else if (_level == 3)
+                                {
+                                    ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                    ClearCheck.IsCleared[_worldNumber, 0] = true;
+                                    Func.UpdateIsNew();
+                                }
+                                else
+                                {
+                                    ClearCheck.IsCleared[_worldNumber, _level] = true;
+                                    ClearCheck.IsButtonEnabled[_worldNumber, _level + 1] = true;
+                                    if (!ClearCheck.IsCleared[_worldNumber, _level + 1]) ClearCheck.IsNew[_worldNumber, _level + 1] = true;
+                                }
 
-                            if (ClearCheck.IsCleared[5, 3] && ClearCheck.IsCleared[6, 3] && ClearCheck.IsCleared[7, 3] && ClearCheck.IsCleared[8, 3])
-                            {
-                                ClearCheck.Completed = true;
+                                if (ClearCheck.IsCleared[5, 3] && ClearCheck.IsCleared[6, 3] && ClearCheck.IsCleared[7, 3] && ClearCheck.IsCleared[8, 3])
+                                {
+                                    ClearCheck.Completed = true;
+                                }
+
+                                // 遷移後再生フラグ
+                                CurrentFormState.NextConversationTrigger = "PLAY";
+
+
+                                // カスタムパネルを表示する
+                                returnMapPanel.Visible = true;
+                                returnMapPanel.BringToFront();
                             }
-
-                            // 遷移後再生フラグ
-                            CurrentFormState.NextConversationTrigger = "PLAY";
-
-
-                            // カスタムパネルを表示する
-                            returnMapPanel.Visible = true;
-                            returnMapPanel.BringToFront();
                         }
                     }
                         //else
