@@ -487,16 +487,13 @@ namespace unilab2025
             {
                 infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber + "-1"];
             }
-            else if (_worldNumber < 4)
+            else
             {
                 infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber];
             }
-            else
-            {
-                infoConversation = Dictionaries.Conversations["Info"];
-            }
 
             CreateReturnMapUI();
+
         }
 
 
@@ -613,6 +610,14 @@ namespace unilab2025
 
                             case 6:
                                 if (map[x, y] < 2) g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                                else if (map[x, y] == 2)
+                                {
+                                    int num = rand.Next(0, 10);
+                                    int num2;
+                                    if (num <= 3) num2 = 0;
+                                    else num2 = 1;
+                                    g1.DrawImage(Dictionaries.Img_Object["ocean" + num2], placeX, placeY, cell_length, cell_length);
+                                }
                                 else g1.DrawImage(Dictionaries.Img_Object[(map[x, y] + 100).ToString()], placeX, placeY, cell_length, cell_length);
                                 break;
 
@@ -1560,13 +1565,15 @@ namespace unilab2025
         {
             Image original = Dictionaries.Img_Button["point_on"];
             pictureBox_buttonUp.Image = RotateImage(original, 0f);
-            pictureBox_upperRight.Image = RotateImage(original, 45f);
             pictureBox_buttonRight.Image = RotateImage(original, 90f);
-            pictureBox_lowerRight.Image = RotateImage(original, 135f);
             pictureBox_buttonDown.Image = RotateImage(original, 180f);
-            pictureBox_lowerLeft.Image = RotateImage(original, 225f);
             pictureBox_buttonLeft.Image = RotateImage(original, 270f);
-            pictureBox_upperLeft.Image = RotateImage(original, 315f);
+            original = Dictionaries.Img_Button["point_naname"];
+            pictureBox_lowerLeft.Image = RotateImage(original, 0f);
+            pictureBox_lowerRight.Image = RotateImage(original, 270f);
+            pictureBox_upperLeft.Image = RotateImage(original, 90f);
+            pictureBox_upperRight.Image = RotateImage(original, 180f);
+
         }
 
 
