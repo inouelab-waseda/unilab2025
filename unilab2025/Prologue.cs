@@ -26,7 +26,9 @@ namespace unilab2025
             /// <summary>キャラクター選択中</summary>
             CharacterSelection,
             /// <summary>イントロダクション会話中</summary>
-            PlayingIntroductionConversation
+            PlayingIntroductionConversation,
+            PlayingEasy,
+            EasySelection
         }
 
         private GameState currentState = GameState.Initial;
@@ -36,6 +38,8 @@ namespace unilab2025
         private PictureBox girlChoiceBox;
         private PictureBox silverChoiceBox;
         private Label centerLabel;
+        private Button Button_easy;
+        private Button Button_hard;
 
         public Prologue()
         {
@@ -105,7 +109,25 @@ namespace unilab2025
             centerLabel.BringToFront();
             this.Controls.Add(centerLabel);
 
+            Button_easy = new Button();
+            Button_easy.Text = "簡単";
+            Button_easy.Size = new Size(200, 200);
+            Button_easy.Location = new Point(this.ClientSize.Width / 2 -250, this.ClientSize.Height / 2+20); // フォーム内の位置
+            Button_easy.Font = new Font("Meiryo UI", 14); // フォント設定
+            Button_easy.BackColor = Color.LightBlue;     // 背景色
+            Button_easy .Visible = false;
+            Button_easy.Click += Button_easy_Click;
+            this.Controls.Add(Button_easy); // フォームに追加
 
+            Button_hard = new Button();
+            Button_hard.Text = "難しい";
+            Button_hard.Size = new Size(200, 200);
+            Button_hard.Location = new Point(this.ClientSize.Width / 2 + 50, this.ClientSize.Height / 2+20); // フォーム内の位置
+            Button_hard.Font = new Font("Meiryo UI", 14); // フォント設定
+            Button_hard.BackColor = Color.LightBlue;     // 背景色
+            Button_hard .Visible = false;
+            Button_hard.Click += Button_hard_Click;
+            this.Controls.Add(Button_hard); // フォームに追加
 
         }
 
@@ -113,9 +135,9 @@ namespace unilab2025
         {
             
             // フォームロード時にOP会話を再生
-            currentState = GameState.PlayingOpeningConversation;
-            List<Conversation> opConversations = Dictionaries.Conversations["Op"];
-            capturedScreen = await Func.PlayConv(this, pictureBox_Conversation, opConversations);
+            currentState = GameState.PlayingEasy;
+            List<Conversation> EazyConversations = Dictionaries.Conversations["Op_0"];
+            capturedScreen = await Func.PlayConv(this, pictureBox_Conversation, EazyConversations);
             
         }
 
@@ -133,6 +155,11 @@ namespace unilab2025
             {
                 currentConversations = Dictionaries.Conversations["Intro"];
             }
+            else if (currentState == GameState.PlayingEasy)
+            {
+                currentConversations = Dictionaries.Conversations["Op_0"];
+            }
+
 
             if (currentConversations != null)
             {
@@ -157,6 +184,14 @@ namespace unilab2025
                         // イントロ会話終了後どこ行きゃいいの
                         Func.CreateStage(this, "1年生", 1, 1);
                         this.Dispose(); // Prologueフォームを閉じる
+                    }
+                    else if (currentState == GameState.PlayingEasy)
+                    {
+                        
+                        currentState = GameState.EasySelection;
+                        Button_easy.Visible = true;
+                        Button_hard.Visible = true;
+                        
                     }
                 }
             }
@@ -201,6 +236,27 @@ namespace unilab2025
             centerLabel.Visible = false;
             StartIntroductionConversation();
         }
+
+        private void Button_easy_Click(object sender, EventArgs e)
+        {
+            MainDifficult.isEasy = true;
+            StartOPConversation();
+        }
+
+        private void Button_hard_Click(object sender, EventArgs e)
+        {
+            MainDifficult.isHard = true;
+            StartOPConversation();
+        }
+        private async void StartOPConversation()
+        {
+            Button_easy.Visible = false;
+            Button_hard.Visible = false;
+            currentState = GameState.PlayingOpeningConversation;
+            List<Conversation> OpConversations = Dictionaries.Conversations["Op"];
+            capturedScreen = await Func.PlayConv(this, pictureBox_Conversation, OpConversations);
+        }
+
 
         // イントロダクション会話を開始する
         private async void StartIntroductionConversation()
