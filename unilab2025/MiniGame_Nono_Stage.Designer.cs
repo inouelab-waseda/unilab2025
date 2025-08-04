@@ -41,9 +41,9 @@
             // 
             // pictureBox_Grid
             // 
-            this.pictureBox_Grid.Location = new System.Drawing.Point(550, 180);
+            this.pictureBox_Grid.Location = new System.Drawing.Point(550, 230);
             this.pictureBox_Grid.Name = "pictureBox_Grid";
-            this.pictureBox_Grid.Size = new System.Drawing.Size(605, 605);
+            this.pictureBox_Grid.Size = new System.Drawing.Size(600, 600);
             this.pictureBox_Grid.TabIndex = 0;
             this.pictureBox_Grid.TabStop = false;
             // 
@@ -51,15 +51,15 @@
             // 
             this.pictureBox_TopHints.Location = new System.Drawing.Point(550, 30);
             this.pictureBox_TopHints.Name = "pictureBox_TopHints";
-            this.pictureBox_TopHints.Size = new System.Drawing.Size(605, 150);
+            this.pictureBox_TopHints.Size = new System.Drawing.Size(600, 200);
             this.pictureBox_TopHints.TabIndex = 1;
             this.pictureBox_TopHints.TabStop = false;
             // 
             // pictureBox_SideHints
             // 
-            this.pictureBox_SideHints.Location = new System.Drawing.Point(400, 180);
+            this.pictureBox_SideHints.Location = new System.Drawing.Point(350, 230);
             this.pictureBox_SideHints.Name = "pictureBox_SideHints";
-            this.pictureBox_SideHints.Size = new System.Drawing.Size(150, 605);
+            this.pictureBox_SideHints.Size = new System.Drawing.Size(200, 600);
             this.pictureBox_SideHints.TabIndex = 2;
             this.pictureBox_SideHints.TabStop = false;
             // 
@@ -106,6 +106,7 @@
             this.Controls.Add(this.pictureBox_Grid);
             this.Name = "MiniGame_Nono_Stage";
             this.Text = "MiniGame_Nono_Stage";
+            this.Load += new System.EventHandler(this.MiniGame_NonoStage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TopHints)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SideHints)).EndInit();
