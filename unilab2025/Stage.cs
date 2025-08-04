@@ -478,10 +478,6 @@ namespace unilab2025
             {
                 infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber + "-1"];
             }
-            else if (_worldNumber < 4)
-            {
-                infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber];
-            }
             else
             {
                 infoConversation = Dictionaries.Conversations["Info_stage" + _worldNumber];
