@@ -427,7 +427,7 @@ namespace unilab2025
 
             NonogramProgress.IsCleared[this.StageId] = true;
 
-            MessageBox.Show("クリア！");
+            MessageBox.Show("完成！");
             pictureBox_Grid.Enabled = false;
             this.DialogResult = DialogResult.OK;
             this.Close();

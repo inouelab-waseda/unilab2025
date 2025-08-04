@@ -61,7 +61,12 @@ namespace unilab2025
             }
         }
 
-#endregion
+        private void button_return_Click(object sender, EventArgs e)
+        {
+            Func.CreateMiniGame(this);
+        }
+
+        #endregion
 
         // レベル選択ボタンの見た目を更新する
         private void UpdateLevelButtons()
@@ -82,7 +87,6 @@ namespace unilab2025
                 }
             }
         }
-
     }
     public static class NonogramProgress
     {
