@@ -42,6 +42,13 @@ namespace unilab2025
                     Func.CreateStage(this, worldName, worldNumber, level);
                     break;
 
+                case "WorldMap":
+                    Func.CreateWorldMap(this);
+                    break;
+
+                case "AnotherWorld":
+                    Func.CreateAnotherWorld(this);
+                    break;
             }
 
 
