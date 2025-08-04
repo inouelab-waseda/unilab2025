@@ -35,6 +35,7 @@
             this.button_NonoLevel4 = new System.Windows.Forms.Button();
             this.button_NonoLevel5 = new System.Windows.Forms.Button();
             this.button_NonoLevel6 = new System.Windows.Forms.Button();
+            this.button_return = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_StartNono
@@ -106,11 +107,22 @@
             this.button_NonoLevel6.Visible = false;
             this.button_NonoLevel6.Click += new System.EventHandler(this.LevelButton_Click);
             // 
+            // button_return
+            // 
+            this.button_return.Location = new System.Drawing.Point(32, 31);
+            this.button_return.Name = "button_return";
+            this.button_return.Size = new System.Drawing.Size(196, 98);
+            this.button_return.TabIndex = 7;
+            this.button_return.Text = "一覧に戻る";
+            this.button_return.UseVisualStyleBackColor = true;
+            this.button_return.Click += new System.EventHandler(this.button_return_Click);
+            // 
             // MiniGame_Nono
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1687, 841);
+            this.Controls.Add(this.button_return);
             this.Controls.Add(this.button_NonoLevel1);
             this.Controls.Add(this.button_NonoLevel2);
             this.Controls.Add(this.button_NonoLevel3);
@@ -133,5 +145,6 @@
         private System.Windows.Forms.Button button_NonoLevel4;
         private System.Windows.Forms.Button button_NonoLevel5;
         private System.Windows.Forms.Button button_NonoLevel6;
+        private System.Windows.Forms.Button button_return;
     }
 }
