@@ -43,12 +43,8 @@ namespace unilab2025
                     string NameWithoutButton = button.Name.Replace("button", "");
                     if (int.TryParse(NameWithoutButton, out int i))
                     {
-                        button.ForeImage = null;
-                        if (ClearCheck.IsNew[i, 0])
-                        {
-                            button.ConditionImage = Dictionaries.Img_Button["New"];
-                        }
-                        else if (ClearCheck.IsCleared[i, 0])
+                        button.ForeImage = null;                        
+                        if (ClearCheck.IsCleared[i, 0])
                         {
                             //button.BackColor = Color.FromArgb(255, 128, 128);
                             button.ConditionImage = Dictionaries.Img_Button["Clear"];
