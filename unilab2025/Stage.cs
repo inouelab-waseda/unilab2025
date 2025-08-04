@@ -565,7 +565,26 @@ namespace unilab2025
                     }
                     else if (_worldNumber < 5 || _worldNumber == 7) 
                     {
-                        if (map[x, y] == 2)
+                        if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
+                        else if (map[x, y] == 2 && x > 1 && y > 1 && x < map_width - 1 && y < map_width - 1)
+                        {
+                            int surroundingsflag = 0;
+                            if (map[x - 1, y] == 3) surroundingsflag++;
+                            if (map[x + 1, y] == 3) surroundingsflag++;
+                            if (map[x, y - 1] == 3) surroundingsflag++;
+                            if (map[x, y + 1] == 3) surroundingsflag++;
+                            if (surroundingsflag >= 2)
+                                g1.DrawImage(Dictionaries.Img_Object["grass" + 1], placeX, placeY, cell_length, cell_length);
+                            else
+                            {
+                                int num = rand.Next(0, 10);
+                                int num2;
+                                if (num <= 3) num2 = 0;
+                                else num2 = 1;
+                                g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
+                            }
+                        }
+                        else if (map[x, y] == 2)
                         {
                             int num = rand.Next(0, 10);
                             int num2;
@@ -582,7 +601,13 @@ namespace unilab2025
                         {
                             case 5:
                                 if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
-                                else if (map[x, y] == 2)
+                                else if (map[x, y] == 2 && x > 2 && y > 2 && x < map_width - 3 && y < map_width - 3
+                                    && map[x - 1, y] == 3 && map[x, y - 1] == 3 
+                                    && map[x + 1, y] == 3 && map[x, y + 1] == 3)
+                                {
+                                    g1.DrawImage(Dictionaries.Img_Object["grass" + 1], placeX, placeY, cell_length, cell_length);
+                                }
+                                else if(map[x, y] == 2)
                                 {
                                     int num = rand.Next(0, 10);
                                     int num2;
