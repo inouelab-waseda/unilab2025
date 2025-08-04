@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnotherWorld));
             this.button_Japan = new System.Windows.Forms.Button();
-            this.button5 = new unilab2025.CustomButton();
-            this.button6 = new unilab2025.CustomButton();
-            this.button7 = new unilab2025.CustomButton();
-            this.button8 = new unilab2025.CustomButton();
             this.button_MiniGame = new unilab2025.CustomButton();
+            this.button8 = new unilab2025.CustomButton();
+            this.button7 = new unilab2025.CustomButton();
+            this.button6 = new unilab2025.CustomButton();
+            this.button5 = new unilab2025.CustomButton();
             this.SuspendLayout();
             // 
             // button_Japan
@@ -44,78 +44,13 @@
             this.button_Japan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_Japan.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_Japan.ForeColor = System.Drawing.Color.Black;
-            this.button_Japan.Location = new System.Drawing.Point(780, 364);
-            this.button_Japan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_Japan.Location = new System.Drawing.Point(585, 291);
+            this.button_Japan.Margin = new System.Windows.Forms.Padding(2);
             this.button_Japan.Name = "button_Japan";
-            this.button_Japan.Size = new System.Drawing.Size(260, 98);
+            this.button_Japan.Size = new System.Drawing.Size(212, 81);
             this.button_Japan.TabIndex = 1;
             this.button_Japan.UseVisualStyleBackColor = false;
             this.button_Japan.Click += new System.EventHandler(this.button_Japan_Click);
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button5.ConditionImage = null;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.ForeImage = null;
-            this.button5.Location = new System.Drawing.Point(459, 319);
-            this.button5.Margin = new System.Windows.Forms.Padding(0);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(259, 96);
-            this.button5.TabIndex = 2;
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.buttonI_Click);
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button6.BackgroundImage")));
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button6.ConditionImage = null;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.ForeImage = null;
-            this.button6.Location = new System.Drawing.Point(583, 788);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(271, 100);
-            this.button6.TabIndex = 3;
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.buttonI_Click);
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.Transparent;
-            this.button7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button7.BackgroundImage")));
-            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button7.ConditionImage = null;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button7.ForeImage = null;
-            this.button7.Location = new System.Drawing.Point(1321, 506);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(254, 90);
-            this.button7.TabIndex = 4;
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.buttonI_Click);
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.Transparent;
-            this.button8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button8.BackgroundImage")));
-            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button8.ConditionImage = null;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button8.ForeImage = null;
-            this.button8.Location = new System.Drawing.Point(212, 430);
-            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(249, 89);
-            this.button8.TabIndex = 5;
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.buttonI_Click);
             // 
             // button_MiniGame
             // 
@@ -126,21 +61,86 @@
             this.button_MiniGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_MiniGame.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_MiniGame.ForeImage = null;
-            this.button_MiniGame.Location = new System.Drawing.Point(1166, 722);
-            this.button_MiniGame.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_MiniGame.Location = new System.Drawing.Point(874, 584);
+            this.button_MiniGame.Margin = new System.Windows.Forms.Padding(2);
             this.button_MiniGame.Name = "button_MiniGame";
-            this.button_MiniGame.Size = new System.Drawing.Size(270, 90);
+            this.button_MiniGame.Size = new System.Drawing.Size(202, 66);
             this.button_MiniGame.TabIndex = 6;
             this.button_MiniGame.UseVisualStyleBackColor = false;
             this.button_MiniGame.Click += new System.EventHandler(this.button_MiniGame_Click);
             // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.Transparent;
+            this.button8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button8.BackgroundImage")));
+            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button8.ConditionImage = null;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.ForeImage = null;
+            this.button8.Location = new System.Drawing.Point(159, 344);
+            this.button8.Margin = new System.Windows.Forms.Padding(2);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(210, 75);
+            this.button8.TabIndex = 5;
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.buttonI_Click);
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.Transparent;
+            this.button7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button7.BackgroundImage")));
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button7.ConditionImage = null;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button7.ForeImage = null;
+            this.button7.Location = new System.Drawing.Point(991, 409);
+            this.button7.Margin = new System.Windows.Forms.Padding(2);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(190, 68);
+            this.button7.TabIndex = 4;
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.buttonI_Click);
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.Transparent;
+            this.button6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button6.BackgroundImage")));
+            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button6.ConditionImage = null;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button6.ForeImage = null;
+            this.button6.Location = new System.Drawing.Point(437, 636);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(205, 74);
+            this.button6.TabIndex = 3;
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.buttonI_Click);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Transparent;
+            this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button5.ConditionImage = null;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button5.ForeImage = null;
+            this.button5.Location = new System.Drawing.Point(344, 255);
+            this.button5.Margin = new System.Windows.Forms.Padding(0);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(210, 77);
+            this.button5.TabIndex = 2;
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.buttonI_Click);
+            // 
             // AnotherWorld
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1540, 911);
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.button_MiniGame);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -148,7 +148,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button_Japan);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnotherWorld";
             this.Text = "AnotherWorld";
             this.Load += new System.EventHandler(this.AnotherWorld_Load);

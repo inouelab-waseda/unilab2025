@@ -890,7 +890,7 @@ namespace unilab2025
                 int dia_x = 1300;
                 int dia_y = 270;
                 int margin_x = (1400 - dia_x) / 2;
-                int margin_y = 400;
+                int margin_y = 500;
                 int lineHeight = fnt_dia.Height;
                 int textPaddingX = 60;
                 int sp_y = 70;
@@ -1119,6 +1119,12 @@ namespace unilab2025
         //外の世界クリア時
         public static bool Completed;
         public static bool PlayAfterAnotherWorldStory;
+
+        // 異世界初訪問時
+        public static bool PlayAnotherWorldIntro;
+
+        // エンディング再生時
+        public static bool PlayGameEndStory;
     }
 
     public partial class Func
@@ -1138,6 +1144,8 @@ namespace unilab2025
             ClearCheck.PlayAfterChapter4Story = false;
             ClearCheck.PlayAfterAnotherWorldStory = false;
             ClearCheck.Completed = false;
+            ClearCheck.PlayAnotherWorldIntro = false;
+            ClearCheck.PlayGameEndStory = false;
 
             ClearCheck.IsButtonEnabled[1, 0] = true;
             ClearCheck.IsButtonEnabled[1, 1] = true;
