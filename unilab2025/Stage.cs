@@ -921,7 +921,7 @@ namespace unilab2025
 
             if (hint_on)
             {
-                CreateStage(stageName);
+                //CreateStage(stageName);
                 hint_on= false;
             }
             move = Movement(); //ユーザーの入力を読み取る
