@@ -2314,6 +2314,71 @@ namespace unilab2025
                                     if (!Colision_detection(x, y, Map, Direction))
                                     {
                                         await Task.Delay(200);
+                                        if (Map[x, y] == 6)
+                                        {
+                                            int x_jump = x_now;
+                                            int y_jump = y_now;
+
+                                            while (true)
+                                            {
+
+                                                x_jump = x_now;
+                                                y_jump = y_now;
+                                                (x_now, y_now) = place_update(x, y, Direction);
+                                                if (!Colision_detection(x, y, Map, Direction))
+                                                {
+                                                    await Task.Delay(400);
+                                                    await Jump(x_jump, y_jump, Direction);
+                                                    (x_now, y_now) = place_update(x, y, Direction);
+                                                    DrawCharacter(x_now, y_now, ref character_me);
+                                                    pictureBox_Map2.Refresh();
+                                                    if (Map[x, y] != 6) break;
+                                                }
+                                                else
+                                                {
+                                                    Func.IsInputLocked = false;
+                                                    pictureBox_buttonUp.Enabled = true;
+                                                    pictureBox_buttonRight.Enabled = true;
+                                                    pictureBox_buttonDown.Enabled = true;
+                                                    pictureBox_buttonLeft.Enabled = true;
+                                                    pictureBox_upperRight.Enabled = true;
+                                                    pictureBox_lowerRight.Enabled = true;
+                                                    pictureBox_lowerLeft.Enabled = true;
+                                                    pictureBox_upperLeft.Enabled = true;
+                                                    listBox_Order.Enabled = true;
+                                                    listBox_Car.Enabled = true;
+                                                    button_back.Enabled = true;
+                                                    button_hint.Enabled = true;
+                                                    button_info.Enabled = true;
+                                                    button_reset.Enabled = true;
+                                                    button_return.Enabled = true;
+                                                    button_Start.Visible = true;
+                                                    button_Start.Enabled = true;
+                                                    if (limit_LB_walk != 0) button_walk.Enabled = true;
+                                                    if (limit_LB_balloon != 0) button_balloon.Enabled = true;
+                                                    if (limit_LB_plane != 0) button_plane.Enabled = true;
+                                                    if (limit_LB_car != 0)
+                                                    {
+                                                        button_car.Enabled = true;
+                                                        button_carEnter.Enabled = true;
+                                                    }
+                                                    //MessageBox.Show("前に進めません");
+                                                    DisplayMessage("行き止まり");
+                                                    g2.Clear(Color.Transparent);//人の移動などのリセット
+                                                    Input_arrow.Clear();//入力のリセット
+                                                    Image character_me = Dictionaries.Img_DotPic["正面"];
+                                                    if (Penguin == true) character_me = Img_Penguin["正面"];
+                                                    g2.DrawImage(character_me, x_start * cell_length - extra_length, y_start * cell_length - 2 * extra_length, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
+                                                    pictureBox_Map2.Refresh();
+                                                    x_now = x_start;//スタート位置に戻す
+                                                    y_now = y_start;
+                                                    button_Start.Visible = true;
+                                                    button_Start.Enabled = true;
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
                                         (x_now, y_now) = place_update(x, y, Direction);
                                         if (Map[x, y] == 4) 
                                         {
@@ -2323,6 +2388,7 @@ namespace unilab2025
                                         
                                         if (Map[x, y] == 5 && sasa.Contains(true)) panda = true;
                                         if (_worldNumber == 5) Panda();
+                                        
                                         DrawCharacter(x_now, y_now, ref character_me);
                                         pictureBox_Map2.Refresh();
                                         if (Map[x, y] == 8)
@@ -2449,8 +2515,6 @@ namespace unilab2025
                                 }
                             }
                         }
-
-
 
 
                         move_copy.RemoveAt(0); // 使い終わった移動ステップを削除
