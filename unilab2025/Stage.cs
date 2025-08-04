@@ -2142,7 +2142,7 @@ namespace unilab2025
                                 for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
                                 {
                                     ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-                                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                    if (!ClearCheck.IsCleared[_worldNumber+1, j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
                                 }
                             }
                             else if (_level == 3)
