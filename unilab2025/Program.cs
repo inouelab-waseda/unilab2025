@@ -46,6 +46,15 @@ namespace unilab2025
     #region フォーム呼び出し
     public static partial class Func
     {
+        public static void CreateTitle(Form currentForm)
+        {
+            Title form = new Title();
+            form.Show();
+            if (!(currentForm is Title))
+            {
+                currentForm.Dispose();
+            }
+        }
 
         public static void CreatePrologue(Form currentForm)
         {

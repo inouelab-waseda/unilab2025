@@ -64,6 +64,13 @@ namespace unilab2025
                 ClearCheck.PlayGameEndStory = true;
                 currentConversation = Dictionaries.Conversations["end"];
                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+
+                while (pictureBox_Conv.Visible)
+                {
+                    await Task.Delay(50);
+                }
+
+                Func.CreateTitle(this);
             }
             else if (!ClearCheck.PlayAnotherWorldIntro)
             {
