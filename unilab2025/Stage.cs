@@ -493,6 +493,7 @@ namespace unilab2025
             }
 
             CreateReturnMapUI();
+            if(_worldNumber==2&&_level==1) this.KeyPreview = false;
 
         }
 
