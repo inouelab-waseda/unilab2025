@@ -964,14 +964,23 @@ namespace unilab2025
                     switch (_worldNumber)
                     {
                         case 2:
-                        case 3:
-                        case 4:
+                        case 3:                        
                             for (int j = 0; j <= 1; j++)
                             {
                                 ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
                                 if (!ClearCheck.IsCleared[_worldNumber+1,j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
                             }
                             break; ;
+                        case 4:
+                            for (int j = 0; j <= 1; j++)
+                            {
+                                for (int k = 1; k <= 4; k++)
+                                {
+                                    ClearCheck.IsButtonEnabled[_worldNumber+k, j] = true;
+                                    if (!ClearCheck.IsCleared[_worldNumber + k, j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                }
+                            }
+                            break;
                     }
                 }
                 else if (_level == 2 && _worldNumber == 1)
