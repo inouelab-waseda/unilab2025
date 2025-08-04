@@ -112,7 +112,7 @@ namespace unilab2025
             Button_easy = new Button();
             Button_easy.Text = "簡単";
             Button_easy.Size = new Size(200, 200);
-            Button_easy.Location = new Point(this.ClientSize.Width / 2 -250, this.ClientSize.Height / 2+20); // フォーム内の位置
+            Button_easy.Location = new Point(this.ClientSize.Width / 2 +150, this.ClientSize.Height / 2+100); // フォーム内の位置
             Button_easy.Font = new Font("Meiryo UI", 14); // フォント設定
             Button_easy.BackColor = Color.LightBlue;     // 背景色
             Button_easy .Visible = false;
@@ -122,7 +122,7 @@ namespace unilab2025
             Button_hard = new Button();
             Button_hard.Text = "難しい";
             Button_hard.Size = new Size(200, 200);
-            Button_hard.Location = new Point(this.ClientSize.Width / 2 + 50, this.ClientSize.Height / 2+20); // フォーム内の位置
+            Button_hard.Location = new Point(this.ClientSize.Width / 2 + 550, this.ClientSize.Height / 2+100); // フォーム内の位置
             Button_hard.Font = new Font("Meiryo UI", 14); // フォント設定
             Button_hard.BackColor = Color.LightBlue;     // 背景色
             Button_hard .Visible = false;
