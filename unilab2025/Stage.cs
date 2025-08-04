@@ -203,6 +203,8 @@ namespace unilab2025
         public Graphics g1;
         public Graphics g2;
 
+        Panel returnMapPanel;
+
         //パンダ設定
         public List<bool> sasa;
         public static bool panda;
@@ -487,7 +489,7 @@ namespace unilab2025
                 infoConversation = Dictionaries.Conversations["Info"];
             }
 
-
+            CreateReturnMapUI();
         }
 
 
@@ -562,7 +564,7 @@ namespace unilab2025
                         {
                             int num = rand.Next(0, 10);
                             int num2;
-                            if (num <= 1) num2 = 0;
+                            if (num <= 3) num2 = 0;
                             else num2 = 1;
                             g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
                         }
@@ -575,6 +577,14 @@ namespace unilab2025
                         {
                             case 5:
                                 if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
+                                else if (map[x, y] == 2)
+                                {
+                                    int num = rand.Next(0, 10);
+                                    int num2;
+                                    if (num <= 3) num2 = 0;
+                                    else num2 = 1;
+                                    g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
+                                }
                                 else g1.DrawImage(Dictionaries.Img_Object[map[x, y].ToString()], placeX, placeY, cell_length, cell_length);
                                 if (map[x, y] == 4)
                                 {
@@ -2088,35 +2098,9 @@ namespace unilab2025
                             // 遷移後再生フラグ
                             CurrentFormState.NextConversationTrigger = "PLAY";
 
-                            string message;
-                            if ((_worldNumber == 1 && _level == 2) || _level == 3)
-                            {
-                                message = "マップにもどる？";
-                            }
-                            else
-                            {
-                                message = "レベルせんたくにもどる？";
-                            }
-                            string caption = "確認";
-                            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                            DialogResult result;
-
-                            // 確認ダイアログを表示します。
-                            result = MessageBox.Show(this, message, caption, buttons, MessageBoxIcon.Warning);
-
-                            // ユーザーが「はい」を押した場合のみ、マップ選択画面に戻ります。
-                            if (result == DialogResult.Yes)
-                            {
-                                if ((_worldNumber == 1 && _level == 2) || _level == 3)
-                                {
-                                    if (_worldNumber <= 4) Func.CreateWorldMap(this);
-                                    else Func.CreateAnotherWorld(this);
-                                }
-                                else
-                                {
-                                    Func.CreateStageSelect(this, _worldName, _worldNumber);
-                                }
-                            }
+                            // カスタムパネルを表示する
+                            returnMapPanel.Visible = true;
+                            returnMapPanel.BringToFront();
                         }
                     }
                         //else
@@ -2454,6 +2438,76 @@ namespace unilab2025
 
         #endregion
 
+        #region UI
+        private void CreateReturnMapUI()
+        {
+            // Panelの基本設定
+            returnMapPanel = new System.Windows.Forms.Panel
+            {
+                Size = new System.Drawing.Size(650, 450),
+                BackColor = System.Drawing.Color.FromArgb(245, 255, 255, 255),
+                BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle,
+                Visible = false
+            };
+            // Panelを中央に配置
+            returnMapPanel.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - returnMapPanel.Width / 2, this.ClientSize.Height / 2 - returnMapPanel.Height / 2);
+            this.Controls.Add(returnMapPanel);
+
+            // タイトルラベル
+            System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
+            {
+                Text = "🎉 クリアおめでとう！ 🎉",
+                Font = new System.Drawing.Font("Ink Free", 28F, System.Drawing.FontStyle.Bold),
+                ForeColor = System.Drawing.Color.DodgerBlue,
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+                Size = new System.Drawing.Size(returnMapPanel.Width, 70),
+                Location = new System.Drawing.Point(0, 40)
+            };
+            returnMapPanel.Controls.Add(lblTitle);
+
+            // 説明ラベル
+            System.Windows.Forms.Label lblExplanation = new System.Windows.Forms.Label
+            {
+                Text = "つぎのステージにすすむひとは「マップにもどる」を、\nクリアした画面でしゃしんをとりたいひとは「このまま」をおしてね！",
+                Font = new System.Drawing.Font("Yu Gothic UI", 15F),
+                ForeColor = System.Drawing.Color.DarkSlateGray,
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+                Size = new System.Drawing.Size(returnMapPanel.Width - 40, 100),
+                Location = new System.Drawing.Point(20, 140)
+            };
+            returnMapPanel.Controls.Add(lblExplanation);
+
+            // 「マップにもどる」ボタン
+            System.Windows.Forms.Button btnReturn = new System.Windows.Forms.Button
+            {
+                Text = "マップにもどる",
+                Font = new System.Drawing.Font("Yu Gothic UI", 16F, System.Drawing.FontStyle.Bold),
+                Size = new System.Drawing.Size(250, 80),
+                Location = new System.Drawing.Point(returnMapPanel.Width / 2 - 250 - 20, 280),
+                BackColor = System.Drawing.Color.White,
+                FlatStyle = System.Windows.Forms.FlatStyle.Flat,
+                ForeColor = System.Drawing.Color.DodgerBlue
+            };
+            btnReturn.FlatAppearance.BorderSize = 1;
+            btnReturn.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            returnMapPanel.Controls.Add(btnReturn);
+
+            // 「このまま」ボタン
+            System.Windows.Forms.Button btnStay = new System.Windows.Forms.Button
+            {
+                Text = "このまま",
+                Font = new System.Drawing.Font("Yu Gothic UI", 16F, System.Drawing.FontStyle.Bold),
+                Size = new System.Drawing.Size(250, 80),
+                Location = new System.Drawing.Point(returnMapPanel.Width / 2 + 20, 280),
+                BackColor = System.Drawing.Color.WhiteSmoke,
+                FlatStyle = System.Windows.Forms.FlatStyle.Flat,
+                ForeColor = System.Drawing.Color.DimGray
+            };
+            btnStay.FlatAppearance.BorderSize = 1;
+            btnStay.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            returnMapPanel.Controls.Add(btnStay);
+        }
+        #endregion
 
         #region 隕石
         public static TaskCompletionSource<bool> MeteoResult = new TaskCompletionSource<bool>();//隕石の処理が終わったかどうか
