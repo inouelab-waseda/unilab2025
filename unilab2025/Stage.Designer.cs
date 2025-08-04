@@ -304,7 +304,7 @@
             // 
             // pictureBox_buttonUp
             // 
-            this.pictureBox_buttonUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_buttonUp.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_buttonUp.Location = new System.Drawing.Point(1282, 710);
             this.pictureBox_buttonUp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonUp.Name = "pictureBox_buttonUp";
@@ -315,7 +315,7 @@
             // 
             // pictureBox_buttonRight
             // 
-            this.pictureBox_buttonRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_buttonRight.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_buttonRight.Location = new System.Drawing.Point(1405, 820);
             this.pictureBox_buttonRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonRight.Name = "pictureBox_buttonRight";
@@ -326,7 +326,7 @@
             // 
             // pictureBox_buttonDown
             // 
-            this.pictureBox_buttonDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_buttonDown.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_buttonDown.Location = new System.Drawing.Point(1282, 932);
             this.pictureBox_buttonDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonDown.Name = "pictureBox_buttonDown";
@@ -337,7 +337,7 @@
             // 
             // pictureBox_buttonLeft
             // 
-            this.pictureBox_buttonLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_buttonLeft.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_buttonLeft.Location = new System.Drawing.Point(1158, 820);
             this.pictureBox_buttonLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonLeft.Name = "pictureBox_buttonLeft";
@@ -348,7 +348,7 @@
             // 
             // pictureBox_upperRight
             // 
-            this.pictureBox_upperRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_upperRight.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_upperRight.Location = new System.Drawing.Point(1405, 710);
             this.pictureBox_upperRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_upperRight.Name = "pictureBox_upperRight";
@@ -359,7 +359,7 @@
             // 
             // pictureBox_upperLeft
             // 
-            this.pictureBox_upperLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_upperLeft.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_upperLeft.Location = new System.Drawing.Point(1158, 710);
             this.pictureBox_upperLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_upperLeft.Name = "pictureBox_upperLeft";
@@ -370,7 +370,7 @@
             // 
             // pictureBox_lowerLeft
             // 
-            this.pictureBox_lowerLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_lowerLeft.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_lowerLeft.Location = new System.Drawing.Point(1158, 932);
             this.pictureBox_lowerLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_lowerLeft.Name = "pictureBox_lowerLeft";
@@ -381,7 +381,7 @@
             // 
             // pictureBox_lowerRight
             // 
-            this.pictureBox_lowerRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox_lowerRight.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_lowerRight.Location = new System.Drawing.Point(1405, 932);
             this.pictureBox_lowerRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_lowerRight.Name = "pictureBox_lowerRight";
