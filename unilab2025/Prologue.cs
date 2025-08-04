@@ -41,6 +41,7 @@ namespace unilab2025
         private Button Button_easy;
         private Button Button_hard;
 
+        
         public Prologue()
         {
             InitializeComponent();
@@ -50,7 +51,7 @@ namespace unilab2025
             this.KeyPreview = true;
             this.DoubleBuffered = true;
             this.BackgroundImage = Dictionaries.Img_Background["Character_select"];//背景
-
+                        
             //会話表示
             pictureBox_Conversation = Func.CreatePictureBox_Conv(this);
             pictureBox_Conversation.Click += PictureBox_Conversation_Click;
@@ -109,23 +110,29 @@ namespace unilab2025
             centerLabel.BringToFront();
             this.Controls.Add(centerLabel);
 
-            Button_easy = new Button();
-            Button_easy.Text = "簡単";
-            Button_easy.Size = new Size(200, 200);
-            Button_easy.Location = new Point(this.ClientSize.Width / 2 + 150, this.ClientSize.Height / 2 + 100); // フォーム内の位置
+            Button_easy = new Button();            
+            Button_easy.Size = new Size(400, 200);
+            Button_easy.Location = new Point(this.ClientSize.Width / 2-50, this.ClientSize.Height / 2 + 100); // フォーム内の位置
             Button_easy.Font = new Font("Meiryo UI", 14); // フォント設定
             Button_easy.BackColor = Color.LightBlue;     // 背景色
             Button_easy.Visible = false;
+            Button_easy.BackgroundImage = Dictionaries.Img_Button["レベル1"];
+            Button_easy.BackgroundImageLayout = ImageLayout.Zoom;
+            Button_easy.BackColor = Color.Transparent;
+            Button_easy.FlatStyle = FlatStyle.Popup;
             Button_easy.Click += Button_easy_Click;
             this.Controls.Add(Button_easy); // フォームに追加
 
-            Button_hard = new Button();
-            Button_hard.Text = "難しい";
-            Button_hard.Size = new Size(200, 200);
+            Button_hard = new Button();            
+            Button_hard.BackgroundImage = Dictionaries.Img_Button["レベル2"];
+            Button_hard.BackgroundImageLayout = ImageLayout.Zoom;
+            Button_hard.Size = new Size(400, 200);
             Button_hard.Location = new Point(this.ClientSize.Width / 2 + 550, this.ClientSize.Height / 2 + 100); // フォーム内の位置
             Button_hard.Font = new Font("Meiryo UI", 14); // フォント設定
             Button_hard.BackColor = Color.LightBlue;     // 背景色
             Button_hard.Visible = false;
+            Button_hard.BackColor = Color.Transparent;
+            Button_hard.FlatStyle = FlatStyle.Popup;
             Button_hard.Click += Button_hard_Click;
             this.Controls.Add(Button_hard); // フォームに追加
 

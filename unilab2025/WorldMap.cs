@@ -14,9 +14,7 @@ namespace unilab2025
     {
         private PictureBox pictureBox_Conv;
         private List<Conversation> currentConversation;
-        private byte[] Capt;
-
-        public int ToMap=0;
+        private byte[] Capt;       
 
         public WorldMap()
         {
@@ -80,11 +78,7 @@ namespace unilab2025
                         if (ClearCheck.IsNew[i, 0])
                         {
                             if (i != 5) button.ConditionImage = Dictionaries.Img_Button["New"];
-                            else if (i == 5 && ToMap == 0) 
-                            { 
-                                button.ConditionImage = Dictionaries.Img_Button["New"];
-                                ToMap = 1;
-                            }
+                            
 
 
                         }
@@ -101,6 +95,11 @@ namespace unilab2025
                     }
 
                 }
+            }
+            if (ClearCheck.IsCleared[4, 0] && MainNew.isNew)
+            {
+                button5.ConditionImage = Dictionaries.Img_Button["New"];
+                
             }
 
             // 画面遷移後に再生する会話があったら再生
@@ -138,6 +137,7 @@ namespace unilab2025
 
         private void button5_Click(object sender, EventArgs e)
         {
+            MainNew.isNew = false;
             Func.CreateAnotherWorld(this);
         }
 

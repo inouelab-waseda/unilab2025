@@ -134,6 +134,7 @@ namespace unilab2025
         public static bool isFor = false;     //For文入力中かどうか
         public static int Change_Item_Number;
         public static int[,] map; //ステージのマップデータ
+        public static int[,] map2;
         public static int map_width; //マップの横幅
         public static string stageName;
         public static int x_start; //スタート位置ｘ
@@ -273,8 +274,8 @@ namespace unilab2025
             sasa_place = new List<Coordinate>();
             panda = false;
 
-            map = CreateStage(stageName); //ステージ作成
-
+            map = CreateStage(stageName); //ステージ作成            
+            
             button_carEnter.BackgroundImage= Dictionaries.Img_Button["入れるoff"];
             
 
@@ -493,6 +494,7 @@ namespace unilab2025
             }
 
             CreateReturnMapUI();
+            if(_worldNumber==2&&_level==1) this.KeyPreview = false;
 
         }
 
@@ -513,10 +515,14 @@ namespace unilab2025
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
                     map_width = values.Length; //マップの横幅を取得
-            
 
 
-                    if (y == 0) map = new int[map_width, map_width]; //マップの初期化
+
+                    if (y == 0) 
+                    { 
+                        map = new int[map_width, map_width]; 
+                        
+                    }//マップの初期化
                     x = 0;
 
                     foreach (var value in values)
@@ -667,7 +673,23 @@ namespace unilab2025
             });
             return map;
         }
-       
+
+        void LoadMapFromCSV(string filePath)
+        {
+            string[] lines = File.ReadAllLines($"Map\\{filePath}");
+            map2 = new int[map_width, map_width];
+            for (int y = 0; y < lines.Length; y++)
+            {
+                string[] values = lines[y].Split(',');
+
+                for (int x = 0; x < values.Length; x++)
+                {
+                    map2[x, y] = int.Parse(values[x]);
+                }
+            }
+            
+        }
+
         private void listBox_Order_Click(object sender, EventArgs e)
         {
             if (InputListBox == listBox_Car)
@@ -922,7 +944,7 @@ namespace unilab2025
 
             if (hint_on)
             {
-                CreateStage(stageName);
+                //CreateStage(stageName);
                 hint_on= false;
             }
             move = Movement(); //ユーザーの入力を読み取る
@@ -1474,8 +1496,28 @@ namespace unilab2025
         private async void button_hint_Click(object sender, EventArgs e)
         {
             hint_on = true;
-            if (stageName=="stage3-2"|| stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2" || stageName == "stage6-3")
-            CreateStage(stageName + "hint");
+            
+            if (stageName == "stage3-2" || stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2" || stageName == "stage6-3")
+            {
+                LoadMapFromCSV(stageName + "hint.csv");
+                for (int y = 0; y < map_width; y++)
+                {
+                    for (int x = 0; x < map_width; x++)
+                    {
+                        int placeX = x * cell_length;
+                        int placeY = y * cell_length;
+                        if (map2[x, y] ==9)
+                        {
+                            if(_worldNumber==6) g1.DrawImage(Dictionaries.Img_Object[(map2[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
+                            else g1.DrawImage(Dictionaries.Img_Object[map2[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                            pictureBox_Map1.Refresh();
+                            
+                        }
+                    }
+                }
+            }
+            pictureBox_Map1.Refresh();
+            //CreateStage(stageName + "hint");
 
             currentConversation = Dictionaries.Conversations[stageName + "hint"];
             if (currentConversation != null && currentConversation.Count > 0)
@@ -2026,7 +2068,7 @@ namespace unilab2025
                         list_car.RemoveAt(0);
                                      
                 }
-                if(car_count == 0 && Input_arrow.Count > 0 && Penguin == true)
+                if(car_count == 0 && Input_arrow.Count > 0&& !(Input_arrow[0].Contains("✈️")) && Penguin == true)
                 {
                     if (Input_arrow[0].Contains("↑")) character_me = Img_Penguin["後ろ"];
                     else if (Input_arrow[0].Contains("→")) character_me = Img_Penguin["右"];
@@ -2169,7 +2211,7 @@ namespace unilab2025
                                 for (int j = 0; j <= 1; j++) // 0番目はワールド全体、1番目は最初のステージ
                                 {
                                     ClearCheck.IsButtonEnabled[_worldNumber + 1, j] = true;
-                                    ClearCheck.IsNew[_worldNumber + 1, j] = true;
+                                    if (!ClearCheck.IsCleared[_worldNumber+1, j]) ClearCheck.IsNew[_worldNumber + 1, j] = true;
                                 }
                             }
                             else if (_level == 3)
@@ -2701,16 +2743,13 @@ namespace unilab2025
             return;
         }
 
-        private void pictureBox_Car_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void Meteo_KeyDown(object sender, KeyEventArgs e)
         {
             if (Func.IsInputLocked) return;
 
-            if (e.KeyCode == Keys.M)
+            if (e.KeyCode == Keys.I)
             {
                 button_meteo.Visible = true;
             }
