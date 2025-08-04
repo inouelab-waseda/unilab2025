@@ -25,6 +25,7 @@ namespace unilab2025
         private bool isDragging = false;
         private Point lastDraggedCell = new Point(-1, -1);
         private int dragPaintMode = 0; // 1:黒く塗る, 2:×を付ける
+        private Stack<int[,]> history = new Stack<int[,]>();
         #endregion
 
         public MiniGame_Nono_Stage()
@@ -49,6 +50,9 @@ namespace unilab2025
         private void pictureBox_Grid_MouseDown(object sender, MouseEventArgs e)
         {
             if (playerData == null) return;
+            // 変更前の盤面状態を、履歴にコピーして保存する
+            history.Push((int[,])playerData.Clone());
+
             isDragging = true;
             lastDraggedCell = new Point(-1, -1); // ドラッグ開始時にリセット
 
@@ -318,6 +322,58 @@ namespace unilab2025
             MessageBox.Show("クリア！");
             pictureBox_Grid.Enabled = false;
             this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        #region　各ボタン
+        private void button_Undo_Click(object sender, EventArgs e)
+        {
+            // 履歴が1件以上ある場合のみ処理
+            if (history.Count > 0)
+            {
+                // 履歴から一番新しい盤面を取り出して、現在の盤面に上書きする
+                playerData = history.Pop();
+
+                // ヒントの状態や盤面表示をすべて更新する
+                for (int x = 0; x < playerData.GetLength(0); x++)
+                {
+                    UpdateSingleHintLine(x, true); 
+                }
+                // すべての行のヒント状態を更新
+                for (int y = 0; y < playerData.GetLength(1); y++)
+                {
+                    UpdateSingleHintLine(y, false);
+                }
+                pictureBox_Grid.Refresh();
+            }
+        }
+
+        private void button_Reset_Click(object sender, EventArgs e)
+        {
+            if (playerData == null) return;
+
+            // 履歴をすべてクリア
+            history.Clear();
+
+            // プレイヤーの盤面をすべて0（白マス）に戻す
+            for (int y = 0; y < playerData.GetLength(1); y++)
+            {
+                for (int x = 0; x < playerData.GetLength(0); x++)
+                {
+                    playerData[x, y] = 0;
+                }
+            }
+
+            // ヒントの数消し状態などもすべてリセットして再描画
+            CalculateAllHints();
+            pictureBox_TopHints.Refresh();
+            pictureBox_SideHints.Refresh();
+            pictureBox_Grid.Refresh();
+        }
+        #endregion
+
+        private void button_Back_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
     }
