@@ -420,7 +420,7 @@ namespace unilab2025
                 else
                 {
                     button_balloon.BackgroundImage = Dictionaries.Img_Button["balloon_lock"];
-                    label_Balloon.Enabled = false;
+                    button_balloon.Enabled = false;
                 }
                 
             }
