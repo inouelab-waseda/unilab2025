@@ -15,6 +15,7 @@ namespace unilab2025
         private PictureBox pictureBox_Conv;
         private List<Conversation> currentConversation;
         private byte[] Capt;
+        private bool isShowingEndStill = false;
 
         public AnotherWorld()
         {
@@ -79,7 +80,16 @@ namespace unilab2025
                     await Task.Delay(50);
                 }
 
-                Func.CreateTitle(this);
+                // スチルモード
+                isShowingEndStill = true;
+
+                pictureBox_Conv.Image = null;
+                pictureBox_Conv.Enabled = true;
+                pictureBox_Conv.Visible = true;
+
+                this.BackgroundImage = Dictionaries.Img_Background["bye2"];
+                pictureBox_Conv.BringToFront();
+                pictureBox_Conv.Cursor = Cursors.Hand;
             }
             else if (!ClearCheck.PlayAnotherWorldIntro)
             {
@@ -125,7 +135,16 @@ namespace unilab2025
         // 会話用のPictureBoxがクリックされたときの処理
         private void pictureBox_Conv_Click(object sender, EventArgs e)
         {
-            AdvanceConversation();
+            if (isShowingEndStill)
+            {
+                // タイトル画面に遷移する
+                Func.CreateTitle(this);
+            }
+            else
+            {
+                // そうでなければ、通常の会話を進める
+                AdvanceConversation();
+            }
         }
         #endregion
 
