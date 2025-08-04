@@ -136,7 +136,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1800, 911);
+            this.ClientSize = new System.Drawing.Size(1712, 911);
             this.Controls.Add(this.pictureBox_Map);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);

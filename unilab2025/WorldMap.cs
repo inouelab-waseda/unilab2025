@@ -16,6 +16,8 @@ namespace unilab2025
         private List<Conversation> currentConversation;
         private byte[] Capt;
 
+        public int ToMap=0;
+
         public WorldMap()
         {
             InitializeComponent();
@@ -76,9 +78,15 @@ namespace unilab2025
                     {
                         button.ForeImage = null;
                         if (ClearCheck.IsNew[i, 0])
-                        {                            
-                            button.ConditionImage = Dictionaries.Img_Button["New"];
-                            
+                        {
+                            if (i != 5) button.ConditionImage = Dictionaries.Img_Button["New"];
+                            else if (i == 5 && ToMap == 0) 
+                            { 
+                                button.ConditionImage = Dictionaries.Img_Button["New"];
+                                ToMap = 1;
+                            }
+
+
                         }
                         else if (i!=5&&ClearCheck.IsCleared[i, 0])
                         {

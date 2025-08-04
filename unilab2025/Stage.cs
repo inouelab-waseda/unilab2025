@@ -439,6 +439,7 @@ namespace unilab2025
                 pictureBox_lowerRight.Enabled = false;
                 pictureBox_lowerLeft.Enabled = false;
                 pictureBox_upperLeft.Enabled = false;
+                button_Start.Enabled = false;
             }
             else 
             {
@@ -865,14 +866,17 @@ namespace unilab2025
                 listBox_Order.Enabled = true;
                 listBox_Car.Enabled = true;
                 button_back.Enabled = true;
-                button_balloon.Enabled = true;
-                button_car.Enabled = true;
-                button_carEnter.Enabled = true;
+                if (limit_LB_walk != 0) button_walk.Enabled = true;
+                if (limit_LB_balloon!=0) button_balloon.Enabled = true;
+                if (limit_LB_plane != 0) button_plane.Enabled = true;
+                if (limit_LB_car != 0)
+                {
+                    button_car.Enabled = true;
+                    button_carEnter.Enabled = true;
+                }
                 button_hint.Enabled = true;
-                button_info.Enabled = true;
-                button_plane.Enabled = true;
-                button_reset.Enabled = true;
-                button_walk.Enabled = true;
+                button_info.Enabled = true;                
+                button_reset.Enabled = true;                
                 button_return.Enabled = true;
                 button_Start.Visible = true;
                 button_Start.Enabled = true;
@@ -1150,7 +1154,7 @@ namespace unilab2025
             pictureBox_upperRight.Visible = false;
             pictureBox_lowerRight.Visible = false;
             pictureBox_lowerLeft.Visible = false;
-            pictureBox_upperLeft.Visible = false;
+            pictureBox_upperLeft.Visible = false;            
             if (Penguin) picture = "penguin";
             //this.ActiveControl = null;
         }
@@ -1196,6 +1200,7 @@ namespace unilab2025
             pictureBox_lowerRight.Enabled = true;
             pictureBox_lowerLeft.Enabled = true;
             pictureBox_upperLeft.Enabled = true;
+            button_Start.Enabled = true;
         }
         private async void button_carEnter_Click(object sender, EventArgs e)
         {
@@ -2000,18 +2005,22 @@ namespace unilab2025
                         pictureBox_upperLeft.Enabled = true;
                         listBox_Order.Enabled = true;
                         listBox_Car.Enabled = true;
-                        button_back.Enabled = true;
-                        button_balloon.Enabled = true;
-                        button_car.Enabled = true;
-                        button_carEnter.Enabled = true;
+                        button_back.Enabled = true;                     
+                        
                         button_hint.Enabled = true;
-                        button_info.Enabled = true;
-                        button_plane.Enabled = true;
-                        button_reset.Enabled = true;
-                        button_walk.Enabled = true;
+                        button_info.Enabled = true;                        
+                        button_reset.Enabled = true;                        
                         button_return.Enabled = true;
                         button_Start.Visible = true;
                         button_Start.Enabled = true;
+                        if (limit_LB_walk != 0) button_walk.Enabled = true;
+                        if (limit_LB_balloon != 0) button_balloon.Enabled = true;
+                        if (limit_LB_plane != 0) button_plane.Enabled = true;
+                        if (limit_LB_car != 0)
+                        {
+                            button_car.Enabled = true;
+                            button_carEnter.Enabled = true;
+                        }
 
                         g2.Clear(Color.Transparent);
                         for (int i = 0; i < sasa.Count; i++)
@@ -2274,18 +2283,21 @@ namespace unilab2025
                                     pictureBox_upperLeft.Enabled = true;
                                     listBox_Order.Enabled = true;
                                     listBox_Car.Enabled = true;
-                                    button_back.Enabled = true;
-                                    button_balloon.Enabled = true;
-                                    button_car.Enabled = true;
-                                    button_carEnter.Enabled = true;
+                                    button_back.Enabled = true;                                    
                                     button_hint.Enabled = true;
-                                    button_info.Enabled = true;
-                                    button_plane.Enabled = true;
-                                    button_reset.Enabled = true;
-                                    button_walk.Enabled = true;
+                                    button_info.Enabled = true;                                    
+                                    button_reset.Enabled = true;                                    
                                     button_return.Enabled = true;
                                     button_Start.Visible = true;
                                     button_Start.Enabled = true;
+                                    if (limit_LB_walk != 0) button_walk.Enabled = true;
+                                    if (limit_LB_balloon != 0) button_balloon.Enabled = true;
+                                    if (limit_LB_plane != 0) button_plane.Enabled = true;
+                                    if (limit_LB_car != 0)
+                                    {
+                                        button_car.Enabled = true;
+                                        button_carEnter.Enabled = true;
+                                    }
                                     //MessageBox.Show("前に進めません");
                                     DisplayMessage("行き止まり");
                                     g2.Clear(Color.Transparent);//人の移動などのリセット
