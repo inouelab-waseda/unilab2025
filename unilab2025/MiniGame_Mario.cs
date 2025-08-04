@@ -125,7 +125,7 @@ namespace unilab2025
                 playerImages["Right"] = Image.FromFile(@"Image\DotPic\Penguin\Penguin_滑る右.png");
                 lastDirection = "Right";
                 currentPlayerImage = playerImages["Right"];
-                obstacleImage = Image.FromFile(@"Object\Img_Object_102.png");
+                obstacleImage = Image.FromFile(@"Object\Img_Object_ocean1.png");
                 backgroundImage = Image.FromFile(@"Object\Img_Object_107.png");
                 itemImage = Image.FromFile(@"Object\Img_Object_109.png");
             }
@@ -354,7 +354,7 @@ namespace unilab2025
             explanationPanel.Controls.Add(playerPictureBox);
             explanationPanel.Controls.Add(playerLabel);
             obstaclePictureBox = new PictureBox { Size = new Size(40, 40), Location = new Point(80, 160), SizeMode = PictureBoxSizeMode.Zoom };
-            Label obstacleLabel = new Label { Text = "◀ このかべはよけてください", Location = new Point(130, 170), Size = new Size(400, 30) };
+            Label obstacleLabel = new Label { Text = "◀ この穴はよけてください", Location = new Point(130, 170), Size = new Size(400, 30) };
             explanationPanel.Controls.Add(obstaclePictureBox);
             explanationPanel.Controls.Add(obstacleLabel);
             itemPictureBox = new PictureBox { Size = new Size(40, 40), Location = new Point(80, 220), SizeMode = PictureBoxSizeMode.Zoom };
