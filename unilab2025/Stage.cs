@@ -500,8 +500,6 @@ namespace unilab2025
 
 
         #region 各コントロール機能設定
-
-        
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
             string name = stageName;
@@ -573,7 +571,26 @@ namespace unilab2025
                     }
                     else if (_worldNumber < 5 || _worldNumber == 7) 
                     {
-                        if (map[x, y] == 2)
+                        if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
+                        else if (map[x, y] == 2 && x > 1 && y > 1 && x < map_width - 1 && y < map_width - 1)
+                        {
+                            int surroundingsflag = 0;
+                            if (map[x - 1, y] == 3) surroundingsflag++;
+                            if (map[x + 1, y] == 3) surroundingsflag++;
+                            if (map[x, y - 1] == 3) surroundingsflag++;
+                            if (map[x, y + 1] == 3) surroundingsflag++;
+                            if (surroundingsflag >= 2)
+                                g1.DrawImage(Dictionaries.Img_Object["grass" + 1], placeX, placeY, cell_length, cell_length);
+                            else
+                            {
+                                int num = rand.Next(0, 10);
+                                int num2;
+                                if (num <= 3) num2 = 0;
+                                else num2 = 1;
+                                g1.DrawImage(Dictionaries.Img_Object["grass" + num2], placeX, placeY, cell_length, cell_length);
+                            }
+                        }
+                        else if (map[x, y] == 2)
                         {
                             int num = rand.Next(0, 10);
                             int num2;
@@ -590,7 +607,13 @@ namespace unilab2025
                         {
                             case 5:
                                 if (map[x, y] == 4 || map[x, y] == 5) g1.DrawImage(Dictionaries.Img_Object[3.ToString()], placeX, placeY, cell_length, cell_length);
-                                else if (map[x, y] == 2)
+                                else if (map[x, y] == 2 && x > 2 && y > 2 && x < map_width - 3 && y < map_width - 3
+                                    && map[x - 1, y] == 3 && map[x, y - 1] == 3 
+                                    && map[x + 1, y] == 3 && map[x, y + 1] == 3)
+                                {
+                                    g1.DrawImage(Dictionaries.Img_Object["grass" + 1], placeX, placeY, cell_length, cell_length);
+                                }
+                                else if(map[x, y] == 2)
                                 {
                                     int num = rand.Next(0, 10);
                                     int num2;
@@ -1325,13 +1348,24 @@ namespace unilab2025
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
-
-            //会話再生用
             if (Func.WaitingForButton == "carEnterWait")
             {
-                // スクショ表示
-                this.pictureBox_tutorialCapt.Visible = true;
+                // --- ① 半透明マスクの生成と表示 ---
+                PictureBox mask = new PictureBox
+                {
+                    Name = "tempMask", // 後で探して削除するために名前を付けます
+                    Dock = DockStyle.Fill, // フォーム全体を覆うように設定
+                    BackColor = Color.FromArgb(128, 0, 0, 0) // 50%の不透明度を持つ黒 (128は0～255で透明度を指定)
+                };
+                this.Controls.Add(mask); // フォームにマスクを追加
+                mask.BringToFront();     // マスクを最前面に表示
 
+                // --- ② チュートリアル画像をマスクより手前に表示 ---
+                this.pictureBox_tutorialCapt.Visible = true;
+                this.pictureBox_tutorialCapt.BringToFront();
+
+
+                // --- 元々の会話処理 ---
                 // 次の会話セグメントを取得して再生
                 currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
@@ -1344,10 +1378,45 @@ namespace unilab2025
                     }
                 }
 
-                // スクショ非表示
+
+                // --- ③ マスクと画像の削除・非表示 ---
+                // チュートリアル画像を非表示に
                 this.pictureBox_tutorialCapt.Visible = false;
+
+                // 一時的に作成したマスクを探してフォームから削除
+                Control maskControl = this.Controls["tempMask"];
+                if (maskControl != null)
+                {
+                    this.Controls.Remove(maskControl);
+                    maskControl.Dispose(); // メモリを解放
+                }
             }
+
+            ////会話再生用
+            //if (Func.WaitingForButton == "carEnterWait")
+            //{
+            //    // スクショ表示
+            //    this.pictureBox_tutorialCapt.Visible = true;
+
+            //    // 次の会話セグメントを取得して再生
+            //    currentConversation = Func.GetNextSegment(this);
+            //    if (currentConversation != null && currentConversation.Count > 0)
+            //    {
+            //        Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+
+            //        while (pictureBox_Conv.Visible)
+            //        {
+            //            await Task.Delay(50);
+            //        }
+            //    }
+
+            //    // スクショ非表示
+            //    this.pictureBox_tutorialCapt.Visible = false;
+            //}
         }
+
+
+
         private void button_carEnter_MouseEnter(object sender, EventArgs e)
         {
             // マウスが上に乗ったら画像を切り替える

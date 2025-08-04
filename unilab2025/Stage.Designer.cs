@@ -666,10 +666,10 @@
             // 
             this.pictureBox_tutorialCapt.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_tutorialCapt.BackgroundImage")));
             this.pictureBox_tutorialCapt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_tutorialCapt.Location = new System.Drawing.Point(371, 29);
+            this.pictureBox_tutorialCapt.Location = new System.Drawing.Point(378, 143);
             this.pictureBox_tutorialCapt.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_tutorialCapt.Name = "pictureBox_tutorialCapt";
-            this.pictureBox_tutorialCapt.Size = new System.Drawing.Size(653, 388);
+            this.pictureBox_tutorialCapt.Size = new System.Drawing.Size(653, 326);
             this.pictureBox_tutorialCapt.TabIndex = 59;
             this.pictureBox_tutorialCapt.TabStop = false;
             this.pictureBox_tutorialCapt.Visible = false;
