@@ -498,8 +498,6 @@ namespace unilab2025
 
 
         #region 各コントロール機能設定
-
-        
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
             string name = stageName;
@@ -1303,13 +1301,24 @@ namespace unilab2025
                     Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
                 }
             }
-
-            //会話再生用
             if (Func.WaitingForButton == "carEnterWait")
             {
-                // スクショ表示
-                this.pictureBox_tutorialCapt.Visible = true;
+                // --- ① 半透明マスクの生成と表示 ---
+                PictureBox mask = new PictureBox
+                {
+                    Name = "tempMask", // 後で探して削除するために名前を付けます
+                    Dock = DockStyle.Fill, // フォーム全体を覆うように設定
+                    BackColor = Color.FromArgb(128, 0, 0, 0) // 50%の不透明度を持つ黒 (128は0～255で透明度を指定)
+                };
+                this.Controls.Add(mask); // フォームにマスクを追加
+                mask.BringToFront();     // マスクを最前面に表示
 
+                // --- ② チュートリアル画像をマスクより手前に表示 ---
+                this.pictureBox_tutorialCapt.Visible = true;
+                this.pictureBox_tutorialCapt.BringToFront();
+
+
+                // --- 元々の会話処理 ---
                 // 次の会話セグメントを取得して再生
                 currentConversation = Func.GetNextSegment(this);
                 if (currentConversation != null && currentConversation.Count > 0)
@@ -1322,10 +1331,45 @@ namespace unilab2025
                     }
                 }
 
-                // スクショ非表示
+
+                // --- ③ マスクと画像の削除・非表示 ---
+                // チュートリアル画像を非表示に
                 this.pictureBox_tutorialCapt.Visible = false;
+
+                // 一時的に作成したマスクを探してフォームから削除
+                Control maskControl = this.Controls["tempMask"];
+                if (maskControl != null)
+                {
+                    this.Controls.Remove(maskControl);
+                    maskControl.Dispose(); // メモリを解放
+                }
             }
+
+            ////会話再生用
+            //if (Func.WaitingForButton == "carEnterWait")
+            //{
+            //    // スクショ表示
+            //    this.pictureBox_tutorialCapt.Visible = true;
+
+            //    // 次の会話セグメントを取得して再生
+            //    currentConversation = Func.GetNextSegment(this);
+            //    if (currentConversation != null && currentConversation.Count > 0)
+            //    {
+            //        Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
+
+            //        while (pictureBox_Conv.Visible)
+            //        {
+            //            await Task.Delay(50);
+            //        }
+            //    }
+
+            //    // スクショ非表示
+            //    this.pictureBox_tutorialCapt.Visible = false;
+            //}
         }
+
+
+
         private void button_carEnter_MouseEnter(object sender, EventArgs e)
         {
             // マウスが上に乗ったら画像を切り替える
