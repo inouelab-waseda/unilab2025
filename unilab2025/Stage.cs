@@ -455,6 +455,7 @@ namespace unilab2025
 
             //ヒントのボタン
             if (_worldNumber == 1 || _level == 1) button_hint.Visible = false;
+            if(MainDifficult.isEasy) button_hint.Visible = false;
 
             // 開始時の会話があれば、再生を開始する
             if (currentConversation != null && currentConversation.Count > 0)
@@ -503,7 +504,10 @@ namespace unilab2025
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
             //string stagenum = _worldNumber + "-" + _level;
-            using (StreamReader sr = new StreamReader($"Map\\{stageName}.csv"))
+            string name= stageName;
+            int number = _worldNumber+100;
+            if (MainDifficult.isEasy&& _level!=1) name = "stage" + number+ "-" + _level;             
+            using (StreamReader sr = new StreamReader($"Map\\{name}.csv"))
             {
                 int x;
                 int y = 0;
