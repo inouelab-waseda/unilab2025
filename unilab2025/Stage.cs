@@ -2098,6 +2098,7 @@ namespace unilab2025
                             // 遷移後再生フラグ
                             CurrentFormState.NextConversationTrigger = "PLAY";
 
+
                             // カスタムパネルを表示する
                             returnMapPanel.Visible = true;
                             returnMapPanel.BringToFront();
@@ -2468,7 +2469,7 @@ namespace unilab2025
             // 説明ラベル
             System.Windows.Forms.Label lblExplanation = new System.Windows.Forms.Label
             {
-                Text = "つぎのステージにすすむひとは「マップにもどる」を、\nクリアした画面でしゃしんをとりたいひとは「このまま」をおしてね！",
+                Text = "つぎのステージにすすむひとは「マップにもどる」を、\nクリアしたがめんでしゃしんをとりたいひとは「このまま」をおしてね！",
                 Font = new System.Drawing.Font("Yu Gothic UI", 15F),
                 ForeColor = System.Drawing.Color.DarkSlateGray,
                 TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
@@ -2490,6 +2491,19 @@ namespace unilab2025
             };
             btnReturn.FlatAppearance.BorderSize = 1;
             btnReturn.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            btnReturn.Click += (s, e) =>
+            {
+                returnMapPanel.Visible = false;
+                if ((_worldNumber == 1 && _level == 2) || _level == 3)
+                {
+                    if (_worldNumber <= 4) Func.CreateWorldMap(this);
+                    else Func.CreateAnotherWorld(this);
+                }
+                else
+                {
+                    Func.CreateStageSelect(this, _worldName, _worldNumber);
+                }
+            };
             returnMapPanel.Controls.Add(btnReturn);
 
             // 「このまま」ボタン
@@ -2505,6 +2519,10 @@ namespace unilab2025
             };
             btnStay.FlatAppearance.BorderSize = 1;
             btnStay.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            btnStay.Click += (s, e) =>
+            {
+                returnMapPanel.Visible = false;
+            };
             returnMapPanel.Controls.Add(btnStay);
         }
         #endregion
