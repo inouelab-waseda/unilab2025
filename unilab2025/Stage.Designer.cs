@@ -150,8 +150,7 @@
             this.pictureBox_Car.Name = "pictureBox_Car";
             this.pictureBox_Car.Size = new System.Drawing.Size(257, 375);
             this.pictureBox_Car.TabIndex = 4;
-            this.pictureBox_Car.TabStop = false;
-            this.pictureBox_Car.Click += new System.EventHandler(this.pictureBox_Car_Click);
+            this.pictureBox_Car.TabStop = false;            
             // 
             // pictureBox_Order
             // 

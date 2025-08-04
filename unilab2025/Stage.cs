@@ -2632,10 +2632,7 @@ namespace unilab2025
             return;
         }
 
-        private void pictureBox_Car_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void Meteo_KeyDown(object sender, KeyEventArgs e)
         {
