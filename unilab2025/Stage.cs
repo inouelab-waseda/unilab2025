@@ -862,6 +862,7 @@ namespace unilab2025
             button_return.Enabled = false;
             button_Start.Visible = false;
             button_Start.Enabled = false;
+            pictureBox_finger5.Visible= false;
             
             if (listBox_Order.Items.Count == 0) {
                 //MessageBox.Show("やり直し");
