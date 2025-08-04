@@ -310,7 +310,9 @@ namespace unilab2025
             int height_LB_plane = 10;
             int height_LB_balloon = 10;
 
-            using (StreamReader sr = new StreamReader($"stage_frame.csv"))
+            string StageName = "stage_frame.csv";
+            if(MainDifficult.isEasy) StageName = "stage_frame_1.csv";
+            using (StreamReader sr = new StreamReader(StageName))
             {
                 while (!sr.EndOfStream)
                 {
