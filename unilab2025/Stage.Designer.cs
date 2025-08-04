@@ -306,9 +306,9 @@
             // 
             // pictureBox_buttonUp
             // 
-            this.pictureBox_buttonUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonUp.Location = new System.Drawing.Point(1026, 592);
-            this.pictureBox_buttonUp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_buttonUp.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_buttonUp.Location = new System.Drawing.Point(1282, 710);
+            this.pictureBox_buttonUp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonUp.Name = "pictureBox_buttonUp";
             this.pictureBox_buttonUp.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_buttonUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -317,9 +317,9 @@
             // 
             // pictureBox_buttonRight
             // 
-            this.pictureBox_buttonRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonRight.Location = new System.Drawing.Point(1124, 683);
-            this.pictureBox_buttonRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_buttonRight.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_buttonRight.Location = new System.Drawing.Point(1405, 820);
+            this.pictureBox_buttonRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonRight.Name = "pictureBox_buttonRight";
             this.pictureBox_buttonRight.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_buttonRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -328,9 +328,9 @@
             // 
             // pictureBox_buttonDown
             // 
-            this.pictureBox_buttonDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonDown.Location = new System.Drawing.Point(1026, 777);
-            this.pictureBox_buttonDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_buttonDown.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_buttonDown.Location = new System.Drawing.Point(1282, 932);
+            this.pictureBox_buttonDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonDown.Name = "pictureBox_buttonDown";
             this.pictureBox_buttonDown.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_buttonDown.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -339,9 +339,9 @@
             // 
             // pictureBox_buttonLeft
             // 
-            this.pictureBox_buttonLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_buttonLeft.Location = new System.Drawing.Point(926, 683);
-            this.pictureBox_buttonLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_buttonLeft.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_buttonLeft.Location = new System.Drawing.Point(1158, 820);
+            this.pictureBox_buttonLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_buttonLeft.Name = "pictureBox_buttonLeft";
             this.pictureBox_buttonLeft.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_buttonLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -350,9 +350,9 @@
             // 
             // pictureBox_upperRight
             // 
-            this.pictureBox_upperRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_upperRight.Location = new System.Drawing.Point(1124, 592);
-            this.pictureBox_upperRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_upperRight.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_upperRight.Location = new System.Drawing.Point(1405, 710);
+            this.pictureBox_upperRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_upperRight.Name = "pictureBox_upperRight";
             this.pictureBox_upperRight.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_upperRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -361,9 +361,9 @@
             // 
             // pictureBox_upperLeft
             // 
-            this.pictureBox_upperLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_upperLeft.Location = new System.Drawing.Point(926, 592);
-            this.pictureBox_upperLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_upperLeft.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_upperLeft.Location = new System.Drawing.Point(1158, 710);
+            this.pictureBox_upperLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_upperLeft.Name = "pictureBox_upperLeft";
             this.pictureBox_upperLeft.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_upperLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -372,9 +372,9 @@
             // 
             // pictureBox_lowerLeft
             // 
-            this.pictureBox_lowerLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_lowerLeft.Location = new System.Drawing.Point(926, 777);
-            this.pictureBox_lowerLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_lowerLeft.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_lowerLeft.Location = new System.Drawing.Point(1158, 932);
+            this.pictureBox_lowerLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_lowerLeft.Name = "pictureBox_lowerLeft";
             this.pictureBox_lowerLeft.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_lowerLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -383,9 +383,9 @@
             // 
             // pictureBox_lowerRight
             // 
-            this.pictureBox_lowerRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox_lowerRight.Location = new System.Drawing.Point(1124, 777);
-            this.pictureBox_lowerRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox_lowerRight.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_lowerRight.Location = new System.Drawing.Point(1405, 932);
+            this.pictureBox_lowerRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_lowerRight.Name = "pictureBox_lowerRight";
             this.pictureBox_lowerRight.Size = new System.Drawing.Size(94, 88);
             this.pictureBox_lowerRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
