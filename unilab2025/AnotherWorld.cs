@@ -62,6 +62,7 @@ namespace unilab2025
             if (ClearCheck.Completed && !ClearCheck.PlayGameEndStory)
             {
                 ClearCheck.PlayGameEndStory = true;
+                this.BackgroundImage = Dictionaries.Img_Background["bye"];
                 currentConversation = Dictionaries.Conversations["end"];
                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
 
