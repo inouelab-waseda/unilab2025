@@ -41,11 +41,11 @@ namespace unilab2025
         }
 
 
-        // レベル選択ボタン（9個共通）のクリック処理
+        // レベル選択ボタン（6個共通）のクリック処理
         private void LevelButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = sender as Button;
-            int stageId = int.Parse(clickedButton.Name.Replace("button_Level", ""));
+            int stageId = int.Parse(clickedButton.Name.Replace("button_NonoLevel", ""));
 
             // usingブロックで、ゲームフォームをダイアログとして開く
             using (var gameForm = new MiniGame_Nono_Stage())

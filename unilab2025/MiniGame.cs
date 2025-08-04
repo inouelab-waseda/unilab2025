@@ -39,9 +39,16 @@ namespace unilab2025
             Func.CreateMine(this);
         }
 
+        private void button_Nonoglam_Click(object sender, EventArgs e)
+        {
+            Func.CreateNono(this);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             Func.CreateAnotherWorld(this);
         }
+
+
     }
 }
