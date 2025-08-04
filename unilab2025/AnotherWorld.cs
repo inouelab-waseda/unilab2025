@@ -62,6 +62,15 @@ namespace unilab2025
             if (ClearCheck.Completed && !ClearCheck.PlayGameEndStory)
             {
                 ClearCheck.PlayGameEndStory = true;
+                // フォーム上のすべてのボタンを非表示にする
+                foreach (Control control in this.Controls)
+                {
+                    if (control is CustomButton || control is Button)
+                    {
+                        control.Visible = false;
+                    }
+                }
+                this.BackgroundImage = Dictionaries.Img_Background["bye"];
                 currentConversation = Dictionaries.Conversations["end"];
                 Capt = await Func.PlayConv(this, pictureBox_Conv, currentConversation);
 
