@@ -934,6 +934,14 @@ namespace unilab2025
     }
     #endregion
 
+    #region 難易度選択
+    public partial class MainDifficult
+    {
+        public static bool isEasy = false;
+        public static bool isHard = false;
+    }
+    #endregion
+
     #region 各データのDictionaryと読み込み関数
     public partial class Dictionaries
         {

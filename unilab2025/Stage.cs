@@ -310,7 +310,9 @@ namespace unilab2025
             int height_LB_plane = 10;
             int height_LB_balloon = 10;
 
-            using (StreamReader sr = new StreamReader($"stage_frame.csv"))
+            string StageName = "stage_frame.csv";
+            if (MainDifficult.isEasy) StageName = "stage_frame_1.csv";
+            using (StreamReader sr = new StreamReader(StageName))
             {
                 while (!sr.EndOfStream)
                 {
@@ -455,6 +457,8 @@ namespace unilab2025
 
             //ヒントのボタン
             if (_worldNumber == 1 || _level == 1) button_hint.Visible = false;
+            if (MainDifficult.isEasy&&_worldNumber<5) button_hint.Visible = false;
+
 
             // 開始時の会話があれば、再生を開始する
             if (currentConversation != null && currentConversation.Count > 0)
@@ -501,8 +505,11 @@ namespace unilab2025
         
         private int[,] CreateStage(string stageName)     //ステージ作成
         {
+            string name = stageName;
+            int number = _worldNumber + 100;
+            if (MainDifficult.isEasy && _level != 1&&_worldNumber<5) name = "stage" + number + "-" + _level;
             //string stagenum = _worldNumber + "-" + _level;
-            using (StreamReader sr = new StreamReader($"Map\\{stageName}.csv"))
+            using (StreamReader sr = new StreamReader($"Map\\{name}.csv"))
             {
                 int x;
                 int y = 0;
