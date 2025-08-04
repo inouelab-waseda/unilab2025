@@ -2703,6 +2703,7 @@ namespace unilab2025
 
             if (e.KeyCode == Keys.U)
             {
+                this.KeyDown -= new KeyEventHandler(UFO_KeyDown);
                 g2.DrawImage(Dictionaries.Img_DotPic["UFO"], x_start * cell_length - extra_length, (y_start-1) * cell_length - 3 * extra_length-10, cell_length + 2 * extra_length, cell_length + 2 * extra_length);
                 
                 pictureBox_Map2.Refresh();
@@ -2787,7 +2788,7 @@ namespace unilab2025
                 pictureBox_Map2.Refresh();
                 await Task.Delay(200);
 
-
+                this.KeyDown += new KeyEventHandler(UFO_KeyDown);
             }
         }
 
