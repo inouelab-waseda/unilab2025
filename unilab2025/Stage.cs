@@ -134,6 +134,7 @@ namespace unilab2025
         public static bool isFor = false;     //For文入力中かどうか
         public static int Change_Item_Number;
         public static int[,] map; //ステージのマップデータ
+        public static int[,] map2;
         public static int map_width; //マップの横幅
         public static string stageName;
         public static int x_start; //スタート位置ｘ
@@ -273,8 +274,8 @@ namespace unilab2025
             sasa_place = new List<Coordinate>();
             panda = false;
 
-            map = CreateStage(stageName); //ステージ作成
-
+            map = CreateStage(stageName); //ステージ作成            
+            
             button_carEnter.BackgroundImage= Dictionaries.Img_Button["入れるoff"];
             
 
@@ -516,10 +517,14 @@ namespace unilab2025
                     string line = sr.ReadLine();
                     string[] values = line.Split(',');
                     map_width = values.Length; //マップの横幅を取得
-            
 
 
-                    if (y == 0) map = new int[map_width, map_width]; //マップの初期化
+
+                    if (y == 0) 
+                    { 
+                        map = new int[map_width, map_width]; 
+                        
+                    }//マップの初期化
                     x = 0;
 
                     foreach (var value in values)
@@ -645,7 +650,23 @@ namespace unilab2025
             });
             return map;
         }
-       
+
+        void LoadMapFromCSV(string filePath)
+        {
+            string[] lines = File.ReadAllLines($"Map\\{filePath}");
+            map2 = new int[map_width, map_width];
+            for (int y = 0; y < lines.Length; y++)
+            {
+                string[] values = lines[y].Split(',');
+
+                for (int x = 0; x < values.Length; x++)
+                {
+                    map2[x, y] = int.Parse(values[x]);
+                }
+            }
+            
+        }
+
         private void listBox_Order_Click(object sender, EventArgs e)
         {
             if (InputListBox == listBox_Car)
@@ -1406,8 +1427,28 @@ namespace unilab2025
         private async void button_hint_Click(object sender, EventArgs e)
         {
             hint_on = true;
-            if (stageName=="stage3-2"|| stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2" || stageName == "stage6-3")
-            CreateStage(stageName + "hint");
+            
+            if (stageName == "stage3-2" || stageName == "stage3-3" || stageName == "stage4-2" || stageName == "stage4-3" || stageName == "stage6-2" || stageName == "stage6-3")
+            {
+                LoadMapFromCSV(stageName + "hint.csv");
+                for (int y = 0; y < map_width; y++)
+                {
+                    for (int x = 0; x < map_width; x++)
+                    {
+                        int placeX = x * cell_length;
+                        int placeY = y * cell_length;
+                        if (map2[x, y] ==9)
+                        {
+                            if(_worldNumber==6) g1.DrawImage(Dictionaries.Img_Object[(map2[x, y]+100).ToString()], placeX, placeY, cell_length, cell_length);
+                            else g1.DrawImage(Dictionaries.Img_Object[map2[x, y].ToString()], placeX, placeY, cell_length, cell_length);
+                            pictureBox_Map1.Refresh();
+                            
+                        }
+                    }
+                }
+            }
+            pictureBox_Map1.Refresh();
+            //CreateStage(stageName + "hint");
 
             currentConversation = Dictionaries.Conversations[stageName + "hint"];
             if (currentConversation != null && currentConversation.Count > 0)
