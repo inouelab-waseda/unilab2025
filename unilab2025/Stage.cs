@@ -2641,7 +2641,7 @@ namespace unilab2025
         {
             if (Func.IsInputLocked) return;
 
-            if (e.KeyCode == Keys.M)
+            if (e.KeyCode == Keys.I)
             {
                 button_meteo.Visible = true;
             }
